@@ -5,6 +5,9 @@ $path = ini_get('include_path');
 $path = $path_extra . PATH_SEPARATOR . $path;
 ini_set('include_path', $path);
 
+
+
+
 /**
  * Loading simpleSAMLphp libraries
  */
@@ -69,23 +72,10 @@ try {
 		$displayname = $attributes['displayName'][0];
 	
 	
+	
 	if (!isset($_SESSION['foodle_cache'])) {
 		$_SESSION['foodle_cache'] = array();
 	}
-	
-	
-	/*
-	 * What wiki are we talking about?
-	 */
-	$thisfoodle = null;
-	if (isset($_REQUEST['id'])) {
-		$_SESSION['id'] = $_REQUEST['id'];
-		$thisfoodle = $_REQUEST['id'];
-	} elseif(isset($_SESSION['id'])) {
-		$thisfoodle = $_SESSION['id'];
-	}
-	if (empty($thisfoodle)) throw new Exception('No foodle selected');
-	
 	
 	
 	$link = mysql_connect(
@@ -103,7 +93,7 @@ try {
 	// TODO: REMOVE true to enable caching..
 	if (! array_key_exists($thiswiki,$_SESSION['foodle_cache'] ) || true) {
 	
-		$foodle = new Foodle($thisfoodle, $userid, $link);
+		#$foodle = new Foodle($thisfoodle, $attributes['eduPersonPrincipalName'][0], $link);
 	
 		if (isset($_REQUEST['createnewsubmit'])) {
 			if (!$foodle->isLoaded()) {
@@ -122,48 +112,77 @@ try {
 	#echo '<pre>'; print_r($foodle); echo '</pre>'; exit;
 	
 	
-	if (!empty($_REQUEST['username'])) {
+	
+	if(!empty($_REQUEST['c1'])) {
+	
+	
+		#echo '<pre>'; print_r($_REQUEST['date']); echo '</pre>';
+		#if (!is_array($_REQUEST['date'])) throw new Exception('Did not get a list of dates');
+		if (empty($_REQUEST['name'])) throw new Exception('You did not type in a name for the foodle.');
 		
+		$name = $_REQUEST['name'];
+		$descr = isset($_REQUEST['descr']) ? $_REQUEST['descr'] : 'No description available.';
 		
-		$response = array_fill(0, $foodle->getNumCols(), '0');
-		if (!empty($_REQUEST['myresponse'])) {
-			foreach ($_REQUEST['myresponse'] AS $yes) {
-				$response[(int)$yes] = '1';
+	
+	
+		$cols = array();
+	
+		for ($head = 0; $head < 5; $head++) {
+		
+			if (array_key_exists('c' . $head, $_REQUEST) && !empty($_REQUEST['c' . $head]) ) {
+			
+				$nextlevel = array();						
+				for ($second = 0; $second < 5; $second++) {
+					if (array_key_exists('c' . $head . $second, $_REQUEST) && !empty($_REQUEST['c' . $head . $second]))
+						$nextlevel[] = $_REQUEST['c' . $head . $second];
+				}
+				
+				$cols[ $_REQUEST['c' . $head]] = empty($nextlevel) ? null : $nextlevel;
+				
 			}
+		
 		}
-	#	echo '<pre>'; print_r($response); echo '</pre>'; exit;
+	
+		#print_r($cols);
 		
-		$newentry = array(
-			'userid' => $userid, 'username' => $_REQUEST['username'], 'response' => $response
-		);
+		$foodle = new Foodle(null, $userid);
+		$foodle->setInfo($name, $descr);
+		$foodle->setColumns($cols);
 		
-		$foodle->setMyResponse($newentry);
-	#	echo '<pre>'; print_r($foodle->getYourEntry($attributes['cn'][0])); echo '</pre>'; #exit;
+		#echo 'Columns: '. print_r($foodle->encodeColumn($cols));
+		#exit;
+	
+	
+		
+	
+		
+		$foodle->setDBhandle($link);
+		$foodle->savetoDB();
+		
+		$id = $foodle->getIdentifier();
+		
+		$et = new SimpleSAML_XHTML_Template($config, 'foodleready.php');
+	
+		$et->data['name'] = $foodle->getName();
+		$et->data['identifier'] = $foodle->getIdentifier();
+		$et->data['descr'] = $foodle->getDescr();
+		$et->data['url'] = 'https://foodle.feide.no/foodle.php?id=' . $id;
+		$et->show();
+		exit;
 	}
+	
 	
 	
 	
 	
 	#echo '<pre>'; print_r($foodle->getColumns()); echo '</pre>'; exit;
 	
-	$et = new SimpleSAML_XHTML_Template($config, 'foodleresponse.php');
-	$et->data['header'] = $foodle->getName();
-	$et->data['identifier'] = $foodle->getIdentifier();
-	$et->data['descr'] = $foodle->getDescr();
-	$et->data['columns'] = $foodle->getColumns();
-			
-	$et->data['yourentry'] = $foodle->getYourEntry($displayname);
-	$et->data['otherentries'] = $foodle->getOtherEntries();
-	
-	$et->data['identifier'] = $foodle->getIdentifier();
+	$et = new SimpleSAML_XHTML_Template($config, 'foodlecreatemc.php');
 	
 	
-	
-	$et->data['username'];
 	
 	$et->show();
-	
-	
+
 } catch(Exception $e) {
 
 	$et = new SimpleSAML_XHTML_Template($config, 'foodleerror.php');

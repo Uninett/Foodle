@@ -96,160 +96,165 @@ session_start();
 
 #include('../config/groups.php');
 
-/* Load simpleSAMLphp, configuration and metadata */
-$sspconfig = SimpleSAML_Configuration::getInstance();
-$metadata = SimpleSAML_Metadata_MetaDataStorageHandler::getMetadataHandler();
-$session = SimpleSAML_Session::getInstance();
 
-/* Check if valid local session exists.. */
-if (!isset($session) || !$session->isValid('saml2') ) {
-	SimpleSAML_Utilities::redirect(
-		'/' . $sspconfig->getValue('baseurlpath') .
-		'saml2/sp/initSSO.php',
-		array('RelayState' => SimpleSAML_Utilities::selfURL())
-		);
-}
-$attributes = $session->getAttributes();
+try {
 
-$userid = 'na';
-if (isset($attributes['mail'])) {
-	$userid = $attributes['mail'][0];
-}
-if (isset($attributes['eduPersonPrincipalName'])) {
-	$userid = $attributes['eduPersonPrincipalName'][0];
-}
-
-
-
-$displayname = 'NA';
-if (isset($attributes['cn'])) 
-	$displayname = $attributes['cn'][0];
-
-if (isset($attributes['displayName'])) 
-	$displayname = $attributes['displayName'][0];
-
-
-
-if (!isset($_SESSION['foodle_cache'])) {
-	$_SESSION['foodle_cache'] = array();
-}
-
-
-$link = mysql_connect(
-	$config->getValue('db.host', 'localhost'), 
-	$config->getValue('db.user'),
-	$config->getValue('db.pass'));
-if(!$link){
-	throw new Exception('Could not connect to database: '.mysql_error());
-}
-mysql_select_db($config->getValue('db.name','feidefoodle'));
-
-
-
-
-// TODO: REMOVE true to enable caching..
-if (! array_key_exists($thiswiki,$_SESSION['foodle_cache'] ) || true) {
-
-	#$foodle = new Foodle($thisfoodle, $attributes['eduPersonPrincipalName'][0], $link);
-
-	if (isset($_REQUEST['createnewsubmit'])) {
-		if (!$foodle->isLoaded()) {
-			$foodle->setOwner($userid);
-		}
+	
+	
+	
+	/* Load simpleSAMLphp, configuration and metadata */
+	$sspconfig = SimpleSAML_Configuration::getInstance();
+	$metadata = SimpleSAML_Metadata_MetaDataStorageHandler::getMetadataHandler();
+	$session = SimpleSAML_Session::getInstance();
+	
+	/* Check if valid local session exists.. */
+	if (!isset($session) || !$session->isValid('saml2') ) {
+		SimpleSAML_Utilities::redirect(
+			'/' . $sspconfig->getValue('baseurlpath') .
+			'saml2/sp/initSSO.php',
+			array('RelayState' => SimpleSAML_Utilities::selfURL())
+			);
+	}
+	$attributes = $session->getAttributes();
+	
+	$userid = 'na';
+	if (isset($attributes['mail'])) {
+		$userid = $attributes['mail'][0];
+	}
+	if (isset($attributes['eduPersonPrincipalName'])) {
+		$userid = $attributes['eduPersonPrincipalName'][0];
 	}
 	
-	$_SESSION['foodle_cache'][$thisfoodle] =& $foodle;
 	
-} else {
-
-	$foodle =& $_SESSION['foodle_cache'][$thiswiki];
-
-}
-
-#echo '<pre>'; print_r($foodle); echo '</pre>'; exit;
-
-
-
-if(!empty($_REQUEST['date'])) {
-	#echo '<pre>'; print_r($_REQUEST['date']); echo '</pre>';
-	if (!is_array($_REQUEST['date'])) throw new Exception('Did not get a list of dates');
-	if (empty($_REQUEST['name'])) throw new Exception('You did not type in a name for the foodle.');
 	
-	$name = $_REQUEST['name'];
-	$descr = isset($_REQUEST['descr']) ? $_REQUEST['descr'] : 'No description available.';
+	$displayname = 'NA';
+	if (isset($attributes['cn'])) 
+		$displayname = $attributes['cn'][0];
+	
+	if (isset($attributes['displayName'])) 
+		$displayname = $attributes['displayName'][0];
 	
 	
 	
-	$timeslots = array();
-	if (!empty($_REQUEST['timeslot'])) {
-		#echo '<pre>'; print_r($_REQUEST['timeslot']); echo '</pre>';
-		if (!is_array($_REQUEST['timeslot'])) throw new Exception('timeslots not an array');
-
-		foreach ($_REQUEST['timeslot'] AS $ts) {
-			if (!empty($ts)) {
-				$timeslots[] = $ts;
+	if (!isset($_SESSION['foodle_cache'])) {
+		$_SESSION['foodle_cache'] = array();
+	}
+	
+	
+	$link = mysql_connect(
+		$config->getValue('db.host', 'localhost'), 
+		$config->getValue('db.user'),
+		$config->getValue('db.pass'));
+	if(!$link){
+		throw new Exception('Could not connect to database: '.mysql_error());
+	}
+	mysql_select_db($config->getValue('db.name','feidefoodle'));
+	
+	
+	
+	
+	// TODO: REMOVE true to enable caching..
+	if (! array_key_exists($thiswiki,$_SESSION['foodle_cache'] ) || true) {
+	
+		#$foodle = new Foodle($thisfoodle, $attributes['eduPersonPrincipalName'][0], $link);
+	
+		if (isset($_REQUEST['createnewsubmit'])) {
+			if (!$foodle->isLoaded()) {
+				$foodle->setOwner($userid);
 			}
-		}		
-	}
-	
-	$cols = array();
-	foreach ($_REQUEST['date'] AS $newdate) {
-		$cols[$newdate] = !empty($timeslots) ? $timeslots : null;		
-	}
-	
-	
-
-	
-	$foodle = new Foodle(null, $userid);
-	$foodle->setInfo($name, $descr);
-	$foodle->setColumns($cols);
-	
-#	echo 'Columns: '. print_r($foodle->encodeColumn($cols));
-#	exit;
-	
-	$foodle->setDBhandle($link);
-	$foodle->savetoDB();
-	
-	$id = $foodle->getIdentifier();
-	
-	$et = new SimpleSAML_XHTML_Template($config, 'foodleready.php');
-
-	$et->data['name'] = $foodle->getName();
-	$et->data['identifier'] = $foodle->getIdentifier();
-	$et->data['descr'] = $foodle->getDescr();
-	$et->data['url'] = 'https://foodle.feide.no/foodle.php?id=' . $id;
-	$et->show();
-	exit;
-}
-
-
-
-
-
-$c = new Calendar();
-$calendar = $c->getNextMonths(3);
-#exit;
-
-
-#echo '<pre>'; print_r($foodle->getColumns()); echo '</pre>'; exit;
-
-$et = new SimpleSAML_XHTML_Template($config, 'foodlecreate.php');
-
-
-/*
-$et->data['header'] = $foodle->getName();
-$et->data['identifier'] = $foodle->getIdentifier();
-$et->data['descr'] = $foodle->getDescr();
-$et->data['columns'] = $foodle->getColumns();
+		}
 		
-$et->data['yourentry'] = $foodle->getYourEntry($attributes['cn'][0]);
-$et->data['otherentries'] = $foodle->getOtherEntries();
+		$_SESSION['foodle_cache'][$thisfoodle] =& $foodle;
+		
+	} else {
+	
+		$foodle =& $_SESSION['foodle_cache'][$thiswiki];
+	
+	}
+	
+	#echo '<pre>'; print_r($foodle); echo '</pre>'; exit;
+	
+	
+	
+	if(!empty($_REQUEST['date'])) {
+		#echo '<pre>'; print_r($_REQUEST['date']); echo '</pre>';
+		if (!is_array($_REQUEST['date'])) throw new Exception('Did not get a list of dates');
+		if (empty($_REQUEST['name'])) throw new Exception('You did not type in a name for the foodle.');
+		
+		$name = $_REQUEST['name'];
+		$descr = isset($_REQUEST['descr']) ? $_REQUEST['descr'] : 'No description available.';
+		
+		
+		
+		$timeslots = array();
+		if (!empty($_REQUEST['timeslot'])) {
+			#echo '<pre>'; print_r($_REQUEST['timeslot']); echo '</pre>';
+			if (!is_array($_REQUEST['timeslot'])) throw new Exception('timeslots not an array');
+	
+			foreach ($_REQUEST['timeslot'] AS $ts) {
+				if (!empty($ts)) {
+					$timeslots[] = $ts;
+				}
+			}		
+		}
+		
+		$cols = array();
+		foreach ($_REQUEST['date'] AS $newdate) {
+			$cols[$newdate] = !empty($timeslots) ? $timeslots : null;		
+		}
+		
+		
+	
+		
+		$foodle = new Foodle(null, $userid);
+		$foodle->setInfo($name, $descr);
+		$foodle->setColumns($cols);
+		
+	#	echo 'Columns: '. print_r($foodle->encodeColumn($cols));
+	#	exit;
+		
+		$foodle->setDBhandle($link);
+		$foodle->savetoDB();
+		
+		$id = $foodle->getIdentifier();
+		
+		$et = new SimpleSAML_XHTML_Template($config, 'foodleready.php');
+	
+		$et->data['name'] = $foodle->getName();
+		$et->data['identifier'] = $foodle->getIdentifier();
+		$et->data['descr'] = $foodle->getDescr();
+		$et->data['url'] = 'https://foodle.feide.no/foodle.php?id=' . $id;
+		$et->show();
+		exit;
+	}
+	
+	
+	
 
-$et->data['identifier'] = $foodle->getIdentifier();
-*/
-$et->data['calendar'] = $calendar;
+	
+	$c = new Calendar();
+	$calendar = $c->getNextMonths(3);
+	#exit;
+	
+	
+	#echo '<pre>'; print_r($foodle->getColumns()); echo '</pre>'; exit;
+	
+	$et = new SimpleSAML_XHTML_Template($config, 'foodlecreate.php');
+	
+	$et->data['calendar'] = $calendar;
+	
+	$et->show();
 
-$et->show();
+} catch(Exception $e) {
+
+	$et = new SimpleSAML_XHTML_Template($config, 'foodleerror.php');
+	
+	$et->data['message'] = $e->getMessage();
+	
+	$et->show();
+
+
+}
 
 
 ?>

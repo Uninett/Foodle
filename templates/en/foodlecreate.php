@@ -5,7 +5,12 @@
 
 <form method="post" action="index.php">
 
+
 	<h1>Create new foodle</h1>
+
+	<p>
+		[ schedule an event | <a href="multiplechoice.php">multiple choice</a> ]
+	</p>
 
 
 	<p>Name: 
