@@ -43,7 +43,15 @@
 <div id="HovedtoppPrint">
 	<img src="/bitmaps/uninettfeide/topp_print.jpg" alt="UNINETT"> 
 </div>
-<div id="Hovedspalte_utenRelatert">
+
+
+
+<div id="Hovedspalte_utenRelatert" style="width:100%">
+<div style="width: 175px; text-align: right; float: right; border: 1px solid #aaa; background: #eee; padding: 3px">
+<a href="http://rnd.feide.no/content/foodle-users-guide">
+<img src="/resources/help.png" alt="help" style="float: left"/>
+<strong>Help?</strong><br />Foodle User's Guide</a>
+</div>
 
 
 

@@ -6,6 +6,7 @@
 <form method="post" action="index.php">
 
 
+
 	<h1>Create new foodle</h1>
 
 	<p>
