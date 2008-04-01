@@ -1,0 +1,33 @@
+html {
+    width: 100%;
+    font-size: 11pt;
+}
+body {
+    width: 100%;
+    background: #ffffff;
+}
+#Hovedmeny, #Hovedtopp, #Relatertinnhold, #Bunntekst {
+    display: none;
+}
+#HovedtoppPrint {
+    display: block;
+    width: auto;
+    height: auto;
+}
+#Hovedspalte {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 0;
+    margin-top: 1em;                            
+    width: auto;
+}
+
+a:link, a:visited {
+	background: transparent;
+	text-decoration: underline;
+}
+ul.alphabeticalList li a {
+    border: 0;
+}
+

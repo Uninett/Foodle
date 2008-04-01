@@ -1,0 +1,52 @@
+
+
+
+/***** Avansert søk *****/
+.avansertsok {
+    border: 0; /* Fieldsettet */
+}
+.avansertsok label {
+    float: left;
+    width: 150px;
+}
+.avansertsok legend {
+    display: none;
+}
+.avansertsok .text, .avansertsok select {
+    float: left;
+}
+.avansertsok p {
+    clear: both;
+    line-height: 30px;
+}
+
+
+/***** Søk *****/
+.enkeltsok {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.enkeltsok legend {
+    display: none;
+}
+.enkeltsok label{
+    display: inline;
+    padding-right: 1em;
+}
+.enkeltsok input {
+    vertical-align: middle;
+}
+
+
+
+/***** Søkeresultat *****/
+.sokeresultat .antallTreff {
+    margin-top: 1.4em;
+    margin-bottom: 1.4em;
+}
+.sokeresultat .treff {
+    margin-bottom: 1em;
+}
+.sokeresultat .treff .smulesti, .sokeresultat .treff .smulesti a {
+    color: #838172;
+}

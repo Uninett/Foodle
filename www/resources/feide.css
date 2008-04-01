@@ -1,90 +1,545 @@
-body,#Hovedmeny div,#Hovedmeny dl,#Hovedmeny dt,#Hovedmeny dd,#Hovedmeny ul,#Hovedmeny ol,#Hovedmeny li,#Hovedmeny p,#Hovedmeny blockquote,#Hovedmeny th,#Hovedmeny td {
-	margin:0;
-	padding:0;
+@import "editor.css";
+@import "relatertinnhold.css";
+
+html{
+    height: 100%;
+    font-size: 73%;
+    font-family: Arial, Verdana, sans-serif;
 }
-table {
-	border-collapse:collapse;
-	border-spacing:0;
-	margin: .6em;
+body{
+    height: 100%;
 }
 
-td {
-	border: 1px solid #ccc;
+a:link, a:visited, a:active {
+    color: #CC0000;
+    text-decoration: none;
 }
-td,th {
-	border: 1px solid #aaa;
+a:hover{
+    text-decoration: underline;
 }
-th {
-	background: #dda;
-	padding: .1em 1em .1em 1em;
+a.lesmer {
+    float: right;
+    margin: 1em;
 }
-td.yes {
-	background: #373;
+fieldset .submitbutton {
+    vertical-align: middle;
+    margin: 0 3px;
+}
+fieldset select {
+    /*vertical-align: middle;
+    margin: 3px 0;*/
+}
+
+fieldset legend{
+    display: none;
+}
+h1{
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+h2{
+    font-size: 1.7em;
+    margin-bottom: 0.5em;
+}
+
+p {
+    margin-top:     10px;
+    margin-bottom:  10px;
+}
+
+
+.feidebutton{
 	color: white;
+	padding: 0 20px 0 20px;
+	background: #b01f2a;
+	border: 1px solid #999;
 }
-td.no {
-	background: #733;
-	color: #c77;
+.feidebutton:hover{
+    cursor: pointer;
 }
-tr.you td {
-	background: #eed;
-}
-tr.you td.yes {
-	background: #bea;
-}
-td.highest {
-	background: #373;
+a.feidebuttonlink{
 	color: white;
-	font-weight: bold;
+	padding: 2px 20px 1px 20px;
+	background: #b01f2a;
+	border: 1px solid #999;
+}
+a.feidebuttonlink:hover{
+    text-decoration:none;
+
+}
+.dato {
+    margin-bottom: 0.5em;
+}
+.bildehoyre {
+    float: right;
+    margin-left: 5px;
+}
+.bildevenstre {
+    float: left;
+    margin-right: 5px;
+}
+.clear{
+    clear: both;
+}
+.ingress {
+    margin-bottom: 1em;
 }
 
-td.sunday {
-	background: #B98B8F;
-	color: white;
-}
-td.grey {
-	background: #ccc;
-}
-td.before {
-	background: #eee;
-	color: black;
+#Hovedspalte img {
+    border: 1px solid #999999;
+    clear: right;
+    padding: 2px;
+    margin: 2px;
 }
 
-fieldset,img {
-	border:0;
+#Hovedspalte .tekst ul{
+    list-style: disc;
+    list-style-position: inside;
 }
-address,caption,cite,code,dfn,em,strong,th,var {
-	font-style:normal;
-	font-weight:normal;
-}
-caption,th {
-	text-align:center;
+#Hovedspalte .tekst ol{
+    list-style:decimal;
+    list-style-position: inside;    
 }
 
-dt {
-	font-size: 105%;
-	color: #600;
-	font-weight: bold;
+
+/*** Layout ***/
+
+#Hovedtopp {
+    position: absolute;
+    right: 0;
+    left:0;
+    height: 155px;
+    width: 100%;
+    z-index: 0;
+    background:url("topp-bakgrunn_small.jpg") repeat-x;
 }
-dd p {
-	margin: 0px 1em .1em 0px;
+#Hovedtopp .seksjon {
+    float: right;
+    height: 100%;
+}
+#HovedtoppPrint {
+    display: none;
+}
+#Seksjon1 { /* Seksjoner i hovedtoppen */
+    margin-top:6px;
+    margin-left:3px;
+    width:31%;
+    background: url("mus2.jpg") no-repeat left;
+}
+#Seksjon2 {
+    margin-top:6px;
+    margin-left:3px;
+    width: 33%;
+    background: url("laptop2.jpg") no-repeat left;
+
+}
+#Seksjon3 {
+    float:left;
+    margin-top:6px;
+    width: 34%;
+    background: url("tastatur2.jpg") no-repeat right;
 }
 
-html {
-	font-size: 90% ! important;
+#Hovedspalte {
+    position: absolute;
+    top: 150px;
+    left: 219px;
+    margin-right: 200px;
+    margin-top: 25px;
+    max-width: 53em;
 }
 
-table.list {
-	border: 1px solid #ccc;
+
+
+#Relatertinnhold{
+    position: absolute;
+    width: 150px;
+    right: 30px;
+    top: 0;
+    padding-top: 180px;
+    /*padding-right: 5px;*/
+    /*overflow-x: hidden;*/
 }
-table.list tr.header {
-	background: #eee;
-	border-bottom: 1px solid #ccc;
+#Uninettlogo { /* Lenke til Uninett. Ligger i spalten Relatertinnhold. */
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    height: 39px;
+    width: 115px;
+    background-image: url("uninettlogo.gif");
+    background-repeat: no-repeat;
+    background-position: 61px 12px;
 }
-table.list td {
-	padding: 2px;
+#Sok {
+    position: absolute;
+    top: 129px;
+    right: 0px;
+    /* width: 150px;*/
+    width:280px;
 }
-table.list td.odd {
-	background: #e5e5e5;
-	
+#Sok #q {
+    border: 1px solid #838175;
+    width: 90px;
+    vertical-align: middle;
 }
+#Sok .submitbutton {
+    background-color: transparent;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 12px;
+    border: 0;
+    margin: 0;
+    margin-left: 3px;
+}
+#Sok label {
+    display: none;
+}
+#Sok p {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    position: absolute;
+    width: 280px;
+    text-align: right;
+}
+#Sok input{
+    
+}
+#Bunntekst {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin-top: 3em;
+    padding-bottom:25px;
+}
+#Bunntekst .adresselinje {
+    margin: 0 1em;
+}
+
+/* --- Hovedmeny --- */
+
+#Hovedmeny {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 219px;
+    padding-top: 185px;
+    z-index: 1;
+    background: url("meny-topp_2.jpg") top left no-repeat;
+}
+#Hovedmeny a#Feidelogo {
+    position: absolute;
+    top: 12px;
+    left: 40px;
+    display: block;
+    height: 40px;
+    width: 70px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+#Hovedmeny li.dybde1 ul{
+    border-top: 3px solid white;
+	clear: both;
+}
+#Hovedmeny li.dybde2 ul{
+    border-top: none;
+}
+#Hovedmeny li.dybde1 a.valgt{
+    font-weight: bold;
+}
+
+#Hovedmeny a:hover{
+    text-decoration: underline;
+}
+#Menybunn{
+    background: url("meny_bunn.jpg") no-repeat;
+    height: 47px;
+    width: 187px;
+    border-top: 1px solid white;
+    clear: both;
+}
+
+
+/*** Forside ***/
+.profilertnyhet{
+    border: 1px solid #999999;
+    background: #f1f1f1;
+    padding: 1em;
+}
+.forsidenyhet{
+    border-bottom: 1px solid #999999;
+    margin-top: 1em;
+}
+
+
+
+.boks{
+    border: 1px solid #999999;
+    padding: 2px;
+    margin-bottom: 2px;
+    overflow: hidden;
+}
+.bildeboks{
+    margin-bottom: 2px;
+    overflow: hidden;
+    padding:2px;
+    border: 1px solid #999999;    
+}
+.boks h2 {
+    font-size: 1.2em;
+    color: #CC0000;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.boks a {
+    margin: 0;
+    padding: 0;
+    color: #CC0000;
+    text-decoration: none;
+}
+.boks a:hover{
+    text-decoration: underline;
+}
+.globalboks{
+    text-align: center;
+    background-color: #f1f1f1;
+    border: 1px solid #999999;
+    padding: 2px;
+    margin-bottom: 2px;
+    overflow: hidden;
+}
+.globalboks a {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    color: #CC0000;
+    text-decoration: none;
+}
+.globalboks a:hover{
+    text-decoration: underline;
+}
+
+#Hovedsidetabell{
+    width: 100%;
+}
+
+.hovedsideboks{
+    width: 50%;
+    padding: 10px 10px 20px 10px;
+    padding-top: 20px;
+    vertical-align: top;
+}
+
+.hovedsideboks.tl{
+    border-right: 1px solid #888;
+    border-bottom: 1px solid #888;
+}
+.hovedsideboks.tr{
+    border-bottom: 1px solid #888;
+}
+.hovedsideboks.bl{
+    border-right: 1px solid #888;
+}
+.hovedsideboks.br{
+
+}
+
+ul#errorliste{
+    width: 450px;
+    padding: 10px;
+    border: 1px solid black;
+    list-style-type: disc;
+    list-style-position: inside;
+    background: #b01f2a;
+}
+
+ul#errorliste li{
+    color: white;
+}
+.inputerror{
+    background-color: #fdd;
+    
+}
+
+/*** Datatabell ***/
+table.liste {
+    display: table;
+    width: 100%;
+    margin-top: 1em;
+}
+table.liste th {
+    padding: 3px;
+    background: #EFEFF0;
+    font-weight: bold;
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #999999;
+}
+table.liste th.first {
+    border-left: 1px solid #999999;
+}
+table.liste th.last {
+    border-right: 1px solid #999999;
+}
+table.liste td {
+    padding: 3px;
+}
+table.liste tr.rad0 {
+    background: transparent;
+}
+table.liste tr.rad1 {
+    background: #f1f1f1;
+}
+
+
+/*** Ordliste ***/
+ul.alphabeticalList{
+    margin: 0 0 100px 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+}
+
+ul.alphabeticalList ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+}
+ul.alphabeticalList a {
+    display: block;
+}
+ul.alphabeticalList li a, ul.alphabeticalList li a:hover {
+    font-weight: bold;
+    text-decoration: none;
+    color: #000000;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    padding: 3px;
+    padding-left: 10px;
+    border: 1px solid #999999;
+    background-color: #efeff0;
+}
+ul.alphabeticalList li li {
+    padding-left: 1.5em;
+    margin: 0;
+}
+ul.alphabeticalList li li a, ul.alphabeticalList li li a:hover {
+    display: inline;
+    font-weight: normal;
+    border: 0;
+    background-color: transparent;
+    color: #CC0000;
+}
+ul.alphabeticalList li li a:hover {
+    text-decoration: underline;
+}
+
+.ordboks {
+    display: none;
+    position: absolute;
+    z-index: 99;
+    width: 300px;
+    margin-top: 1em;
+}
+.ordboks .heading{
+    border: 1px solid #999999;
+    color: #ffffff;
+    margin-bottom: 2px;
+    background-color: #CC0000;
+    padding: 2px;
+    padding-left: 5px;
+}
+.ordboks heading h3{
+    margin: 0;
+}
+.ordboks .innhold {
+    padding: 5px;
+    border: 1px solid #999999;
+    background-color: #efeff0;
+}
+
+/* NY meny kode */
+#Hovedmeny li.dybde1{
+    clear: both;
+    background:url("meny_bg_repeat.png") repeat-y;
+}
+#Hovedmeny li.dybde1 ul{
+    clear: both;
+    background:url("meny_bg_repeat_dybde2.png") repeat-y;
+}
+#Hovedmeny li{
+    margin:3px 0;
+}
+#Hovedmeny li{
+    padding:3px 10px 0 37px;
+}
+#Hovedmeny li.dybde1 li{
+    margin-left:35px;
+    margin-right:4px;
+    padding:0;
+}
+#Hovedmeny a{
+    color:#FFF;
+    padding-bottom:3px;
+    display:block;
+}
+#Hovedmeny li.dybde1 ul{
+    margin-left:-37px;
+}
+#Hovedmeny li.dybde2 ul{
+    margin-left:-35px;
+}
+#Hovedmeny li.dybde1 ul li{
+    margin-top:0;
+    margin-bottom:0;
+    padding-top:2px;
+    padding-bottom:2px;
+}
+#Hovedmeny img{
+    margin-left:-29px;
+    float:left;
+    display:inline;
+}
+#Hovedmeny img.horisontal_menypil{
+    width:8px;
+    height:13px;
+    margin-left:-29px;
+    margin-bottom:3px;
+}
+#Hovedmeny img.vertikal_menypil{
+    width:13px;
+    height:8px;
+    margin-top:3px;
+    margin-left:-31px;
+}
+#Hovedmeny ul{
+    width:187px;
+}
+#Hovedmeny li{
+    list-style-type:none;
+}
+#Hovedmeny ul li.dybde3{
+    margin-left:45px;
+}
+#Hovedmeny ul li.dybde3 img{
+    margin-left:-38px;
+}
+a:focus{
+    border:1px dotted #000;
+}
+#Hovedspalte div.kvitteringsboks{
+    border:1px solid #000;
+    padding:10px;
+    color:#000;
+    width:100%;
+    background-color:#cfddc8;
+}
+#Hovedtopp div.seksjon img{
+    margin:42px auto auto auto;    
+}
+

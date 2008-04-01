@@ -4,12 +4,10 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<meta http-equiv="Content-Language" content="nb">
 	
+	<link rel="stylesheet" type="text/css" href="/resources/foodle-feide.css">
+	<link rel="stylesheet" type="text/css" href="/resources/standard.css">
 	<link rel="stylesheet" type="text/css" href="/resources/feide.css">
-	
-	<link rel="stylesheet" type="text/css" href="http://feide.no/css/uninettfeide/base.css">
-	<link rel="stylesheet" type="text/css" href="http://feide.no/css/uninettfeide/standard.css?v=1">
-	<link rel="stylesheet" type="text/css" href="http://feide.no/css/uninettfeide/feide.css">
-	<link rel="stylesheet" type="text/css" href="http://feide.no/css/uninettfeide/print.css" media="print">
+	<link rel="stylesheet" type="text/css" href="/resources/print.css" media="print">
 	<!--[if IE]>
             <link rel="stylesheet" type="text/css" href="http://feide.no/css/uninettfeide/feide_ie.css">
         <![endif]-->
@@ -18,6 +16,7 @@
 	<link rel="glossary" href="/ordliste/">
 	<title>Feide Foodle</title> 
 </head>
+
 <body>
 <div id="Hovedmeny">
 	<a href="http://rnd.feide.no" title="Feide" id="Feidelogo" rel="home" tabindex="50"></a> 
@@ -26,7 +25,13 @@
 		<li class="dybde1">
 			<a href="index.php" tabindex="52">Create new</a> 
 		</li>
+		<li class="dybde1">
+			<a href="https://openwiki.feide.no">Feide OpenWiki</a> 
+		</li>
 
+		<li class="dybde1">
+			<a href="/simplesaml/saml2/sp/initSLO.php?RelayState=/simplesaml/logout.html">Feide logout</a> 
+		</li>
 	</ul>
 <!-- menyslutt -->
 	<div id="Menybunn">
@@ -46,7 +51,7 @@
 
 
 
-<div id="Hovedspalte_utenRelatert" style="width:100%">
+<div id="Hovedspalte" style="width:100%">
 <div style="width: 175px; text-align: right; float: right; border: 1px solid #aaa; background: #eee; padding: 3px">
 <a href="http://rnd.feide.no/content/foodle-users-guide">
 <img src="/resources/help.png" alt="help" style="float: left"/>
