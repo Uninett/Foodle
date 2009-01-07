@@ -6,18 +6,18 @@
 
 <form method="post" action="index.php">
 
-	<h1>Your foodle is now ready</h1>
+	<h1><?php echo $this->t('ready'); ?></h1>
 
 
-	<p>Name: <?php if (isset($this->data['name'])) echo $this->data['name']; ?>
+	<p><?php echo $this->t('name'); ?>: <?php if (isset($this->data['name'])) echo $this->data['name']; ?>
 
-	<p>Description: <?php
+	<p><?php echo $this->t('description'); ?>: <?php
 	if (isset($this->data['descr'])) echo $this->data['descr'];
 	?>
 
 	
-	<p><a href="<?php echo $this->data['url']; ?>">Visit this link your self</a>, 
-		and send it to the people you want to foodle with:<br />
+	<p><a href="<?php echo $this->data['url']; ?>"><?php echo $this->t('visitlink'); ?></a>.
+		<?php echo $this->t('sendlink'); ?>:<br />
 	
 	<input type="text" size="50" name="foodleid" value="<?php echo $this->data['url']; ?>" />
 	
