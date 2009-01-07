@@ -7,16 +7,15 @@
 
 $config = array (
 
-	'basedir' => '/www/openwiki.feide.no/',
+	'basedir' => '/www/foodle.feide.no/',
 	'simplesamlphpdir' 		=> NULL,
 	'templatedir'           => 'templates/',
-	
-	'aclfile'	=> '/www/ow.feide.no/conf/acl.auth.php',
+	'dictionarydir' 		=> 'dictionaries/',
 	/*
 	 * Languages available and what language is default
 	 */
-	'language.available'	=> array('en', 'no'),
-	'language.default'		=> 'en',
+	'language.available'	=> array('en', 'no', 'da', 'sv', 'nl', 'de', 'es'),
+	'language.default'		=> 'no',
 	
 	
 	'db.host'	=> 'sql.example.org',
