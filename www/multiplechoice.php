@@ -6,6 +6,7 @@ $path = $path_extra . PATH_SEPARATOR . $path;
 ini_set('include_path', $path);
 
 
+include('/var/simplesamlphp-openwiki/www/_include.php');
 
 
 /**
@@ -41,7 +42,6 @@ try {
 
 	/* Load simpleSAMLphp, configuration and metadata */
 	$sspconfig = SimpleSAML_Configuration::getInstance();
-	$metadata = SimpleSAML_Metadata_MetaDataStorageHandler::getMetadataHandler();
 	$session = SimpleSAML_Session::getInstance();
 	
 	/* Check if valid local session exists.. */
@@ -123,16 +123,16 @@ try {
 		$name = $_REQUEST['name'];
 		$descr = isset($_REQUEST['descr']) ? $_REQUEST['descr'] : 'No description available.';
 		
-	
+		$expire = isset($_REQUEST['expire']) ? $_REQUEST['expire'] : NULL;
 	
 		$cols = array();
 	
-		for ($head = 0; $head < 5; $head++) {
+		for ($head = 0; $head < 10; $head++) {
 		
 			if (array_key_exists('c' . $head, $_REQUEST) && !empty($_REQUEST['c' . $head]) ) {
 			
 				$nextlevel = array();						
-				for ($second = 0; $second < 5; $second++) {
+				for ($second = 0; $second < 10; $second++) {
 					if (array_key_exists('c' . $head . $second, $_REQUEST) && !empty($_REQUEST['c' . $head . $second]))
 						$nextlevel[] = $_REQUEST['c' . $head . $second];
 				}
@@ -146,7 +146,7 @@ try {
 		#print_r($cols);
 		
 		$foodle = new Foodle(null, $userid);
-		$foodle->setInfo($name, $descr);
+		$foodle->setInfo($name, $descr, $expire, $userid);
 		$foodle->setColumns($cols);
 		
 		#echo 'Columns: '. print_r($foodle->encodeColumn($cols));
@@ -161,12 +161,17 @@ try {
 		
 		$id = $foodle->getIdentifier();
 		
-		$et = new SimpleSAML_XHTML_Template($config, 'foodleready.php');
+		$et = new SimpleSAML_XHTML_Template($config, 'foodleready.php', 'foodle_foodle');
 	
 		$et->data['name'] = $foodle->getName();
 		$et->data['identifier'] = $foodle->getIdentifier();
 		$et->data['descr'] = $foodle->getDescr();
 		$et->data['url'] = 'https://foodle.feide.no/foodle.php?id=' . $id;
+		$et->data['bread'] = array(
+			array('href' => '/', 'title' => 'bc_frontpage'), 
+			array('href' => 'foodle.php?id=' . $id, 'title' => $foodle->getName()), 
+			array('title' => 'Ready')
+		);
 		$et->show();
 		exit;
 	}
@@ -177,16 +182,19 @@ try {
 	
 	#echo '<pre>'; print_r($foodle->getColumns()); echo '</pre>'; exit;
 	
-	$et = new SimpleSAML_XHTML_Template($config, 'foodlecreatemc.php');
-	
+	$et = new SimpleSAML_XHTML_Template($config, 'foodlecreatemc.php', 'foodle_foodle');
+	$et->data['bread'] = array(
+		array('href' => '/', 'title' => 'bc_frontpage'), 
+		array('title' => 'bc_createnew')
+	);
 	
 	
 	$et->show();
 
 } catch(Exception $e) {
 
-	$et = new SimpleSAML_XHTML_Template($config, 'foodleerror.php');
-	
+	$et = new SimpleSAML_XHTML_Template($config, 'foodleerror.php', 'foodle_foodle');
+	$et->data['bread'] = array(array('href' => '/', 'title' => 'bc_frontpage'), array('title' => 'bc_errorpage'));
 	$et->data['message'] = $e->getMessage();
 	
 	$et->show();

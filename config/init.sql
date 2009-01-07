@@ -2,7 +2,13 @@ CREATE TABLE def (
 	id varchar(100) NOT NULL PRIMARY KEY,
 	name tinytext,
 	descr text,
-	columns text
+	columns text,
+	
+	owner text,
+	created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated TIMESTAMP null DEFAULT null,
+	expire DATETIME null,
+
 );
 
 CREATE TABLE entries (
@@ -10,5 +16,9 @@ CREATE TABLE entries (
 	foodleid varchar(100) NOT NULL,
 	userid tinytext,
 	username tinytext,
-	response tinytext
+	response tinytext,
+	
+	created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated TIMESTAMP null DEFAULT null,
+
 );

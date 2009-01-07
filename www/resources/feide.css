@@ -1,5 +1,9 @@
-@import "editor.css";
-@import "relatertinnhold.css";
+/* @import "editor.css"; */
+/* @import "relatertinnhold.css"; */
+
+
+
+
 
 html{
     height: 100%;
@@ -85,12 +89,6 @@ a.feidebuttonlink:hover{
     margin-bottom: 1em;
 }
 
-#Hovedspalte img {
-    border: 1px solid #999999;
-    clear: right;
-    padding: 2px;
-    margin: 2px;
-}
 
 #Hovedspalte .tekst ul{
     list-style: disc;

@@ -2,6 +2,20 @@ body,#Hovedmeny div,#Hovedmeny dl,#Hovedmeny dt,#Hovedmeny dd,#Hovedmeny ul,#Hov
 	margin:0;
 	padding:0;
 }
+
+
+
+div.expire {
+	margin: .3em;
+	padding: .3em;
+	border: 1px solid #999;
+	background: #ddd;
+}
+
+.yesimg {
+	margin: 0px;
+	border: 0px;
+}
 table {
 	border-collapse:collapse;
 	border-spacing:0;
@@ -13,24 +27,34 @@ td {
 }
 td,th {
 	border: 1px solid #aaa;
+/*	text-align: center; */
 }
 th {
 	background: #dda;
 	padding: .1em 1em .1em 1em;
+
 }
 td.yes {
-	background: #373;
+	background: #9c9;
 	color: white;
+	text-align: center;
 }
 td.no {
-	background: #733;
+	text-align: center;
+	background: #edd;
 	color: #c77;
 }
 tr.you td {
 	background: #eed;
+		text-align: center;
 }
 tr.you td.yes {
 	background: #bea;
+		text-align: center;
+}
+td.count {
+	text-align: center;
+	font-size: large;
 }
 td.highest {
 	background: #373;

@@ -9,6 +9,9 @@ class Foodle {
 	private $name;
 	private $descr;
 	private $columns;
+	private $maxdef;
+	private $expire;
+	private $owner;
 	
 	/**
 	 * Entires
@@ -54,14 +57,21 @@ class Foodle {
 		$this->identifier = $identifier;
 	}
 	
-	function setInfo($name, $descr) {
+	function setInfo($name, $descr, $expire, $maxdef) {
 		$this->name = $name;
 		$this->descr = $descr;
-		$this->columns = $columns;
+		$this->expire = $expire;
+		$this->maxdef = $maxdef;
+
+#		$this->columns = $columns;
 	}
 	
 	function setColumns($columns) {
 		$this->columns = $columns;
+	}
+	
+	function setColumnsByDef($coldef) {
+		$this->columns = $this->parseColumn($coldef);
 	}
 	
 	function getColumns() {
@@ -78,8 +88,12 @@ class Foodle {
 	}
 	public function loadFromDB() {
 	
-		$sql ="SELECT * FROM def WHERE id = '" . $this->getIdentifier() . "'";
+		$sql ="SELECT *,
+			IF(expire=0,null,UNIX_TIMESTAMP(expire)) AS expire_unix 
+			FROM def WHERE id = '" . $this->getIdentifier() . "'";
 		$result = mysql_query($sql, $this->db);
+		
+		#echo 'SQL: ' . $sql; exit;
 		
 		if(!$result){
 			throw new Exception ("Could not successfully run query ($sql) fromDB:" . mysql_error());
@@ -88,8 +102,8 @@ class Foodle {
 		if(mysql_num_rows($result) > 0){		
 			$row = mysql_fetch_assoc($result);
 			
-			
-			$this->setInfo($row['name'], $row['descr']);
+			$this->setInfo($row['name'], $row['descr'], $row['expire_unix'], $row['maxdef']);
+			$this->setOwner($row['owner']);
 			$this->setColumns($this->parseColumn($row['columns']));
 			$this->loadEntriesFromDB();
 			$this->loadedFromDB = true;
@@ -97,6 +111,32 @@ class Foodle {
 		mysql_free_result($result);
 	}
 	
+	public function getExpireText() {
+		$expire = $this->getExpire();
+		if (empty($expire)) return 'This foodle will not expire';
+		
+		if ($this->expired()) return 'This foodle is expired';
+		
+		return date("Y-m-d H:i", $expire) . ' (expires in ' . $this->date_diff($expire - time()) . ')';
+	}
+	
+	public function getExpireTextField() {
+		$expire = $this->getExpire();
+		if (empty($expire)) return '';
+		return date("Y-m-d H:i", $expire);
+	}
+	
+	
+	public function getExpire() {
+		return $this->expire;
+	}
+	
+	public function expired() {
+		if (!empty($this->expire))
+			return $this->expire < time();
+		
+		return false;
+	}
 	
 	
 	/**
@@ -115,9 +155,10 @@ class Foodle {
 				
 		$link = $this->getDBhandle();
 		
-		$sql ="SELECT * 
+		$sql ="SELECT *, UNIX_TIMESTAMP(created) AS createdu, 
+				IF(created=0,null,UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(created)) AS ago
 			FROM entries
-			WHERE foodleid='" . $this->getIdentifier() . "'";
+			WHERE foodleid='" . $this->getIdentifier() . "' order by id desc";
 
 		$result = mysql_query($sql, $this->db);
 		
@@ -127,13 +168,50 @@ class Foodle {
 		
 		if(mysql_num_rows($result) > 0){		
 			while($row = mysql_fetch_assoc($result)){
-				$this->addEntry($row['userid'], $row['username'],
-					$this->decodeResponse($row['response']));
+				$this->addEntry(
+					$row['userid'], 
+					$row['username'],
+					$row['email'],
+					$this->decodeResponse($row['response']),
+					$this->date_diff($row['ago']),
+					$row['notes'],
+					$row['createdu']
+				);
 			}
 		}		
 		mysql_free_result($result);
 		
 	}
+
+	// The parameters of this function are the dates to be compared.
+	// The first should be prior to the second. The dates are in
+	// the form of: 1978-04-26 02:00:00.
+	// They also can come from a web form using the global $_POST['start']
+	// and $_POST['end'] variables.
+	function date_diff($secondsago)
+	{
+#		echo 'comparing ' . $secondsago;
+		
+#		return $secondsago . ' seconds';
+		if (is_null($secondsago)) return 'NA';
+	
+		$nseconds = $secondsago; // Number of seconds between the two dates
+		$ndays = round($nseconds / 86400); // One day has 86400 seconds
+		$nseconds = $nseconds % 86400; // The remainder from the operation
+		$nhours = round($nseconds / 3600); // One hour has 3600 seconds
+		$nseconds = $nseconds % 3600;
+		$nminutes = round($nseconds / 60); // One minute has 60 seconds, duh!
+		$nseconds = $nseconds % 60;
+
+		if ($ndays > 0) 
+			return $ndays . " days";
+		elseif ($nhours > 0) 
+			return $nhours . "h " . $nminutes . "m";
+		elseif ($nminutes > 0) 
+			return $nminutes . " min";
+		else 
+			return $nseconds . " sec";
+	} 
 	
 	public function encodeResponse(array $response) {
 		return join(',', $response);	
@@ -144,12 +222,23 @@ class Foodle {
 	}
 	
 	
-	public function addEntry($userid, $username, $response) {
-		$newentry = array('userid' => $userid, 'username' => $username, 'response' => $response);
+	public function addEntry($userid, $username, $email, $response, $updated, $notes, $created = NULL) {
+		$newentry = array(
+			'userid' => $userid, 'username' => $username, 'email' => $email,
+			'response' => $response, 
+			'updated' => $updated, 'notes' => $notes
+		);
+		if ($created) {
+			$newentry['created'] = $created;
+		}
+		
+		#print_r($notes); exit;
+
+		$this->otherentries[] = $newentry;		
 		if ($userid == $this->currentuser)
 			$this->yourentry = $newentry;
-		else
-			$this->otherentries[] = $newentry;
+
+
 
 	}
 	
@@ -161,13 +250,37 @@ class Foodle {
 		if (!empty($this->yourentry)) 
 			return $this->yourentry;
 		
-		return array('userid' => $this->currentuser, 'username' => (isset($name) ? $name : 'NA'), 
-			'response' => array_fill(0, $this->numcols, '0') );
+		return array(
+			'userid' => $this->currentuser, 
+			'username' => (isset($name) ? $name : 'NA'), 
+			'response' => array_fill(0, $this->numcols, '0'),
+			'updated' => 'never',
+			'notes' => '',
+			);
 	}
 	
 	
 	public function setDBhandle($db) {
 		$this->db = $db;
+	}
+	
+	
+	public static function parseColumnUtil($string) {
+	
+		$counter = 0;
+		$result = array();
+		$level1 = explode('|', $string);
+		foreach($level1 AS $head) {
+			if (preg_match('/(.*)\((.*)\)/', $head, $matches)) {
+				$result[$matches[1]] = explode(',', $matches[2]);
+				$counter += count($result[$matches[1]]);
+			} else {
+				$result[$head] = null;
+				$counter++;
+			}
+		}
+		return $result;
+	
 	}
 	
 	
@@ -204,6 +317,11 @@ class Foodle {
 	// TODO: addslashes
 	public function savetoDB() {
 
+		$expire = 'null';
+		if (!empty($this->expire))
+			$expire = "'" . addslashes($this->expire) . "'";
+		
+
 		
 		$link = $this->getDBhandle();
 
@@ -211,21 +329,26 @@ class Foodle {
 			$sql = "UPDATE def SET 
 				name ='" . addslashes($this->getName()) . "', 
 				descr ='" . addslashes($this->getDescr()) . "', 
-				columns = '" . addslashes($this->encodeColumn($this->getColumns())) . 
-				"' WHERE id = '" . addslashes($this->getIdentifier()) . "'";
+				columns = '" . addslashes($this->encodeColumn($this->getColumns())) . "',
+				expire = " . $expire . ",
+				maxdef = '" . addslashes($this->getMaxDef()) . "',
+				updated = now(),
+				owner = '" . addslashes($this->currentuser) . "' WHERE id = '" . addslashes($this->getIdentifier()) . "'";
 
 			$res = mysql_query($sql, $this->db);
 			if(mysql_error()){
 				throw new Exception('Invalid query: ' . mysql_error());
 			}
-			$this->deleteACLinDB();
+
 			
 		} else {
 		
-			$res = mysql_query("INSERT INTO def (id, name, descr, columns) values ('" . 
+			$res = mysql_query("INSERT INTO def (id, name, descr, maxdef, columns, expire, owner) values ('" . 
 				addslashes($this->getIdentifier()) . "','" . addslashes($this->getName()) . "', '" . 
 				addslashes($this->getDescr()) . "', '" . 
-				addslashes($this->encodeColumn($this->getColumns())) . "')", $this->db);
+				addslashes($this->getMaxDef()) . "', '" .
+				addslashes($this->encodeColumn($this->getColumns())) . "', " . $expire . ", '" . 
+				addslashes($this->currentuser) . "')", $this->db);
 			if(mysql_error()){
 				throw new Exception('Invalid query: ' . mysql_error());
 			}
@@ -259,11 +382,18 @@ class Foodle {
 
 		$link = $this->getDBhandle();
 		
+		$notes = 'null';
+		if (!empty($this->yourentry['notes']))
+			$notes = "'" . addslashes($this->yourentry['notes']) . "'";
+		
 #		print_r($this->yourentry); exit;
 		
-		$res = mysql_query("INSERT INTO entries (foodleid, userid, username, response) values ('" . 
+		$res = mysql_query("INSERT INTO entries (foodleid, userid, username, email, response, notes) values ('" . 
 			addslashes($this->getIdentifier()) . "','" . addslashes($this->currentuser) . "', '" . 
-			addslashes($this->yourentry['username']) . "', '" . addslashes($this->encodeResponse($this->yourentry['response'])) . "')", $this->db);
+			addslashes($this->yourentry['username']) . "', '" . 
+			addslashes($this->yourentry['email']) . "', '" .
+			addslashes($this->encodeResponse($this->yourentry['response'])) . "', " .
+			$notes . ")", $this->db);
 		if(mysql_error()){
 			throw new Exception('Invalid query: ' . mysql_error());
 		}
@@ -271,6 +401,7 @@ class Foodle {
 	}
 	
 	public function setMyResponse($response) {
+		#print_r($response); exit;
 		$this->yourentry = $response;
 		$this->deleteResponse();
 		$this->saveResponse();
@@ -294,6 +425,9 @@ class Foodle {
 	public function getDescr() {
 		return $this->descr;
 	}
+	public function getMaxDef() {
+		return $this->maxdef;
+	}
 	
 	public function getOwner() {
 		return $this->owner;
@@ -301,6 +435,12 @@ class Foodle {
 	
 	public function setOwner($owner) {
 		$this->owner = $owner;
+	}
+	
+	public function requireOwner() {
+		if ($this->currentuser === 'andreas@uninett.no') return;
+		if ($this->getOwner() === $this->currentuser) return;
+		throw new Exception('You are user ' . $this->currentuser . ' and you do not have access to edit this foodle. The foodle is owned by ' . $this->getOwner() . '.');
 	}
 	
 	public function getAccess() {
