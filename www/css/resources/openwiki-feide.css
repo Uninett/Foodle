@@ -1,0 +1,46 @@
+body,#Hovedmeny div,#Hovedmeny dl,#Hovedmeny dt,#Hovedmeny dd,#Hovedmeny ul,#Hovedmeny ol,#Hovedmeny li,#Hovedmeny p,#Hovedmeny blockquote,#Hovedmeny th,#Hovedmeny td {
+	margin:0;
+	padding:0;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+fieldset,img {
+	border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-style:normal;
+	font-weight:normal;
+}
+caption,th {
+	text-align:left;
+}
+
+dt {
+	font-size: 105%;
+	color: #600;
+	font-weight: bold;
+}
+dd p {
+	margin: 0px 1em .1em 0px;
+}
+
+html {
+	font-size: 90% ! important;
+}
+
+table.list {
+	border: 1px solid #ccc;
+}
+table.list tr.header {
+	background: #eee;
+	border-bottom: 1px solid #ccc;
+}
+table.list td {
+	padding: 2px;
+}
+table.list td.odd {
+	background: #e5e5e5;
+	
+}
