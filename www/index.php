@@ -63,13 +63,9 @@ try {
 	
 	
 	$displayname = 'NA';
-	if (isset($attributes['cn'])) 
-		$displayname = $attributes['cn'][0];
-	
-	if (isset($attributes['displayName'])) 
-		$displayname = $attributes['displayName'][0];
-	
-	
+	if (isset($attributes['smartname-fullname'])) 
+		$displayname = $attributes['smartname-fullname'][0];
+
 	
 	if (!isset($_SESSION['foodle_cache'])) {
 		$_SESSION['foodle_cache'] = array();

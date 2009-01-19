@@ -71,11 +71,8 @@ try {
 	
 	
 	$displayname = 'NA';
-	if (isset($attributes['cn'])) 
-		$displayname = $attributes['cn'][0];
-	
-	if (isset($attributes['displayName'])) 
-		$displayname = $attributes['displayName'][0];
+	if (isset($attributes['smartname-fullname'])) 
+		$displayname = $attributes['smartname-fullname'][0];
 	
 	
 	if (!isset($_SESSION['foodle_cache'])) {
@@ -148,6 +145,9 @@ try {
 
 		$foodle->setMyResponse($newentry);
 	#	echo '<pre>'; print_r($foodle->getYourEntry($attributes['cn'][0])); echo '</pre>'; #exit;
+	
+		SimpleSAML_Logger::warning('Attribute debugging: ' . var_export($attributes, TRUE));
+
 
 		$foodle = new Foodle($thisfoodle, $userid, $link);
 	}
