@@ -66,7 +66,7 @@ a.button:active span {
 	font-size: x-small;
 	text-shadow: 0px 1px 0px #900;
 }
-#logo #news {
+#logo #news, #logo #mailinglist {
 	font-weight: normal;
 	letter-spacing: 0em;
 }

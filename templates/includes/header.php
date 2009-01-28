@@ -205,7 +205,10 @@ function toggle(x) {
 <div id="Hovedtopp">
 	
 	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 2.1</span> 
-		<a id="news" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/category/topics/foodle">read news about foodle...</a>
+		<a id="news" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/category/topics/foodle">
+			<?php echo $this->t('read_news'); ?> ★</a>  
+		<a id="mailinglist" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/content/foodle-users">
+			<?php echo $this->t('join_mailinglist'); ?> ☆</a>
 	</div>
 	<a href="http://rnd.feide.no"><img id="ulogo" alt="notes" src="resources/uninettlogo.gif" /></a>
 

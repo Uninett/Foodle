@@ -605,6 +605,14 @@ $lang = array(
 		'no' => 'Neste',
 		'en' => 'Next',
 	),
+	'read_news' => array (
+		'no' => 'les nyheter om Foodle...',
+		'en' => 'read news about foodle...',
+	),
+	'join_mailinglist' => array (
+		'no' => 'meld deg på foodle sin e-post liste',
+		'en' => 'join foodle-users mailinglist',
+	),
 	'register_email' => array (
 		'no' => 'Du har ikke logget inn og er anonym. Vi anbefaler at du enten logger inn, eller fyller inn din e-post adresse og navn nedenunder. Hvis du legger igjen e-post adressen, vil vedkommende som opprettet Foodle-n  kunne kontakte deg, og du vil og få en mail i fra Foodle med en lenke du kan trykke på for å endre på besvarelsen din.',
 		'en' => 'You have not logged in to Foodle and are currently anonymous. We reccomend that you either log in, or fill-in your e-mail and name below. If you leave your e-mail address the Foodle owner may contact you, you will also get an e-mail from foodle that allow you to return and edit your response.',
