@@ -62,12 +62,12 @@ function getDefinitionString() {
 	$("div.fcol input.fcoli[@value != '']").each(function(i){
 		var tdef = Array();
 		$("div.fcol").eq(i).find("div.subcolcontainer input[@value != '']").each(function(ii){
-			tdef.push( $("div.fcol").eq(i).find("div.subcolcontainer input[@value != '']").eq(ii).attr('value') );
+			tdef.push( $("div.fcol").eq(i).find("div.subcolcontainer input[@value != '']").eq(ii).attr('value').replace(/,/, ";") );
 		});
 		if (tdef.length > 0) {
-			defs.push( $("div.fcol").eq(i).find('input.fcoli').attr('value') + '(' + tdef.join(',') + ')' );
+			defs.push( $("div.fcol").eq(i).find('input.fcoli').attr('value').replace(/,/, ";") + '(' + tdef.join(',') + ')' );
 		} else {
-			defs.push( $("div.fcol").eq(i).find('input.fcoli').attr('value') );
+			defs.push( $("div.fcol").eq(i).find('input.fcoli').attr('value').replace(/,/, ";") );
 		}
 	});
 	var defstr = defs.join('|');
