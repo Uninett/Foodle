@@ -12,6 +12,7 @@ class Foodle {
 	private $maxdef;
 	private $expire;
 	private $owner;
+	private $allowanonymous;
 	
 	/**
 	 * Entires
@@ -38,6 +39,11 @@ class Foodle {
 		}
 	}
 	
+	function setCurrentUser($currentuser) {
+		$this->currentuser = $currentuser;
+	}
+	
+	
 	function setRandomIdentifier() {
 
 		$length = 8;
@@ -57,11 +63,12 @@ class Foodle {
 		$this->identifier = $identifier;
 	}
 	
-	function setInfo($name, $descr, $expire, $maxdef) {
+	function setInfo($name, $descr, $expire, $maxdef, $allowanonymous) {
 		$this->name = $name;
 		$this->descr = $descr;
 		$this->expire = $expire;
 		$this->maxdef = $maxdef;
+		$this->allowanonymous = $allowanonymous;
 
 #		$this->columns = $columns;
 	}
@@ -102,7 +109,7 @@ class Foodle {
 		if(mysql_num_rows($result) > 0){		
 			$row = mysql_fetch_assoc($result);
 			
-			$this->setInfo($row['name'], $row['descr'], $row['expire_unix'], $row['maxdef']);
+			$this->setInfo($row['name'], $row['descr'], $row['expire_unix'], $row['maxdef'], $row['anon']);
 			$this->setOwner($row['owner']);
 			$this->setColumns($this->parseColumn($row['columns']));
 			$this->loadEntriesFromDB();
@@ -252,7 +259,7 @@ class Foodle {
 		
 		return array(
 			'userid' => $this->currentuser, 
-			'username' => (isset($name) ? $name : 'NA'), 
+			'username' => (isset($name) ? $name : ''), 
 			'response' => array_fill(0, $this->numcols, '0'),
 			'updated' => 'never',
 			'notes' => '',
@@ -343,12 +350,13 @@ class Foodle {
 			
 		} else {
 		
-			$res = mysql_query("INSERT INTO def (id, name, descr, maxdef, columns, expire, owner) values ('" . 
+			$res = mysql_query("INSERT INTO def (id, name, descr, maxdef, columns, expire, owner, anon) values ('" . 
 				addslashes($this->getIdentifier()) . "','" . addslashes($this->getName()) . "', '" . 
 				addslashes($this->getDescr()) . "', '" . 
 				addslashes($this->getMaxDef()) . "', '" .
 				addslashes($this->encodeColumn($this->getColumns())) . "', " . $expire . ", '" . 
-				addslashes($this->currentuser) . "')", $this->db);
+				addslashes($this->currentuser) . "', '" . 
+				addslashes($this->allowanonymous) . "')", $this->db);
 			if(mysql_error()){
 				throw new Exception('Invalid query: ' . mysql_error());
 			}
@@ -427,6 +435,9 @@ class Foodle {
 	}
 	public function getMaxDef() {
 		return $this->maxdef;
+	}
+	public function getAnon() {
+		return $this->allowanonymous;
 	}
 	
 	public function getOwner() {

@@ -135,8 +135,13 @@ try {
 		}
 		echo 'maxdef:' . $maxdef ;
 		
+		
+		$anon = '0';
+		if (array_key_exists('anon', $_REQUEST)) $anon = '1';
+		
+		
 		$foodle = new Foodle(null, $userid);
-		$foodle->setInfo($name, $descr, $expire, $maxdef );
+		$foodle->setInfo($name, $descr, $expire, $maxdef, $anon );
 		$foodle->setColumnsByDef($_REQUEST['coldef']);
 
 		

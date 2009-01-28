@@ -1,3 +1,49 @@
+a.button:link {
+	color: #444 ! important;
+	
+}
+a.button {
+	outline: none; /* hide dotted outline in Firefox */
+	margin-top: 3px; margin-bottom: 3px;
+
+	background: transparent url('buttons/bg_button_a.png') no-repeat scroll top right;
+	color: #444 ! important;
+	display: block;
+	float: left;
+	font: normal 12px arial, sans-serif;
+	height: 24px;
+	margin-right: 6px;
+	padding-right: 18px; /* sliding doors padding */
+	text-decoration: none;
+	border: none ! important;
+}
+
+a.button span {
+	background: transparent url('buttons/bg_button_span.png') no-repeat;
+	display: block;
+	line-height: 14px;
+	padding: 5px 0 5px 18px;
+}
+.clear { /* generic container (i.e. div) for floating buttons */
+	overflow: hidden;
+	width: 100%;
+}
+
+
+a.button:active {
+	background-position: bottom right;
+	color: #000 ! important;
+	outline: none; /* hide dotted outline in Firefox */
+}
+
+a.button:active span {
+	background-position: bottom left;
+	padding: 6px 0 4px 18px; /* push text down 1px */
+}
+
+
+
+
 #ulogo {
 	position: absolute;
 	top: 10px; right: 20px;
@@ -10,8 +56,8 @@
 	letter-spacing: -0.12em;
 	text-shadow: 0px 2px 0px #900;
 	font-size: 30px;
-	position: absolute;
-	top: 2px; left: 2px;
+/*	position: absolute;
+	top: 2px; left: 2px; */
 	z-index: 10;
 }
 #version {
@@ -19,6 +65,10 @@
 	letter-spacing: 0.1em;
 	font-size: x-small;
 	text-shadow: 0px 1px 0px #900;
+}
+#logo #news {
+	font-weight: normal;
+	letter-spacing: 0em;
 }
 
 

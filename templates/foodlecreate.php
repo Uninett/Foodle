@@ -37,7 +37,9 @@
 		<?php echo $this->t('htmlinfo'); ?>
 	
 
-
+		<p><a class="button" onclick="$('#foodletabs > ul').tabs('select', 1);">
+			<span><?php echo $this->t('next'); ?> » <?php echo $this->t('setupcolumns'); ?></span></a></p>
+		<br class="clear" />
 
     </div> 
     <div id="fcols"> 
@@ -84,6 +86,13 @@
 
 		<p style="clear:both"></p>
 
+		<p>
+			<a class="button" onclick="$('#foodletabs > ul').tabs('select', 2);">
+				<span><?php echo $this->t('next'); ?> » <?php echo $this->t('preview'); ?></span></a>
+			<a class="button" onclick="$('#foodletabs > ul').tabs('select', 3);">
+				<span><?php echo $this->t('advancedoptions'); ?></span></a>
+		</p>
+		<br class="clear" />
 
 
 
@@ -126,6 +135,10 @@
 		?>"/><br />
 		<?php echo $this->t('format'); ?>: YYYY-MM-DD HH:MM
 		
+		
+		<h2 style="margin-top: 2em"><?php echo $this->t('anonheader'); ?></h2>
+		<p><input type="checkbox" name="anon"> <?php echo $this->t('allowanon'); ?><br />
+		
 		<h2 style="margin-top: 2em"><?php echo $this->t('maxheader'); ?></h2>
 		<p><?php echo $this->t('maxdescr'); ?><br />
 		<input id="maxentries" type="text" name="maxentries" size="3" value="" /></p>
@@ -138,6 +151,11 @@
 				<option value="4">Column 4</option>
 				<option value="5">Column 5</option>
 			</select></p>
+		
+		<p><a class="button" onclick="$('#foodletabs > ul').tabs('select', 2);">
+			<span><?php echo $this->t('next'); ?> » <?php echo $this->t('preview'); ?></span></a></p>
+		<br class="clear" />
+		
 		
 	</div>
 

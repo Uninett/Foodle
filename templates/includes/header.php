@@ -203,66 +203,73 @@ function toggle(x) {
 <body>
 
 <div id="Hovedtopp">
+	
+	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 2.1</span> 
+		<a id="news" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/category/topics/foodle">read news about foodle...</a>
+	</div>
+	<a href="http://rnd.feide.no"><img id="ulogo" alt="notes" src="resources/uninettlogo.gif" /></a>
 
 </div>
 
-<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 2.0</span></div>
-<a href="http://rnd.feide.no"><img id="ulogo" alt="notes" src="resources/uninettlogo.gif" /></a>
 
 
-  <div class="stylehead">
-	
 
-		<div class="pagename">
-		
-		<?php 
-		
-	if (isset($this->data['bread'])) {
-		$first = TRUE;
-		foreach ($this->data['bread'] AS $item) {
-			if (!$first) echo ' » ';
+<div class="stylehead">
+
+
+<?php 
+
+echo '<p style="float: left; margin-left: 1em">';
+if (isset($this->data['bread'])) {
+	$first = TRUE;
+	foreach ($this->data['bread'] AS $item) {
+		if (!$first) echo ' » ';		
+		if (isset($item['href'])) {
 			
-			if (isset($item['href'])) {
-				
-				if (strstr($item['title'],'bc_') == $item['title'] ) {
-					echo '<a href="' . $item['href'] . '">' . $this->t($item['title']) . '</a>';
-				} else {
-					echo '<a href="' . $item['href'] . '">' . $item['title'] . '</a>';
-				}
-			
-				
+			if (strstr($item['title'],'bc_') == $item['title'] ) {
+				echo '<a href="' . $item['href'] . '">' . $this->t($item['title']) . '</a>';
 			} else {
-				if (strstr($item['title'],'bc_') == $item['title'] ) {
-					echo $this->t($item['title']);
-				} else {
-					echo $item['title'];
-				}
-				
+				echo '<a href="' . $item['href'] . '">' . $item['title'] . '</a>';
+			}
+		} else {
+			if (strstr($item['title'],'bc_') == $item['title'] ) {
+				echo $this->t($item['title']);
+			} else {
+				echo $item['title'];
 			}
 			
-			
-			$first = FALSE;
 		}
+		$first = FALSE;
+	}
+}
+echo '</p>';
+
+
+
+	if (isset($this->data['loginurl'])) {
+		echo '<a class="button" style="float: right" href="' . htmlentities($this->data['loginurl']) . '"><span>' . $this->t('login') . '</span></a>';
+		
+	} else {	
+		echo '<a class="button" style="float: right" href="/simplesaml/saml2/sp/initSLO.php?RelayState=http://rnd.feide.no"><span>Single Log-Out</span></a>';
+
 	}
 	
 	
-		?>
-		
-
-		</div>
-		
-		
-				<!-- <a href="/simplesaml/saml2/sp/initSLO.php?RelayState=/simplesaml/logout.html">Feide logout</a>  -->
-
-        <form class="button" method="get" action="/simplesaml/saml2/sp/initSLO.php"><input type="hidden" name="RelayState" value="http://rnd.feide.no" /><div class="no"><input type="submit" value="Single Log-Out" class="button" /></div></form>
-
-        <form class="button" method="get" action="https://rnd.feide.no/content/foodle-users-guide"><div class="no"><input type="submit" value="<?php echo htmlentities($this->t('help')) . ' (' . htmlentities($this->t('usermanual')) . ')'; ?>" class="button" /></div></form>
+	if (isset($this->data['headbar'])) {
+		echo $this->data['headbar'];
+	}
+	
+// 	echo '<a class="button" style="float: right" href="https://rnd.feide.no/content/foodle-users-guide">
+// 		<span>' . htmlentities($this->t('help')) . ' (' . htmlentities($this->t('usermanual')) . ')' . '</span></a>';
 
 
-		
-		
 
-  </div>
+
+
+?>
+
+<br class="clear" />
+</div>
 
   
 
@@ -290,7 +297,9 @@ $langnames = array(
 
 
 
+echo '<div class="lang" style="">';
 
+	
 if (empty($_POST) ) {
 	$textarray = array();
 
@@ -315,13 +324,12 @@ if (empty($_POST) ) {
 				$langnames[$lang] . '</a>';
 		}
 	}
-	echo '<div class="lang" style="float: right; width: 500px; text-align: right; padding-right: 4px">' .  join(' | ', $textarray) . '</div>';
-	
+	echo '<p style="float: right; margin-right: 1em">' .  join(' | ', $textarray) . '</p>';
 
 	
 
 }
-
+echo '</div>';
 ?>
 		
 

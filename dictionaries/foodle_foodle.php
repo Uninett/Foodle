@@ -45,7 +45,7 @@ $lang = array(
 		'en' => 'Subscribe to RSS feed',
 	),
 	'completefoodle' => array (
-		'no' => 'Lagre Foodle',
+		'no' => 'Opprett Foodle',
 		'en' => 'Complete Foodle',
 		'da' => 'Færdig Foodle',
 		'sv' => 'Fullständigt Foodle',
@@ -584,6 +584,42 @@ $lang = array(
 		'es' => 'Completado',
 		'nl' => 'Gereed',
 		'sl' => 'Dokončan',
+	),
+	'anonheader' => array (
+		'no' => 'Tillate anonym tilgang?',
+		'en' => 'Allow anonymous access?',
+	),
+	'allowanon' => array (
+		'no' => 'Kryss av for å tillate brukere å svare på denne Foodlen uten å først måtte logge inn. Merk deg at dette kan føre til ukjente svar, og svar som ikke er tilknyttet noen e-post adresse.',
+		'en' => 'Check to allow users to respond to this Foodle without first logging in. Notice that this may lead to unknown responders, and responders without registered e-mail address.',
+	),
+	'login' => array (
+		'no' => 'Logg inn',
+		'en' => 'Login',
+	),
+	'updated' => array (
+		'no' => 'Siste oppdatert',
+		'en' => 'Updated',
+	),
+	'next' => array (
+		'no' => 'Neste',
+		'en' => 'Next',
+	),
+	'register_email' => array (
+		'no' => 'Du har ikke logget inn og er anonym. Vi anbefaler at du enten logger inn, eller fyller inn din e-post adresse og navn nedenunder. Hvis du legger igjen e-post adressen, vil vedkommende som opprettet Foodle-n  kunne kontakte deg, og du vil og få en mail i fra Foodle med en lenke du kan trykke på for å endre på besvarelsen din.',
+		'en' => 'You have not logged in to Foodle and are currently anonymous. We reccomend that you either log in, or fill-in your e-mail and name below. If you leave your e-mail address the Foodle owner may contact you, you will also get an e-mail from foodle that allow you to return and edit your response.',
+	),
+	'displayname' => array (
+		'no' => 'Ditt navn',
+		'en' => 'Your name',
+	),
+	'email' => array (
+		'no' => 'E-post adresse',
+		'en' => 'E-mail address',
+	),
+	'emailreg_submit' => array (
+		'no' => 'Lagre',
+		'en' => 'Save, and continue using Foodle',
 	),
 
 );

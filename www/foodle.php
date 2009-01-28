@@ -22,7 +22,7 @@ require_once('SimpleSAML/XHTML/Template.php');
  * Loading Foodle libraries
  */
 require_once('../lib/Foodle.class.php');
-#require_once('../lib/OpenWikiDictionary.class.php');
+require_once('../lib/FoodleAuth.php');
 
 /**
  * Initializating configuration
@@ -36,44 +36,13 @@ $config = SimpleSAML_Configuration::getInstance('foodle');
 session_start();
 
 
-#include('../config/groups.php');
-
 try {
 
-	/* Load simpleSAMLphp, configuration and metadata */
-	$sspconfig = SimpleSAML_Configuration::getInstance();
-	$session = SimpleSAML_Session::getInstance();
-	
-	/* Check if valid local session exists.. */
-	if (!isset($session) || !$session->isValid('saml2') ) {
-		SimpleSAML_Utilities::redirect(
-			'/' . $sspconfig->getValue('baseurlpath') .
-			'saml2/sp/initSSO.php',
-			array('RelayState' => SimpleSAML_Utilities::selfURL())
-			);
-	}
-	$attributes = $session->getAttributes();
-
-	$email = '';	
-	$userid = 'na';
-	if (isset($attributes['mail'])) {
-		$userid = $attributes['mail'][0];
-	}
-	if (isset($attributes['eduPersonPrincipalName'])) {
-		$userid = $attributes['eduPersonPrincipalName'][0];
-	}
-	if (isset($attributes['mail'])) {
-		$email = $attributes['mail'][0];
-	}
 
 
 	
 	
-	
-	$displayname = 'NA';
-	if (isset($attributes['smartname-fullname'])) 
-		$displayname = $attributes['smartname-fullname'][0];
-	
+#	echo $displayname; exit;
 	
 	if (!isset($_SESSION['foodle_cache'])) {
 		$_SESSION['foodle_cache'] = array();
@@ -104,29 +73,36 @@ try {
 	mysql_select_db($config->getValue('db.name','feidefoodle'));
 	
 	
+
 	
 	
-	// TODO: REMOVE true to enable caching..
-	#if (! array_key_exists($thiswiki,$_SESSION['foodle_cache'] ) || true) {
+	$foodle = new Foodle($thisfoodle, NULL, $link);
+
+	$foodleauth = new FoodleAuth();
 	
-		$foodle = new Foodle($thisfoodle, $userid, $link);
+#	echo '<pre>'; print_r($foodle); exit;
 	
-		if (isset($_REQUEST['createnewsubmit'])) {
-			if (!$foodle->isLoaded()) {
-				$foodle->setOwner($userid);
-			}
+	$anon = ($foodle->getAnon() == '1' ? TRUE : FALSE);
+	$foodleauth->requireAuth($anon);
+
+	$email = $foodleauth->getMail();
+	$userid = $foodleauth->getUserID();
+	$displayname = $foodleauth->getDisplayName();
+	
+	$loginurl = NULL;
+	if (!$foodleauth->isAuth()) {
+		$sspconfig = SimpleSAML_Configuration::getInstance();
+		$loginurl = '/' . $sspconfig->getValue('baseurlpath') . 'saml2/sp/initSSO.php?RelayState=' . urlencode(SimpleSAML_Utilities::selfURL());
+	}
+	
+	if (isset($_REQUEST['createnewsubmit'])) {
+		if (!$foodle->isLoaded()) {
+			$foodle->setOwner($userid);
 		}
-// 		
-// 		$_SESSION['foodle_cache'][$thisfoodle] =& $foodle;
-// 		
-// 	} else {
-// 	
-// 		$foodle =& $_SESSION['foodle_cache'][$thiswiki];
-// 	
-// 	}
-	
-	#echo '<pre>'; print_r($foodle); echo '</pre>'; exit;
-	
+	}
+
+	$foodle->setCurrentuser($userid);
+
 
 	if (!empty($_REQUEST['username'])) {
 
@@ -197,10 +173,15 @@ try {
 	$et->data['maxnum'] = $maxnum;
 	$et->data['used'] = $used;
 	
+	$et->data['registerEmail'] = (empty($email));
+	
 	$et->data['owner'] = ($userid == $foodle->getowner()) || ($userid == 'andreas@uninett.no');
 	
 	$et->data['userid'] = $userid;
 	$et->data['displayname'] = $displayname;
+	$et->data['email'] = $email;
+	
+	$et->data['loginurl'] = $loginurl;
 			
 	$et->data['yourentry'] = $foodle->getYourEntry($displayname);
 	$et->data['otherentries'] = $foodle->getOtherEntries();

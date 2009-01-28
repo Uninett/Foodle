@@ -11,7 +11,7 @@
 		echo '<ul>';
 		foreach ($this->data['ownerentries'] AS $entry) {
 			echo '<li><a href="foodle.php?id=' . $entry['id'] . '">' . 
-				$entry['name'] . '</a> - ' . substr(strip_tags($entry['descr']), 0, 100) .
+				$entry['name'] . '</a> - ' . substr(strip_tags($entry['descr']), 0, 200) .
 			'</li>';
 		}
 		echo '</ul>';

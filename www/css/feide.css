@@ -13,13 +13,15 @@ div.stylefoot{
 	color: #888;
 }
 div.stylehead{
-	position: absolute;
+/*	position: absolute;
 	top: 42px;
 	width: 100%;
+	
+	*/
 	background: #eee;
 	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
-	margin: 0px; 
+	margin: 4px 0px 4px 0px; 
 	padding: 0px 0px 0px 0px;
 	z-index: 1;
 }
@@ -59,8 +61,8 @@ div.dokuwiki {
 }
 
 div.dokuwiki {
-    position: absolute;
-    top: 70px;
+/*    position: absolute;
+    top: 80px; */
     margin-right: 0px;
     margin-left: 0px;
 }
@@ -204,11 +206,12 @@ a.feidebuttonlink:hover{
 /*** Layout ***/
 
 #Hovedtopp {
-    position: absolute;
+/*    position: absolute;
     right: 0;
     left:0;
     height: 155px;
     width: 100%;
+    */
     z-index: 0;
     background:url("images/topp-bakgrunn_small.png") repeat-x;
 }

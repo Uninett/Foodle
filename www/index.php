@@ -1,13 +1,13 @@
 <?php
 
-$path_extra = '/var/simplesamlphp-openwiki/lib';
+$path_extra = '/var/simplesamlphp-foodle/lib';
 $path = ini_get('include_path');
 $path = $path_extra . PATH_SEPARATOR . $path;
 ini_set('include_path', $path);
 
 
 
-include('/var/simplesamlphp-openwiki/www/_include.php');
+include('/var/simplesamlphp-foodle/www/_include.php');
 
 
 
@@ -20,13 +20,14 @@ include('/var/simplesamlphp-openwiki/www/_include.php');
  */
 require_once('../lib/Foodle.class.php');
 require_once('../lib/FoodleListings.php');
+require_once('../lib/FoodleAuth.php');
 
 
 /**
  * Initializating configuration
  */
 SimpleSAML_Configuration::init(dirname(dirname(__FILE__)) . '/config', 'foodle');
-SimpleSAML_Configuration::init('/var/simplesamlphp-openwiki/config');
+SimpleSAML_Configuration::init('/var/simplesamlphp-foodle/config');
 
 $config = SimpleSAML_Configuration::getInstance('foodle');
 
@@ -37,34 +38,18 @@ session_start();
 
 try {
 
+
+	$foodleauth = new FoodleAuth();
 	
-	/* Load simpleSAMLphp, configuration and metadata */
-	$sspconfig = SimpleSAML_Configuration::getInstance();
-	$session = SimpleSAML_Session::getInstance();
-	
-	/* Check if valid local session exists.. */
-	if (!isset($session) || !$session->isValid('saml2') ) {
-		SimpleSAML_Utilities::redirect(
-			'/' . $sspconfig->getValue('baseurlpath') .
-			'saml2/sp/initSSO.php',
-			array('RelayState' => SimpleSAML_Utilities::selfURL())
-			);
+	if (array_key_exists('foodleSession', $_COOKIE) || array_key_exists('sessionBootstrap', $_REQUEST)) {
+		$foodleauth->requireAuth(TRUE);
+	} else {
+		$foodleauth->requireAuth(FALSE);	
 	}
-	$attributes = $session->getAttributes();
-	
-	$userid = 'na';
-	if (isset($attributes['mail'])) {
-		$userid = $attributes['mail'][0];
-	}
-	if (isset($attributes['eduPersonPrincipalName'])) {
-		$userid = $attributes['eduPersonPrincipalName'][0];
-	}
-	
-	
-	
-	$displayname = 'NA';
-	if (isset($attributes['smartname-fullname'])) 
-		$displayname = $attributes['smartname-fullname'][0];
+
+	$email = $foodleauth->getMail();
+	$userid = $foodleauth->getUserID();
+	$displayname = $foodleauth->getDisplayName();
 
 	
 	if (!isset($_SESSION['foodle_cache'])) {

@@ -1,4 +1,20 @@
 <?php 
+
+
+
+	
+	
+		$headbar = '<a class="button" style="float: right; " 
+				title="Comma separated file, works with Excel." href="csv.php?id=' . $_REQUEST['id'] . '">
+			<span><!-- <img src="resources/spreadsheet.png" /> -->' . 
+				$this->t('open_in_spreadsheet') . '</span></a>';
+		$headbar .= '<a class="button" style="float: right" href="rss.php?id=' . $_REQUEST['id'] . '">
+			<span><!-- img src="resources/feed-icon-14x14.png"  / -->
+			' . $this->t('subscribe_rss') . '</span></a>';
+		$headbar .= '<a class="button" style="float: right" href="foodle.php?id=' . $_REQUEST['id'] . '"><span>' . $this->t('refresh') . '</span></a></p>';
+
+	$this->data['headbar'] = $headbar;
+
 	$this->includeAtTemplateBase('includes/header.php'); 
 
 
@@ -45,26 +61,9 @@ function show_response($response) {
 }
 ?>
 
-<form method="post" action="foodle.php">
+	
+	
 
-<input type="hidden" name="id" value="<?php echo $this->data['identifier']; ?>" />
-	
-	
-	<?php
-	
-		echo '<div class="extbox" style="	clear: right;">
-			<img src="resources/spreadsheet.png" />
-			<a title="Comma separated file, works with Excel." href="csv.php?id=' . $_REQUEST['id'] . '">' . 
-				$this->t('open_in_spreadsheet') . '</a></div>';
-
-
-		echo '<div class="extbox">
-			<img src="resources/feed-icon-14x14.png" />
-			<a href="rss.php?id=' . $_REQUEST['id'] . '">' . $this->t('subscribe_rss') . '</a></div>';
-
-	
-	
-	?>
 
 	<h1><?php if (isset($this->data['header'])) { echo $this->data['header']; } else { echo "Some error occured"; } ?></h1>
 
@@ -73,17 +72,10 @@ function show_response($response) {
 	<?php 
 	
 	
-// 	if ($this->data['owner']) {
-// 		echo '<p>[ <a href="foodle.php?id=' . $_REQUEST['id'] . '">' . $this->t('refresh') . '</a> | 
-// 			<a href="edit.php?id=' . $_REQUEST['id'] . '">' . strtolower($this->t('editfoodle')) . '</a>
-// 		]</p>';
-// 	} else {
-		echo '<p>[ <a href="foodle.php?id=' . $_REQUEST['id'] . '">' . $this->t('refresh') . '</a> ]</p>';
-// 	}
+
 	
 	
 	?>
-	
 	
 	<?php 
 
@@ -157,7 +149,35 @@ function show_response($response) {
 	
 	?>
 
-	
+
+
+<?php
+
+	if ($this->data['registerEmail']) {
+		echo '<form method="post" action="foodle.php" style="display: block; border: 1px solid #999; background: #eee; padding: 1em 2em 0em 2em;">
+				<input type="hidden" name="id" value="' . $this->data['identifier'] . '" />';
+		echo '<p>' . $this->t('register_email') . '</p>';
+		echo '<p>' . $this->t('displayname') . ': <input type="text" name="setDisplayName" value="' . 
+			(isset($this->data['displayname']) ? $this->data['displayname'] : '') . '"/><br />';		
+		echo '' . $this->t('email') . ': <input type="text" name="setEmail" /></p>';		
+		echo '<p><input type="submit" name="reg" value="' . $this->t('emailreg_submit') . '" /></p>';		
+		echo '</form>';
+	}
+
+
+
+
+
+?>
+
+
+
+
+
+
+<form method="post" action="foodle.php">
+<input type="hidden" name="id" value="<?php echo $this->data['identifier']; ?>" />
+
 	
 	<h2><?php echo $this->t('responses'); ?></h2>
 	
@@ -165,7 +185,7 @@ function show_response($response) {
 	
 		<tr>
 			<th rowspan="2" style="width: 20px; padding: 3px 1px 1px 1px"><img alt="notes" src="resources/notes.png" /></th>
-			<th rowspan="2">Name</th>
+			<th rowspan="2"><?php echo $this->t('name'); ?></th>
 	<?php
 	
 	$secondrow = array();
@@ -180,7 +200,7 @@ function show_response($response) {
 			}
 		}
 	}
-	echo '<th rowspan="2" style="width: 4em">Updated</th>';
+	echo '<th rowspan="2" style="width: 4em">' . $this->t('updated') . '</th>';
 	echo '</tr><tr>';
 	foreach ($secondrow AS $entry) {
 		echo '<th>' . $entry . '</th>';
