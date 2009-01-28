@@ -1,11 +1,11 @@
 <?php
 
-$path_extra = '/var/simplesamlphp-openwiki/lib';
+$path_extra = '/var/simplesamlphp-foodle/lib';
 $path = ini_get('include_path');
 $path = $path_extra . PATH_SEPARATOR . $path;
 ini_set('include_path', $path);
 
-include('/var/simplesamlphp-openwiki/www/_include.php');
+include('/var/simplesamlphp-foodle/www/_include.php');
 
 
 
@@ -23,21 +23,18 @@ require_once('SimpleSAML/XHTML/Template.php');
  * Loading Foodle libraries
  */
 require_once('../lib/Foodle.class.php');
-#require_once('../lib/OpenWikiDictionary.class.php');
 
 /**
  * Initializating configuration
  */
 SimpleSAML_Configuration::init(dirname(dirname(__FILE__)) . '/config', 'foodle');
-SimpleSAML_Configuration::init('/var/simplesamlphp-openwiki/config');
+SimpleSAML_Configuration::init('/var/simplesamlphp-foodle/config');
 
 $config = SimpleSAML_Configuration::getInstance('foodle');
 
 // Starting sessions.
 session_start();
 
-
-#include('../config/groups.php');
 
 
 try {

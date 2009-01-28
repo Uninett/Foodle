@@ -54,12 +54,13 @@ function show_response($response) {
 	
 		echo '<div class="extbox" style="	clear: right;">
 			<img src="resources/spreadsheet.png" />
-			<a title="Comma separated file, works with Excel." href="csv.php?id=' . $_REQUEST['id'] . '">open in spreadsheet</a></div>';
+			<a title="Comma separated file, works with Excel." href="csv.php?id=' . $_REQUEST['id'] . '">' . 
+				$this->t('open_in_spreadsheet') . '</a></div>';
 
 
 		echo '<div class="extbox">
 			<img src="resources/feed-icon-14x14.png" />
-			<a href="rss.php?id=' . $_REQUEST['id'] . '">subscribe to RSS</a></div>';
+			<a href="rss.php?id=' . $_REQUEST['id'] . '">' . $this->t('subscribe_rss') . '</a></div>';
 
 	
 	
@@ -219,7 +220,7 @@ function show_response($response) {
 		
 		// Only show add a comment entry if comment is not already added.
 		if (empty($this->data['yourentry']['notes'])) {
-			echo '<a style="float: right" id="ac" href="">Add a comment</a>';
+			echo '<a style="float: right" id="ac" href="">' . $this->t('addcomment') . '</a>';
 		}
 		
 		echo '<input type="text" name="username" value="' . $this->data['yourentry']['username'] . '" /> (<tt>' . $this->data['yourentry']['userid']. '</tt>)';
