@@ -35,14 +35,17 @@ $lang = array(
 	'addcomment' => array (
 		'no' => 'Legg til en kommentar',
 		'en' => 'Add a comment',
+		'sv' => 'Lägg till en kommentar',
 	),
 	'open_in_spreadsheet' => array (
 		'no' => 'Åpne i regneark',
 		'en' => 'Open in spreadsheet',
+		'sv' => 'Öppna som kalkylark',
 	),
 	'subscribe_rss' => array (
 		'no' => 'Abbonér på RSS feed',
 		'en' => 'Subscribe to RSS feed',
+		'sv' => 'Abbonera på RSS-feed',
 	),
 	'completefoodle' => array (
 		'no' => 'Opprett Foodle',
@@ -350,7 +353,7 @@ $lang = array(
 		'en' => 'Expire (optional)',
 		'da' => 'Udløb (valgfri)',
 		'de' => 'Ablauf (optional)',
-		'sv' => 'Upphör (valfritt)',
+		'sv' => 'Sista giltighetsdatum (valfritt)',
 		'es' => 'Finaliza (opcional)',
 		'nl' => 'Vervaldatum (optioneel)',
 		'sl' => 'Poteče (ni obvezno)',
@@ -520,7 +523,7 @@ $lang = array(
 		'en' => 'This foodle has an expiration date',
 		'da' => 'Denne Foodle har en udløbsdato',
 		'de' => 'Dieser Foodle hat ein Ablaufdatum',
-		'sv' => 'Denna foodle har ett upphörandedatum',
+		'sv' => 'Denna foodle har ett giltighetsdatum',
 		'es' => 'Este foodle tiene una fecha límite',
 		'nl' => 'Deze Foodle heeft een verval datum',
 		'sl' => 'Ta foodle ima nastavljen datum veljavnosti.',
@@ -588,46 +591,57 @@ $lang = array(
 	'anonheader' => array (
 		'no' => 'Tillate anonym tilgang?',
 		'en' => 'Allow anonymous access?',
+		'sv' => 'Tillåt anonym åtkomst',
 	),
 	'allowanon' => array (
 		'no' => 'Kryss av for å tillate brukere å svare på denne Foodlen uten å først måtte logge inn. Merk deg at dette kan føre til ukjente svar, og svar som ikke er tilknyttet noen e-post adresse.',
 		'en' => 'Check to allow users to respond to this Foodle without first logging in. Notice that this may lead to unknown responders, and responders without registered e-mail address.',
+		'sv' => 'Markera för att tillåta användare att svara på denna Foodle utan att först logga in. Notera att detta kan leda till okända svaranden utan registrerade e-postadresser.',
 	),
 	'login' => array (
 		'no' => 'Logg inn',
 		'en' => 'Login',
+		'sv' => 'Logga in',
 	),
 	'updated' => array (
 		'no' => 'Siste oppdatert',
 		'en' => 'Updated',
+		'sv' => 'Senast uppdaterad',
 	),
 	'next' => array (
 		'no' => 'Neste',
 		'en' => 'Next',
+		'sv' => 'Nästa',
 	),
 	'read_news' => array (
 		'no' => 'les nyheter om Foodle...',
 		'en' => 'read news about foodle...',
+		'sv' => 'Läs nyheter om Foodle...',
 	),
 	'join_mailinglist' => array (
 		'no' => 'meld deg på foodle sin e-post liste',
 		'en' => 'join foodle-users mailinglist',
+		'sv' => 'Gå med i e-postlistan för Foodle',
 	),
 	'register_email' => array (
 		'no' => 'Du har ikke logget inn og er anonym. Vi anbefaler at du enten logger inn, eller fyller inn din e-post adresse og navn nedenunder. Hvis du legger igjen e-post adressen, vil vedkommende som opprettet Foodle-n  kunne kontakte deg, og du vil og få en mail i fra Foodle med en lenke du kan trykke på for å endre på besvarelsen din.',
 		'en' => 'You have not logged in to Foodle and are currently anonymous. We reccomend that you either log in, or fill-in your e-mail and name below. If you leave your e-mail address the Foodle owner may contact you, you will also get an e-mail from foodle that allow you to return and edit your response.',
+		'sv' => 'Du har inte loggat in i Foodle och är för tillfället anonym. Vi rekommendrar att du antingen loggar in eller att du lämnar namn och e-postadress nedan. Om du lämnar din e-postadress kan ägaren av denna Foodle kontakta dig. Du får också ett e-postmeddelande frpm Foodle som medför att du kan återkomma och ändra ditt svar.',
 	),
 	'displayname' => array (
 		'no' => 'Ditt navn',
 		'en' => 'Your name',
+		'sv' => 'Ditt namn',
 	),
 	'email' => array (
 		'no' => 'E-post adresse',
 		'en' => 'E-mail address',
+		'sv' => 'E-postadress',
 	),
 	'emailreg_submit' => array (
 		'no' => 'Lagre',
 		'en' => 'Save, and continue using Foodle',
+		'sv' => 'Spara och fortsätt använda Foodle',
 	),
 
 );
