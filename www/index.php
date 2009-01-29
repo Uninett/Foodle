@@ -1,33 +1,8 @@
 <?php
 
-$path_extra = '/var/simplesamlphp-foodle/lib';
-$path = ini_get('include_path');
-$path = $path_extra . PATH_SEPARATOR . $path;
-ini_set('include_path', $path);
+require_once('_include.php');
 
 
-
-include('/var/simplesamlphp-foodle/www/_include.php');
-
-
-
-/**
- * Loading simpleSAMLphp libraries
- */
-
-/*
- * Loading Foodle libraries
- */
-require_once('../lib/Foodle.class.php');
-require_once('../lib/FoodleListings.php');
-require_once('../lib/FoodleAuth.php');
-
-
-/**
- * Initializating configuration
- */
-SimpleSAML_Configuration::init(dirname(dirname(__FILE__)) . '/config', 'foodle');
-SimpleSAML_Configuration::init('/var/simplesamlphp-foodle/config');
 
 $config = SimpleSAML_Configuration::getInstance('foodle');
 
