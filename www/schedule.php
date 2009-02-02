@@ -132,6 +132,9 @@ try {
 	$et = new SimpleSAML_XHTML_Template($config, 'foodlecreate.php', 'foodle_foodle');
 	
 	$et->data['authenticated'] = $foodleauth->isAuth();
+	$et->data['userid'] = $userid;
+	$et->data['displayname'] = $displayname;
+
 	$et->data['bread'] = array(
 		array('href' => '/', 'title' => 'bc_frontpage'), 
 		array('title' => 'bc_createnew')
@@ -144,6 +147,9 @@ try {
 	$et->data['bread'] = array(array('href' => '/', 'title' => 'bc_frontpage'), array('title' => 'bc_errorpage'));
 	$et->data['message'] = $e->getMessage();
 	$et->data['authenticated'] = $foodleauth->isAuth();
+	$et->data['userid'] = $userid;
+	$et->data['displayname'] = $displayname;
+
 	
 	$et->show();
 
