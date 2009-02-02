@@ -70,7 +70,7 @@ function show_response($response) {
 	
 	echo '<div style="" id="facebookshare" title="' . $this->t('facebookshareheader'). '">';
 	echo '<p>' . $this->t('facebooklinkabout') . '<br /><input type="text" style="width: 90%" name="furl" value="' . htmlentities($this->data['url']) . '&amp;auth=facebook" /></p>';
-	echo '<p><a class="button" style="display: block" href="http://www.facebook.com/sharer.php?u=' . urlencode($this->data['url']) . '&amp;t=' . urlencode('Foodle: ' . $this->data['header']) . '" />' . 
+	echo '<p><a class="button" style="display: block" href="http://www.facebook.com/sharer.php?u=' . urlencode($this->data['url'] . '&amp;auth=facebook') . '&amp;t=' . urlencode('Foodle: ' . $this->data['header']) . '" />' . 
 			'<span>' . $this->t('linkonfacebook') . '</span></a></p>';
 	echo '</div>';	
 
