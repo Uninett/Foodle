@@ -15,7 +15,7 @@ try {
 	
 	
 	$foodleauth = new FoodleAuth();
-	$foodleauth->requireAuth(TRUE);
+	$foodleauth->requireAuth(FALSE);
 
 	$email = $foodleauth->getMail();
 	$userid = $foodleauth->getUserID();

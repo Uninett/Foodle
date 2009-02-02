@@ -65,7 +65,7 @@ if ($this->data['authenticated']) {
 } else {
 	echo($this->t('is_anonymous'));
 	echo '<a class="button" style="" href="' . htmlentities($this->data['loginurl']) . '"><span>' . $this->t('login') . '</span></a>';
-	echo '<a class="button" style="" href="?auth=facebook"><span>' . $this->t('loginfacebook') . '</span></a>';
+	echo '<a class="button" style="" href="?auth=facebook"><span>' . $this->t('facebooklogin') . '</span></a>';
 }
 ?>
 </p>

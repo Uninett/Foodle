@@ -721,6 +721,14 @@ $lang = array(
 		'no' => 'Del på Facebook',
 		'en' => 'Share on Facebook',
 	),
+	'facebooklogin' => array (
+		'no' => 'Logg inn med Facebook',
+		'en' => 'Login with Facebook',
+	),
+	'is_anonymous' => array (
+		'no' => 'Du er ikke logget inn.',
+		'en' => 'You are currently not logged in.',
+	),
 
 );
 
