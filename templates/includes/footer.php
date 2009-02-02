@@ -9,12 +9,18 @@
 
 <?php
 
-if (isset($this->data['userid'])) {
-	echo $this->t('authtext', 
-		array(
-			'%DISPLAYNAME%' => $this->data['displayname'], 
-			'%USERID%' => $this->data['userid']
-	) ); 
+if ($this->data['authenticated']) {
+
+	if (isset($this->data['userid'])) {
+		echo $this->t('authtext', 
+			array(
+				'%DISPLAYNAME%' => $this->data['displayname'], 
+				'%USERID%' => $this->data['userid']
+			) 
+		); 
+	}
+} else {
+	echo($this->t('is_anonymous'));
 }
 
 ?>

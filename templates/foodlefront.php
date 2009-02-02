@@ -54,11 +54,20 @@
 
 <p><?php echo $this->t('welcometext'); ?></p>
 
-<p><?php echo $this->t('authtext', 
+<p><?php 
+
+if ($this->data['authenticated']) {
+	echo $this->t('authtext', 
 	array(
 		'%DISPLAYNAME%' => $this->data['displayname'], 
 		'%USERID%' => $this->data['userid']
-	) ); ?>
+	) ); 
+} else {
+	echo($this->t('is_anonymous'));
+	echo '<a class="button" style="" href="' . htmlentities($this->data['loginurl']) . '"><span>' . $this->t('login') . '</span></a>';
+	echo '<a class="button" style="" href="?auth=facebook"><span>' . $this->t('loginfacebook') . '</span></a>';
+}
+?>
 </p>
 
 <h2><?php echo $this->t('createnew'); ?></h2>

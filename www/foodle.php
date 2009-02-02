@@ -12,11 +12,6 @@ session_start();
 try {
 
 
-
-	
-	
-#	echo $displayname; exit;
-	
 	if (!isset($_SESSION['foodle_cache'])) {
 		$_SESSION['foodle_cache'] = array();
 	}
@@ -62,6 +57,7 @@ try {
 	$userid = $foodleauth->getUserID();
 	$displayname = $foodleauth->getDisplayName();
 	
+	// If anonymous, create a login link.
 	$loginurl = NULL;
 	if (!$foodleauth->isAuth()) {
 		$sspconfig = SimpleSAML_Configuration::getInstance();
@@ -74,7 +70,7 @@ try {
 		}
 	}
 
-	$foodle->setCurrentuser($userid);
+	$foodle = new Foodle($thisfoodle, $userid, $link);
 
 
 	if (!empty($_REQUEST['username'])) {
@@ -95,7 +91,7 @@ try {
 		$foodle->setMyResponse($newentry);
 	#	echo '<pre>'; print_r($foodle->getYourEntry($attributes['cn'][0])); echo '</pre>'; #exit;
 	
-		SimpleSAML_Logger::warning('Attribute debugging: ' . var_export($attributes, TRUE));
+	#	SimpleSAML_Logger::warning('Attribute debugging: ' . var_export($attributes, TRUE));
 
 
 		$foodle = new Foodle($thisfoodle, $userid, $link);
@@ -142,6 +138,9 @@ try {
 	$et->data['expiretext'] = $foodle->getExpireText();
 	$et->data['columns'] = $foodle->getColumns();
 	
+	$et->data['url'] = $config->getValue('url', 'https://foodle.feide.no') . '/' . $config->getValue('baseurlpath') . 'foodle.php?' . $_REQUEST['id'];
+	$et->data['facebookshare'] = TRUE;
+	
 	$et->data['maxcol'] = $maxcol;
 	$et->data['maxnum'] = $maxnum;
 	$et->data['used'] = $used;
@@ -153,6 +152,8 @@ try {
 	$et->data['userid'] = $userid;
 	$et->data['displayname'] = $displayname;
 	$et->data['email'] = $email;
+	
+	$et->data['authenticated'] = $foodleauth->isAuth();
 	
 	$et->data['loginurl'] = $loginurl;
 			

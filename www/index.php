@@ -26,6 +26,14 @@ try {
 	$userid = $foodleauth->getUserID();
 	$displayname = $foodleauth->getDisplayName();
 
+	// If anonymous, create a login link.
+	$loginurl = NULL;
+	if (!$foodleauth->isAuth()) {
+		$sspconfig = SimpleSAML_Configuration::getInstance();
+		$loginurl = '/' . $sspconfig->getValue('baseurlpath') . 'saml2/sp/initSSO.php?RelayState=' . urlencode(SimpleSAML_Utilities::selfURL());
+	}
+
+
 	
 	if (!isset($_SESSION['foodle_cache'])) {
 		$_SESSION['foodle_cache'] = array();
@@ -101,6 +109,8 @@ try {
 	$et->data['userid'] = $userid;
 	$et->data['displayname'] = $displayname;
 	$et->data['bread'] = array(array('title' => 'bc_frontpage'));
+	$et->data['authenticated'] = $foodleauth->isAuth();
+	$et->data['loginurl'] = $loginurl;
 	$et->show();
 
 } catch(Exception $e) {

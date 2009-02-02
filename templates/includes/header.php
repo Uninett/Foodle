@@ -106,6 +106,11 @@ function fillfields() {
 }
 
 
+function showFacebookShare() {
+	
+	$("#facebookshare").dialog("open");
+}
+
 
 $(document).ready(function() {
 	$("a[@id=ac]").
@@ -116,6 +121,13 @@ $(document).ready(function() {
 			$("input[id=comment]").focus();
 		}
 	);
+	
+	$("#facebookshare").dialog({
+		width: 450, height: 260,
+		position: [100, 100],
+		autoOpen: false
+	});
+
 	
 	$("div.fcol input").focus(function () {
 		fillfields();
@@ -130,7 +142,7 @@ $(document).ready(function() {
 		}
 	);
 	
-	
+
 	$("#foodletabs > ul").tabs();
 	
 	/*
@@ -257,7 +269,11 @@ echo '</p>';
 
 	}
 	
-	
+	if (isset($this->data['facebookshare'])) {
+		echo '<a class="button" style="float: right" onclick="showFacebookShare()"><span>' . $this->t('facebookshare') . '</span></a>';
+	}
+
+
 	if (isset($this->data['headbar'])) {
 		echo $this->data['headbar'];
 	}

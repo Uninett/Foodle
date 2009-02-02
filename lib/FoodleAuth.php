@@ -20,7 +20,7 @@ class FoodleAuth {
 		$this->foodleid = $foodleid;
 		
 		/* Check if valid local session exists.. */
-		if ($session->isValid('saml2') ) {
+		if ($session->isValid() ) {
 		
 			$this->isAuth = TRUE;
 			$this->attributes = $session->getAttributes();
@@ -43,6 +43,16 @@ class FoodleAuth {
 		$this->attributes['mail'] = array($mail);
 
 	}
+	
+	private function facebookAuth() {
+		
+		$session = SimpleSAML_Session::getInstance();
+		if (!$session->isValid($as)) {
+			SimpleSAML_Auth_Default::initLogin('facebook', SimpleSAML_Utilities::selfURL());
+		}
+		$attributes = $session->getAttributes();
+	}
+	
 	
 	private function checkAnonymousSession() {
 	
@@ -155,11 +165,15 @@ class FoodleAuth {
 		if (array_key_exists('cn', $this->attributes)) return $this->attributes['cn'][0];
 		
 		return NULL;
-	}	
+	}
 
 	public function requireAuth($allowAnonymous = FALSE) {
 		
 		if ($this->isAuth) return TRUE;
+		
+		if (array_key_exists('auth', $_GET) && $_GET['auth'] === 'facebook') {
+			$this->facebookAuth();
+		}
 		
 		if (!$allowAnonymous) {
 

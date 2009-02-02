@@ -14,37 +14,19 @@ try {
 
 	
 	
+	$foodleauth = new FoodleAuth();
+	$foodleauth->requireAuth(TRUE);
+
+	$email = $foodleauth->getMail();
+	$userid = $foodleauth->getUserID();
+	$displayname = $foodleauth->getDisplayName();
 	
-	/* Load simpleSAMLphp, configuration and metadata */
-	$sspconfig = SimpleSAML_Configuration::getInstance();
-	$session = SimpleSAML_Session::getInstance();
-	
-	/* Check if valid local session exists.. */
-	if (!isset($session) || !$session->isValid('saml2') ) {
-		SimpleSAML_Utilities::redirect(
-			'/' . $sspconfig->getValue('baseurlpath') .
-			'saml2/sp/initSSO.php',
-			array('RelayState' => SimpleSAML_Utilities::selfURL())
-			);
+	// If anonymous, create a login link.
+	$loginurl = NULL;
+	if (!$foodleauth->isAuth()) {
+		$sspconfig = SimpleSAML_Configuration::getInstance();
+		$loginurl = '/' . $sspconfig->getValue('baseurlpath') . 'saml2/sp/initSSO.php?RelayState=' . urlencode(SimpleSAML_Utilities::selfURL());
 	}
-	$attributes = $session->getAttributes();
-	
-	$userid = 'na';
-	if (isset($attributes['mail'])) {
-		$userid = $attributes['mail'][0];
-	}
-	if (isset($attributes['eduPersonPrincipalName'])) {
-		$userid = $attributes['eduPersonPrincipalName'][0];
-	}
-	
-	
-	
-	$displayname = 'NA';
-	if (isset($attributes['cn'])) 
-		$displayname = $attributes['cn'][0];
-	
-	if (isset($attributes['displayName'])) 
-		$displayname = $attributes['displayName'][0];
 	
 	
 	
@@ -106,7 +88,7 @@ try {
 			}
 			$maxdef = $col . ':' . $_REQUEST['maxentries'];
 		}
-		echo 'maxdef:' . $maxdef ;
+
 		
 		
 		$anon = '0';

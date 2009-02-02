@@ -1,21 +1,17 @@
 <?php 
 
+$headbar = '<a class="button" style="float: right; " 
+		title="Comma separated file, works with Excel." href="csv.php?id=' . $_REQUEST['id'] . '">
+	<span><!-- <img src="resources/spreadsheet.png" /> -->' . 
+		$this->t('open_in_spreadsheet') . '</span></a>';
+$headbar .= '<a class="button" style="float: right" href="rss.php?id=' . $_REQUEST['id'] . '">
+	<span><!-- img src="resources/feed-icon-14x14.png"  / -->
+	' . $this->t('subscribe_rss') . '</span></a>';
+$headbar .= '<a class="button" style="float: right" href="foodle.php?id=' . $_REQUEST['id'] . '"><span>' . $this->t('refresh') . '</span></a></p>';
 
+$this->data['headbar'] = $headbar;
 
-	
-	
-		$headbar = '<a class="button" style="float: right; " 
-				title="Comma separated file, works with Excel." href="csv.php?id=' . $_REQUEST['id'] . '">
-			<span><!-- <img src="resources/spreadsheet.png" /> -->' . 
-				$this->t('open_in_spreadsheet') . '</span></a>';
-		$headbar .= '<a class="button" style="float: right" href="rss.php?id=' . $_REQUEST['id'] . '">
-			<span><!-- img src="resources/feed-icon-14x14.png"  / -->
-			' . $this->t('subscribe_rss') . '</span></a>';
-		$headbar .= '<a class="button" style="float: right" href="foodle.php?id=' . $_REQUEST['id'] . '"><span>' . $this->t('refresh') . '</span></a></p>';
-
-	$this->data['headbar'] = $headbar;
-
-	$this->includeAtTemplateBase('includes/header.php'); 
+$this->includeAtTemplateBase('includes/header.php'); 
 
 
 function show_response($response) {
@@ -72,12 +68,13 @@ function show_response($response) {
 	<?php 
 	
 	
+	echo '<div style="" id="facebookshare" title="' . $this->t('facebookshareheader'). '">';
+	echo '<p>' . $this->t('facebooklinkabout') . '<br /><input type="text" style="width: 90%" name="furl" value="' . htmlentities($this->data['url']) . '&amp;auth=facebook" /></p>';
+	echo '<p><a class="button" style="display: block" href="http://www.facebook.com/sharer.php?u=' . urlencode($this->data['url']) . '&amp;t=' . urlencode('Foodle: ' . $this->data['header']) . '" />' . 
+			'<span>' . $this->t('linkonfacebook') . '</span></a></p>';
+	echo '</div>';	
 
-	
-	
-	?>
-	
-	<?php 
+
 
 	$editlocked = FALSE;
 	if ($this->data['expired']) $editlocked = TRUE;
@@ -153,6 +150,7 @@ function show_response($response) {
 
 <?php
 
+if (!$this->data['authenticated']) {
 	if ($this->data['registerEmail']) {
 		echo '<form method="post" action="foodle.php" style="display: block; border: 1px solid #999; background: #eee; padding: 1em 2em 0em 2em;">
 				<input type="hidden" name="id" value="' . $this->data['identifier'] . '" />';
@@ -163,7 +161,7 @@ function show_response($response) {
 		echo '<p><input type="submit" name="reg" value="' . $this->t('emailreg_submit') . '" /></p>';		
 		echo '</form>';
 	}
-
+}
 
 
 
