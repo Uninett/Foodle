@@ -110,6 +110,7 @@ try {
 		$et->data['name'] = $foodle->getName();
 		$et->data['identifier'] = $foodle->getIdentifier();
 		$et->data['descr'] = $foodle->getDescr();
+		$et->data['authenticated'] = $foodleauth->isAuth();
 		$et->data['url'] = 'https://foodle.feide.no/foodle.php?id=' . $id;
 		$et->data['bread'] = array(
 			array('href' => '/', 'title' => 'bc_frontpage'), 
