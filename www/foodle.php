@@ -138,7 +138,7 @@ try {
 	$et->data['expiretext'] = $foodle->getExpireText();
 	$et->data['columns'] = $foodle->getColumns();
 	
-	$et->data['url'] = $config->getValue('url', 'https://foodle.feide.no') . '/' . $config->getValue('baseurlpath') . 'foodle.php?' . $_REQUEST['id'];
+	$et->data['url'] = $config->getValue('url', 'https://foodle.feide.no') . '/' . $config->getValue('baseurlpath') . 'foodle.php?id=' . $_REQUEST['id'];
 	$et->data['facebookshare'] = TRUE;
 	
 	$et->data['maxcol'] = $maxcol;
