@@ -16,11 +16,13 @@ try {
 
 	$foodleauth = new FoodleAuth();
 	
-	if (array_key_exists('foodleSession', $_COOKIE) || array_key_exists('sessionBootstrap', $_REQUEST)) {
-		$foodleauth->requireAuth(TRUE);
-	} else {
-		$foodleauth->requireAuth(FALSE);	
-	}
+	$foodleauth->requireAuth(TRUE);	
+	
+// 	if (array_key_exists('foodleSession', $_COOKIE) || array_key_exists('sessionBootstrap', $_REQUEST)) {
+// 		$foodleauth->requireAuth(TRUE);
+// 	} else {
+// 		$foodleauth->requireAuth(FALSE);	
+// 	}
 
 	$email = $foodleauth->getMail();
 	$userid = $foodleauth->getUserID();
