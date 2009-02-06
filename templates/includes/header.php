@@ -266,7 +266,9 @@ echo '</p>';
 		echo '<a class="button" style="float: right" href="' . htmlentities($this->data['loginurl']) . '"><span>' . $this->t('login') . '</span></a>';
 		
 	} else {	
-		echo '<a class="button" style="float: right" href="/simplesaml/saml2/sp/initSLO.php?RelayState=/' . urlencode($this->data['baseurlpath']) . '"><span>Single Log-Out</span></a>';
+		$sspconfig = SimpleSAML_Configuration::getInstance();
+		echo '<a class="button" style="float: right" href="/' . $sspconfig->getValue('baseurlpath') . 
+			'/saml2/sp/initSLO.php?RelayState=/' . urlencode($this->data['baseurlpath']) . '"><span>Single Log-Out</span></a>';
 
 	}
 	
