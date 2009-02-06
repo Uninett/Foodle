@@ -14,6 +14,7 @@ $config = array (
 	
 	'templatedir'        => 'templates/',
 	'dictionarydir'      => 'dictionaries/',
+	
 	/*
 	 * Languages available and what language is default
 	 */

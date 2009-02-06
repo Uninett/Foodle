@@ -8,6 +8,8 @@ CREATE TABLE def (
 	created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated TIMESTAMP null DEFAULT null,
 	expire DATETIME null,
+	maxdef text,
+	anon tinytext
 
 );
 
@@ -20,5 +22,8 @@ CREATE TABLE entries (
 	
 	created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated TIMESTAMP null DEFAULT null,
+	
+	notes text,
+	email text
 
 );
