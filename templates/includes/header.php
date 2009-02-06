@@ -6,7 +6,7 @@
 	
 	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/jquery.js"></script>
 	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/jquery-ui.js"></script>
-	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>/js/uitheme/jquery-ui-themeroller.css" />
+	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>js/uitheme/jquery-ui-themeroller.css" />
 
 	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/wmd.js"></script>
 	<style>
