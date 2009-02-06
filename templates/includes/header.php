@@ -4,11 +4,11 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<meta http-equiv="Content-Language" content="en">
 	
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/jquery-ui.js"></script>
-	<link rel="stylesheet" media="screen" type="text/css" href="/js/uitheme/jquery-ui-themeroller.css" />
+	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/jquery.js"></script>
+	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/jquery-ui.js"></script>
+	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>/js/uitheme/jquery-ui-themeroller.css" />
 
-	<script type="text/javascript" src="js/wmd.js"></script>
+	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/wmd.js"></script>
 	<style>
 		div.fcol.notinuse{
 			background: #eee;
@@ -181,9 +181,9 @@ function toggle(x) {
 
 
 
-	<link rel="stylesheet" media="screen" type="text/css" href="/css/design.css" />
-	<link rel="stylesheet" media="screen" type="text/css" href="/css/feide.css" />
-	<link rel="stylesheet" media="screen" type="text/css" href="/css/feide-foodle.css" />
+	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>css/design.css" />
+	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>css/feide.css" />
+	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>css/feide-foodle.css" />
 	
 	
 	
@@ -266,7 +266,7 @@ echo '</p>';
 		echo '<a class="button" style="float: right" href="' . htmlentities($this->data['loginurl']) . '"><span>' . $this->t('login') . '</span></a>';
 		
 	} else {	
-		echo '<a class="button" style="float: right" href="/simplesaml/saml2/sp/initSLO.php?RelayState=http://rnd.feide.no"><span>Single Log-Out</span></a>';
+		echo '<a class="button" style="float: right" href="/simplesaml/saml2/sp/initSLO.php?RelayState=/' . urlencode($this->data['baseurlpath']) . '"><span>Single Log-Out</span></a>';
 
 	}
 	
@@ -278,10 +278,6 @@ echo '</p>';
 	if (isset($this->data['headbar'])) {
 		echo $this->data['headbar'];
 	}
-	
-// 	echo '<a class="button" style="float: right" href="https://rnd.feide.no/content/foodle-users-guide">
-// 		<span>' . htmlentities($this->t('help')) . ' (' . htmlentities($this->t('usermanual')) . ')' . '</span></a>';
-
 
 
 
