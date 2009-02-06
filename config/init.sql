@@ -10,7 +10,6 @@ CREATE TABLE def (
 	expire DATETIME null,
 	maxdef text,
 	anon tinytext
-
 );
 
 CREATE TABLE entries (
@@ -25,5 +24,4 @@ CREATE TABLE entries (
 	
 	notes text,
 	email text
-
 );
