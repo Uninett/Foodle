@@ -1,5 +1,18 @@
 <?php
 
+
+
+/*
+ * THIS FILE IS NOT UPDATED TO WORK WITH FOODLE 2.0
+ */
+
+
+exit;
+
+
+
+
+
 $path_extra = '/var/simplesamlphp-openwiki/lib';
 $path = ini_get('include_path');
 $path = $path_extra . PATH_SEPARATOR . $path;
