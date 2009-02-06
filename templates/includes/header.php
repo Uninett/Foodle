@@ -133,14 +133,15 @@ $(document).ready(function() {
 		fillfields();
 	});
 
-	$("a[@id=link_preview]").
-		click(function(event){
-			var defstr = getDefinitionString();
- 			$("div[@id=previewpane]").load('preview.php', { 'def' : defstr }); 
-			$("*[@id=previewheader]").text($("input[@name=name]").attr('value'));
-			$("input[@id=coldef]").attr('value', defstr);
-		}
-	);
+	function updatePreview() {
+		var defstr = getDefinitionString();
+		$("div[@id=previewpane]").load('preview.php', { 'def' : defstr }); 
+		$("*[@id=previewheader]").text($("input[@name=name]").attr('value'));
+		$("input[@id=coldef]").attr('value', defstr);
+	}
+
+	$("a[@id=link_preview]").click(function(event){updatePreview()});
+	$("a.buttonUpdatePreview").click(function(event){updatePreview()});
 	
 
 	$("#foodletabs > ul").tabs();

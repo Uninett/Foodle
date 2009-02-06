@@ -87,7 +87,7 @@
 		<p style="clear:both"></p>
 
 		<p>
-			<a class="button" onclick="$('#foodletabs > ul').tabs('select', 2);">
+			<a class="button buttonUpdatePreview" onclick="$('#foodletabs > ul').tabs('select', 2);">
 				<span><?php echo $this->t('next'); ?> » <?php echo $this->t('preview'); ?></span></a>
 			<a class="button" onclick="$('#foodletabs > ul').tabs('select', 3);">
 				<span><?php echo $this->t('advancedoptions'); ?></span></a>
@@ -152,7 +152,7 @@
 				<option value="5">Column 5</option>
 			</select></p>
 		
-		<p><a class="button" onclick="$('#foodletabs > ul').tabs('select', 2);">
+		<p><a class="button buttonUpdatePreview" onclick="$('#foodletabs > ul').tabs('select', 2);">
 			<span><?php echo $this->t('next'); ?> » <?php echo $this->t('preview'); ?></span></a></p>
 		<br class="clear" />
 		

@@ -7,8 +7,10 @@
 
 $config = array (
 
-	'basedir' => '/www/foodle.feide.no/',
 	'simplesamlphpdir' 		=> NULL,
+	'basedir' => '/www/foodle.feide.no/',
+	'baseurlpath' => '',
+	
 	'templatedir'           => 'templates/',
 	'dictionarydir' 		=> 'dictionaries/',
 	/*
