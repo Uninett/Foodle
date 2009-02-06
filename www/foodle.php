@@ -1,8 +1,6 @@
 <?php
 require_once('_include.php');
 
-
-
 $config = SimpleSAML_Configuration::getInstance('foodle');
 
 // Starting sessions.

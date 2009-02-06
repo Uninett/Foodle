@@ -21,6 +21,7 @@ include($SIMPLESAMLPATH . 'www/_include.php');
 require_once('../lib/Foodle.class.php');
 require_once('../lib/FoodleListings.php');
 require_once('../lib/FoodleAuth.php');
+require_once('../lib/FoodleUtils.php');
 
 
 /**

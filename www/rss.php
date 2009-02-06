@@ -67,7 +67,7 @@ try {
 	
 	$identifier = $foodle->getIdentifier();
 	
-	$url = 'https://foodle.feide.no/foodle.php?id=' . $identifier;
+	$url = FoodleUtils::getUrl() . 'foodle.php?id=' . $identifier;
 	
 	$et->data['expire'] = $foodle->getExpire();
 	$et->data['expired'] = $foodle->expired();
