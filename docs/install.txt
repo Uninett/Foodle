@@ -7,11 +7,51 @@ First, install SimpleSAMLphp somewhere, and follow the installation instructions
 
 Before continuing, please ensure that the example login page on your simpleSAMLphp installation is working.
 
+  * [Consult the simpleSAMLphp documentation on how to install simpleSAMLphp as a service provider](http://rnd.feide.no/view/simplesamlphpdocs)
+
 Preparing the attributes in simpleSAMLphp
 -----------------------------------------
 
 You need to setup simpleSAMLphp to translate the attribute names from your IdP to match the one expected by Foodle.
 
+This will diffed depending on which naming scheme that is used by your IdP.
+
+If the IdP is using the MACE oid naming scheme, then proceed as this:
+
+The simpleSAMLphp core module includes a *authentication processing* filter called `AttributeMap`, that is used to translate attribute names.
+
+  * [Read more about Attribute Processing Filters in SimpleSAMLphp](http://rnd.feide.no/content/authentication-processing-filters-simplesamlphp)
+
+The `core` module is enabled by default in simpleSAMLphp, and if you run an installation of simpleSAMLphp for the purpose of Foodle only, you may apply the attribute name mapping filter globally. To apply it globally, edit the `config.php` file.
+
+		'authproc.sp' => array(
+			10 => array(
+				'class' => 'core:AttributeMap', 'oid-feide'
+			),
+			60 => 'smartnameattribute:SmartName',
+			// More filters..
+		),
+
+The attribute maps are defined in the `attributemap/` directory of simpleSAMLphp, and as you can see there is already a file called `oid-feide`. This map will translate oid attributes to short names as used by Foodle.
+
+As you can see, I have also enabled a filter called `SmartName`. If you add this filter in the global config, you must remember to **enable** the `smartnameattribute` module. To enable this module, do:
+
+	cd modules/smartnameattribute
+	touch enable
+
+This filter will generate a new attribute named smartname-fullname (if I remember correctly). This is useful because it differ from IdP to IdP what attributes are available, and while at some IdP you can create the fullname by concatenating `givenName` + `sn`, at another IdP only `cn` is available. Take a look at the source code of this module if you are interested in how it works.
+
+After you can setup attribute name translation, visit the SP example login page at the installation page of your installation, and verify that you are logged in with the following attributes:
+
+  - cn
+  - givenName
+  - sn
+  - eduPersonPrincipalName
+  - eduPersonTargetedID
+  - mail
+  - displayName
+
+or at least a sensible subset of them.
 
 
 Install the source code
@@ -32,6 +72,35 @@ Foodle is prepared for use with MySQL, but should hopefully work with other data
 
  - Create the database, ensure that the access control allow the web server to access it.
  - Initialize the database with the `init.sql` script.
+
+
+	CREATE TABLE def (
+		id varchar(100) NOT NULL PRIMARY KEY,
+		name tinytext,
+		descr text,
+		columns text,
+		
+		owner text,
+		created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+		updated TIMESTAMP null DEFAULT null,
+		expire DATETIME null,
+		maxdef text,
+		anon tinytext
+	);
+	
+	CREATE TABLE entries (
+		id int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+		foodleid varchar(100) NOT NULL,
+		userid tinytext,
+		username tinytext,
+		response tinytext,
+		
+		created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+		updated TIMESTAMP null DEFAULT null,
+		
+		notes text,
+		email text
+	);
 
 
 Creating the configuration file
