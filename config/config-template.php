@@ -22,6 +22,7 @@ $config = array (
 	'language.default'	  => 'en',
 	
 	'adminUsers' => array('andreas@rnd.feide.no', 'andreas@uninett.no'),
+	'enableFacebookAuth' => FALSE,
 	
 	'db.host'	=> 'sql.example.org',
 	'db.name'	=> 'feidefoodle'

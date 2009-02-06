@@ -112,6 +112,8 @@ try {
 	$et->data['bread'] = array(array('title' => 'bc_frontpage'));
 	$et->data['authenticated'] = $foodleauth->isAuth();
 	$et->data['loginurl'] = $loginurl;
+	$et->data['enableFacebookAuth'] = $config->getValue('enableFacebookAuth', TRUE);
+	$et->data['facebookshare'] = FALSE;
 	$et->show();
 
 } catch(Exception $e) {

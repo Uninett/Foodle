@@ -137,7 +137,7 @@ try {
 	$et->data['columns'] = $foodle->getColumns();
 	
 	$et->data['url'] = $config->getValue('url', 'https://foodle.feide.no') . '/' . $config->getValue('baseurlpath') . 'foodle.php?id=' . $_REQUEST['id'];
-	$et->data['facebookshare'] = TRUE;
+	$et->data['facebookshare'] = $config->getValue('enableFacebookAuth', TRUE);
 	
 	$et->data['maxcol'] = $maxcol;
 	$et->data['maxnum'] = $maxnum;
@@ -152,6 +152,7 @@ try {
 	$et->data['email'] = $email;
 	
 	$et->data['authenticated'] = $foodleauth->isAuth();
+
 	
 	$et->data['loginurl'] = $loginurl;
 			

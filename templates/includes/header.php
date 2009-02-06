@@ -217,13 +217,13 @@ function toggle(x) {
 
 <div id="Hovedtopp">
 	
-	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 2.1</span> 
+	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 2.1.1</span> 
 		<a id="news" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/category/topics/foodle">
 			<?php echo $this->t('read_news'); ?> ★</a>  
 		<a id="mailinglist" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/content/foodle-users">
 			<?php echo $this->t('join_mailinglist'); ?> ☆</a>
 	</div>
-	<a href="http://rnd.feide.no"><img id="ulogo" alt="notes" src="resources/uninettlogo.gif" /></a>
+	<a href="http://rnd.feide.no"><img id="ulogo" alt="notes" src="/<?php echo($this->data['baseurlpath']); ?>resources/uninettlogo.gif" /></a>
 
 </div>
 
@@ -272,7 +272,7 @@ echo '</p>';
 
 	}
 	
-	if (isset($this->data['facebookshare'])) {
+	if (array_key_exists('facebookshare', $this->data) && $this->data['facebookshare']) {
 		echo '<a class="button" style="float: right" onclick="showFacebookShare()"><span>' . $this->t('facebookshare') . '</span></a>';
 	}
 
