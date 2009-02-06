@@ -162,7 +162,7 @@ try {
 	$et->data['thisisanewentry'] = $thisisanewentry;
 
 	$et->data['bread'] = array(
-		array('href' => '/', 'title' => 'bc_frontpage'), 
+		array('href' => '/' . $config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), 
 		array('href' => 'foodle.php?id=' . $foodle->getIdentifier(), 'title' => $foodle->getName()), 
 	);
 	
@@ -175,7 +175,7 @@ try {
 } catch(Exception $e) {
 
 	$et = new SimpleSAML_XHTML_Template($config, 'foodleerror.php', 'foodle_foodle');
-	$et->data['bread'] = array(array('href' => '/', 'title' => 'bc_frontpage'), array('title' => 'bc_errorpage'));
+	$et->data['bread'] = array(array('href' => '/' . $config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), array('title' => 'bc_errorpage'));
 	$et->data['message'] = $e->getMessage();
 	
 	$et->show();

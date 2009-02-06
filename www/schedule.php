@@ -113,7 +113,7 @@ try {
 		$et->data['authenticated'] = $foodleauth->isAuth();
 		$et->data['url'] = FoodleUtils::getUrl() . 'foodle.php?id=' . $id;
 		$et->data['bread'] = array(
-			array('href' => '/', 'title' => 'bc_frontpage'), 
+			array('href' => '/' . $config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), 
 			array('href' => 'foodle.php?id=' . $id, 'title' => $foodle->getName()), 
 			array('title' => 'bc_ready')
 		);
@@ -136,7 +136,7 @@ try {
 	$et->data['displayname'] = $displayname;
 
 	$et->data['bread'] = array(
-		array('href' => '/', 'title' => 'bc_frontpage'), 
+		array('href' => '/' . $config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), 
 		array('title' => 'bc_createnew')
 	);
 	$et->show();
@@ -144,7 +144,7 @@ try {
 } catch(Exception $e) {
 
 	$et = new SimpleSAML_XHTML_Template($config, 'foodleerror.php', 'foodle_foodle');
-	$et->data['bread'] = array(array('href' => '/', 'title' => 'bc_frontpage'), array('title' => 'bc_errorpage'));
+	$et->data['bread'] = array(array('href' => '/' . $config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), array('title' => 'bc_errorpage'));
 	$et->data['message'] = $e->getMessage();
 	$et->data['authenticated'] = $foodleauth->isAuth();
 	$et->data['userid'] = $userid;
