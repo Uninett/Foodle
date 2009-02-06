@@ -1,0 +1,47 @@
+Installing Foodle
+=================
+
+
+
+First, install SimpleSAMLphp somewhere, and follow the installation instructions of simpleSAMLphp. In this example, let say you install it in `/var/simplesamlphp`.
+
+Before continuing, please ensure that the example login page on your simpleSAMLphp installation is working.
+
+Preparing the attributes in simpleSAMLphp
+-----------------------------------------
+
+You need to setup simpleSAMLphp to translate the attribute names from your IdP to match the one expected by Foodle.
+
+
+
+Install the source code
+-----------------------
+
+Check out the source code from google code: 
+
+ - <http://code.google.com/p/simplesamlphp/source/checkout>
+
+Let's say you install the code in `/var/www/foodle`. Then you need to set the `DocumentRoot` on the VHOST in your apache configuration to point at: `/var/www/foodle/www`.
+
+
+
+Setting up the database
+-----------------------
+
+Foodle is prepared for use with MySQL, but should hopefully work with other databases too without too much tweaking.
+
+ - Create the database, ensure that the access control allow the web server to access it.
+ - Initialize the database with the `init.sql` script.
+
+
+Creating the configuration file
+-------------------------------
+
+Go into the `config/` directory of Foodle, and copy the `config-template.php` to `config.php`.
+
+Then edit the `config.php`.
+
+ - Add the path to your simpleSAMLphp installation.
+ - Add database connection information.
+ - If your 
+
