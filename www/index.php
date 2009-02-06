@@ -52,15 +52,15 @@ try {
 	mysql_select_db($config->getValue('db.name','feidefoodle'));
 	
 	
-	
-	
 
 	
 	$fl = new FoodleListings($userid, $link);
 	$entries = $fl->getYourEntries();
 	
+	$adminusers = $config->getValue('adminUsers');
+	
 	$allentries = null;
-	if (in_array($userid, array('andreas@rnd.feide.no', 'andreas@uninett.no')))
+	if (in_array($userid, $adminusers))
 		$allentries = $fl->getAllEntries(25);
 		
 	$ownerentries = $fl->getOwnerEntries($userid, 10);	
