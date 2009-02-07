@@ -55,6 +55,8 @@ try {
 	$userid = $foodleauth->getUserID();
 	$displayname = $foodleauth->getDisplayName();
 	
+	#error_log('UserID: ' . $userid);
+	
 	// If anonymous, create a login link.
 	$loginurl = NULL;
 	if (!$foodleauth->isAuth()) {

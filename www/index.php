@@ -8,7 +8,6 @@ $config = SimpleSAML_Configuration::getInstance('foodle');
 // Starting sessions.
 session_start();
 
-#echo FoodleUtils::getUrl(); exit;
 
 try {
 
@@ -26,6 +25,9 @@ try {
 	$email = $foodleauth->getMail();
 	$userid = $foodleauth->getUserID();
 	$displayname = $foodleauth->getDisplayName();
+	
+	#error_log('UserID: ' . $userid);
+	#echo 'email: ' . $email . ' userid:' . $userid . ' displayname:' . $displayname; exit;
 
 	// If anonymous, create a login link.
 	$loginurl = NULL;

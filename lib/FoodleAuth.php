@@ -58,6 +58,11 @@ class FoodleAuth {
 	
 	private function checkAnonymousSession() {
 	
+	
+		if (array_key_exists('foodleSession', $_COOKIE)) $this->setUserID(substr(sha1('sf65d4d5' . $_COOKIE['foodleSession']), 0, 10));
+		if (array_key_exists('foodleDisplayName', $_COOKIE)) $this->setDisplayName($_COOKIE['foodleDisplayName']);
+		if (array_key_exists('foodleEmail', $_COOKIE)) $this->setEmail($_COOKIE['foodleEmail']);
+	
 		if (array_key_exists('sessionBootstrap', $_REQUEST)) {
 			
 			unset($_COOKIE['foodleSession']); 
@@ -69,7 +74,7 @@ class FoodleAuth {
 			
 			setcookie('foodleSession', $decodes[0], time() + 60*60*24*90);
 			setcookie('foodleDisplayName', $decodes[1], time() + 60*60*24*90);
-			$this->setUserID(substr(sha1($decodes[0]), 0, 10));
+			$this->setUserID(substr(sha1('sf65d4d5' . $decodes[0]), 0, 10));
 			$this->setDisplayName($decodes[1]);
 			if (count($decodes) > 2) {
 				setcookie('foodleEmail', $decodes[2], time() + 60*60*24*90);
@@ -92,9 +97,7 @@ class FoodleAuth {
 			$this->setDisplayName($_REQUEST['setDisplayName']);
 		}
 		
-		if (array_key_exists('foodleSession', $_COOKIE)) $this->setUserID(substr(sha1('sf65d4d5' . $_COOKIE['foodleSession']), 0, 10));
-		if (array_key_exists('foodleDisplayName', $_COOKIE)) $this->setDisplayName($_COOKIE['foodleDisplayName']);
-		if (array_key_exists('foodleEmail', $_COOKIE)) $this->setEmail($_COOKIE['foodleEmail']);
+
 		
 		if (array_key_exists('setEmail', $_REQUEST)) {
 			$this->sendEmail();
@@ -129,17 +132,16 @@ class FoodleAuth {
 	}
 	
 	private function getBootstrap() {
+		
 		if (array_key_exists('foodleSession', $_COOKIE)) {
 			$str = $_COOKIE['foodleSession'];
 			
-			if (array_key_exists('foodleDisplayName', $_COOKIE)) {
-				$str .= '|' . $_COOKIE['foodleDisplayName'];
-			} else {
-				$str .= '|Uknown';
-			}
-			if (array_key_exists('foodleEmail', $_COOKIE)) {
-				$str .= '|' . $_COOKIE['foodleEmail'];
-			}
+			$displayName = $this->getDisplayName();			
+			$str .= '|' . ($displayName ? $displayName : 'Unknown');
+
+			$email = $this->getMail();
+			if ($email) $str .= '|' . $email;
+
 			return base64_encode($str);
 		}
 		
@@ -182,10 +184,8 @@ class FoodleAuth {
 		}
 		
 		if (!$allowAnonymous) {
-
 			SimpleSAML_Utilities::redirect(
-				'/' . $this->sspconfig->getValue('baseurlpath') .
-				'saml2/sp/initSSO.php',
+				'/' . $this->sspconfig->getValue('baseurlpath') . 'saml2/sp/initSSO.php',
 				array('RelayState' => SimpleSAML_Utilities::selfURL())
 			);
 			exit;
