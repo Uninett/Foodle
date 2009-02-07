@@ -10,10 +10,12 @@ class FoodleAuth {
 	private $attributes = array();
 	
 	private $sspconfig;
+	private $config;
 
 	function __construct() {
 		/* Load simpleSAMLphp, configuration and metadata */
 		$this->sspconfig = SimpleSAML_Configuration::getInstance();
+		$this->config = SimpleSAML_Configuration::getInstance('foodle');
 		$session = SimpleSAML_Session::getInstance();
 		
 		$this->secret = $secret;
@@ -104,7 +106,9 @@ class FoodleAuth {
 	
 	private function sendEmail() {
 		
-		$message = '<h3>Foodle</h3><p>Seems like you have been using Foodle for the first time. Welcome!
+		$fromAddress = $this->config->getValue('fromAddress', 'no-reply@foodle.feide.no');
+		
+		$message = '<h2>Foodle</h2><p>Seems like you have been using Foodle for the first time. Welcome!
 			<p>You have been using Foodle as an anonymous user, and we send you this e-mail so that you can
 			edit your Foodle respones by going to the special URL below.
 			<p>We strongly reccomend that instead of using Foodle as a anonymous user, you use the login button
@@ -116,7 +120,7 @@ class FoodleAuth {
 			<p><a href="https://foodle.feide.no/?sessionBootstrap=' . $this->getBootstrap() . '">Go here to edit your Foodle</a></p>
 		';
 		
-		$email = new SimpleSAML_XHTML_EMail($this->getMail(), 'Welcome to Foodle', 'no-reply@foodle.feide.no');
+		$email = new SimpleSAML_XHTML_EMail($this->getMail(), 'Welcome to Foodle', $fromAddress);
 		$email->setBody($message);
 		$email->send();
 		
