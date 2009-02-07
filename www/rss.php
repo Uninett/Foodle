@@ -1,4 +1,7 @@
 <?php
+
+header("Content-Type: application/rss+xml"); 
+
 require_once('_include.php');
 
 

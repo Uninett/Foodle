@@ -4,9 +4,13 @@ $headbar = '<a class="button" style="float: right; "
 		title="Comma separated file, works with Excel." href="csv.php?id=' . $_REQUEST['id'] . '">
 	<span><!-- <img src="resources/spreadsheet.png" /> -->' . 
 		$this->t('open_in_spreadsheet') . '</span></a>';
-$headbar .= '<a class="button" style="float: right" href="rss.php?id=' . $_REQUEST['id'] . '">
+
+/**
+$headbar .= '<a class="button" type="application/rss+xml" style="float: right" href="rss.php?id=' . $_REQUEST['id'] . '">
 	<span><!-- img src="resources/feed-icon-14x14.png"  / -->
 	' . $this->t('subscribe_rss') . '</span></a>';
+*/
+
 $headbar .= '<a class="button" style="float: right" href="foodle.php?id=' . $_REQUEST['id'] . '"><span>' . $this->t('refresh') . '</span></a>';
 
 $this->data['headbar'] = $headbar;

@@ -190,7 +190,7 @@ function toggle(x) {
 	
 	<?php
 		if (isset($_REQUEST['id'])) {
-			echo '<link rel="alternate" type="application/rss+xml" title="Feide RnD RSS" href="rss.php?id=' . $_REQUEST['id'] . '" />';
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $this->t('subscribe_rss') . '" href="rss.php?id=' . $_REQUEST['id'] . '" />';
 		}
 		
 	?>
