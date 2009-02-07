@@ -75,6 +75,10 @@ try {
 	
 	$statusupdate = $fl->getStatusUpdate($userid, $foodleids, 20);
 	
+	$stats = $fl->getStats($userid);
+	
+	#print_r($stats); exit; 
+	
 	#echo 'status: '; print_r($statusupdate); exit;	
 
 	/*
@@ -128,6 +132,7 @@ try {
 	$et->data['enableFacebookAuth'] = $config->getValue('enableFacebookAuth', TRUE);
 	$et->data['facebookshare'] = FALSE;
 	$et->data['statusupdate'] = $statusupdate;
+	$et->data['stats'] = $stats;
 	$et->show();
 
 } catch(Exception $e) {

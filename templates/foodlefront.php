@@ -3,7 +3,10 @@
 
 ?>
 
-
+<div style="text-align: left; width: 300px; clear: right; float: right; border: 1px solid #ccc; margin: .2em; padding: .2em">
+<h2>Statistics</h2>
+<p>Foodle had <?php echo $this->data['stats']['total7days']; ?> responses last 7 days.</p>
+</div>
 
 
 <?php
