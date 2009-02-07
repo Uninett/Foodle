@@ -4,34 +4,40 @@
 ?>
 
 
-<div style="text-align: left; width: 300px; clear: right; float: right; border: 1px solid #ccc; margin: .2em; padding: .2em"
-	<h2><?php echo $this->t('youcreated'); ?></h2>
-	<?php
-	if (is_array($this->data['ownerentries'])) {
-		echo '<ul>';
-		foreach ($this->data['ownerentries'] AS $entry) {
-			echo '<li><a href="foodle.php?id=' . $entry['id'] . '">' . 
-				$entry['name'] . '</a> - ' . substr(strip_tags($entry['descr']), 0, 200) .
-			'</li>';
-		}
-		echo '</ul>';
+
+
+<?php
+if (is_array($this->data['ownerentries']) && count($this->data['ownerentries']) > 0) {
+	echo('<div style="text-align: left; width: 300px; clear: right; float: right; border: 1px solid #ccc; margin: .2em; padding: .2em">');
+	echo('<h2>' . $this->t('youcreated') . '</h2>');
+	echo '<ul>';
+	foreach ($this->data['ownerentries'] AS $entry) {
+		echo '<li><a href="foodle.php?id=' . $entry['id'] . '">' . 
+			$entry['name'] . '</a> - ' . substr(strip_tags($entry['descr']), 0, 200) .
+		'</li>';
 	}
-	?>
-</div>
-<div style="text-align: left; width: 300px; clear: right; float: right; border: 1px solid #ccc; margin: .2em; padding: .2em"
-	<h2><?php echo $this->t('respondedto'); ?></h2>
-	<?php
-	if (is_array($this->data['yourentries'])) {
-		echo '<ul>';
-		foreach ($this->data['yourentries'] AS $entry) {
-			echo '<li><a href="foodle.php?id=' . $entry['id'] . '">' . 
-				$entry['name'] . '</a> - ' . substr(strip_tags($entry['descr']), 0, 100) .
-			'</li>';
-		}
-		echo '</ul>';
+	echo '</ul></div>';
+}
+?>
+
+
+
+	
+<?php
+if (is_array($this->data['yourentries']) && count($this->data['yourentries']) > 0) {
+	echo('<div style="text-align: left; width: 300px; clear: right; float: right; border: 1px solid #ccc; margin: .2em; padding: .2em">');
+	echo('<h2>' . $this->t('respondedto') . '</h2>');
+	echo '<ul>';
+	foreach ($this->data['yourentries'] AS $entry) {
+		echo '<li><a href="foodle.php?id=' . $entry['id'] . '">' . 
+			$entry['name'] . '</a> - ' . substr(strip_tags($entry['descr']), 0, 100) .
+		'</li>';
 	}
-	?>
-</div>
+	echo '</ul></div>';
+}
+?>
+
+
 
 <?php if (isset($this->data['allentries'])) { ?>
 <div style="text-align: left; width: 300px; clear: right; float: right; border: 1px solid #ccc; margin: .2em; padding: .2em"

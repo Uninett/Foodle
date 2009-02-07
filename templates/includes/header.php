@@ -1,15 +1,16 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="nb">
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<meta http-equiv="Content-Language" content="en">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Language" content="en" />
 	
 	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/jquery.js"></script>
 	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/jquery-ui.js"></script>
 	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>js/uitheme/jquery-ui-themeroller.css" />
 
 	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/wmd.js"></script>
-	<style>
+	<style type="text/css">
 		div.fcol.notinuse{
 			background: #eee;
 /*			color: #777; */
@@ -203,14 +204,20 @@ function toggle(x) {
 	?></title> 
 	
 	
-	<style>
+	<style type="text/css">
 
 		table#tlayout, table#tlayout td {
 			border: none;
 		}
 
+		.unicode {
+			font-family: "Unicode Symbols", "Times New Roman", "Apple Symbols","Arial Unicode MS";
+		}
+
 	</style>
 	
+	
+
 	
 </head>
 <body>
@@ -219,9 +226,9 @@ function toggle(x) {
 	
 	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 2.1.1</span> 
 		<a id="news" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/category/topics/foodle">
-			<?php echo $this->t('read_news'); ?> ★</a>  
+			∘ <?php echo $this->t('read_news'); ?></a>  
 		<a id="mailinglist" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/content/foodle-users">
-			<?php echo $this->t('join_mailinglist'); ?> ☆</a>
+			∘ <?php echo $this->t('join_mailinglist'); ?></a>
 	</div>
 	<a href="http://rnd.feide.no"><img id="ulogo" alt="notes" src="/<?php echo($this->data['baseurlpath']); ?>resources/uninettlogo.gif" /></a>
 
@@ -353,6 +360,6 @@ echo '</div>';
 
 
   
-  <div class="page">
-    <!-- wikipage start -->
+<div class="page">
+<!-- wikipage start -->
     

@@ -119,7 +119,7 @@ body{
     height: 100%;
 }
 
-a:link, a:visited, a:active {
+a, a:link, a:visited, a:active {
     color: #CC0000;
     text-decoration: none;
 }

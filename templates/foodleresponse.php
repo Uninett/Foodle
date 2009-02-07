@@ -7,7 +7,7 @@ $headbar = '<a class="button" style="float: right; "
 $headbar .= '<a class="button" style="float: right" href="rss.php?id=' . $_REQUEST['id'] . '">
 	<span><!-- img src="resources/feed-icon-14x14.png"  / -->
 	' . $this->t('subscribe_rss') . '</span></a>';
-$headbar .= '<a class="button" style="float: right" href="foodle.php?id=' . $_REQUEST['id'] . '"><span>' . $this->t('refresh') . '</span></a></p>';
+$headbar .= '<a class="button" style="float: right" href="foodle.php?id=' . $_REQUEST['id'] . '"><span>' . $this->t('refresh') . '</span></a>';
 
 $this->data['headbar'] = $headbar;
 
@@ -39,9 +39,9 @@ function show_response($response) {
 	
 		if ($entry) {
 			$counter[$no]++;
-			echo '<td class="yes center"><img class="yesimg" src="resources/yes.png" /></td>';
+			echo '<td class="yes center"><img class="yesimg" alt="No" src="resources/yes.png" /></td>';
 		} else {
-			echo '<td class="no center"><img class="yesimg" src="resources/no2trans.png" /></td>';
+			echo '<td class="no center"><img class="yesimg" alt="Yes" src="resources/no2trans.png" /></td>';
 		}
 
 	}
@@ -63,14 +63,14 @@ function show_response($response) {
 
 	<h1><?php if (isset($this->data['header'])) { echo $this->data['header']; } else { echo "Some error occured"; } ?></h1>
 
-	<p><?php echo str_replace(array("\r\n\r\n", "\n\n", "\r\r"), '<p>' , $this->data['descr']); ?></p>
+	<?php echo str_replace(array("\r\n\r\n", "\n\n", "\r\r"), '<p>' , $this->data['descr']); ?>
 	
 	<?php 
 	
 	
 	echo '<div style="" id="facebookshare" title="' . $this->t('facebookshareheader'). '">';
 	echo '<p>' . $this->t('facebooklinkabout') . '<br /><input type="text" style="width: 90%" name="furl" value="' . htmlentities($this->data['url']) . '&amp;auth=facebook" /></p>';
-	echo '<p><a class="button" style="display: block" href="http://www.facebook.com/sharer.php?u=' . urlencode($this->data['url'] . '&amp;auth=facebook') . '&amp;t=' . urlencode('Foodle: ' . $this->data['header']) . '" />' . 
+	echo '<p><a class="button" style="display: block" href="http://www.facebook.com/sharer.php?u=' . urlencode($this->data['url'] . '&amp;auth=facebook') . '&amp;t=' . urlencode('Foodle: ' . $this->data['header']) . '">' . 
 			'<span>' . $this->t('linkonfacebook') . '</span></a></p>';
 	echo '</div>';	
 
@@ -106,14 +106,14 @@ function show_response($response) {
 #				echo '<img style="float: left" src="resources/closed.png" />';
 
 			if ($editlocked) {
-				echo '<img style="float: left" src="resources/closed.png" />';
+				echo '<img style="float: left" src="resources/closed.png" alt="Closed" />';
 			} else {
-				echo '<img style="float: left" src="resources/system-users.png" />';
+				echo '<img style="float: left" src="resources/system-users.png" alt="Open" />';
 			}
 
 
 			echo '<p style="clear: none; margin: 2px"><strong>There is a maximum limit of number of users on this Foodle.</strong></p>';
-			echo '<p>Currently ' . $this->data['used'] . ' out of ' . $this->data['maxnum'] . ' is reached.';
+			echo '<p>Currently ' . $this->data['used'] . ' out of ' . $this->data['maxnum'] . ' is reached.</p>';
 
 			echo '<br style="clear: both; height: 0px" />';
 			echo '</div>';
@@ -128,12 +128,12 @@ function show_response($response) {
 			echo '<div class="expire">';
 			
 			if ($this->data['expired']) {
-				echo '<img style="float: left" src="resources/closed.png" />';
+				echo '<img style="float: left" src="resources/closed.png" alt="Closed" />';
 				echo '<p style="clear: none; margin: 2px"><strong>' . $this->t('isclosed') . '</strong></p>';
 				echo $this->t('closed');
 				
 			} else {
-				echo '<img style="float: left" src="resources/time.png" />';
+				echo '<img style="float: left" src="resources/time.png" alt="Open" />';
 				echo '<p style="clear: none; margin: 2px"><strong>' . $this->t('hasexpire') . '</strong></p>';
 				echo $this->data['expiretext'];
 			}
@@ -182,33 +182,38 @@ if (!$this->data['authenticated']) {
 	<table class="list" style="width: 100%"><thead>
 	
 		<tr>
-			<th rowspan="2" style="width: 20px; padding: 3px 1px 1px 1px"><img alt="notes" src="resources/notes.png" /></th>
+			<th rowspan="2" style="width: 20px; padding: 3px 1px 1px 1px">
+				<img alt="notes" src="resources/notes.png" />
+			</th>
 			<th rowspan="2"><?php echo $this->t('name'); ?></th>
-	<?php
-	
-	$secondrow = array();
-	foreach ($this->data['columns'] AS $head => $nextrow) {
+			
+		<?php
 		
-		if ($nextrow == null) {
-			echo '<th rowspan="2">' . $head . '</th>';
-		} else {
-			echo '<th colspan="' . count($nextrow) . '">' . $head . '</th>';
-			foreach($nextrow AS $new) {
-				$secondrow[] = $new;
+		$secondrow = array();
+		foreach ($this->data['columns'] AS $head => $nextrow) {
+			
+			if ($nextrow == null) {
+				echo '<th rowspan="2">' . $head . '</th>';
+			} else {
+				echo '<th colspan="' . count($nextrow) . '">' . $head . '</th>';
+				foreach($nextrow AS $new) {
+					$secondrow[] = $new;
+				}
 			}
 		}
-	}
-	echo '<th rowspan="2" style="width: 4em">' . $this->t('updated') . '</th>';
-	echo '</tr><tr>';
-	foreach ($secondrow AS $entry) {
-		echo '<th>' . $entry . '</th>';
-	}
-
-	?>
+		echo '<th rowspan="2" style="width: 4em">' . $this->t('updated') . '</th>';
+		echo '</tr>';
 		
-		</tr>
-		
-		
+		if (count($secondrow) > 0) {
+			echo '<tr>';
+			foreach ($secondrow AS $entry) {
+				echo '<th>' . $entry . '</th>';
+			}
+			echo('</tr>');
+		}
+		?>
+	
+	
 		</thead>
 	<tbody>
 	<?php
@@ -238,7 +243,7 @@ if (!$this->data['authenticated']) {
 		
 		// Only show add a comment entry if comment is not already added.
 		if (empty($this->data['yourentry']['notes'])) {
-			echo '<a style="float: right" id="ac" href="">' . $this->t('addcomment') . '</a>';
+			echo '<a style="float: right" id="ac" >' . $this->t('addcomment') . '</a>';
 		}
 		
 		echo '<input type="text" name="username" value="' . $this->data['yourentry']['username'] . '" /> (<tt>' . $this->data['yourentry']['userid']. '</tt>)';
@@ -326,8 +331,7 @@ if (!$this->data['authenticated']) {
  white-space: -pre-wrap;      /* Opera 4-6 */
  white-space: -o-pre-wrap;    /* Opera 7 */
  word-wrap: break-word;       /* Internet Explorer 5.5+ */
-
-		" width="100%"></div>
+		"></div>
 	<p><?php echo $this->t('emailinfo'); ?></p>
 </div>
 
