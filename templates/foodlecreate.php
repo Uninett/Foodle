@@ -77,8 +77,18 @@
 					<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
 				</div>
 			</div>
+			
+
+
 
 		</div>
+		
+		<p>
+			<a class="button buttonUpdatePreview" onclick="$('#foodletabs > ul').tabs('select', 2);">
+				<span><?php echo $this->t('next'); ?> » <?php echo $this->t('preview'); ?></span></a>
+			<a class="button" onclick="$('#foodletabs > ul').tabs('select', 3);">
+				<span><?php echo $this->t('advancedoptions'); ?></span></a>
+		</p>
 		
 		</td><td class="layout">
 
@@ -88,15 +98,9 @@
 		
 		</td></tr></table>
 
-		<p style="clear:both"></p>
 
-		<p>
-			<a class="button buttonUpdatePreview" onclick="$('#foodletabs > ul').tabs('select', 2);">
-				<span><?php echo $this->t('next'); ?> » <?php echo $this->t('preview'); ?></span></a>
-			<a class="button" onclick="$('#foodletabs > ul').tabs('select', 3);">
-				<span><?php echo $this->t('advancedoptions'); ?></span></a>
-		</p>
-		<br class="clear" />
+
+
 
 
 
