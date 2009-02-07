@@ -153,6 +153,9 @@ mysql> show columns from def;
 		return $resarray;
 	}
 	
+	
+	
+	
 	public function getOwnerEntries($userid, $no = 20) {
 				
 		$link = $this->db;
@@ -183,6 +186,44 @@ mysql> show columns from def;
 		
 		return $resarray;
 	}
+	
+	
+	public function getStatusUpdate($userid, $foodleids, $no = 20) {
+		
+		$link = $this->db;
+		
+		
+		$fidstr = "('" . join("', '", $foodleids) . "')"; 
+		
+		$sql ="
+			SELECT entries.*,def.name 
+			FROM entries, def 
+			WHERE foodleid IN " . $fidstr . "
+				and userid != '" . addslashes($userid) . "'
+				and def.id = entries.foodleid
+			ORDER BY entries.created DESC 
+			LIMIT " . $no;
+			
+			#echo $sql;
+		#echo $sql; exit;
+		$result = mysql_query($sql, $this->db);
+		
+		if(!$result){
+			throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
+		}
+		
+		$resarray = array();
+		
+		if(mysql_num_rows($result) > 0){		
+			while($row = mysql_fetch_assoc($result)){
+				$resarray[] = $row;
+			}
+		}		
+		mysql_free_result($result);
+		
+		return $resarray;
+	}
+	
 	
 	public function getIdentifier() {
 		return $this->identifier;

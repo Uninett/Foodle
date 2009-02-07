@@ -64,7 +64,18 @@ try {
 	if (in_array($userid, $adminusers))
 		$allentries = $fl->getAllEntries(25);
 		
-	$ownerentries = $fl->getOwnerEntries($userid, 10);	
+	$ownerentries = $fl->getOwnerEntries($userid, 10);
+	
+	$foodleids = array();
+	if(!empty($entries)) foreach($entries AS $e) $foodleids[] = $e['foodleid'];
+	if(!empty($allentries)) foreach($entries AS $e) $foodleids[] = $e['foodleid'];
+	if(!empty($ownerentries)) foreach($entries AS $e) $foodleids[] = $e['foodleid'];
+
+	#print_r($foodleids); exit;
+	
+	$statusupdate = $fl->getStatusUpdate($userid, $foodleids, 20);
+	
+	#echo 'status: '; print_r($statusupdate); exit;	
 
 	/*
 	echo 'entries:<pre>';
@@ -116,6 +127,7 @@ try {
 	$et->data['loginurl'] = $loginurl;
 	$et->data['enableFacebookAuth'] = $config->getValue('enableFacebookAuth', TRUE);
 	$et->data['facebookshare'] = FALSE;
+	$et->data['statusupdate'] = $statusupdate;
 	$et->show();
 
 } catch(Exception $e) {

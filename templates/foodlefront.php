@@ -78,10 +78,27 @@ if ($this->data['authenticated']) {
 ?>
 </p>
 
-<h2><?php echo $this->t('createnew'); ?></h2>
+<div style="clear: left; border: 1px solid #ccc; background: #f4f4f4; padding:1em; width: 300px; margin: 3em .5em .5em .5em">
+	<!-- h2><?php echo $this->t('createnew'); ?></h2 -->
+	<form method="get" action="schedule.php"><input type="submit" value="<?php echo $this->t('createnew'); ?>" /></form>
+</div>
 
-<form method="get" action="schedule.php"><input type="submit" value="<?php echo $this->t('createnew'); ?>" /></form>
+<h2>Status updates</h2>
 
+<?php
+
+echo('<ul>');
+foreach ($this->data['statusupdate'] AS $su) {
+	
+	echo('<li><a href="foodle.php?id=' . $su['foodleid'] .'">' . 
+		date('j. M, H:i (l)', strtotime($su['created'])) . ' ' . $su['username'] . ' has responded to ' . $su['name'] . 
+		'</a></li>');
+	#print_r($su);
+	
+}
+echo('</ul>');
+
+?>
 
 <h2><?php echo $this->t('moreinfo'); ?></h2>
 <ul>
