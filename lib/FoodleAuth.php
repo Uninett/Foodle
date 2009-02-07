@@ -108,6 +108,8 @@ class FoodleAuth {
 		
 		$fromAddress = $this->config->getValue('fromAddress', 'no-reply@foodle.feide.no');
 		
+		$url =  FoodleUtils::getUrl() . '?sessionBootstrap=' . $this->getBootstrap();
+		
 		$message = '<h2>Foodle</h2><p>Seems like you have been using Foodle for the first time. Welcome!
 			<p>You have been using Foodle as an anonymous user, and we send you this e-mail so that you can
 			edit your Foodle respones by going to the special URL below.
@@ -117,7 +119,7 @@ class FoodleAuth {
 			
 			<p>The URL to edit your Foodle response is:
 			
-			<p><a href="https://foodle.feide.no/?sessionBootstrap=' . $this->getBootstrap() . '">Go here to edit your Foodle</a></p>
+			<p><a href="' . $url . '">Go here to edit your Foodle</a></p>
 		';
 		
 		$email = new SimpleSAML_XHTML_EMail($this->getMail(), 'Welcome to Foodle', $fromAddress);
