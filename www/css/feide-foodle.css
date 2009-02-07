@@ -106,12 +106,21 @@ body,#Hovedmeny div,#Hovedmeny dl,#Hovedmeny dt,#Hovedmeny dd,#Hovedmeny ul,#Hov
 .list th {
 	font-weight: normal;
 }
-div.expire {
+
+
+div.infobox {
 	margin: .3em;
 	padding: .3em;
 	border: 1px solid #999;
 	background: #ddd;
 }
+div.infobox.maxnum {
+}
+div.infobox.expire {
+}
+div.infobox.registeremail {
+}
+
 
 .yesimg {
 	margin: 0px;

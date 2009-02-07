@@ -102,7 +102,7 @@ function show_response($response) {
 
 
 		if ($this->data['maxnum'] > 0) { 
-			echo '<div class="expire">';
+			echo '<div class="infobox maxnum">';
 #				echo '<img style="float: left" src="resources/closed.png" />';
 
 			if ($editlocked) {
@@ -115,7 +115,7 @@ function show_response($response) {
 			echo '<p style="clear: none; margin: 2px"><strong>There is a maximum limit of number of users on this Foodle.</strong></p>';
 			echo '<p>Currently ' . $this->data['used'] . ' out of ' . $this->data['maxnum'] . ' is reached.</p>';
 
-			echo '<br style="clear: both; height: 0px" />';
+			echo '<div style="clear: both; height: 0px" ></div>';
 			echo '</div>';
 		} 
 
@@ -125,7 +125,7 @@ function show_response($response) {
 	
 		if (!empty($this->data['expire'])) { 
 		
-			echo '<div class="expire">';
+			echo '<div class="infobox expire">';
 			
 			if ($this->data['expired']) {
 				echo '<img style="float: left" src="resources/closed.png" alt="Closed" />';
@@ -152,14 +152,16 @@ function show_response($response) {
 
 if (!$this->data['authenticated']) {
 	if ($this->data['registerEmail']) {
-		echo '<form method="post" action="foodle.php" style="display: block; border: 1px solid #999; background: #eee; padding: 1em 2em 0em 2em;">
+		echo('<div class="infobox registeremail">');
+		echo '<form method="post" action="foodle.php">
 				<input type="hidden" name="id" value="' . $this->data['identifier'] . '" />';
 		echo '<p>' . $this->t('register_email') . '</p>';
 		echo '<p>' . $this->t('displayname') . ': <input type="text" name="setDisplayName" value="' . 
 			(isset($this->data['displayname']) ? $this->data['displayname'] : '') . '"/><br />';		
 		echo '' . $this->t('email') . ': <input type="text" name="setEmail" /></p>';		
-		echo '<p><input type="submit" name="reg" value="' . $this->t('emailreg_submit') . '" /></p>';		
+		echo '<input type="submit" name="reg" value="' . $this->t('emailreg_submit') . '" />';
 		echo '</form>';
+		echo('</div>');
 	}
 }
 
