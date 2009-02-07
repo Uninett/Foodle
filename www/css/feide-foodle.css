@@ -240,3 +240,12 @@ table.list td.odd {
 	background: #e5e5e5;
 	
 }
+div#fcols table.layout {
+	width: 100%;
+	border: none;
+}
+div#fcols table.layout  tr.layout  td.layout {
+	vertical-align: top;
+	border: 0px;
+	padding: .3em;
+}

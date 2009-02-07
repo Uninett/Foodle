@@ -44,8 +44,7 @@
     </div> 
     <div id="fcols"> 
 
-		<div style="float: right" id="inline"><p><?php echo $this->t('add_dates'); ?></p></div> 	
-
+		<table class="layout"><tr class="layout"><td class="layout">
 
 		<h2><?php echo $this->t('columns'); ?></h2>
 	
@@ -56,7 +55,7 @@
 		<div class="fcols">
 			<div class="fcol" style="border-top: 3px solid #eee; border-left: 3px solid #eee; margin: 5px 2em 1em 5px; padding: 4px" >
 				<!-- <p style="float: right; text-align: right"> <a style="margin: .5em" href="">delete</a> </p> -->
-				<input class="fcoli" style="display: block; font-size: large; width: 600px" type="text" name="timeslot[]" />			
+				<input class="fcoli" style="display: block; font-size: large; width: 95%" type="text" name="timeslot[]" />			
 				<div class="subcolcontainer">
 					<?php echo $this->t('suboptions'); ?>
 					<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
@@ -69,7 +68,7 @@
 			
 			<div class="fcol"  style="border-top: 3px solid #eee; border-left: 3px solid #eee;  margin: 5px 2em 1em 5px; padding: 4px" >
 				<!-- <p style="float: right; text-align: right"> <a style="margin: .5em" href="">delete</a> </p> -->
-				<input class="fcoli" style="display: block; font-size: large; width: 600px" type="text" name="timeslot[]" />			
+				<input class="fcoli" style="display: block; font-size: large; width: 95%" type="text" name="timeslot[]" />			
 				<div  class="subcolcontainer">
 					<?php echo $this->t('suboptions'); ?>
 					<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
@@ -80,9 +79,14 @@
 			</div>
 
 		</div>
+		
+		</td><td class="layout">
+
+			<div style="float: right" id="inline"><p><?php echo $this->t('add_dates'); ?></p></div> 	
 
 
-
+		
+		</td></tr></table>
 
 		<p style="clear:both"></p>
 
