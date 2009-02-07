@@ -40,21 +40,21 @@ if (is_array($this->data['yourentries']) && count($this->data['yourentries']) > 
 
 
 <?php if (isset($this->data['allentries'])) { ?>
-<div style="text-align: left; width: 300px; clear: right; float: right; border: 1px solid #ccc; margin: .2em; padding: .2em"
-	<h2><?php echo $this->t('recent'); ?></h2>
-	<?php
-	if (is_array($this->data['allentries'])) {
-		echo '<ul>';
-		foreach ($this->data['allentries'] AS $entry) {
-			echo '<li><a href="foodle.php?id=' . $entry['id'] . '">' . 
-				$entry['name'] . '</a> - ' . substr(strip_tags($entry['descr']), 0, 100) .
-			'</li>';
+	<div style="text-align: left; width: 300px; clear: right; float: right; border: 1px solid #ccc; margin: .2em; padding: .2em">
+		<h2><?php echo $this->t('recent'); ?></h2>
+		<?php
+		if (is_array($this->data['allentries'])) {
+			echo '<ul>';
+			foreach ($this->data['allentries'] AS $entry) {
+				echo '<li><a href="foodle.php?id=' . $entry['id'] . '">' . 
+					$entry['name'] . '</a> - ' . substr(strip_tags($entry['descr']), 0, 100) .
+				'</li>';
+			}
+			echo '</ul>';
 		}
-		echo '</ul>';
-	}
-	?>
-</div>
-<?php }Ê?>
+		?>
+	</div>
+<?php } ?>
 
 <h1><?php echo $this->t('welcomeheader'); ?></h1>
 

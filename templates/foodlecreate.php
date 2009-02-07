@@ -26,15 +26,15 @@
 
 	
 		<p><?php echo $this->t('name'); ?>: 
-		<input type="text" name="name" style="width: 400px; font-size: large" value=""<?php
+		<input type="text" name="name" style="width: 400px; font-size: large" value="<?php
 		if (isset($this->data['name'])) echo $this->data['name'];
-		?>"/>
+		?>" /></p>
 	
 		<p><?php echo $this->t('description'); ?>: <br />
-		<textarea id="foodledescr" style="width: 95%; height: 160px" name="descr"><?php
+		<textarea id="foodledescr" style="width: 95%; height: 160px" name="descr" rows="80" cols="5"><?php
 		if (isset($this->data['descr'])) echo $this->data['descr'];
 		?></textarea><br />
-		<?php echo $this->t('htmlinfo'); ?>
+		<?php echo $this->t('htmlinfo'); ?></p>
 	
 
 		<p><a class="button" onclick="$('#foodletabs > ul').tabs('select', 1);">
@@ -137,7 +137,7 @@
 		
 		
 		<h2 style="margin-top: 2em"><?php echo $this->t('anonheader'); ?></h2>
-		<p><input type="checkbox" name="anon"> <?php echo $this->t('allowanon'); ?><br />
+		<p><input type="checkbox" name="anon" /> <?php echo $this->t('allowanon'); ?></p>
 		
 		<h2 style="margin-top: 2em"><?php echo $this->t('maxheader'); ?></h2>
 		<p><?php echo $this->t('maxdescr'); ?><br />
