@@ -770,10 +770,12 @@ $lang = array(
 	'maxlimit' => array (
 		'no' => 'Denne Foodle-n har en sperre på max antall svar',
 		'en' => 'There is a maximum limit of number of users on this Foodle.',
+		'sv' => 'Det finns ett maximalt antal användare angivit för denna Foodle',
 	),
 	'maxlimittext' => array (
 		'no' => '%NUM% av maks %OF% svar er oppnådd på denne Foodle-n.',
 		'en' => 'Currently %NUM% out of %OF% is reached.',
+		'sv' => 'För närvarande finns %NUM% användare av maximalt %OF%.',
 	),
 
 );
