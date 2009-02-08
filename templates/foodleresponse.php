@@ -116,8 +116,16 @@ function show_response($response) {
 			}
 
 
-			echo '<p style="clear: none; margin: 2px"><strong>There is a maximum limit of number of users on this Foodle.</strong></p>';
-			echo '<p>Currently ' . $this->data['used'] . ' out of ' . $this->data['maxnum'] . ' is reached.</p>';
+			echo '<p><strong>' . $this->t('maxlimit') . '</strong></p>'; 
+			#echo '<p style="clear: none; margin: 2px"><strong>There is a maximum limit of number of users on this Foodle.</strong></p>';
+			
+			echo '<p>' . $this->t('maxlimittext', 
+				array(
+					'%NUM%' => $this->data['used'], 
+					'%OF%' => $this->data['maxnum']
+				) 
+			) . '</p>'; 
+			#echo '<p>Currently ' . $this->data['used'] . ' out of ' . $this->data['maxnum'] . ' is reached.</p>';
 
 			echo '<div style="clear: both; height: 0px" ></div>';
 			echo '</div>';
