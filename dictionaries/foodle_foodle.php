@@ -543,8 +543,8 @@ $lang = array(
 		'sl' => 'in jo pošlji ljudem, s katerimi želiš deliti izbrani Foodle',
 	),
 	'refresh' => array (
-		'no' => 'oppdatere',
-		'en' => 'refresh',
+		'no' => 'Oppdatere',
+		'en' => 'Refresh',
 		'da' => 'Opdatér',
 		'de' => 'aktualisieren',
 		'sv' => 'Ladda om',
