@@ -68,10 +68,10 @@ try {
 	
 	$foodleids = array();
 	if(!empty($entries)) foreach($entries AS $e) $foodleids[] = $e['foodleid'];
-	if(!empty($allentries)) foreach($allentries AS $e) $foodleids[] = $e['foodleid'];
-	if(!empty($ownerentries)) foreach($ownerentries AS $e) $foodleids[] = $e['foodleid'];
-
-	#print_r($foodleids); exit;
+	if(!empty($allentries)) foreach($allentries AS $e) $foodleids[] = $e['id'];
+	if(!empty($ownerentries)) foreach($ownerentries AS $e) $foodleids[] = $e['id'];
+	
+	#print_r();
 	
 	$statusupdate = $fl->getStatusUpdate($userid, $foodleids, 20);
 	
