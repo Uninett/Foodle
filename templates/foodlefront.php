@@ -16,7 +16,7 @@ if (is_array($this->data['ownerentries']) && count($this->data['ownerentries']) 
 	echo '<ul>';
 	foreach ($this->data['ownerentries'] AS $entry) {
 		echo '<li><a href="foodle.php?id=' . $entry['id'] . '">' . 
-			$entry['name'] . '</a> - ' . substr(strip_tags($entry['descr']), 0, 200) .
+			$entry['name'] . '</a> - ' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8') .
 		'</li>';
 	}
 	echo '</ul></div>';
@@ -33,7 +33,7 @@ if (is_array($this->data['yourentries']) && count($this->data['yourentries']) > 
 	echo '<ul>';
 	foreach ($this->data['yourentries'] AS $entry) {
 		echo '<li><a href="foodle.php?id=' . $entry['id'] . '">' . 
-			$entry['name'] . '</a> - ' . substr(strip_tags($entry['descr']), 0, 100) .
+			$entry['name'] . '</a> - ' . mb_substr(strip_tags($entry['descr']), 0, 100, 'utf-8') .
 		'</li>';
 	}
 	echo '</ul></div>';
@@ -50,7 +50,7 @@ if (is_array($this->data['yourentries']) && count($this->data['yourentries']) > 
 		echo '<ul>';
 		foreach ($this->data['allentries'] AS $entry) {
 			echo '<li><a href="foodle.php?id=' . $entry['id'] . '">' . 
-				$entry['name'] . '</a> - ' . substr(strip_tags($entry['descr']), 0, 100) .
+				$entry['name'] . '</a> - ' . mb_substr(strip_tags($entry['descr']), 0, 100, 'utf-8') .
 			'</li>';
 		}
 		echo '</ul>';
