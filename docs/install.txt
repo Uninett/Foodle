@@ -59,7 +59,7 @@ Install the source code
 
 Check out the source code from google code: 
 
- - <http://code.google.com/p/simplesamlphp/source/checkout>
+ - <http://code.google.com/p/foodle/source/checkout>
 
 Let's say you install the code in `/var/www/foodle`. Then you need to set the `DocumentRoot` on the VHOST in your apache configuration to point at: `/var/www/foodle/www`.
 
