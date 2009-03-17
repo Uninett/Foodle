@@ -226,7 +226,7 @@ mysql> show columns from def;
 	
 	public function getStats($userid) {
 	
-		$sql = 'select count(*) as num from (select now(), created, now() - created as d from entries  having d < 7*60*60*24*10 ) as a';
+		$sql = 'select count(*) as num from (select UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(created) as d from entries  having d < 7*60*60*24 ) as a';
 		$result = mysql_query($sql, $this->db);		
 		if(!$result) throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
 		

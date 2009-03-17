@@ -31,7 +31,7 @@ $config = array (
 	'fromAddress' => 'no-reply@foodle.example.org',
 	
 	'db.host'	=> 'sql.example.org',
-	'db.name'	=> 'feidefoodle'
+	'db.name'	=> 'feidefoodle',
 	'db.user'	=> 'user',
 	'db.pass'	=> 'pass',
 
