@@ -51,6 +51,7 @@ $lang = array(
 		'sv' => 'Lägg till en kommentar',
 		'es' => 'Añadir un comentario',
 		'nl' => 'Voeg commentaar toe',
+		'sl' => 'Dodaj komentar',
 	),
 	'open_in_spreadsheet' => array (
 		'no' => 'Åpne i regneark',
@@ -61,6 +62,7 @@ $lang = array(
 		'sv' => 'Öppna som kalkylark',
 		'es' => 'Abrir en una hoja de cálculo',
 		'nl' => 'Open in spreadsheet',
+		'sl' => 'Odpri v preglednici',
 	),
 	'subscribe_rss' => array (
 		'no' => 'Abonnér på RSS feed',
@@ -71,6 +73,7 @@ $lang = array(
 		'sv' => 'Prenumerera på RSS-flöde',
 		'es' => 'Subscribirse a un feed RSS',
 		'nl' => 'Abonneer op RSS feed',
+		'sl' => 'Prijavi se na RSS',
 	),
 	'completefoodle' => array (
 		'no' => 'Opprett Foodle',
@@ -466,7 +469,7 @@ $lang = array(
 		'sv' => 'Format',
 		'es' => 'Formato',
 		'nl' => 'Formaat',
-		'sl' => 'Format',
+		'sl' => 'Oblika',
 	),
 	'dates' => array (
 		'no' => 'Velg datoer',
@@ -499,7 +502,7 @@ $lang = array(
 		'sv' => 'Du kan om du vill lägga till några tidsperioder till dessa dagar:',
 		'es' => 'Opcionalmente puede añadir algunas franjas temporales que se añadirán a estos días:',
 		'nl' => 'Je kunt tijdssloten toevoegen welke worden toegevoegd aan deze dagen:',
-		'sl' => 'Tukaj lahko k obstoječim dodate nove časovne termine za izbrane dni:',
+		'sl' => 'Tukaj lahko k obstoječim dodate nove časovne termine (za izbrane dni):',
 	),
 	'createchoices' => array (
 		'no' => 'Lag valg',
@@ -544,6 +547,10 @@ $lang = array(
 		'es' => 'Editar Foodle',
 		'nl' => 'Wijzig Foodle',
 		'sl' => 'Uredi Foodle',
+	),
+	'updatefoodle' => array (
+		'no' => 'Lagre endringer',
+		'en' => 'Save changes to this foodle',
 	),
 	'foodleid' => array (
 		'no' => 'Foodle ID',
@@ -719,6 +726,7 @@ $lang = array(
 		'sv' => 'Tillåt anonym åtkomst',
 		'es' => '¿Permitir acceso anónimo?',
 		'nl' => 'Geef anonieme toegang?',
+		'sl' => 'Dovoli anonimen dostop?',
 	),
 	'allowanon' => array (
 		'no' => 'Kryss av for å tillate brukere å svare på denne Foodlen uten å først måtte logge inn. Merk deg at dette kan føre til ukjente svar, og svar som ikke er tilknyttet noen e-postadresse.',
@@ -729,6 +737,7 @@ $lang = array(
 		'sv' => 'Markera för att tillåta användare att svara på denna Foodle utan att först logga in. Notera att detta kan leda till okända svaranden utan registrerade e-postadresser.',
 		'es' => 'Marque esta casilla campo para permitir que sea posible responder a este Foodel sin identificación previa. Tenga en cuenta que esto puede causer que aparezcan usuarios desconocidos, así como usuarios sin una dirección de correo electrónico registrada.',
 		'nl' => 'Laat gebruikers antwoorden op deze Foodle zonder eerst in te loggen. Merk op dat dit kan leiden tot onbekende respondenten, en respondenten zonder geregistreerd e-mail adres.',
+		'sl' => 'Odkljukaj, če želiš dovoliti glasovanje anonimnim uporabnikom. OPOZORILO: To pomeni, da lahko glasuje kdorkoli, tudi večkrat.',
 	),
 	'login' => array (
 		'no' => 'Logg inn',
@@ -739,6 +748,7 @@ $lang = array(
 		'sv' => 'Logga in',
 		'es' => 'Entrar',
 		'nl' => 'Login',
+		'sl' => 'Prijava',
 	),
 	'updated' => array (
 		'no' => 'Siste oppdatert',
@@ -749,6 +759,7 @@ $lang = array(
 		'sv' => 'Senast uppdaterad',
 		'es' => 'Actualizado',
 		'nl' => 'Ververst',
+		'sl' => 'Posodobljeno',
 	),
 	'next' => array (
 		'no' => 'Neste',
@@ -759,6 +770,7 @@ $lang = array(
 		'sv' => 'Nästa',
 		'es' => 'Siguiente',
 		'nl' => 'Volgende',
+		'sl' => 'Naprej',
 	),
 	'read_news' => array (
 		'no' => 'les nyheter om Foodle...',
@@ -769,6 +781,7 @@ $lang = array(
 		'sv' => 'Läs nyheter om Foodle...',
 		'es' => 'ver noticias sobre foodle...',
 		'nl' => 'Lees nieuws over Foodle...',
+		'sl' => 'Preberi novice o foodlu...',
 	),
 	'join_mailinglist' => array (
 		'no' => 'meld deg på foodle sin e-postliste',
@@ -779,6 +792,7 @@ $lang = array(
 		'sv' => 'Gå med i e-postlistan för Foodle',
 		'es' => 'participar en la lista de correo foodle-users',
 		'nl' => 'Meld je aan op de foodle-users mailinglijst',
+		'sl' => 'pridruži se distribucijski listi uporabnikov foodla',
 	),
 	'register_email' => array (
 		'no' => 'Du har ikke logget inn og er anonym. Vi anbefaler at du enten logger inn, eller fyller inn din e-post adresse og navn nedenunder. Hvis du legger igjen e-postadressen, vil vedkommende som opprettet Foodle-n  kunne kontakte deg, og du vil og få en mail i fra Foodle med en lenke du kan trykke på for å endre på besvarelsen din.',
@@ -789,6 +803,7 @@ $lang = array(
 		'sv' => 'Du har inte loggat in i Foodle och är för tillfället anonym. Vi rekommendrar att du antingen loggar in eller att du lämnar namn och e-postadress nedan. Om du lämnar din e-postadress kan ägaren av denna Foodle kontakta dig. Du får också ett e-postmeddelande frpm Foodle som medför att du kan återkomma och ändra ditt svar.',
 		'es' => 'No se ha identificado en Foodle y es actualmente un usuario anónimo. Le recomendamos que se identifique o que (al menos) nos proporcione su dirección de e-mail y su nombre. Si deja su dirección de e-mail, el creador del Foodle podrá ponerse en contacto con usted, y recibirá un mensaje de correo que le perimitirá volver y modificar su respuesta.',
 		'nl' => 'Je bent niet ingelogd in Foodle en hebt dus anonieme toegang. We raden je aan om in te loggen of je e-mail adres en naam hieronder in te vullen. Als je je e-mail adres invult kan de Foodle eigenaar contact met je opnemen en je krijgt ook een e-mail van Foodle waarmee je hier kan terugkeren en je antwoord kan wijzigen.',
+		'sl' => 'Trenutno niste prijavljeni v Foodle, sistem vas obravnava kot anonimnega uporabnika. Prioročamo, da se prijavite ali v spodnje polje vpišete vaš e-poštni naslov. Izpolnjen e-poštni naslov omogoča lastniku tega Foodla da vas kontaktira oz. vi se lahko vrnete nazaj na ta Foodle in spremenite svoje glasovanje.',
 	),
 	'displayname' => array (
 		'no' => 'Ditt navn',
@@ -799,6 +814,7 @@ $lang = array(
 		'sv' => 'Ditt namn',
 		'es' => 'Su nombre',
 		'nl' => 'Naam',
+		'sl' => 'Vaše ime',
 	),
 	'email' => array (
 		'no' => 'E-postadresse',
@@ -809,6 +825,7 @@ $lang = array(
 		'sv' => 'E-postadress',
 		'es' => 'Dirección de e-mail',
 		'nl' => 'E-mail adres',
+		'sl' => 'E-poštni naslov',
 	),
 	'emailreg_submit' => array (
 		'no' => 'Lagre',
@@ -819,6 +836,7 @@ $lang = array(
 		'sv' => 'Spara och fortsätt använda Foodle',
 		'es' => 'Guardar y continuar usando Foodle',
 		'nl' => 'Bewaar en ga door met de Foodle',
+		'sl' => 'Shrani in nadaljuj z uporabo Foodla',
 	),
 	'facebookshareheader' => array (
 		'no' => 'Del denne på Facebook',
@@ -827,6 +845,7 @@ $lang = array(
 		'da' => 'Del Foodle på Facebook',
 		'sv' => 'Dela Foodle på Facebook',
 		'es' => 'Compartir Foodle en Facebook',
+		'sl' => 'Objavi Foodle na Facebooku',
 	),
 	'facebooklinkabout' => array (
 		'no' => 'Lenken under peker på denne Foodle-n, og vil automatisk initiere innlogging via Facebook. Send denne lenken KUN til brukere som du vet har en konto på Facebook og som du vet ønsker å logge inn med Facebook. Denne lenken er fin å bruke hvis du skal lenke til en Foodle fra din Facebook-profil eller en Facebook-gruppe.',
@@ -835,6 +854,7 @@ $lang = array(
 		'da' => 'Linket herunder peger på denne Foodle og vil automatisk påbegynde autentificering via Facebook. Send kun dette link til folk som du ved har en Facebook-profil og som vil bruge Foodle. Dette er en <i>pæn</i> URL til brug på din Facebook-profil, grupper osv.',
 		'sv' => 'Länken nedan pekar på denna Foodle och vill automatiskt aktivera inloggning på Facebook. Skicka endast denna länk till personer som du vet har Facebook och vill använda detta tillsammans med Foodle. Denna länk som är lämplig att dela via t.ex. din profil på Facebook, grupp i Facebook o.s.v.',
 		'es' => 'El siguiente enlace apunta a este Foodle, y puede llevar automáticamente a la autenticación con Facebook. Envíe este enlace únicamente a usuarios que sepa que tienen una cuenta en Facebook y con los que quiera que usen Foodle. Es una buena URL para compartir con tu perfil de Facebook (grupo facebook, etc).',
+		'sl' => 'Spodnji URL predstavlja ta Foodle, s klikom nanj se samodejno sproži avtentikacija preko Facebooka. Prijatelji, ki imajo Facebook uporabniška imena se lahko v ta Foodle prijavijo z njim. URL je primerne oblike tudi za objavo v vašem Facebook profilu (Facebook skupinah, itd)',
 	),
 	'linkonfacebook' => array (
 		'no' => 'Legg en lenke til denne Foodle-n på min Facebook',
@@ -843,6 +863,7 @@ $lang = array(
 		'da' => 'Tilføj til til denne Foodle på Facebook',
 		'sv' => 'Lägg till länk för Facebook för denna Foodle',
 		'es' => 'Añadir enlace a este Foodle a Facebook',
+		'sl' => 'Dodaj link na ta Foodle v Facebook',
 	),
 	'facebookshare' => array (
 		'no' => 'Del på Facebook',
@@ -851,6 +872,7 @@ $lang = array(
 		'da' => 'Del på Facebook',
 		'sv' => 'Dela på Facebook',
 		'es' => 'Compartir en Facebook',
+		'sl' => 'Objavi na Facebooku',
 	),
 	'facebooklogin' => array (
 		'no' => 'Logg inn med Facebook',
@@ -859,6 +881,7 @@ $lang = array(
 		'da' => 'Login med Facebook',
 		'sv' => 'Logga in via Facebook',
 		'es' => 'Autenticarse en Facebook',
+		'sl' => 'Prijava s Facebook uporabniškim imenom',
 	),
 	'is_anonymous' => array (
 		'no' => 'Du er ikke logget inn.',
@@ -868,6 +891,7 @@ $lang = array(
 		'de' => 'Sie sind noch nicht angemeldet.',
 		'sv' => 'Du är förnärvarande inte inloggad.',
 		'es' => 'Actualmente no estás autenticado.',
+		'sl' => 'Niste prijavljeni.',
 	),
 	'maxlimit' => array (
 		'no' => 'Denne Foodle-n har en sperre på max antall svar',
@@ -875,6 +899,8 @@ $lang = array(
 		'nn' => 'Denne Foodlen har eit maksimum på brukarar',
 		'da' => 'Der er et maksimal antal deltagere på denne Foodle.',
 		'sv' => 'Det finns ett maximalt antal användare angivet för denna Foodle',
+		'es' => 'Existe un límite del número máximo de usuarios en este Foodle.',
+		'sl' => 'Ta Foodle ima določeno mejo maksimalnega števila uporabnikov, ki lahko glasujejo.',
 	),
 	'maxlimittext' => array (
 		'no' => '%NUM% av maks %OF% svar er oppnådd på denne Foodle-n.',
@@ -882,6 +908,8 @@ $lang = array(
 		'nn' => '%NUM% av maksimalt %OF% svar er registrert på denne Foodlen',
 		'da' => 'For øjeblikket er %NUM% ud af %OF% er nået.',
 		'sv' => 'För närvarande finns %NUM% användare av maximalt %OF%.',
+		'es' => 'Actualmente se ha alcanzado %NUM% de %OF%.',
+		'sl' => 'Trenutno je glasovalo %NUM% uporabnikov od maksimalno dovoljeno %OF%.',
 	),
 
 );
