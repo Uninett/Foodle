@@ -89,8 +89,8 @@ try {
 		);
 
 		$foodle->setMyResponse($newentry);
+		
 	#	echo '<pre>'; print_r($foodle->getYourEntry($attributes['cn'][0])); echo '</pre>'; #exit;
-	
 	#	SimpleSAML_Logger::warning('Attribute debugging: ' . var_export($attributes, TRUE));
 
 
@@ -147,7 +147,7 @@ try {
 	
 	$et->data['registerEmail'] = (empty($email));
 	
-	$et->data['owner'] = ($userid == $foodle->getowner()) || ($userid == 'andreas@uninett.no');
+	$et->data['owner'] = ($userid == $foodle->getowner()) || ($userid == 'andreas@uninett.no') || ($userid == 'andreas@rnd.feide.no');
 	
 	$et->data['userid'] = $userid;
 	$et->data['displayname'] = $displayname;
@@ -169,9 +169,7 @@ try {
 		array('href' => 'foodle.php?id=' . $foodle->getIdentifier(), 'title' => $foodle->getName()), 
 	);
 	
-	
-	#$et->data['username'];
-	
+
 	$et->show();
 	
 	
@@ -179,11 +177,7 @@ try {
 
 	$et = new SimpleSAML_XHTML_Template($config, 'foodleerror.php', 'foodle_foodle');
 	$et->data['bread'] = array(array('href' => '/' . $config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), array('title' => 'bc_errorpage'));
-	$et->data['message'] = $e->getMessage();
-	
+	$et->data['message'] = $e->getMessage();	
 	$et->show();
 
-
 }
-
-?>

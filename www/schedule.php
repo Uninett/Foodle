@@ -83,7 +83,7 @@ try {
 		$maxdef = '';
 		if(!empty($_REQUEST['maxentries']) && is_numeric($_REQUEST['maxentries'])) {
 			$col =  0;
-			if(is_int($_REQUEST['maxentriescol'])) {
+			if(isset($_REQUEST['maxentriescol'])) {
 				$col = $_REQUEST['maxentriescol'];
 			}
 			$maxdef = $col . ':' . $_REQUEST['maxentries'];
@@ -105,20 +105,20 @@ try {
 		
 		$id = $foodle->getIdentifier();
 		
-		$et = new SimpleSAML_XHTML_Template($config, 'foodleready.php', 'foodle_foodle');
+		$t = new SimpleSAML_XHTML_Template($config, 'foodleready.php', 'foodle_foodle');
 	
-		$et->data['name'] = $foodle->getName();
-		$et->data['identifier'] = $foodle->getIdentifier();
-		$et->data['descr'] = $foodle->getDescr();
-		$et->data['authenticated'] = $foodleauth->isAuth();
-		$et->data['url'] = FoodleUtils::getUrl() . 'foodle.php?id=' . $id;
-		$et->data['bread'] = array(
+		$t->data['name'] = $foodle->getName();
+		$t->data['identifier'] = $foodle->getIdentifier();
+		$t->data['descr'] = $foodle->getDescr();
+		$t->data['authenticated'] = $foodleauth->isAuth();
+		$t->data['url'] = FoodleUtils::getUrl() . 'foodle.php?id=' . $id;
+		$t->data['bread'] = array(
 			array('href' => '/' . $config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), 
 			array('href' => 'foodle.php?id=' . $id, 'title' => $foodle->getName()), 
 			array('title' => 'bc_ready')
 		);
 		
-		$et->show();
+		$t->show();
 		exit;
 	}
 	

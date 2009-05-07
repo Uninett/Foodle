@@ -1,47 +1,7 @@
 <?php
+require_once('_include.php');
 
 
-
-/*
- * THIS FILE IS NOT UPDATED TO WORK WITH FOODLE 2.0
- */
-
-
-exit;
-
-
-
-
-
-$path_extra = '/var/simplesamlphp-openwiki/lib';
-$path = ini_get('include_path');
-$path = $path_extra . PATH_SEPARATOR . $path;
-ini_set('include_path', $path);
-
-
-include('/var/simplesamlphp-openwiki/www/_include.php');
-
-
-/**
- * Loading simpleSAMLphp libraries
- */
-require_once('SimpleSAML/Configuration.php');
-require_once('SimpleSAML/Utilities.php');
-require_once('SimpleSAML/Session.php');
-require_once('SimpleSAML/Metadata/MetaDataStorageHandler.php');
-require_once('SimpleSAML/XHTML/Template.php');
-
-/*
- * Loading Foodle libraries
- */
-require_once('../lib/Foodle.class.php');
-#require_once('../lib/OpenWikiDictionary.class.php');
-
-/**
- * Initializating configuration
- */
-SimpleSAML_Configuration::init(dirname(dirname(__FILE__)) . '/config', 'foodle');
-SimpleSAML_Configuration::init('/var/simplesamlphp-openwiki/config');
 
 $config = SimpleSAML_Configuration::getInstance('foodle');
 
@@ -49,40 +9,24 @@ $config = SimpleSAML_Configuration::getInstance('foodle');
 session_start();
 
 
-#include('../config/groups.php');
 
 try {
 
-	/* Load simpleSAMLphp, configuration and metadata */
-	$sspconfig = SimpleSAML_Configuration::getInstance();
-	$session = SimpleSAML_Session::getInstance();
 	
-	/* Check if valid local session exists.. */
-	if (!isset($session) || !$session->isValid('saml2') ) {
-		SimpleSAML_Utilities::redirect(
-			'/' . $sspconfig->getValue('baseurlpath') .
-			'saml2/sp/initSSO.php',
-			array('RelayState' => SimpleSAML_Utilities::selfURL())
-			);
+	
+	$foodleauth = new FoodleAuth();
+	$foodleauth->requireAuth(FALSE);
+
+	$email = $foodleauth->getMail();
+	$userid = $foodleauth->getUserID();
+	$displayname = $foodleauth->getDisplayName();
+	
+	// If anonymous, create a login link.
+	$loginurl = NULL;
+	if (!$foodleauth->isAuth()) {
+		$sspconfig = SimpleSAML_Configuration::getInstance();
+		$loginurl = '/' . $sspconfig->getValue('baseurlpath') . 'saml2/sp/initSSO.php?RelayState=' . urlencode(SimpleSAML_Utilities::selfURL());
 	}
-	$attributes = $session->getAttributes();
-	
-	$userid = 'na';
-	if (isset($attributes['mail'])) {
-		$userid = $attributes['mail'][0];
-	}
-	if (isset($attributes['eduPersonPrincipalName'])) {
-		$userid = $attributes['eduPersonPrincipalName'][0];
-	}
-	
-	
-	
-	$displayname = 'NA';
-	if (isset($attributes['cn'])) 
-		$displayname = $attributes['cn'][0];
-	
-	if (isset($attributes['displayName'])) 
-		$displayname = $attributes['displayName'][0];
 	
 	
 	
@@ -117,54 +61,109 @@ try {
 	if(!empty($_REQUEST['name'])) {
 	
 		if (empty($_REQUEST['name'])) throw new Exception('You did not type in a name for the foodle.');
-		
+		if (empty($_REQUEST['coldef'])) throw new Exception('Did not get column definition.');
+
 		$name = $_REQUEST['name'];
-		$descr = isset($_REQUEST['descr']) ? $_REQUEST['descr'] : 'No description available.';
+		$descr = isset($_REQUEST['descr']) ? $_REQUEST['descr'] : '...';
+		$expire = $_REQUEST['expire'];
 		
-		$expire = isset($_REQUEST['expire']) ? $_REQUEST['expire'] : NULL;
-	
+		$maxdef = '';
+		if(!empty($_REQUEST['maxentries']) && is_numeric($_REQUEST['maxentries'])) {
+			$col =  0;
+			if(isset($_REQUEST['maxentriescol'])) {
+				$col = $_REQUEST['maxentriescol'];
+			}
+			$maxdef = $col . ':' . $_REQUEST['maxentries'];
+		}
+
+		$anon = '0';
+		if (array_key_exists('anon', $_REQUEST)) $anon = '1';
 		
 		$foodle = new Foodle($thisfoodle, $userid, $link);
 		
-		$foodle->setInfo($name, $descr, $expire);
+		$foodle->setInfo($name, $descr, $expire, $maxdef, $anon );
+		$foodle->setColumnsByDef($_REQUEST['coldef']);
 		
 		$foodle->requireOwner();
 		
 		$foodle->setDBhandle($link);
 		$foodle->savetoDB();
+		
+		
+		
+		/*
+		 * Show screen with edit completed.
+		 */
+		$t = new SimpleSAML_XHTML_Template($config, 'foodleready.php', 'foodle_foodle');
+	
+		$t->data['name'] = $name;
+		$t->data['identifier'] = $thisfoodle;
+		$t->data['descr'] = $descr;
+		$t->data['authenticated'] = $foodleauth->isAuth();
+		$t->data['url'] = FoodleUtils::getUrl() . 'foodle.php?id=' . $thisfoodle;
+		$t->data['bread'] = array(
+			array('href' => '/' . $config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), 
+			array('href' => 'foodle.php?id=' . $thisfoodle, 'title' => $foodle->getName()), 
+			array('title' => 'bc_ready')
+		);
+		
+		$t->show();
+		exit;
 
 	}
 	
 	$foodle = new Foodle($thisfoodle, $userid, $link);
 		
-	
+	$dateepoch = $foodle->getExpire();
+	$date = NULL;
+	if (!empty($dateepoch)) {
+		$date = date('Y-m-d H:s', $dateepoch);
+		
+	}
 	
 	#echo '<pre>'; print_r($foodle->getColumns()); echo '</pre>'; exit;
 	
-	$et = new SimpleSAML_XHTML_Template($config, 'foodleedit.php', 'foodle_foodle');
-	$et->data['header'] = $foodle->getName();
-	$et->data['identifier'] = $foodle->getIdentifier();
-	$et->data['descr'] = $foodle->getDescr();
-	$et->data['expire'] = $foodle->getExpire();
-	$et->data['expired'] = $foodle->expired();
-	$et->data['expiretext'] = $foodle->getExpireText();
-	$et->data['expiretextfield'] = $foodle->getExpireTextField();
-	$et->data['bread'] = array(
+
+	$t = new SimpleSAML_XHTML_Template($config, 'foodlecreate.php', 'foodle_foodle');
+	
+	$t->data['authenticated'] = $foodleauth->isAuth();
+	$t->data['userid'] = $userid;
+	$t->data['displayname'] = $displayname;
+	
+	$t->data['edit'] = TRUE;
+
+	$t->data['name'] = $foodle->getName();
+	$t->data['identifier'] = $foodle->getIdentifier();
+	$t->data['descr'] = $foodle->getDescr();
+	$t->data['expire'] = $date;
+	$t->data['maxdef'] = $foodle->getMaxDef();
+	$t->data['anon'] = $foodle->getAnon();
+	$t->data['expiretext'] = $foodle->getExpireText();
+	$t->data['expiretextfield'] = $foodle->getExpireTextField();
+	$t->data['columns'] = $foodle->getColumns();
+	
+	// echo('<pre>');
+	// print_r($t->data['columns']); exit;
+	
+	$t->data['bread'] = array(
 		array('href' => '/', 'title' => 'bc_frontpage'), 
 		array('href' => 'foodle.php?id=' . $foodle->getIdentifier(), 'title' => $foodle->getName()), 
 		array('title' => 'bc_edit')
 	);
-	$et->show();
-
+	$t->show();
+	
 } catch(Exception $e) {
 
-	$et = new SimpleSAML_XHTML_Template($config, 'foodleerror.php', 'foodle_foodle');
-	$et->data['bread'] = array(array('href' => '/', 'title' => 'bc_frontpage'), array('title' => 'bc_errorpage'));
-	$et->data['message'] = $e->getMessage();
+
+	$t = new SimpleSAML_XHTML_Template($config, 'foodleerror.php', 'foodle_foodle');
+	$t->data['bread'] = array(array('href' => '/' . $config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), array('title' => 'bc_errorpage'));
+	$t->data['message'] = $e->getMessage();
+	$t->data['authenticated'] = $foodleauth->isAuth();
+	$t->data['userid'] = $userid;
+	$t->data['displayname'] = $displayname;
+
 	
-	$et->show();
+	$t->show();
 
 
 }
-
-?>

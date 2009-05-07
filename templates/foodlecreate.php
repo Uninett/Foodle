@@ -1,11 +1,22 @@
 <?php 
 	$this->includeAtTemplateBase('includes/header.php'); 
 
+
+echo('<h1>');
+if($this->data['edit']) {
+	echo('<form method="post" action="edit.php">');
+	echo $this->t('editfoodle'); 
+} else {
+	echo('<form method="post" action="schedule.php">');
+	echo $this->t('createnew'); 
+}
+echo('</h1>');
+
+
 ?>
 
-<form method="post" action="schedule.php">
 
-<h1><?php echo $this->t('createnew'); ?></h1>
+
 
 
 <div id="foodletabs"> 
@@ -50,9 +61,38 @@
 	
 		<p><?php echo $this->t('columnsdescr'); ?></p>
 		
-		<!-- p><?php echo $this->t('timeslotsinfo'); ?><br / -->
 		
 		<div class="fcols">
+		<?php
+
+if (isset($this->data['columns'])) {
+	foreach($this->data['columns'] AS $header => $subitems) {
+		echo('<div class="fcol" style="border-top: 3px solid #eee; border-left: 3px solid #eee; margin: 5px 2em 1em 5px; padding: 4px" >
+				<!-- <p style="float: right; text-align: right"> <a style="margin: .5em" href="">delete</a> </p> -->
+				<input class="fcoli" style="display: block; font-size: large; width: 95%" 
+					value="' . htmlspecialchars($header) . '"
+					type="text" name="timeslot[]" />
+				<div class="subcolcontainer">' .  $this->t('suboptions'));
+		if(!empty($subitems)) {
+			foreach($subitems AS $subitem) {
+				echo('<input style="display: inline; margin: 3px; width: 80px" 
+					type="text" name="timeslots[]" value="' . htmlspecialchars($subitem) . '" />');
+			}
+		} else {
+			echo('<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
+			<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
+			<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
+			<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />');
+		}
+		echo('</div>
+	</div>');
+}
+}
+		
+		?>
+		
+		
+
 			<div class="fcol" style="border-top: 3px solid #eee; border-left: 3px solid #eee; margin: 5px 2em 1em 5px; padding: 4px" >
 				<!-- <p style="float: right; text-align: right"> <a style="margin: .5em" href="">delete</a> </p> -->
 				<input class="fcoli" style="display: block; font-size: large; width: 95%" type="text" name="timeslot[]" />			
@@ -77,12 +117,11 @@
 					<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
 				</div>
 			</div>
-			
-
-
 
 		</div>
-		
+
+
+
 		<p>
 			<a class="button buttonUpdatePreview" onclick="$('#foodletabs > ul').tabs('select', 2);">
 				<span><?php echo $this->t('next'); ?> » <?php echo $this->t('preview'); ?></span></a>
@@ -112,7 +151,17 @@
 
 		<p><?php echo $this->t('previewinfo'); ?></p>
     
-		<input style="display: block; margin: 2em" type="submit" name="save" value="<?php echo $this->t('completefoodle'); ?>" />
+		<?php
+		
+		if ($this->data['edit']) {
+			echo('<input style="display: block; margin: 2em" type="submit" name="save" value="' . $this->t('updatefoodle') . '" />');
+		} else {
+			echo('<input style="display: block; margin: 2em" type="submit" name="save" value="' . $this->t('completefoodle') . '" />');
+		}
+		
+		?>
+
+		
 		
 		<input type="hidden" id="coldef" name="coldef" value="" />
 
@@ -145,19 +194,38 @@
 		
 		
 		<h2 style="margin-top: 2em"><?php echo $this->t('anonheader'); ?></h2>
-		<p><input type="checkbox" name="anon" /> <?php echo $this->t('allowanon'); ?></p>
+		<?php
+			$checked = '';
+			if ($this->data['anon']) $checked = ' checked="checked" ';
+			
+			echo('<p><input type="checkbox" name="anon" ' . $checked . '/> ' . $this->t('allowanon') . '</p>');
+		?>
 		
+		
+		
+		<?php
+			$maxcol = 0;
+			$maxnum = '';
+			if (!empty($this->data['maxdef'])) {
+				$maxdefc = split(':', $this->data['maxdef']);
+				$maxcol = (int)$maxdefc[0];
+				$maxnum = (int)$maxdefc[1];
+			}
+			$maxcoldef = array('', '', '', '', '', '');
+			$maxcoldef[$maxcol] = ' selected="selected" ';
+
+		?>
 		<h2 style="margin-top: 2em"><?php echo $this->t('maxheader'); ?></h2>
 		<p><?php echo $this->t('maxdescr'); ?><br />
-		<input id="maxentries" type="text" name="maxentries" size="3" value="" /></p>
+		<input id="maxentries" type="text" name="maxentries" size="3" value="<?php echo $maxnum; ?>" /></p>
 		<p><?php echo $this->t('maxcolinfo'); ?><br />
 			<select id="maxentriescol" name="maxentriescol">
-				<option value="0"><?php echo $this->t('allentries'); ?></option>
-				<option value="1">Column 1</option>
-				<option value="2">Column 2</option>
-				<option value="3">Column 3</option>
-				<option value="4">Column 4</option>
-				<option value="5">Column 5</option>
+				<option value="0" <?php echo $maxcoldef[0]; ?>><?php echo $this->t('allentries'); ?></option>
+				<option value="1" <?php echo $maxcoldef[1]; ?>>Column 1</option>
+				<option value="2" <?php echo $maxcoldef[2]; ?>>Column 2</option>
+				<option value="3" <?php echo $maxcoldef[3]; ?>>Column 3</option>
+				<option value="4" <?php echo $maxcoldef[4]; ?>>Column 4</option>
+				<option value="5" <?php echo $maxcoldef[5]; ?>>Column 5</option>
 			</select></p>
 		
 		<p><a class="button buttonUpdatePreview" onclick="$('#foodletabs > ul').tabs('select', 2);">

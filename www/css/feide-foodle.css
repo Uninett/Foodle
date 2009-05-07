@@ -1,3 +1,7 @@
+a {
+	cursor: pointer;
+}
+
 a.button:link {
 	color: #444 ! important;
 	

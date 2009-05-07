@@ -177,14 +177,7 @@ if (!$this->data['authenticated']) {
 	}
 }
 
-
-
-
 ?>
-
-
-
-
 
 
 <form method="post" action="foodle.php">

@@ -450,6 +450,7 @@ class Foodle {
 	
 	public function requireOwner() {
 		if ($this->currentuser === 'andreas@uninett.no') return;
+		if ($this->currentuser === 'andreas@rnd.feide.no') return;
 		if ($this->getOwner() === $this->currentuser) return;
 		throw new Exception('You are user ' . $this->currentuser . ' and you do not have access to edit this foodle. The foodle is owned by ' . $this->getOwner() . '.');
 	}

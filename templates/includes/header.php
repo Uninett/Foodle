@@ -224,7 +224,7 @@ function toggle(x) {
 
 <div id="Hovedtopp">
 	
-	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 2.2</span> 
+	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 2.3</span> 
 		<a id="news" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/category/topics/foodle">
 			∘ <?php echo $this->t('read_news'); ?></a>  
 		<a id="mailinglist" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/content/foodle-users">
@@ -283,6 +283,9 @@ echo '</p>';
 		echo '<a class="button" style="float: right" onclick="showFacebookShare()"><span>' . $this->t('facebookshare') . '</span></a>';
 	}
 
+	if ($this->data['owner']) {
+		echo('<a class="button" href="edit.php?id=' .$this->data['identifier'] . '" style="float: right" <span>' . $this->t('editfoodle') . '</span></a>');
+	}
 
 	if (isset($this->data['headbar'])) {
 		echo $this->data['headbar'];
