@@ -340,7 +340,7 @@ class Foodle {
 				expire = " . $expire . ",
 				maxdef = '" . addslashes($this->getMaxDef()) . "',
 				updated = now(),
-				owner = '" . addslashes($this->currentuser) . "' WHERE id = '" . addslashes($this->getIdentifier()) . "'";
+				owner = '" . addslashes($this->getOwner()) . "' WHERE id = '" . addslashes($this->getIdentifier()) . "'";
 
 			$res = mysql_query($sql, $this->db);
 			if(mysql_error()){

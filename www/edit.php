@@ -83,10 +83,14 @@ try {
 		
 		$foodle->setInfo($name, $descr, $expire, $maxdef, $anon );
 		$foodle->setColumnsByDef($_REQUEST['coldef']);
-		
 		$foodle->requireOwner();
 		
 		$foodle->setDBhandle($link);
+		
+		// echo('<pre>');
+		// print_r($foodle);
+		// exit;
+		
 		$foodle->savetoDB();
 		
 		

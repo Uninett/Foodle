@@ -329,6 +329,8 @@ if (!$this->data['authenticated']) {
 	?>
 	</tbody>	
 	</table>
+
+
 	
 <div id="emailbox" style="display: none">
 	<div class="wmd-ignore" id="inneremailbox" 
@@ -345,7 +347,11 @@ if (!$this->data['authenticated']) {
 
 
 </form>
-	
+<?php
+
+	echo('<div style="color: #bbb; font-size: 80%; float: right">' . $this->data['ownerid'] . '</div>');
+
+?>	
 
 			
 <?php $this->includeAtTemplateBase('includes/footer.php'); ?>

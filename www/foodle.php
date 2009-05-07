@@ -125,6 +125,9 @@ try {
 		}
 	}
 	
+	// echo('<pre>');
+	// print_r($foodle);
+	// exit;
 	
 	#echo '<pre>'; print_r($foodle->getColumns()); echo '</pre>'; exit;
 	
@@ -148,7 +151,7 @@ try {
 	$et->data['registerEmail'] = (empty($email));
 	
 	$et->data['owner'] = ($userid == $foodle->getowner()) || ($userid == 'andreas@uninett.no') || ($userid == 'andreas@rnd.feide.no');
-	
+	$et->data['ownerid'] = $foodle->getowner();
 	$et->data['userid'] = $userid;
 	$et->data['displayname'] = $displayname;
 	$et->data['email'] = $email;
