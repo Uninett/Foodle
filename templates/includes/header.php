@@ -286,7 +286,7 @@ echo '</p>';
 		htmlspecialchars(
 			SimpleSAML_Utilities::addURLparameter('http://twitter.com/home', array(
 					'status' => 
-						$title . ': ' . SimpleSAML_Utilities::addURLparameter(SimpleSAML_Utilities::selfURL(), array('auth' => 'twitter'))
+						'#foodle ' . $title . ': ' . SimpleSAML_Utilities::addURLparameter(SimpleSAML_Utilities::selfURL(), array('auth' => 'twitter'))
 				)
 			)
 		) . 
