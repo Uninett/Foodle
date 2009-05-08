@@ -55,6 +55,14 @@ class FoodleAuth {
 		$attributes = $session->getAttributes();
 	}
 	
+	private function twitterAuth() {
+		
+		$session = SimpleSAML_Session::getInstance();
+		if (!$session->isValid($as)) {
+			SimpleSAML_Auth_Default::initLogin('twitter', SimpleSAML_Utilities::selfURL());
+		}
+		$attributes = $session->getAttributes();
+	}
 	
 	private function checkAnonymousSession() {
 	
@@ -181,6 +189,10 @@ class FoodleAuth {
 		
 		if (array_key_exists('auth', $_GET) && $_GET['auth'] === 'facebook') {
 			$this->facebookAuth();
+		}
+		
+		if (array_key_exists('auth', $_GET) && $_GET['auth'] === 'twitter') {
+			$this->twitterAuth();
 		}
 		
 		if (!$allowAnonymous) {

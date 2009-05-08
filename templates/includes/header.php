@@ -196,11 +196,10 @@ function toggle(x) {
 	?>
 
 	<title><?php 
-		if (isset($this->data['title'])) { 
-			echo $this->data['title']; 
-		} else {
-			echo 'Foodle'; 
-		}
+		$title = 'Foodle';
+		if (isset($this->data['title']))
+			$title = $this->data['title']; 
+		echo $title;
 	?></title> 
 	
 	
@@ -282,6 +281,17 @@ echo '</p>';
 	if (array_key_exists('facebookshare', $this->data) && $this->data['facebookshare']) {
 		echo '<a class="button" style="float: right" onclick="showFacebookShare()"><span>' . $this->t('facebookshare') . '</span></a>';
 	}
+
+	echo '<a class="button" style="float: right" title="Share this foodle on Twitter" href="' . 
+		htmlspecialchars(
+			SimpleSAML_Utilities::addURLparameter('http://twitter.com/home', array(
+					'status' => 
+						$title . ': ' . SimpleSAML_Utilities::addURLparameter(SimpleSAML_Utilities::selfURL(), array('auth' => 'twitter'))
+				)
+			)
+		) . 
+		'"><span>Tweet</span></a>';
+
 
 	if ($this->data['owner']) {
 		echo('<a class="button" href="edit.php?id=' .$this->data['identifier'] . '" style="float: right" <span>' . $this->t('editfoodle') . '</span></a>');
