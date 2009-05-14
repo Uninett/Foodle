@@ -36,7 +36,11 @@ function show_response($response) {
 	if (!empty($response['email'])) {
 		echo '<img style="float: right" alt="' . $response['email'] . '" title="' . $response['email'] . '" class="" src="resources/mail16.png" />';
 	}
-	echo $response['username'] . ' (<tt>' . $response['userid'] . '</tt>)';
+	$userid = $response['userid'];
+	if (preg_match('|^@(.*)$|', $userid, $matches))
+		$userid = '<a href="http://twitter.com/' . $matches[1] . '">' . $userid . '</a>';
+	// echo $response['username'] . ' (<tt>' . $userid . '</tt>)';
+	echo $response['username'] . ' (' . $userid . ')';
 	echo '</td>';
 	
 	foreach ($response['response'] AS $no => $entry) {
@@ -54,7 +58,7 @@ function show_response($response) {
 	
 	if (!empty($response['notes'])) {
 		echo '<tr><td id="' . sha1($response['userid']) . '" class="commentline" style="display: none" colspan="' . (count($response['response']) + 2) . '">';
-		echo $response['notes'];
+		echo htmlspecialchars($response['notes']);
 		echo '</td></tr>';
 	}
 
@@ -253,7 +257,7 @@ if (!$this->data['authenticated']) {
 			echo '<a style="float: right" id="ac" >' . $this->t('addcomment') . '</a>';
 		}
 		
-		echo '<input type="text" name="username" value="' . $this->data['yourentry']['username'] . '" /> (<tt>' . $this->data['yourentry']['userid']. '</tt>)';
+		echo '<input type="text" name="username" value="' . htmlspecialchars($this->data['yourentry']['username']) . '" /> (<tt>' . htmlspecialchars($this->data['yourentry']['userid']). '</tt>)';
 		echo '</td>';
 		//echo '<td><input type="text" name="username" value="' . $this->data['yourentry']['username'] . '" /></td>';
 		
@@ -284,7 +288,7 @@ if (!$this->data['authenticated']) {
 		$shide = '';	
 		if (empty($this->data['yourentry']['notes'])) $shide = 'display: none';
 		echo '<tr style="' . $shide . '" id="commentfield" class="you"><td colspan="' . (count($this->data['yourentry']['response']) + 3) . '">
-			<input type="text" id="comment" class="comment" name="comment" value="' .$this->data['yourentry']['notes'] . '" /></td></tr>';
+			<input type="text" id="comment" class="comment" name="comment" value="' . htmlspecialchars($this->data['yourentry']['notes']) . '" /></td></tr>';
 		
 
 		
