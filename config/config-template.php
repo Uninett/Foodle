@@ -18,7 +18,7 @@ $config = array (
 	/*
 	 * Languages available and what language is default
 	 */
-	'language.available'  => array('en', 'no', 'da', 'sv', 'nl', 'de', 'es', 'sl'),
+	'language.available'	=> array('en', 'no', 'nn', 'da', 'sv', 'nl', 'de', 'es', 'sl', 'hr'),
 	'language.default'	  => 'en',
 	
 	// This user IDs will see a list of all foodles on the front page.
