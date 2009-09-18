@@ -274,7 +274,7 @@ echo '</p>';
 	} else {	
 		$sspconfig = SimpleSAML_Configuration::getInstance();
 		echo '<a class="button" style="float: right" href="/' . $sspconfig->getValue('baseurlpath') . 
-			'/saml2/sp/initSLO.php?RelayState=/' . urlencode($this->data['baseurlpath']) . '"><span>Single Log-Out</span></a>';
+			'/saml2/sp/initSLO.php?RelayState=/' . urlencode($this->data['baseurlpath']) . '"><span>' . $this->t('logout') . '</span></a>';
 
 	}
 	
@@ -321,11 +321,11 @@ $langnames = array(
 	'nn' => 'Nynorsk',
 	'se' => 'Sami',
 	'da' => 'Dansk',
+	'fi' => 'Suomeksi',
 	'en' => 'English',
 	'de' => 'Deutsch',
 	'sv' => 'Svenska',
 	'es' => 'Español',
-	'fi' => 'Suomeksi',
 	'fr' => 'Français',
 	'nl' => 'Nederlands',
 	'lb' => 'Luxembourgish', 
