@@ -24,7 +24,7 @@
 	
 	?>
 
-	<br />Visit <a href="http://rnd.feide.no">rnd.feide.no</a>
+	<br /><?php echo $this->t('visit'); ?> <a href="http://rnd.feide.no">rnd.feide.no</a>
 	</div><!-- end stylefoot -->
 
 
