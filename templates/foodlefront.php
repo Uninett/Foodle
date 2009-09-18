@@ -4,8 +4,12 @@
 ?>
 
 <div style="text-align: left; width: 300px; clear: right; float: right; border: 1px solid #ccc; margin: .2em; padding: .2em">
-<h2>Statistics</h2>
-<p>Foodle had <?php echo $this->data['stats']['total7days']; ?> responses last 7 days.</p>
+<h2>
+	<?php echo $this->t('statistics'); ?>
+</h2>
+<p>
+	<?php echo $this->t('cresponses', array('%NUM%' => $this->data['stats']['total7days']) ); ?>
+</p>
 </div>
 
 
@@ -86,7 +90,7 @@ if ($this->data['authenticated']) {
 	<form method="get" action="schedule.php"><input type="submit" value="<?php echo $this->t('createnew'); ?>" /></form>
 </div>
 
-<h2>Status updates</h2>
+<h2><?php echo($this->t('statusupdates')); ?></h2>
 
 <?php
 
