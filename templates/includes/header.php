@@ -164,7 +164,7 @@ $(document).ready(function() {
 	$("#inline").datepicker({  
 		dateFormat: "d. M",
 		altFormat: "yy-mm-dd 16:00",
-		numberOfMonths: 2,
+		numberOfMonths: 1,
 		firstDay: 1,
 		yearRange: '2009:2015',
 		onSelect: function(date) { 
