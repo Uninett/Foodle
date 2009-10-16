@@ -17,10 +17,7 @@ class FoodleAuth {
 		$this->sspconfig = SimpleSAML_Configuration::getInstance();
 		$this->config = SimpleSAML_Configuration::getInstance('foodle');
 		$session = SimpleSAML_Session::getInstance();
-		
-		$this->secret = $secret;
-		$this->foodleid = $foodleid;
-		
+				
 		/* Check if valid local session exists.. */
 		if ($session->isValid() ) {
 		

@@ -293,7 +293,7 @@ echo '</p>';
 		'"><span>Tweet</span></a>';
 
 
-	if ($this->data['owner']) {
+	if (array_key_exists('owner', $this->data)) {
 		echo('<a class="button" href="edit.php?id=' .$this->data['identifier'] . '" style="float: right" <span>' . $this->t('editfoodle') . '</span></a>');
 	}
 
@@ -359,7 +359,11 @@ if (empty($_POST) ) {
 		if ($current) {
 			$textarray[] = $langnames[$lang];
 		} else {
-			$textarray[] = '<a href="' . htmlspecialchars(SimpleSAML_Utilities::addURLparameter(SimpleSAML_Utilities::selfURL(), 'language=' . $lang)) . '">' . 
+			$textarray[] = '<a href="' . htmlspecialchars(
+				SimpleSAML_Utilities::addURLparameter(
+						SimpleSAML_Utilities::selfURL(), array(
+							'language' => $lang,
+						))) . '">' . 
 				$langnames[$lang] . '</a>';
 		}
 	}

@@ -8,8 +8,6 @@ require_once('_include.php');
 
 $config = SimpleSAML_Configuration::getInstance('foodle');
 
-// Starting sessions.
-session_start();
 
 
 #include('../config/groups.php');

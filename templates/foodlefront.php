@@ -61,7 +61,7 @@ if (is_array($this->data['yourentries']) && count($this->data['yourentries']) > 
 	}
 	?>
 </div>
-<?php }Ê?>
+<?php } ?>
 
 <h1><?php echo $this->t('welcomeheader'); ?></h1>
 
