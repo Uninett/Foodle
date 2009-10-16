@@ -81,7 +81,7 @@ foreach ($columns AS $k => $v) {
 
 	echo '</tr>	';
 	
-	echo '<tr style="' . $shide . '" id="commentfield" class="you"><td colspan="' . ($colnum + 3) . '">
+	echo '<tr  id="commentfield" class="you"><td colspan="' . ($colnum + 3) . '">
 		<input type="text" id="comment" class="comment" name="comment" value="Some note..." /></td></tr>';
 	
 

@@ -3,7 +3,7 @@
 
 
 echo('<h1>');
-if($this->data['edit']) {
+if(array_key_exists('edit', $this->data)) {
 	echo('<form method="post" action="edit.php">');
 	echo $this->t('editfoodle'); 
 } else {
@@ -153,7 +153,7 @@ if (isset($this->data['columns'])) {
     
 		<?php
 		
-		if ($this->data['edit']) {
+		if(array_key_exists('edit', $this->data)) {
 			echo('<input style="display: block; margin: 2em" type="submit" name="save" value="' . $this->t('updatefoodle') . '" />');
 		} else {
 			echo('<input style="display: block; margin: 2em" type="submit" name="save" value="' . $this->t('completefoodle') . '" />');
@@ -196,7 +196,7 @@ if (isset($this->data['columns'])) {
 		<h2 style="margin-top: 2em"><?php echo $this->t('anonheader'); ?></h2>
 		<?php
 			$checked = '';
-			if ($this->data['anon']) $checked = ' checked="checked" ';
+			if (array_key_exists('anon', $this->data)) $checked = ' checked="checked" ';
 			
 			echo('<p><input type="checkbox" name="anon" ' . $checked . '/> ' . $this->t('allowanon') . '</p>');
 		?>
