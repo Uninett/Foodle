@@ -19,7 +19,7 @@ class FoodleAuth {
 		$session = SimpleSAML_Session::getInstance();
 				
 		/* Check if valid local session exists.. */
-		if ($session->isValid() ) {
+		if ($session->isValid('saml2') ) {
 		
 			$this->isAuth = TRUE;
 			$this->attributes = $session->getAttributes();
