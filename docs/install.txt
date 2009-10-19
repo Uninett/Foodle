@@ -112,5 +112,4 @@ Then edit the `config.php`.
 
  - Add the path to your simpleSAMLphp installation.
  - Add database connection information.
- - If your 
 
