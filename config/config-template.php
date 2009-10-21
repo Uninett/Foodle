@@ -21,6 +21,8 @@ $config = array (
 	'language.available'	=> array('en', 'no', 'nn', 'da', 'sv', 'nl', 'de', 'es', 'sl', 'hr'),
 	'language.default'	  => 'en',
 	
+	'auth' => 'default-sp',
+	
 	// This user IDs will see a list of all foodles on the front page.
 	'adminUsers' => array('andreas@rnd.feide.no', 'andreas@uninett.no'),
 	

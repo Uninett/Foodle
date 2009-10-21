@@ -11,18 +11,24 @@ class FoodleAuth {
 	
 	private $sspconfig;
 	private $config;
+	
+	private $as;
+	
 
 	function __construct() {
 		/* Load simpleSAMLphp, configuration and metadata */
 		$this->sspconfig = SimpleSAML_Configuration::getInstance();
 		$this->config = SimpleSAML_Configuration::getInstance('foodle');
 		$session = SimpleSAML_Session::getInstance();
-				
-		/* Check if valid local session exists.. */
-		if ($session->isValid('saml2') ) {
+		
+		$authsource = $this->config->getString('auth', 'default-sp');
+		$this->as = new SimpleSAML_Auth_Simple($authsource);
+
+		/* Check if valid local session exists.. */		
+		if ($this->as->isAuthenticated() ) {
 		
 			$this->isAuth = TRUE;
-			$this->attributes = $session->getAttributes();
+			$this->attributes = $this->as->getAttributes();
 		
 			unset($_COOKIE['foodleSession']); 
 			unset($_COOKIE['foodleDisplayName']);
@@ -112,6 +118,20 @@ class FoodleAuth {
 		
 	}
 	
+	// If not authenticated return a link to initiate login (with SAML)
+	// If authenticated return NULL.
+	public function getLoginURL() {
+		if (!$this->isAuth()) return $this->as->getLoginURL();
+		return NULL;
+	}
+	
+	// If not authenticated return a link to initiate login (with SAML)
+	// If authenticated return NULL.
+	public function getLogoutURL() {
+		if ($this->isAuth()) return $this->as->getLogoutURL();
+		return NULL;
+	}
+	
 	private function sendEmail() {
 		
 		$fromAddress = $this->config->getValue('fromAddress', 'no-reply@foodle.feide.no');
@@ -193,10 +213,8 @@ class FoodleAuth {
 		}
 		
 		if (!$allowAnonymous) {
-			SimpleSAML_Utilities::redirect(
-				'/' . $this->sspconfig->getValue('baseurlpath') . 'saml2/sp/initSSO.php',
-				array('RelayState' => SimpleSAML_Utilities::selfURL())
-			);
+			
+			$this->as->requireAuth();			
 			exit;
 		}
 		

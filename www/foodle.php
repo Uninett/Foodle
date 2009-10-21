@@ -55,11 +55,9 @@ try {
 	#error_log('UserID: ' . $userid);
 	
 	// If anonymous, create a login link.
-	$loginurl = NULL;
-	if (!$foodleauth->isAuth()) {
-		$sspconfig = SimpleSAML_Configuration::getInstance();
-		$loginurl = '/' . $sspconfig->getValue('baseurlpath') . 'saml2/sp/initSSO.php?RelayState=' . urlencode(SimpleSAML_Utilities::selfURL());
-	}
+	$loginurl = $foodleauth->getLoginURL();
+	$logouturl = $foodleauth->getLogoutURL('/');
+
 	
 	if (isset($_REQUEST['createnewsubmit'])) {
 		if (!$foodle->isLoaded()) {
@@ -157,6 +155,7 @@ try {
 
 	
 	$et->data['loginurl'] = $loginurl;
+	$et->data['logouturl'] = $logouturl;
 			
 	$et->data['yourentry'] = $foodle->getYourEntry($displayname);
 	$et->data['otherentries'] = $foodle->getOtherEntries();

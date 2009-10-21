@@ -270,12 +270,8 @@ echo '</p>';
 
 	if (isset($this->data['loginurl'])) {
 		echo '<a class="button" style="float: right" href="' . htmlentities($this->data['loginurl']) . '"><span>' . $this->t('login') . '</span></a>';
-		
-	} else {	
-		$sspconfig = SimpleSAML_Configuration::getInstance();
-		echo '<a class="button" style="float: right" href="/' . $sspconfig->getValue('baseurlpath') . 
-			'/saml2/sp/initSLO.php?RelayState=/' . urlencode($this->data['baseurlpath']) . '"><span>' . $this->t('logout') . '</span></a>';
-
+	} elseif(isset($this->data['logouturl'])) {
+		echo '<a class="button" style="float: right" href="' . htmlentities($this->data['logouturl']) . '"><span>' . $this->t('logout') . '</span></a>';
 	}
 	
 	if (array_key_exists('facebookshare', $this->data) && $this->data['facebookshare']) {

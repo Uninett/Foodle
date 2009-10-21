@@ -9,7 +9,10 @@ $path = ini_get('include_path');
 $path = $path_extra . PATH_SEPARATOR . $path;
 ini_set('include_path', $path);
 
-include($SIMPLESAMLPATH . 'www/_include.php');
+#include($SIMPLESAMLPATH . 'www/_include.php');
+
+require_once($SIMPLESAMLPATH . 'lib/_autoload.php');
+
 
 /**
  * Loading simpleSAMLphp libraries

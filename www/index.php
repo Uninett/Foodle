@@ -27,11 +27,8 @@ try {
 	#echo 'email: ' . $email . ' userid:' . $userid . ' displayname:' . $displayname; exit;
 
 	// If anonymous, create a login link.
-	$loginurl = NULL;
-	if (!$foodleauth->isAuth()) {
-		$sspconfig = SimpleSAML_Configuration::getInstance();
-		$loginurl = '/' . $sspconfig->getValue('baseurlpath') . 'saml2/sp/initSSO.php?RelayState=' . urlencode(SimpleSAML_Utilities::selfURL());
-	}
+	$loginurl = $foodleauth->getLoginURL();
+	$logouturl = $foodleauth->getLogoutURL();
 
 
 	
@@ -126,6 +123,7 @@ try {
 	$et->data['bread'] = array(array('title' => 'bc_frontpage'));
 	$et->data['authenticated'] = $foodleauth->isAuth();
 	$et->data['loginurl'] = $loginurl;
+	$et->data['logouturl'] = $logouturl;
 	$et->data['enableFacebookAuth'] = $config->getValue('enableFacebookAuth', TRUE);
 	$et->data['facebookshare'] = FALSE;
 	$et->data['statusupdate'] = $statusupdate;
