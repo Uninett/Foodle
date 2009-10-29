@@ -22,9 +22,12 @@ class FoodleAuth {
 		$session = SimpleSAML_Session::getInstance();
 		
 		$authsource = $this->config->getString('auth', 'default-sp');
+		if ($session->isValid('twitter')) $authsource = 'twitter';
+		if ($session->isValid('facebook')) $authsource = 'facebook';
+		
 		$this->as = new SimpleSAML_Auth_Simple($authsource);
 
-		/* Check if valid local session exists.. */		
+		/* Check if valid local session exists.. */
 		if ($this->as->isAuthenticated() ) {
 		
 			$this->isAuth = TRUE;
@@ -51,20 +54,16 @@ class FoodleAuth {
 	
 	private function facebookAuth() {
 		
-		$session = SimpleSAML_Session::getInstance();
-		if (!$session->isValid($as)) {
-			SimpleSAML_Auth_Default::initLogin('facebook', SimpleSAML_Utilities::selfURL());
-		}
-		$attributes = $session->getAttributes();
+		$this->as = new SimpleSAML_Auth_Simple('facebook');
+		$this->as->requireAuth();			
+
 	}
 	
 	private function twitterAuth() {
 		
-		$session = SimpleSAML_Session::getInstance();
-		if (!$session->isValid($as)) {
-			SimpleSAML_Auth_Default::initLogin('twitter', SimpleSAML_Utilities::selfURL());
-		}
-		$attributes = $session->getAttributes();
+		$this->as = new SimpleSAML_Auth_Simple('twitter');
+		$this->as->requireAuth();
+		
 	}
 	
 	private function checkAnonymousSession() {
