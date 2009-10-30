@@ -93,7 +93,7 @@ try {
 	}
 	
 	if (!empty($_REQUEST['message'])) {
-		$foodle->addDiscussion($displayname, $_REQUEST['message']);
+		$foodle->addDiscussion($displayname, utf8_decode($_REQUEST['message']));
 		$foodle = new Foodle($thisfoodle, $userid, $link);
 	}
 	
