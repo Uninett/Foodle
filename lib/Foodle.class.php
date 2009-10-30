@@ -20,6 +20,8 @@ class Foodle {
 	private $yourentry    = array();
 	private $otherentries = array();
 	
+	private $discussion = array();
+	
 	private $currentuser;
 	
 	private $loadedFromDB = false;
@@ -113,6 +115,7 @@ class Foodle {
 			$this->setOwner($row['owner']);
 			$this->setColumns($this->parseColumn($row['columns']));
 			$this->loadEntriesFromDB();
+			$this->loadDiscussion();
 			$this->loadedFromDB = true;
 		} else throw new Exception('Could not find foodle in database with id ' . $this->getIdentifier());
 		mysql_free_result($result);
@@ -189,6 +192,47 @@ class Foodle {
 		mysql_free_result($result);
 		
 	}
+	
+	
+	
+	/**
+	 * Here is the database schema:
++----------+--------------+------+-----+-------------------+----------------+
+| Field    | Type         | Null | Key | Default           | Extra          |
++----------+--------------+------+-----+-------------------+----------------+
+| id       | int(11)      | NO   | PRI | NULL              | auto_increment | 
+| foodleid | varchar(100) | NO   |     |                   |                | 
+| username | tinytext     | YES  |     | NULL              |                | 
+| message  | text         | YES  |     | NULL              |                | 
+| created  | timestamp    | NO   |     | CURRENT_TIMESTAMP |                | 
++----------+--------------+------+-----+-------------------+----------------+
+	*/
+	private function loadDiscussion() {
+
+		$this->discussion = array();
+		
+		$link = $this->getDBhandle();
+
+		$sql ="SELECT *, UNIX_TIMESTAMP(created) AS createdu, 
+				IF(created=0,null,UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(created)) AS ago
+			FROM discussion
+			WHERE foodleid='" . $this->getIdentifier() . "' order by id desc";
+
+		$result = mysql_query($sql, $this->db);
+
+		if(!$result){
+			throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
+		}
+
+		if(mysql_num_rows($result) > 0){		
+			while($row = mysql_fetch_assoc($result)){
+				$row['agotext'] = $this->date_diff($row['ago']);
+				$this->discussion[] = $row;
+			}
+		}		
+		mysql_free_result($result);
+
+	}
 
 	// The parameters of this function are the dates to be compared.
 	// The first should be prior to the second. The dates are in
@@ -245,8 +289,10 @@ class Foodle {
 		if ($userid == $this->currentuser)
 			$this->yourentry = $newentry;
 
+	}
 
-
+	public function getDiscussion() {
+		return $this->discussion;
 	}
 	
 	public function getOtherEntries() {
@@ -362,6 +408,20 @@ class Foodle {
 			}
 		}
 	}
+	
+	public function addDiscussion($name, $message) {
+		
+		$link = $this->getDBhandle();
+		
+		$res = mysql_query("INSERT INTO discussion (foodleid,username,message) values ('" . 
+			mysql_real_escape_string($this->getIdentifier()) . "','" . mysql_real_escape_string($name) . "', '" . 
+			mysql_real_escape_string($message) . "')", $this->db);
+		if(mysql_error()){
+			throw new Exception('Invalid query: ' . mysql_error());
+		}
+		
+	}
+	
 	
 	// TODO: addslashes
 	private function deleteResponse() {

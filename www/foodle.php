@@ -92,12 +92,19 @@ try {
 		$foodle = new Foodle($thisfoodle, $userid, $link);
 	}
 	
+	if (!empty($_REQUEST['message'])) {
+		$foodle->addDiscussion($displayname, $_REQUEST['message']);
+		$foodle = new Foodle($thisfoodle, $userid, $link);
+	}
+	
+	
 	$used = 0;
 	$maxcol = 0;
 	$maxnum = 0;
 	
 	
 	$otherentries = $foodle->getOtherEntries();
+	$discussion = $foodle->getDiscussion();
 
 	$thisisanewentry = 1;
 	foreach($otherentries AS $oe) {
@@ -159,9 +166,15 @@ try {
 			
 	$et->data['yourentry'] = $foodle->getYourEntry($displayname);
 	$et->data['otherentries'] = $foodle->getOtherEntries();
+	$et->data['discussion'] = $foodle->getDiscussion();
 	
 	$et->data['identifier'] = $foodle->getIdentifier();
 	$et->data['thisisanewentry'] = $thisisanewentry;
+	
+	$tab = 0;
+	if (isset($_REQUEST['tab'])) $tab = $_REQUEST['tab'];
+	
+	$et->data['tab'] = $tab;
 
 	$et->data['bread'] = array(
 		array('href' => '/' . $config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), 

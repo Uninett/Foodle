@@ -190,10 +190,10 @@ mysql> show columns from def;
 	
 	public function getStatusUpdate($userid, $foodleids, $no = 20) {
 		
-		$link = $this->db;
-		
-		
+		$resarray = array();
+		$link = $this->db;		
 		$fidstr = "('" . join("', '", $foodleids) . "')"; 
+
 		
 		$sql ="
 			SELECT entries.*,def.name 
@@ -203,23 +203,41 @@ mysql> show columns from def;
 				and def.id = entries.foodleid
 			ORDER BY entries.created DESC 
 			LIMIT " . $no;
-			
-			#echo $sql;
-		#echo $sql; exit;
-		$result = mysql_query($sql, $this->db);
-		
-		if(!$result){
-			throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
-		}
-		
-		$resarray = array();
-		
+
+		$result = mysql_query($sql, $this->db);		
+		if(!$result) throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
+
 		if(mysql_num_rows($result) > 0){		
 			while($row = mysql_fetch_assoc($result)){
-				$resarray[] = $row;
+				$row['type'] = 'response';
+				$resarray[$row['created']] = $row;
 			}
 		}		
 		mysql_free_result($result);
+
+
+		$sql ="
+			SELECT discussion.*,def.name 
+			FROM discussion, def 
+			WHERE foodleid IN " . $fidstr . "
+				and def.id = discussion.foodleid
+			ORDER BY discussion.created DESC 
+			LIMIT " . $no;
+
+		$result = mysql_query($sql, $this->db);		
+		if(!$result) throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
+
+		if(mysql_num_rows($result) > 0){		
+			while($row = mysql_fetch_assoc($result)){
+				$row['type'] = 'discussion';
+				$resarray[$row['created']] = $row;
+			}
+		}		
+		mysql_free_result($result);
+
+		krsort($resarray);
+
+
 		
 		return $resarray;
 	}

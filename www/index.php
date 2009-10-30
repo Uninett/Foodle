@@ -73,7 +73,7 @@ try {
 	
 	#print_r($stats); exit; 
 	
-	#echo 'status: '; print_r($statusupdate); exit;	
+	#echo 'status: <pre>'; print_r($statusupdate); exit;	
 
 	/*
 	echo 'entries:<pre>';

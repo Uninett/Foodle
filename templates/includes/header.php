@@ -144,8 +144,13 @@ $(document).ready(function() {
 	$("a[@id=link_preview]").click(function(event){updatePreview()});
 	$("a.buttonUpdatePreview").click(function(event){updatePreview()});
 	
-
-	$("#foodletabs > ul").tabs();
+	<?php
+		$tab = 0;
+		if (isset($this->data['tab'])) $tab = $this->data['tab'];
+		echo '$("#foodletabs > ul").tabs({ selected: ' . $tab . ' });';
+	
+	?>
+	
 	
 	/*
 	$("#foodledescr").resizable({ 

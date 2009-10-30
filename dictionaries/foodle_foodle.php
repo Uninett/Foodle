@@ -899,7 +899,7 @@ $lang = array(
 		'da' => 'Login',
 		'de' => 'Anmelden',
 		'sv' => 'Logga in',
-		'fi' => 'Kirjaudu',
+		'fi' => 'Kirjaudu sisään',
 		'es' => 'Entrar',
 		'nl' => 'Login',
 		'sl' => 'Prijava',
@@ -908,6 +908,10 @@ $lang = array(
 	'logout' => array (
 		'no' => 'Logg ut',
 		'en' => 'Logout',
+		'da' => 'Logout',
+		'sv' => 'Logga ut',
+		'fi' => 'Kirjaudu ulos',
+		'sl' => 'Odjava',
 	),
 	'updated' => array (
 		'no' => 'Siste oppdatert',
@@ -942,7 +946,7 @@ $lang = array(
 		'da' => 'læst nyheder om foodle...',
 		'de' => 'Neues zu Foodle',
 		'sv' => 'Läs nyheter om Foodle...',
-		'fi' => 'Lue ',
+		'fi' => 'Lue Foodle-uutiset',
 		'es' => 'ver noticias sobre foodle...',
 		'nl' => 'Lees nieuws over Foodle...',
 		'sl' => 'Preberi novice o foodlu...',
@@ -1112,18 +1116,54 @@ $lang = array(
 	'visit' => array (
 		'no' => 'Besøk',
 		'en' => 'Visit',
+		'da' => 'Besøg',
+		'sv' => 'Besök',
+		'fi' => 'Katso myös',
+		'sl' => 'Obišči',
 	),
 	'statistics' => array (
 		'no' => 'Statistikk',
 		'en' => 'Statistics',
+		'da' => 'Statistik',
+		'sv' => 'Statistik',
+		'fi' => 'Tilastoja',
+		'sl' => 'Statistika',
 	),
 	'cresponses' => array (
 		'no' => 'Foodle har blitt besvart %NUM% ganger i løpet av de siste 7 dagene.',
 		'en' => 'Foodle had %NUM% responses last 7 days.',
+		'da' => 'Foodle har haft %NUM% svar de sidste 7 dage.',
+		'sv' => 'Foodle har registrerat %NUM% svar de senaste 7 dagarna.',
+		'fi' => 'Foodle sai %NUM% vastausta viimeisten 7 päivän aikana.',
+		'sl' => 'Foodle je imel %NUM% odzivov v zadnjih 7 dneh.',
 	),
 	'statusupdates' => array (
 		'no' => 'Statusoppdateringer',
 		'en' => 'Status updates',
+		'da' => 'Status opdateringer',
+		'sv' => 'Statusuppdateringar',
+		'fi' => 'Tilatietoja',
+		'sl' => 'Dnevnik dogodkov',
+	),
+	'add' => array (
+		'no' => 'Legg til',
+		'en' => 'Add',
+	),
+	'entries' => array (
+		'no' => 'innlegg',
+		'en' => 'entries',
+	),
+	'discussion' => array (
+		'no' => 'Diskusjon',
+		'en' => 'Discussion',
+	),
+	'has_responded' => array (
+		'no' => 'har svart på',
+		'en' => 'has responded to',
+	),
+	'has_messaged' => array (
+		'no' => 'har lagt inn en melding på',
+		'en' => 'has added a discussion message to',
 	),
 
 );

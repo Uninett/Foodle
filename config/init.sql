@@ -25,3 +25,12 @@ CREATE TABLE entries (
 	notes text,
 	email text
 );
+
+CREATE TABLE discussion (
+	id int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+	foodleid varchar(100) NOT NULL,
+	username tinytext,
+	message text,
+	
+	created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

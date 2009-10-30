@@ -185,11 +185,23 @@ if (!$this->data['authenticated']) {
 ?>
 
 
+
+<div id="foodletabs"> 
+	
+	<ul style=" margin: 0px"> 
+        <li><a href="#responses"><span><?php echo $this->t('responses'); ?></span></a></li> 
+        <li><a href="#discussion"><span><?php 
+			echo $this->t('discussion') . ' (' . count($this->data['discussion']). ' ' . $this->t('entries') . ')'; 
+		?></span></a></li> 
+    </ul> 
+    <div id="responses">
+
+
+<!-- BEGIN Responses -->
+
+
 <form method="post" action="foodle.php">
 <input type="hidden" name="id" value="<?php echo $this->data['identifier']; ?>" />
-
-	
-	<h2><?php echo $this->t('responses'); ?></h2>
 	
 	<table class="list" style="width: 100%"><thead>
 	
@@ -352,6 +364,55 @@ if (!$this->data['authenticated']) {
 
 
 </form>
+
+
+</div>
+<!-- END Responses -->
+
+<div id="discussion">
+<!-- BEGIN Responses -->
+
+<form method="post" action="foodle.php">
+	<input type="hidden" name="id" value="<?php echo $this->data['identifier']; ?>" />
+	<input type="hidden" name="tab" value="1" />
+
+	<div style="margin: .2em 5em .2em 5em; ">
+		<textarea class="wmd-ignore" name="message" style="clear: both; border: 1px solid #ccc; width: 100%; height: 5em"></textarea>
+		<p><input type="submit" style="clear: both; " value="<?php echo $this->t('add'); ?>" /></p>
+	</div>
+</form>
+
+	
+<?php
+
+echo '<div style="margin: .2em 5em .2em 5em; ">';
+foreach($this->data['discussion'] AS $d) {
+	
+	echo '<div style="border: 1px solid #bbb; margin-bottom: .7em" >';
+	echo '  <div style="margin: 0px; padding: 2px .5em; border-bottom: 1px solid #bbb; font-size: 90%; color: #777; background: #f6f6f6">';
+	echo '    <p style="float: right">' .$d['agotext'] . '</p>';
+	echo $d['username'];
+
+	echo '  </div>';
+	echo '  <div style="margin: 0px; padding: 2px .5em;" >';
+	echo htmlentities(strip_tags($d['message']));
+	echo   '</div>';
+	
+	echo '</div>';
+	
+}
+echo '</div>';
+
+// echo '<pre>';
+// print_r($this->data['discussion']);
+// echo '</pre>';
+
+
+?>
+
+</div>
+
+
 <?php
 
 	echo('<div style="color: #bbb; font-size: 80%; float: right">' . $this->data['ownerid'] . '</div>');

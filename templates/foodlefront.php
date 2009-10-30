@@ -97,9 +97,23 @@ if ($this->data['authenticated']) {
 echo('<ul>');
 foreach ($this->data['statusupdate'] AS $su) {
 	
-	echo('<li><a href="foodle.php?id=' . $su['foodleid'] .'">' . 
-		date('j. M, H:i (l)', strtotime($su['created'])) . ' <strong>' . $su['username'] . '</strong> has responded to <strong>' . $su['name'] . 
-		'</strong></a></li>');
+	
+	if ($su['type'] == 'discussion') {
+		echo('<li><a href="foodle.php?id=' . $su['foodleid'] .'&amp;tab=1">' .  date('j. M, H:i (l)', strtotime($su['created'])) . 
+			' <strong>' . $su['username'] . '</strong> ' . 
+			$this->t('has_messaged') . 
+			' <strong>' . $su['name'] . 
+			'</strong></a></li>');
+		
+	} else {
+		echo('<li><a href="foodle.php?id=' . $su['foodleid'] .'">' .  date('j. M, H:i (l)', strtotime($su['created'])) . 
+			' <strong>' . $su['username'] . '</strong> ' . 
+			$this->t('has_responded') . 
+			' <strong>' . $su['name'] . 
+			'</strong></a></li>');
+		
+	}
+	
 	#print_r($su);
 	
 }
