@@ -88,13 +88,12 @@ try {
 	#	echo '<pre>'; print_r($foodle->getYourEntry($attributes['cn'][0])); echo '</pre>'; #exit;
 	#	SimpleSAML_Logger::warning('Attribute debugging: ' . var_export($attributes, TRUE));
 
-
-		$foodle = new Foodle($thisfoodle, $userid, $link);
+		SimpleSAML_Utilities::redirect('foodle.php', array('id' => $thisfoodle));
 	}
 	
 	if (!empty($_REQUEST['message'])) {
 		$foodle->addDiscussion($displayname, utf8_decode($_REQUEST['message']));
-		$foodle = new Foodle($thisfoodle, $userid, $link);
+		SimpleSAML_Utilities::redirect('foodle.php', array('id' => $thisfoodle, 'tab' => '1'));
 	}
 	
 	
