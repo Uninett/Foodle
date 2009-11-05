@@ -4,7 +4,6 @@ a {
 
 a.button:link {
 	color: #444 ! important;
-	
 }
 a.button {
 	outline: none; /* hide dotted outline in Firefox */

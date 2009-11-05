@@ -34,11 +34,11 @@ function show_response($response) {
 	//echo '<td>' . $response['userid'] . '</td>';
 	echo '<td style="text-align: left">';
 	if (!empty($response['email'])) {
-		echo '<img style="float: right" alt="' . $response['email'] . '" title="' . $response['email'] . '" class="" src="resources/mail16.png" />';
+		echo '<img style="float: right" alt="' . htmlspecialchars($response['email']) . '" title="' . htmlspecialchars($response['email']) . '" class="" src="resources/mail16.png" />';
 	}
 	$userid = $response['userid'];
 	if (preg_match('|^@(.*)$|', $userid, $matches))
-		$userid = '<a href="http://twitter.com/' . $matches[1] . '">' . $userid . '</a>';
+		$userid = '<a href="http://twitter.com/' . htmlspecialchars($matches[1]) . '">' . htmlspecialchars($userid) . '</a>';
 	// echo $response['username'] . ' (<tt>' . $userid . '</tt>)';
 	echo $response['username'] . ' (' . $userid . ')';
 	echo '</td>';
@@ -53,7 +53,7 @@ function show_response($response) {
 		}
 
 	}
-	echo '<td>' . $response['updated'] . '</td>';
+	echo '<td>' . htmlspecialchars($response['updated']) . '</td>';
 	echo '</tr>';
 	
 	if (!empty($response['notes'])) {
@@ -71,7 +71,7 @@ function show_response($response) {
 
 	<h1><?php if (isset($this->data['header'])) { echo $this->data['header']; } else { echo "Some error occured"; } ?></h1>
 
-	<?php echo str_replace(array("\r\n\r\n", "\n\n", "\r\r"), '<p>' , $this->data['descr']); ?>
+	<?php echo str_replace(array("\r\n\r\n", "\n\n", "\r\r"), '<p>' , strip_tags($this->data['descr'], '<p><a><i><b><strong><hr><ul><li><ol><dd><dt><dl>')); ?>
 	
 	<?php 
 	
@@ -174,7 +174,7 @@ if (!$this->data['authenticated']) {
 				<input type="hidden" name="id" value="' . $this->data['identifier'] . '" />';
 		echo '<p>' . $this->t('register_email') . '</p>';
 		echo '<p>' . $this->t('displayname') . ': <input type="text" name="setDisplayName" value="' . 
-			(isset($this->data['displayname']) ? $this->data['displayname'] : '') . '"/><br />';		
+			(isset($this->data['displayname']) ? htmlentities($this->data['displayname']) : '') . '"/><br />';		
 		echo '' . $this->t('email') . ': <input type="text" name="setEmail" /></p>';		
 		echo '<input type="submit" name="reg" value="' . $this->t('emailreg_submit') . '" />';
 		echo '</form>';
@@ -391,7 +391,7 @@ foreach($this->data['discussion'] AS $d) {
 	echo '<div style="border: 1px solid #bbb; margin-bottom: .7em" >';
 	echo '  <div style="margin: 0px; padding: 2px .5em; border-bottom: 1px solid #bbb; font-size: 90%; color: #777; background: #f6f6f6">';
 	echo '    <p style="float: right">' .$d['agotext'] . '</p>';
-	echo $d['username'];
+	echo htmlspecialchars($d['username']);
 
 	echo '  </div>';
 	echo '  <div style="margin: 0px; padding: 2px .5em;" >';

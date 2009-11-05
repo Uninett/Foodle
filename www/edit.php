@@ -61,9 +61,9 @@ try {
 		if (empty($_REQUEST['name'])) throw new Exception('You did not type in a name for the foodle.');
 		if (empty($_REQUEST['coldef'])) throw new Exception('Did not get column definition.');
 
-		$name = $_REQUEST['name'];
+		$name = strip_tags($_REQUEST['name']);
 		$descr = isset($_REQUEST['descr']) ? $_REQUEST['descr'] : '...';
-		$expire = $_REQUEST['expire'];
+		$expire = strip_tags($_REQUEST['expire']);
 		
 		$maxdef = '';
 		if(!empty($_REQUEST['maxentries']) && is_numeric($_REQUEST['maxentries'])) {
@@ -80,7 +80,7 @@ try {
 		$foodle = new Foodle($thisfoodle, $userid, $link);
 		
 		$foodle->setInfo($name, $descr, $expire, $maxdef, $anon );
-		$foodle->setColumnsByDef($_REQUEST['coldef']);
+		$foodle->setColumnsByDef(strip_tags($_REQUEST['coldef']));
 		$foodle->requireOwner();
 		
 		$foodle->setDBhandle($link);
