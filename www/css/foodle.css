@@ -1,0 +1,898 @@
+table#tlayout, table#tlayout td {
+	border: none;
+}
+
+.unicode {
+	font-family: "Unicode Symbols", "Times New Roman", "Apple Symbols","Arial Unicode MS";
+}
+
+
+div.fcol.notinuse{
+	background: #eee;
+/*			color: #777; */
+}
+div.fcol.notinuse input{
+	background: #fff;
+}
+
+
+
+
+body {
+	margin: 0px;
+	padding: 0px;
+}
+div.stylefoot{
+	width: 100%;
+
+	border-top: 1px solid #ccc;
+	text-align: center;
+	margin-top: 1em; 
+	padding: 0px 0px 0px 0px;
+	z-index: 1;
+	color: #888;
+}
+div.stylehead{
+/*	position: absolute;
+	top: 42px;
+	width: 100%;
+	
+	*/
+	background: #eee;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	margin: 4px 0px 4px 0px; 
+	padding: 0px 0px 0px 0px;
+	z-index: 1;
+}
+div.stylehead * {
+	margin 0px;
+	padding: 0px;
+}
+div.stylehead input {
+	float: right;
+	border: 0px solid #555;
+	border-left: 1px solid #ccc;
+	padding-right: .3em;
+	padding-left: .3em;
+	background: transparent;
+	color: #666;
+	height: 1.5em;
+	font-family: "Arial Narrow", Helvetica, Arial, sans-serif;
+}
+div.stylehead input.button:hover {
+	background: #eee;
+	border: 1px solid #red;
+}
+
+div.stylehead div.pagename {
+	float: left;
+	margin-left: 1em;
+	color: #600;
+
+	color: #666;
+	height: 1.5em;
+	font-family: "Arial Narrow", Helvetica, Arial, sans-serif;
+
+}
+
+div.dokuwiki {
+	width: 100%; 
+}
+
+div.dokuwiki {
+/*    position: absolute;
+    top: 80px; */
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+
+
+
+div#newwiki {
+	background: #eee;
+	padding: 1em;
+	border: 1px solid #aaa;
+}
+
+div.wikientry:nth-child(odd) {
+	background: #ddd;
+}
+div.wikientry:nth-child(even) {
+	background: #f5f5f5;
+}
+
+div.wikientry {
+	border-top: 1px solid #aaa;
+	border-left: 1px solid #aaa;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	padding: .5em;
+	margin: 0 0 .2em 0;
+}
+div.wikientry h3 { 
+	margin: 2px;
+}
+div.wikientry p { 
+	margin: 0;
+}
+div.wikientry img.linkicon {
+	border: none ! important;
+	position: relative;
+	top: 10px;
+	margin: 0px;
+}
+img.linkicon {
+}
+span.grey {
+	color: #aaa;
+}
+
+
+html{
+    height: 100%;
+
+    font-family: Arial, Verdana, sans-serif;
+}
+body{
+    height: 100%;
+}
+
+a, a:link, a:visited, a:active {
+    color: #CC0000;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+a.lesmer {
+    float: right;
+    margin: 1em;
+}
+fieldset .submitbutton {
+    vertical-align: middle;
+    margin: 0 3px;
+}
+fieldset select {
+    /*vertical-align: middle;
+    margin: 3px 0;*/
+}
+
+fieldset legend{
+    display: none;
+}
+
+p {
+    margin-top:     10px;
+    margin-bottom:  10px;
+}
+
+
+.feidebutton{
+	color: white;
+	padding: 0 20px 0 20px;
+	background: #b01f2a;
+	border: 1px solid #999;
+}
+.feidebutton:hover{
+    cursor: pointer;
+}
+a.feidebuttonlink{
+	color: white;
+	padding: 2px 20px 1px 20px;
+	background: #b01f2a;
+	border: 1px solid #999;
+}
+a.feidebuttonlink:hover{
+    text-decoration:none;
+
+}
+.dato {
+    margin-bottom: 0.5em;
+}
+.bildehoyre {
+    float: right;
+    margin-left: 5px;
+}
+.bildevenstre {
+    float: left;
+    margin-right: 5px;
+}
+.clear{
+    clear: both;
+}
+.ingress {
+    margin-bottom: 1em;
+}
+
+#Hovedspalte img {
+    border: 1px solid #999999;
+    clear: right;
+    padding: 2px;
+    margin: 2px;
+}
+
+#Hovedspalte .tekst ul{
+    list-style: disc;
+    list-style-position: inside;
+}
+#Hovedspalte .tekst ol{
+    list-style:decimal;
+    list-style-position: inside;    
+}
+
+
+/*** Layout ***/
+
+#Hovedtopp {
+/*    position: absolute;
+    right: 0;
+    left:0;
+    height: 155px;
+    width: 100%;
+    */
+    z-index: 0;
+    background:url("images/topp-bakgrunn_small.png") repeat-x;
+}
+
+
+
+#Relatertinnhold{
+    position: absolute;
+    width: 150px;
+    right: 30px;
+    top: 0;
+    padding-top: 180px;
+    /*padding-right: 5px;*/
+    /*overflow-x: hidden;*/
+}
+#Uninettlogo { /* Lenke til Uninett. Ligger i spalten Relatertinnhold. */
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    height: 39px;
+    width: 115px;
+    background-image: url("images/uninettlogo.gif");
+    background-repeat: no-repeat;
+    background-position: 61px 12px;
+}
+#Sok {
+    position: absolute;
+    top: 129px;
+    right: 0px;
+    /* width: 150px;*/
+    width:280px;
+}
+#Sok #q {
+    border: 1px solid #838175;
+    width: 90px;
+    vertical-align: middle;
+}
+#Sok .submitbutton {
+    background-color: transparent;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 12px;
+    border: 0;
+    margin: 0;
+    margin-left: 3px;
+}
+#Sok label {
+    display: none;
+}
+#Sok p {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    position: absolute;
+    width: 280px;
+    text-align: right;
+}
+#Sok input{
+    
+}
+#Bunntekst {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin-top: 3em;
+    padding-bottom:25px;
+}
+#Bunntekst .adresselinje {
+    margin: 0 1em;
+}
+
+/* --- Hovedmeny --- */
+
+#Hovedmeny {
+    position: absolute;
+    left: 0;
+    top: 0;
+	width: 219px;
+	height: 70px;
+    z-index: 2;
+    background: url("images/meny-topp_2.png") top left no-repeat;
+}
+#Hovedmeny a#Feidelogo {
+    position: absolute;
+    top: 12px;
+    left: 40px;
+    display: block;
+    height: 40px;
+    width: 70px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+#Hovedmeny li.dybde1 ul{
+    border-top: 3px solid white;
+	clear: both;
+}
+#Hovedmeny li.dybde2 ul{
+    border-top: none;
+}
+#Hovedmeny li.dybde1 a.valgt{
+    font-weight: bold;
+}
+
+#Hovedmeny a:hover{
+    text-decoration: underline;
+}
+#Menybunn{
+    background: url("images/meny_bunn.jpg") no-repeat;
+    height: 47px;
+    width: 187px;
+    border-top: 1px solid white;
+    clear: both;
+}
+
+
+/*** Forside ***/
+.profilertnyhet{
+    border: 1px solid #999999;
+    background: #f1f1f1;
+    padding: 1em;
+}
+.forsidenyhet{
+    border-bottom: 1px solid #999999;
+    margin-top: 1em;
+}
+
+
+
+.boks{
+    border: 1px solid #999999;
+    padding: 2px;
+    margin-bottom: 2px;
+    overflow: hidden;
+}
+.bildeboks{
+    margin-bottom: 2px;
+    overflow: hidden;
+    padding:2px;
+    border: 1px solid #999999;    
+}
+.boks h2 {
+    font-size: 1.2em;
+    color: #CC0000;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.boks a {
+    margin: 0;
+    padding: 0;
+    color: #CC0000;
+    text-decoration: none;
+}
+.boks a:hover{
+    text-decoration: underline;
+}
+.globalboks{
+    text-align: center;
+    background-color: #f1f1f1;
+    border: 1px solid #999999;
+    padding: 2px;
+    margin-bottom: 2px;
+    overflow: hidden;
+}
+.globalboks a {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    color: #CC0000;
+    text-decoration: none;
+}
+.globalboks a:hover{
+    text-decoration: underline;
+}
+
+#Hovedsidetabell{
+    width: 100%;
+}
+
+.hovedsideboks{
+    width: 50%;
+    padding: 10px 10px 20px 10px;
+    padding-top: 20px;
+    vertical-align: top;
+}
+
+.hovedsideboks.tl{
+    border-right: 1px solid #888;
+    border-bottom: 1px solid #888;
+}
+.hovedsideboks.tr{
+    border-bottom: 1px solid #888;
+}
+.hovedsideboks.bl{
+    border-right: 1px solid #888;
+}
+.hovedsideboks.br{
+
+}
+
+ul#errorliste{
+    width: 450px;
+    padding: 10px;
+    border: 1px solid black;
+    list-style-type: disc;
+    list-style-position: inside;
+    background: #b01f2a;
+}
+
+ul#errorliste li{
+    color: white;
+}
+.inputerror{
+    background-color: #fdd;
+    
+}
+
+/*** Datatabell ***/
+table.liste {
+    display: table;
+    width: 100%;
+    margin-top: 1em;
+}
+table.liste th {
+    padding: 3px;
+    background: #EFEFF0;
+    font-weight: bold;
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #999999;
+}
+table.liste th.first {
+    border-left: 1px solid #999999;
+}
+table.liste th.last {
+    border-right: 1px solid #999999;
+}
+table.liste td {
+    padding: 3px;
+}
+table.liste tr.rad0 {
+    background: transparent;
+}
+table.liste tr.rad1 {
+    background: #f1f1f1;
+}
+
+
+/*** Ordliste ***/
+ul.alphabeticalList{
+    margin: 0 0 100px 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+}
+
+ul.alphabeticalList ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+}
+ul.alphabeticalList a {
+    display: block;
+}
+ul.alphabeticalList li a, ul.alphabeticalList li a:hover {
+    font-weight: bold;
+    text-decoration: none;
+    color: #000000;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    padding: 3px;
+    padding-left: 10px;
+    border: 1px solid #999999;
+    background-color: #efeff0;
+}
+ul.alphabeticalList li li {
+    padding-left: 1.5em;
+    margin: 0;
+}
+ul.alphabeticalList li li a, ul.alphabeticalList li li a:hover {
+    display: inline;
+    font-weight: normal;
+    border: 0;
+    background-color: transparent;
+    color: #CC0000;
+}
+ul.alphabeticalList li li a:hover {
+    text-decoration: underline;
+}
+
+.ordboks {
+    display: none;
+    position: absolute;
+    z-index: 99;
+    width: 300px;
+    margin-top: 1em;
+}
+.ordboks .heading{
+    border: 1px solid #999999;
+    color: #ffffff;
+    margin-bottom: 2px;
+    background-color: #CC0000;
+    padding: 2px;
+    padding-left: 5px;
+}
+.ordboks heading h3{
+    margin: 0;
+}
+.ordboks .innhold {
+    padding: 5px;
+    border: 1px solid #999999;
+    background-color: #efeff0;
+}
+
+/* NY meny kode */
+#Hovedmeny li.dybde1{
+    clear: both;
+    background:url("images/meny_bg_repeat.png") repeat-y;
+}
+#Hovedmeny li.dybde1 ul{
+    clear: both;
+    background:url("images/meny_bg_repeat_dybde2.png") repeat-y;
+}
+#Hovedmeny li{
+    margin:3px 0;
+}
+#Hovedmeny li{
+    padding:3px 10px 0 37px;
+}
+#Hovedmeny li.dybde1 li{
+    margin-left:35px;
+    margin-right:4px;
+    padding:0;
+}
+#Hovedmeny a{
+    color:#FFF;
+    padding-bottom:3px;
+    display:block;
+}
+#Hovedmeny li.dybde1 ul{
+    margin-left:-37px;
+}
+#Hovedmeny li.dybde2 ul{
+    margin-left:-35px;
+}
+#Hovedmeny li.dybde1 ul li{
+    margin-top:0;
+    margin-bottom:0;
+    padding-top:2px;
+    padding-bottom:2px;
+}
+#Hovedmeny img{
+    margin-left:-29px;
+    float:left;
+    display:inline;
+}
+#Hovedmeny img.horisontal_menypil{
+    width:8px;
+    height:13px;
+    margin-left:-29px;
+    margin-bottom:3px;
+}
+#Hovedmeny img.vertikal_menypil{
+    width:13px;
+    height:8px;
+    margin-top:3px;
+    margin-left:-31px;
+}
+#Hovedmeny ul{
+    width:187px;
+}
+#Hovedmeny li{
+    list-style-type:none;
+}
+#Hovedmeny ul li.dybde3{
+    margin-left:45px;
+}
+#Hovedmeny ul li.dybde3 img{
+    margin-left:-38px;
+}
+a:focus{
+    border:1px dotted #000;
+}
+#Hovedspalte div.kvitteringsboks{
+    border:1px solid #000;
+    padding:10px;
+    color:#000;
+    width:100%;
+    background-color:#cfddc8;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+a {
+	cursor: pointer;
+}
+
+a.button:link {
+	color: #444 ! important;
+}
+a.button {
+	outline: none; /* hide dotted outline in Firefox */
+	margin-top: 3px; margin-bottom: 3px;
+
+	background: transparent url('buttons/bg_button_a.png') no-repeat scroll top right;
+	color: #444 ! important;
+	display: block;
+	float: left;
+	font: normal 12px arial, sans-serif;
+	height: 24px;
+	margin-right: 6px;
+	padding-right: 18px; /* sliding doors padding */
+	text-decoration: none;
+	border: none ! important;
+}
+
+a.button span {
+	background: transparent url('buttons/bg_button_span.png') no-repeat;
+	display: block;
+	line-height: 14px;
+	padding: 5px 0 5px 18px;
+}
+.clear { /* generic container (i.e. div) for floating buttons */
+	overflow: hidden;
+	width: 100%;
+}
+
+
+a.button:active {
+	background-position: bottom right;
+	color: #000 ! important;
+	outline: none; /* hide dotted outline in Firefox */
+}
+
+a.button:active span {
+	background-position: bottom left;
+	padding: 6px 0 4px 18px; /* push text down 1px */
+}
+
+
+
+
+#ulogo {
+	position: absolute;
+	top: 10px; right: 20px;
+	z-index: 10;
+}
+#logo {
+	color: #fff;
+	font-family: "Verdana", "sans-serif";
+	font-weight: bold;
+	letter-spacing: -0.12em;
+	text-shadow: 0px 2px 0px #900;
+	font-size: 30px;
+/*	position: absolute;
+	top: 2px; left: 2px; */
+	z-index: 10;
+}
+#version {
+	font-weight: normal;
+	letter-spacing: 0.1em;
+	font-size: x-small;
+	text-shadow: 0px 1px 0px #900;
+}
+#logo #news, #logo #mailinglist {
+	font-weight: normal;
+	letter-spacing: 0em;
+}
+
+
+
+div.extbox:hover {
+		border: 1px solid #aa5; 
+}
+div.extbox {
+	float: right; 
+	border: 1px dashed #cc8; 
+	background: #fffff1; 
+	padding: .4em; 
+	margin: 1em 0em .4em .4em;
+
+}
+div.extbox a {
+	color: #664;
+	text-decoration: none;
+/*	border-bottom: 1px dashed #cc8; */
+}
+div.extbox a:hover {
+	border-bottom: 1px solid #aa5;
+	text-decoration: none;
+}
+
+
+body,#Hovedmeny div,#Hovedmeny dl,#Hovedmeny dt,#Hovedmeny dd,#Hovedmeny ul,#Hovedmeny ol,#Hovedmeny li,#Hovedmeny p,#Hovedmeny blockquote,#Hovedmeny th,#Hovedmeny td {
+	margin:0;
+	padding:0;
+}
+.commentline {
+	padding: 3px 10px 3px 3em; 
+	color: #777; 
+}
+.list th {
+	font-weight: normal;
+}
+
+
+div.infobox {
+	margin: .3em;
+	padding: .3em;
+	border: 1px solid #999;
+	background: #ddd;
+}
+div.infobox.maxnum {
+}
+div.infobox.expire {
+}
+div.infobox.registeremail {
+}
+
+
+.yesimg {
+	margin: 0px;
+	border: 0px;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+	margin: .6em;
+}
+
+td {
+	border: 1px solid #ccc;
+}
+td,th {
+	border: 1px solid #aaa;
+/*	text-align: center; */
+}
+th {
+	background: #dda;
+	padding: .1em 1em .1em 1em;
+
+}
+td.yes {
+	background: #9c9;
+	color: white;
+	text-align: center;
+}
+td.no {
+	text-align: center;
+	background: #edd;
+	color: #c77;
+}
+tr.you td input.comment {
+	background: #f7f7f7;
+	background-image: url('../resources/notes.png');
+	background-repeat: no-repeat;
+/*	background-attachment:fixed;*/
+ 	background-position: 3px 5px; 
+	color: #662;
+	border: 1px solid #ccc;
+	margin: 5px;
+	padding: 5px 5px 5px 30px;
+	width: 90%;
+
+}
+td.center {
+	text-align: center;
+}
+tr.you td {
+	background: #eed;
+
+
+}
+tr.you td.yes {
+	background: #bea;
+}
+td.count {
+	text-align: center;
+	font-size: large;
+}
+td.highest {
+	background: #373;
+	color: white;
+	font-weight: bold;
+}
+
+td.sunday {
+	background: #B98B8F;
+	color: white;
+}
+td.grey {
+	background: #ccc;
+}
+td.before {
+	background: #eee;
+	color: black;
+}
+
+fieldset,img {
+	border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+}
+caption,th {
+	text-align:center;
+}
+
+dt {
+	font-size: 105%;
+	color: #600;
+	font-weight: bold;
+}
+dd p {
+	margin: 0px 1em .1em 0px;
+}
+
+html {
+	font-size: 90% ! important;
+}
+
+table.list {
+	border: 1px solid #ccc;
+	font-family: "Arial Narrow", "arial", sans-serif;
+}
+div.lang {
+	font-family: "Arial Narrow", "arial", sans-serif;
+}
+table.list tr.header {
+	background: #eee;
+	border-bottom: 1px solid #ccc;
+}
+table.list td {
+	padding: 2px;
+}
+table.list td.odd {
+	background: #e5e5e5;
+	
+}
+div#fcols table.layout {
+	width: 100%;
+	border: none;
+}
+div#fcols table.layout  tr.layout  td.layout {
+	vertical-align: top;
+	border: 0px;
+	padding: .3em;
+}
