@@ -124,9 +124,11 @@ function show_response($response) {
 			echo '<p><strong>' . $this->t('maxlimit') . '</strong></p>'; 
 			#echo '<p style="clear: none; margin: 2px"><strong>There is a maximum limit of number of users on this Foodle.</strong></p>';
 			
+			$used = ' 0 ';
+			if (!empty($this->data['used'])) $used = $this->data['used'];#  echo '<pre>Used:  ' . $this->data['used']; exit;
 			echo '<p>' . $this->t('maxlimittext', 
 				array(
-					'%NUM%' => $this->data['used'], 
+					'%NUM%' => $used, 
 					'%OF%' => $this->data['maxnum']
 				) 
 			) . '</p>'; 
