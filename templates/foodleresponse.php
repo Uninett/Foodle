@@ -197,177 +197,182 @@ if (!$this->data['authenticated']) {
     <div id="responses">
 
 
-<!-- BEGIN Responses -->
-
-
-<form method="post" action="foodle.php">
-<input type="hidden" name="id" value="<?php echo $this->data['identifier']; ?>" />
+	<!-- BEGIN Responses -->
+	<form method="post" action="foodle.php">
+	<input type="hidden" name="id" value="<?php echo $this->data['identifier']; ?>" />
 	
-	<table class="list" style="width: 100%"><thead>
+		<table class="list" style="width: 100%"><thead>
 	
-		<tr>
-			<th rowspan="2" style="width: 20px; padding: 3px 1px 1px 1px">
-				<img alt="notes" src="resources/notes.png" />
-			</th>
-			<th rowspan="2"><?php echo $this->t('name'); ?></th>
+			<tr>
+				<th rowspan="2" style="width: 20px; padding: 3px 1px 1px 1px">
+					<img alt="notes" src="resources/notes.png" />
+				</th>
+				<th rowspan="2"><?php echo $this->t('name'); ?></th>
 			
-		<?php
+			<?php
 		
-		$secondrow = array();
-		foreach ($this->data['columns'] AS $head => $nextrow) {
+			$secondrow = array();
+			foreach ($this->data['columns'] AS $head => $nextrow) {
 			
-			if ($nextrow == null) {
-				echo '<th rowspan="2">' . $head . '</th>';
-			} else {
-				echo '<th colspan="' . count($nextrow) . '">' . $head . '</th>';
-				foreach($nextrow AS $new) {
-					$secondrow[] = $new;
+				if ($nextrow == null) {
+					echo '<th rowspan="2">' . $head . '</th>';
+				} else {
+					echo '<th colspan="' . count($nextrow) . '">' . $head . '</th>';
+					foreach($nextrow AS $new) {
+						$secondrow[] = $new;
+					}
 				}
 			}
-		}
-		echo '<th rowspan="2" style="width: 4em">' . $this->t('updated') . '</th>';
-		echo '</tr>';
+			echo '<th rowspan="2" style="width: 4em">' . $this->t('updated') . '</th>';
+			echo '</tr>';
 		
-		if (count($secondrow) > 0) {
-			echo '<tr>';
-			foreach ($secondrow AS $entry) {
-				echo '<th>' . $entry . '</th>';
+			if (count($secondrow) > 0) {
+				echo '<tr>';
+				foreach ($secondrow AS $entry) {
+					echo '<th>' . $entry . '</th>';
+				}
+				echo('</tr>');
 			}
-			echo('</tr>');
-		}
-		?>
+			?>
 	
 	
-		</thead>
-	<tbody>
-	<?php
-	global $counter;
-	$counter = array_fill(0,count($this->data['yourentry']['response']), 0 );
+			</thead>
+		<tbody>
+		<?php
+		global $counter;
+		$counter = array_fill(0,count($this->data['yourentry']['response']), 0 );
 	
 	
 	
-	if ($editlocked) {
+		if ($editlocked) {
 		
-		if (!$this->data['yourentry']['updated'] == 'expired') {
-			show_response($this->data['yourentry']);
-		}
+			if (!$this->data['yourentry']['updated'] == 'expired') {
+				show_response($this->data['yourentry']);
+			}
 		
 	
-	} else {
-		/*
-		if (!$this->data['expired']) { 
-			echo '<tr class="you"><td style="text-align: right" colspan="' . (count($this->data['yourentry']['response']) + 3) . '">';
-			echo '<input type="submit" name="save" value="Submit your response" />';
-			echo '</td></tr>';
-		}
-		*/
-		echo '<tr class="you">';
+		} else {
+			/*
+			if (!$this->data['expired']) { 
+				echo '<tr class="you"><td style="text-align: right" colspan="' . (count($this->data['yourentry']['response']) + 3) . '">';
+				echo '<input type="submit" name="save" value="Submit your response" />';
+				echo '</td></tr>';
+			}
+			*/
+			echo '<tr class="you">';
 		
-		echo '<td>&nbsp;</td><td>';
+			echo '<td>&nbsp;</td><td>';
 		
-		// Only show add a comment entry if comment is not already added.
-		if (empty($this->data['yourentry']['notes'])) {
-			echo '<a style="float: right" id="ac" >' . $this->t('addcomment') . '</a>';
-		}
+			// Only show add a comment entry if comment is not already added.
+			if (empty($this->data['yourentry']['notes'])) {
+				echo '<a style="float: right" id="ac" >' . $this->t('addcomment') . '</a>';
+			}
 		
-		echo '<input type="text" name="username" value="' . htmlspecialchars($this->data['yourentry']['username']) . '" /> (<tt>' . htmlspecialchars($this->data['yourentry']['userid']). '</tt>)';
-		echo '</td>';
-		//echo '<td><input type="text" name="username" value="' . $this->data['yourentry']['username'] . '" /></td>';
-		
-		
+			echo '<input type="text" name="username" value="' . htmlspecialchars($this->data['yourentry']['username']) . '" /> (<tt>' . htmlspecialchars($this->data['yourentry']['userid']). '</tt>)';
+			echo '</td>';
+			//echo '<td><input type="text" name="username" value="' . $this->data['yourentry']['username'] . '" /></td>';
 		
 		
-		foreach ($this->data['yourentry']['response'] AS $no => $entry) {
-			if ($entry == '1') {
-				#$counter[$no]++;
-				echo '<td class="yes center"><input type="checkbox" name="myresponse[]" checked="checked" value="' . $no . '" /></td>';
+		
+		
+			foreach ($this->data['yourentry']['response'] AS $no => $entry) {
+				if ($entry == '1') {
+					#$counter[$no]++;
+					echo '<td class="yes center"><input type="checkbox" name="myresponse[]" checked="checked" value="' . $no . '" /></td>';
 				
+				} else {
+					echo '<td class="no center"><input type="checkbox" name="myresponse[]" value="' . $no . '"  /></td>';
+				}
+			}
+
+			if (!$this->data['expired']) { 
+				if ($this->data['thisisanewentry'] === 0) {
+					echo '<td style="text-align: center"><input type="submit" name="save" value="' .  $this->t('update') . '" /></td>';	
+				} else {
+					echo '<td style="text-align: center"><input type="submit" name="save" value="' . $this->t('submit') . '" /></td>';	
+				}
 			} else {
-				echo '<td class="no center"><input type="checkbox" name="myresponse[]" value="' . $no . '"  /></td>';
+				echo '<td>' . $this->data['yourentry']['updated'] . '</td>';
+			}
+			echo '</tr>	';
+		
+			$shide = '';	
+			if (empty($this->data['yourentry']['notes'])) $shide = 'display: none';
+			echo '<tr style="' . $shide . '" id="commentfield" class="you"><td colspan="' . (count($this->data['yourentry']['response']) + 3) . '">
+				<input type="text" id="comment" class="comment" name="comment" value="' . htmlspecialchars($this->data['yourentry']['notes']) . '" /></td></tr>';
+		
+
+		
+		}
+	
+
+	
+	
+	
+	#	echo '<pre>';	print_r($this->data); exit;
+
+		foreach ($this->data['otherentries'] AS $response) {
+		
+			show_response($response);
+		
+
+		
+		}
+		$highest = max($counter);
+		echo '<tr><td style="text-align: right; padding-right: 1em" colspan="2">Sum</td>';
+		foreach ($counter AS $num) {
+			if ($num == $highest) {
+				echo '<td class="count highest">' . $num . '</td>';
+			} else {
+				echo '<td class="count">' . $num . '</td>';
 			}
 		}
-
-		if (!$this->data['expired']) { 
-			if ($this->data['thisisanewentry'] === 0) {
-				echo '<td style="text-align: center"><input type="submit" name="save" value="' .  $this->t('update') . '" /></td>';	
-			} else {
-				echo '<td style="text-align: center"><input type="submit" name="save" value="' . $this->t('submit') . '" /></td>';	
-			}
-		} else {
-			echo '<td>' . $this->data['yourentry']['updated'] . '</td>';
+		echo '<td>&nbsp;</td>';
+		echo '</tr>';
+	
+	
+		echo '<tr>';
+		echo '<td colspan="2"><span style="float: right"><img onclick="showemail(0)" class="email" src="resources/mail24.png" alt="' . $this->t('emailtoall'). '" title="' . $this->t('emailtoall'). '" /></span>
+			' . $this->t('emailaddresses'). '</td>';
+		foreach ($counter AS $k => $num) {
+			echo '<td style="text-align: center" class=""><img onclick="showemail(' . ($k+1) . ')" class="email" alt="' . $this->t('emailtoonecol'). '" title="' . $this->t('emailtoonecol'). '" src="resources/mail24.png" /></td>';
 		}
-		echo '</tr>	';
-		
-		$shide = '';	
-		if (empty($this->data['yourentry']['notes'])) $shide = 'display: none';
-		echo '<tr style="' . $shide . '" id="commentfield" class="you"><td colspan="' . (count($this->data['yourentry']['response']) + 3) . '">
-			<input type="text" id="comment" class="comment" name="comment" value="' . htmlspecialchars($this->data['yourentry']['notes']) . '" /></td></tr>';
-		
-
-		
-	}
+		echo '<td>&nbsp;</td>';
+		echo '</tr>';
 	
+	
+		?>
+		</tbody>	
+		</table>
+
 
 	
-	
-	
-#	echo '<pre>';	print_r($this->data); exit;
+	<div id="emailbox" style="display: none">
+		<div class="wmd-ignore" id="inneremailbox" 
+			style="font-family: monospace; white-space: pre; border: 1px solid #ccc; padding: .2em 2em; margin: .1em
+			 white-space: pre-wrap;       /* css-3 */
+	 white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+	 white-space: -pre-wrap;      /* Opera 4-6 */
+	 white-space: -o-pre-wrap;    /* Opera 7 */
+	 word-wrap: break-word;       /* Internet Explorer 5.5+ */
+			"></div>
+		<p><?php echo $this->t('emailinfo'); ?></p>
+	</div>
 
-	foreach ($this->data['otherentries'] AS $response) {
-		
-		show_response($response);
-		
 
-		
-	}
-	$highest = max($counter);
-	echo '<tr><td style="text-align: right; padding-right: 1em" colspan="2">Sum</td>';
-	foreach ($counter AS $num) {
-		if ($num == $highest) {
-			echo '<td class="count highest">' . $num . '</td>';
-		} else {
-			echo '<td class="count">' . $num . '</td>';
-		}
-	}
-	echo '<td>&nbsp;</td>';
-	echo '</tr>';
+
+	</form>
+
+
+	</div>
+	<!-- END Responses -->
 	
-	
-	echo '<tr>';
-	echo '<td colspan="2"><span style="float: right"><img onclick="showemail(0)" class="email" src="resources/mail24.png" alt="' . $this->t('emailtoall'). '" title="' . $this->t('emailtoall'). '" /></span>
-		' . $this->t('emailaddresses'). '</td>';
-	foreach ($counter AS $k => $num) {
-		echo '<td style="text-align: center" class=""><img onclick="showemail(' . ($k+1) . ')" class="email" alt="' . $this->t('emailtoonecol'). '" title="' . $this->t('emailtoonecol'). '" src="resources/mail24.png" /></td>';
-	}
-	echo '<td>&nbsp;</td>';
-	echo '</tr>';
-	
-	
+	<?php
+
+		echo('<div style="color: #bbb; font-size: 80%; float: right">' . $this->data['ownerid'] . '</div>');
+
 	?>
-	</tbody>	
-	</table>
-
-
-	
-<div id="emailbox" style="display: none">
-	<div class="wmd-ignore" id="inneremailbox" 
-		style="font-family: monospace; white-space: pre; border: 1px solid #ccc; padding: .2em 2em; margin: .1em
-		 white-space: pre-wrap;       /* css-3 */
- white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
- white-space: -pre-wrap;      /* Opera 4-6 */
- white-space: -o-pre-wrap;    /* Opera 7 */
- word-wrap: break-word;       /* Internet Explorer 5.5+ */
-		"></div>
-	<p><?php echo $this->t('emailinfo'); ?></p>
 </div>
-
-
-
-</form>
-
-
-</div>
-<!-- END Responses -->
 
 <div id="discussion">
 <!-- BEGIN Responses -->
@@ -381,7 +386,6 @@ if (!$this->data['authenticated']) {
 		<p><input type="submit" style="clear: both; " value="<?php echo $this->t('add'); ?>" /></p>
 	</div>
 </form>
-
 	
 <?php
 
@@ -390,9 +394,9 @@ foreach($this->data['discussion'] AS $d) {
 	
 	echo '<div style="border: 1px solid #bbb; margin-bottom: .7em" >';
 	echo '  <div style="margin: 0px; padding: 2px .5em; border-bottom: 1px solid #bbb; font-size: 90%; color: #777; background: #f6f6f6">';
-	echo '    <p style="float: right">' .$d['agotext'] . '</p>';
-	echo htmlspecialchars($d['username']);
-
+	echo '    <p style="margin: 0px; padding 0px; float: right">' .$d['agotext'] . '</p>';
+	echo '    <p style="margin: 0px; padding 0px; float: left">' .htmlspecialchars($d['username']) . '</p>';
+	echo '<br style="height: 0px; clear: both" />';
 	echo '  </div>';
 	echo '  <div style="margin: 0px; padding: 2px .5em;" >';
 	echo htmlentities(strip_tags($d['message']));
@@ -413,11 +417,7 @@ echo '</div>';
 </div>
 
 
-<?php
 
-	echo('<div style="color: #bbb; font-size: 80%; float: right">' . $this->data['ownerid'] . '</div>');
-
-?>	
-
+</div>
 			
 <?php $this->includeAtTemplateBase('includes/footer.php'); ?>

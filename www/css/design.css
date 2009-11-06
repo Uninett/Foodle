@@ -2,7 +2,7 @@
 * { padding: 0; margin: 0; }
 
 body {
-  font: 87% "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+/*  font: 87% "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;*/
   background-color: __background__;
   color: __text__;
 }

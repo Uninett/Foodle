@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta http-equiv="Content-Language" content="en" />
@@ -16,16 +16,10 @@
 	
 	
 	<!-- Foodle: CSS -->	
-	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>css/design.css" />
+	<!-- <link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>css/design.css" /> -->
 	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>css/foodle.css" /> 
+	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>css/foodle-layout.css" /> 
 
-
-
-
-	<style>
-
-	
-	</style>
 
 	<!-- Foodle: JS -->	
 	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/foodle.js"></script>	
@@ -70,8 +64,8 @@
 </head>
 <body>
 
-<div id="Hovedtopp">
-	
+<!-- Red logo header -->
+<div id="header">	
 	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 2.4</span> 
 		<a id="news" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/category/topics/foodle">
 			∘ <?php echo $this->t('read_news'); ?></a>  
@@ -79,18 +73,37 @@
 			∘ <?php echo $this->t('join_mailinglist'); ?></a>
 	</div>
 	<a href="http://rnd.feide.no"><img id="ulogo" alt="notes" src="/<?php echo($this->data['baseurlpath']); ?>resources/uninettlogo.gif" /></a>
-
 </div>
 
 
 
 
-<div class="stylehead">
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Grey header bar below -->
+<div id="headerbar" style="clear: both">
 <?php 
 
-echo '<p style="float: left; margin-left: 1em">';
+echo '<p id="breadcrumb">';
 if (isset($this->data['bread'])) {
 	$first = TRUE;
 	foreach ($this->data['bread'] AS $item) {
@@ -139,26 +152,22 @@ echo '</p>';
 
 
 	if (array_key_exists('owner', $this->data)) {
-		echo('<a class="button" href="edit.php?id=' .$this->data['identifier'] . '" style="float: right" <span>' . $this->t('editfoodle') . '</span></a>');
+		echo('<a class="button" href="edit.php?id=' .$this->data['identifier'] . '" style="float: right"><span>' . $this->t('editfoodle') . '</span></a>');
 	}
 
 	if (isset($this->data['headbar'])) {
 		echo $this->data['headbar'];
 	}
-
-
-
-
 ?>
 
-<br class="clear" />
-</div>
+<br style="height: 0px; clear: both" />
+</div><!-- /#headerbar -->
 
   
 
 
 
-<div class="dokuwiki">
+
 <?php
 $languages = $this->getLanguageList();
 $langnames = array(
@@ -181,9 +190,7 @@ $langnames = array(
 
 
 
-echo '<div class="lang" style="">';
-
-	
+echo '<div id="langbar" style="clar: both">';
 if (empty($_POST) ) {
 	$textarray = array();
 
@@ -212,17 +219,21 @@ if (empty($_POST) ) {
 				$langnames[$lang] . '</a>';
 		}
 	}
-	echo '<p style="float: right; margin-right: 1em">' .  join(' | ', $textarray) . '</p>';
+	echo '' .  join(' | ', $textarray) . '';
 
 	
 
 }
 echo '</div>';
 ?>
-		
 
 
-  
-<div class="page">
-<!-- wikipage start -->
-    
+
+
+
+
+
+
+
+
+<div id="content">

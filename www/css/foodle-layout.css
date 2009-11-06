@@ -1,0 +1,155 @@
+/* --- General --- */
+
+body {
+	margin: 0px;
+	padding: 0px;
+	font-family: Helvetica, Arial, sans-serif;
+}
+p {
+/*	margin: 0px;
+	padding: 0px;*/
+}
+
+div#content {
+	padding: 0px 1em;
+}
+div#content h1 {
+	margin-top: 0px;
+}
+
+h1 {	font-size: 150%;}
+h2 {	font-size: 115%;}
+h3 {	font-size: 110%;}
+
+
+/*  --- Header ---  */
+
+
+#header {
+    z-index: 0;
+    background:url("images/topp-bakgrunn_small.png") repeat-x;
+}
+
+#header #ulogo {
+	position: absolute;
+	top: 10px; right: 20px;
+	z-index: 10;
+}
+#header #logo {
+	color: #fff;
+	font-family: "Verdana", "sans-serif";
+	font-weight: bold;
+	letter-spacing: -0.12em;
+	text-shadow: 0px 2px 0px #900;
+	font-size: 30px;
+/*	position: absolute;
+	top: 2px; left: 2px; */
+	z-index: 10;
+}
+#header #version {
+	font-weight: normal;
+	letter-spacing: 0.1em;
+	font-size: x-small;
+	text-shadow: 0px 1px 0px #900;
+}
+#header #logo #news, #header #logo #mailinglist {
+	font-weight: normal;
+	letter-spacing: 0em;
+}
+
+
+/* --- langbar --- */
+
+#langbar {
+	font: 80% "arial", sans-serif;
+	text-align: right;
+	margin: 0px;
+	padding: 1px 1em 0px 1em;
+	color: #222;
+}
+#langbar a {
+	color: #600;
+}
+
+
+/* --- headerbar --- */
+
+#headerbar {
+/*	position: absolute;
+	top: 42px;
+	width: 100%;
+	
+	*/
+	background: #eee;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	margin: 3px 0px 0px 0px; 
+	padding: 0px 0px 0px 0px;
+	z-index: 1;
+}
+#headerbar #breadcrumb {
+	float: left; 
+	margin: 9px 1em;
+	
+}
+
+
+
+
+/*  --- Footer ---  */
+
+#footer {
+/*	width: 100%;*/
+	clear: both;
+	border-top: 1px solid #ccc;
+	text-align: center;
+	margin-top: 1em; 
+	padding: 0px 0px 0px 0px;
+	z-index: 1;
+	color: #888;
+}
+
+
+
+
+/* --- columned --- */
+
+
+
+.columned .gutter
+{
+	float: left;
+	width: 1%;
+	height: 1px;
+}
+
+.columned .col1
+{
+	float: left;
+	width: 48%;
+	margin-bottom: 1em;
+	border-right: 1px solid #ccc;
+	padding-right: 1%;
+}
+
+.columned .col2
+{
+	float: left;
+	width: 23%;
+	margin-left: 1%;
+	margin-bottom: 1em;
+	border-right: 1px solid #ccc;
+	padding-right: 1%;
+}
+
+.columned .col3
+{
+	float: left;
+	width: 21%;
+	margin-left: 1%;
+	margin-bottom: 1em;
+}
+
+
+
+

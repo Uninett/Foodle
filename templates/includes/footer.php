@@ -1,11 +1,7 @@
 
-    <!-- wikipage stop -->
-</div>
+</div>    <!-- /#content -->
 
-<div class="clearer">&nbsp;</div>
-
-	<div class="stylefoot">
-
+<div id="footer">
 	<?php
 	
 	if ($this->data['authenticated']) {
@@ -25,20 +21,15 @@
 	?>
 
 	<br /><?php echo $this->t('visit'); ?> <a href="http://rnd.feide.no">rnd.feide.no</a>
-	</div><!-- end stylefoot -->
+</div><!-- /#footer -->
 
 
-</div><!-- dokuwiki -->
 
 <script src="https://ssl.google-analytics.com/urchin.js" type="text/javascript"></script>
-
 <script type="text/javascript">
 _uacct = "UA-431110-13";
 urchinTracker();
 </script>
-
-
-
 
 </body>
 </html>
