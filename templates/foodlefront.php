@@ -117,24 +117,6 @@
 
 
 
-		<?php
-		if (is_array($this->data['yourentries']) && count($this->data['yourentries']) > 0) {
-
-			echo('<h2>' . $this->t('respondedto') . '</h2>');
-
-			foreach ($this->data['yourentries'] AS $entry) {
-				echo '<div class="lentry">';
-				echo ' <div class="lheader"><a href="foodle.php?id=' . $entry['id'] . '">' . 
-					htmlspecialchars($entry['name']) . '</a></div>';
-				echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8');
-				echo ' </div>';
-				echo ' <div class="lowner">' . $entry['owner'] . '</div>';
-#				echo '<pre>'; print_r($entry); echo '</pre>';
-				echo '</div>';
-			}
-
-		}
-		?>
 
 
 
@@ -173,6 +155,26 @@
 			<p>
 				<?php echo $this->t('cresponses', array('%NUM%' => $this->data['stats']['total7days']) ); ?>
 			</p>
+			
+
+			<?php
+			if (is_array($this->data['yourentries']) && count($this->data['yourentries']) > 0) {
+
+				echo('<h2>' . $this->t('respondedto') . '</h2>');
+
+				foreach ($this->data['yourentries'] AS $entry) {
+					echo '<div class="lentry">';
+					echo ' <div class="lheader"><a href="foodle.php?id=' . $entry['id'] . '">' . 
+						htmlspecialchars($entry['name']) . '</a></div>';
+					echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8');
+					echo ' </div>';
+					echo ' <div class="lowner">' . $entry['owner'] . '</div>';
+	#				echo '<pre>'; print_r($entry); echo '</pre>';
+					echo '</div>';
+				}
+
+			}
+			?>
 
 
 			<h2><?php echo $this->t('moreinfo'); ?></h2>
