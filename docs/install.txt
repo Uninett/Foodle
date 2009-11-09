@@ -101,6 +101,16 @@ Foodle is prepared for use with MySQL, but should hopefully work with other data
 		notes text,
 		email text
 	);
+	
+	CREATE TABLE discussion (
+		id int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+		foodleid varchar(100) NOT NULL,
+		username tinytext,
+		message text,
+
+		created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	);
+	
 
 
 Creating the configuration file
