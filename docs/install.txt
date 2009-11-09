@@ -74,6 +74,8 @@ Foodle is prepared for use with MySQL, but should hopefully work with other data
  - Initialize the database with the `init.sql` script.
 
 
+Database schema:
+
 	CREATE TABLE def (
 		id varchar(100) NOT NULL PRIMARY KEY,
 		name tinytext,
@@ -110,7 +112,7 @@ Foodle is prepared for use with MySQL, but should hopefully work with other data
 
 		created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 	);
-	
+
 
 
 Creating the configuration file
