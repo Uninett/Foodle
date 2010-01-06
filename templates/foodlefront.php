@@ -52,9 +52,9 @@
 				echo ('<a href="foodle.php?id=' . $su['foodleid'] .'&amp;tab=1">');
 
 				echo ('' . date('j. M, H:i (l)', strtotime($su['created'])) );
-				echo (' <strong>' . $su['username'] . '</strong> ' . 
+				echo (' <strong>' . htmlspecialchars($su['username']) . '</strong> ' . 
 					$this->t('has_messaged') . 
-					' <strong>' . $su['name'] . 
+					' <strong>' . htmlspecialchars($su['name']) . 
 					'</strong>');
 					
 				echo ('</a>');
@@ -66,9 +66,9 @@
 				echo ('<a href="foodle.php?id=' . $su['foodleid'] .'&amp;tab=0">');
 
 				echo ('' . date('j. M, H:i (l)', strtotime($su['created'])) );
-				echo (' <strong>' . $su['username'] . '</strong> ' . 
+				echo (' <strong>' . htmlspecialchars($su['username']) . '</strong> ' . 
 					$this->t('has_responded') . 
-					' <strong>' . $su['name'] . 
+					' <strong>' . htmlspecialchars($su['name']) . 
 					'</strong>');
 					
 				echo ('</a>');
