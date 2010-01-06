@@ -5,7 +5,7 @@ require_once('_include.php');
 
 $config = SimpleSAML_Configuration::getInstance('foodle');
 
-$parameters = array('save', 'name', 'descr', 'coldef', 'expire', 'maxentries', 'maxentriescol');
+$parameters = array('save', 'name', 'descr', 'coldef', 'expire', 'maxentries', 'maxentriescol', 'anon');
 foreach($parameters AS $parameter) {
 	$_REQUEST[$parameter] = strip_tags($_REQUEST[$parameter]);
 }
@@ -79,11 +79,13 @@ try {
 		}
 
 		$anon = '0';
-		if (array_key_exists('anon', $_REQUEST)) $anon = '1';
+		if (array_key_exists('anon', $_REQUEST) && !empty($_REQUEST['anon'])) $anon = '1';
+		
+		// echo '<pre>'; print_r($_REQUEST); exit;
 		
 		$foodle = new Foodle($thisfoodle, $userid, $link);
 		
-		$foodle->setInfo($name, $descr, $expire, $maxdef, $anon );
+		$foodle->setInfo($name, $descr, $expire, $maxdef, $anon);
 		$foodle->setColumnsByDef(strip_tags($_REQUEST['coldef']));
 		$foodle->requireOwner();
 		

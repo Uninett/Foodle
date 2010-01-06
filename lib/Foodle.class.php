@@ -397,8 +397,11 @@ class Foodle {
 				columns = '" . addslashes($this->encodeColumn($this->getColumns())) . "',
 				expire = " . $expire . ",
 				maxdef = '" . addslashes($this->getMaxDef()) . "',
+				anon = '" . addslashes($this->allowanonymous) . "',
 				updated = now(),
 				owner = '" . addslashes($this->getOwner()) . "' WHERE id = '" . addslashes($this->getIdentifier()) . "'";
+
+			// echo 'query: ' . $sql; exit;
 
 			$res = mysql_query($sql, $this->db);
 			if(mysql_error()){

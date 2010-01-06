@@ -196,7 +196,11 @@ if (isset($this->data['columns'])) {
 		<h2 style="margin-top: 2em"><?php echo $this->t('anonheader'); ?></h2>
 		<?php
 			$checked = '';
-			if (array_key_exists('anon', $this->data)) $checked = ' checked="checked" ';
+			if (array_key_exists('anon', $this->data)) {
+				if ($this->data['anon'] == '1') {
+					$checked = ' checked="checked" ';
+				}
+			}
 			
 			echo('<p><input type="checkbox" name="anon" ' . $checked . '/> ' . $this->t('allowanon') . '</p>');
 		?>
