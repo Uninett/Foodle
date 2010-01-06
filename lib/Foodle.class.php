@@ -29,15 +29,27 @@ class Foodle {
 	private $numcols = 0;
 
 	function __construct($identifier, $currentuser, $db = null) {
+		
+
+		
 		if (!empty($identifier)) {
 			$this->identifier = $identifier;
 		} else {
 			$this->setRandomIdentifier();
 		}
+		
+		$this->requireValidIdentifier($this->identifier);
+		
 		$this->currentuser = $currentuser;
 		if (!empty($db)) {
 			$this->db = $db;
 			$this->loadFromDB();
+		}
+	}
+	
+	private function requireValidIdentifier($id) {
+		if (!preg_match("/^[a-zA-Z0-9]+$/", $id)) {
+		    throw new Exception('Invalid characters in Foodle ID provided [' . $id . ']. Only [a-z] and [0-9] are legal.');
 		}
 	}
 	
@@ -46,7 +58,7 @@ class Foodle {
 	}
 	
 	
-	function setRandomIdentifier() {
+	private function setRandomIdentifier() {
 
 		$length = 8;
 		// start with a blank password

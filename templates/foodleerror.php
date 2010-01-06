@@ -9,7 +9,7 @@
 	<h2>Error</h2>
 
 
-	<p><?php echo $this->data['message']; ?></p>
+	<p><?php echo htmlspecialchars($this->data['message']); ?></p>
 		
 	<h2 style="clear: both">How to get help</h2>
 	

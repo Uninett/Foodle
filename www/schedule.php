@@ -5,6 +5,10 @@ require_once('_include.php');
 
 $config = SimpleSAML_Configuration::getInstance('foodle');
 
+$parameters = array('save', 'name', 'descr', 'coldef', 'expire', 'maxentries', 'maxentriescol');
+foreach($parameters AS $parameter) {
+	$_REQUEST[$parameter] = strip_tags($_REQUEST[$parameter]);
+}
 
 
 try {

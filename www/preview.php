@@ -1,10 +1,21 @@
 <?php
 require_once('_include.php');
 
+#	echo $_REQUEST[$parameter]; exit;
+
+$parameters = array('def');
+foreach($parameters AS $parameter) {
+#	echo $_REQUEST[$parameter]; exit;
+	$_REQUEST[$paramter] = strip_tags($_REQUEST[$paramter]);
+#	echo htmlentities($_REQUEST[$parameter]); exit;
+}
+
+
+
 
 $config = SimpleSAML_Configuration::getInstance('foodle');
 
-$coldef = $_POST['def'];
+$coldef = strip_tags($_REQUEST['def']);
 #$coldef = '13. Jan(s,d)|14. Jan';
 
 $columns = Foodle::parseColumnUtil( $coldef);

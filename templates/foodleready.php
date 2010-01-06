@@ -9,17 +9,20 @@
 	<h1><?php echo $this->t('ready'); ?></h1>
 
 
-	<p><?php echo $this->t('name'); ?>: <?php if (isset($this->data['name'])) echo $this->data['name']; ?>
+	<p><?php echo $this->t('name'); ?>: <?php if (isset($this->data['name'])) echo htmlspecialchars($this->data['name']); ?>
 
-	<p><?php echo $this->t('description'); ?>: <?php
-	if (isset($this->data['descr'])) echo $this->data['descr'];
+	<p><?php echo $this->t('description'); ?>: 
+	<?php
+
+		if (isset($this->data['descr'])) echo htmlspecialchars($this->data['descr']);
+
 	?>
 
 	
-	<p><a href="<?php echo $this->data['url']; ?>"><?php echo $this->t('visitlink'); ?></a>.
+	<p><a href="<?php echo htmlentities($this->data['url']); ?>"><?php echo $this->t('visitlink'); ?></a>.
 		<?php echo $this->t('sendlink'); ?>:<br />
 	
-	<input type="text" size="50" name="foodleid" value="<?php echo $this->data['url']; ?>" />
+	<input type="text" size="50" name="foodleid" value="<?php echo htmlentities($this->data['url']); ?>" />
 	
 	
 	

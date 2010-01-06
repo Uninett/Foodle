@@ -5,6 +5,13 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta http-equiv="Content-Language" content="en" />
 
+<?php
+
+$identifier = $_REQUEST['id'];
+$identifier = preg_replace('/[^a-z0-9]/', '_', $identifier);
+
+?>
+
 
 	<!-- JQuery -->
 	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/jquery.js"></script>
@@ -37,8 +44,8 @@
 		function showemail(col) {
 			$("div#emailbox").hide("fast");
 			<?php
-			if (isset($_REQUEST['id'])) {
-				echo '$("#inneremailbox").load("emailaddr.php", { \'id\': "' . addslashes($_REQUEST['id']) . '", \'col\': col } );'; 
+			if (isset($identifier)) {
+				echo '$("#inneremailbox").load("emailaddr.php", { \'id\': "' . addslashes($identifier) . '", \'col\': col } );'; 
 			}
 			?>
 			$("div#emailbox").show("fast");
@@ -47,8 +54,8 @@
 
 
 	<?php
-		if (isset($_REQUEST['id'])) {
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $this->t('subscribe_rss') . '" href="rss.php?id=' . $_REQUEST['id'] . '" />';
+		if (isset($identifier)) {
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $this->t('subscribe_rss') . '" href="rss.php?id=' . $identifier . '" />';
 		}
 		
 	?>

@@ -5,7 +5,7 @@ $headbar = '<a class="button" style="float: right; "
 	<span><!-- <img src="resources/spreadsheet.png" /> -->' . 
 		$this->t('open_in_spreadsheet') . '</span></a>';
 
-/**
+/*
 $headbar .= '<a class="button" type="application/rss+xml" style="float: right" href="rss.php?id=' . $_REQUEST['id'] . '">
 	<span><!-- img src="resources/feed-icon-14x14.png"  / -->
 	' . $this->t('subscribe_rss') . '</span></a>';
@@ -40,7 +40,7 @@ function show_response($response) {
 	if (preg_match('|^@(.*)$|', $userid, $matches))
 		$userid = '<a href="http://twitter.com/' . htmlspecialchars($matches[1]) . '">' . htmlspecialchars($userid) . '</a>';
 	// echo $response['username'] . ' (<tt>' . $userid . '</tt>)';
-	echo $response['username'] . ' (' . $userid . ')';
+	echo htmlspecialchars($response['username']) . ' (' . htmlspecialchars($userid) . ')';
 	echo '</td>';
 	
 	foreach ($response['response'] AS $no => $entry) {
@@ -173,7 +173,7 @@ if (!$this->data['authenticated']) {
 	if ($this->data['registerEmail']) {
 		echo('<div class="infobox registeremail">');
 		echo '<form method="post" action="foodle.php">
-				<input type="hidden" name="id" value="' . $this->data['identifier'] . '" />';
+				<input type="hidden" name="id" value="' . htmlspecialchars($this->data['identifier']) . '" />';
 		echo '<p>' . $this->t('register_email') . '</p>';
 		echo '<p>' . $this->t('displayname') . ': <input type="text" name="setDisplayName" value="' . 
 			(isset($this->data['displayname']) ? htmlentities($this->data['displayname']) : '') . '"/><br />';		
@@ -201,7 +201,7 @@ if (!$this->data['authenticated']) {
 
 	<!-- BEGIN Responses -->
 	<form method="post" action="foodle.php">
-	<input type="hidden" name="id" value="<?php echo $this->data['identifier']; ?>" />
+	<input type="hidden" name="id" value="<?php echo htmlspecialchars($this->data['identifier']); ?>" />
 	
 		<table class="list" style="width: 100%"><thead>
 	
@@ -371,7 +371,7 @@ if (!$this->data['authenticated']) {
 	
 	<?php
 
-		echo('<div style="color: #bbb; font-size: 80%; float: right">' . $this->data['ownerid'] . '</div>');
+		echo('<div style="color: #bbb; font-size: 80%; float: right">' . htmlspecialchars($this->data['ownerid']) . '</div>');
 
 	?>
 </div>
