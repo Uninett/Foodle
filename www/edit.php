@@ -67,7 +67,7 @@ try {
 
 		$name = strip_tags($_REQUEST['name']);
 		$descr = isset($_REQUEST['descr']) ? 
-			strip_tags($_REQUEST['descr'], '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img>') : 
+			strip_tags($_REQUEST['descr'], '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>') : 
 			'...';
 		$expire = strip_tags($_REQUEST['expire']);
 		
