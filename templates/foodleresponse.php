@@ -71,7 +71,7 @@ function show_response($response) {
 
 	<h1><?php if (isset($this->data['header'])) { echo $this->data['header']; } else { echo "Some error occured"; } ?></h1>
 
-	<?php echo str_replace(array("\r\n\r\n", "\n\n", "\r\r"), '<p>' , strip_tags($this->data['descr'], '<p><a><i><b><strong><hr><ul><li><ol><dd><dt><dl>')); ?>
+	<?php echo str_replace(array("\r\n\r\n", "\n\n", "\r\r"), '<p>' , $this->data['descr']); ?>
 	
 	<?php 
 	

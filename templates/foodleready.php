@@ -14,7 +14,7 @@
 	<p><?php echo $this->t('description'); ?>: 
 	<?php
 
-		if (isset($this->data['descr'])) echo htmlspecialchars($this->data['descr']);
+		if (isset($this->data['descr'])) echo $this->data['descr'];
 
 	?>
 

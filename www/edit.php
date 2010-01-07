@@ -5,7 +5,7 @@ require_once('_include.php');
 
 $config = SimpleSAML_Configuration::getInstance('foodle');
 
-$parameters = array('save', 'name', 'descr', 'coldef', 'expire', 'maxentries', 'maxentriescol', 'anon');
+$parameters = array('save', 'name', 'coldef', 'expire', 'maxentries', 'maxentriescol', 'anon');
 foreach($parameters AS $parameter) {
 	$_REQUEST[$parameter] = strip_tags($_REQUEST[$parameter]);
 }
@@ -66,7 +66,9 @@ try {
 		if (empty($_REQUEST['coldef'])) throw new Exception('Did not get column definition.');
 
 		$name = strip_tags($_REQUEST['name']);
-		$descr = isset($_REQUEST['descr']) ? $_REQUEST['descr'] : '...';
+		$descr = isset($_REQUEST['descr']) ? 
+			strip_tags($_REQUEST['descr'], '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img>') : 
+			'...';
 		$expire = strip_tags($_REQUEST['expire']);
 		
 		$maxdef = '';
@@ -86,7 +88,7 @@ try {
 		$foodle = new Foodle($thisfoodle, $userid, $link);
 		
 		$foodle->setInfo($name, $descr, $expire, $maxdef, $anon);
-		$foodle->setColumnsByDef(strip_tags($_REQUEST['coldef']));
+		$foodle->setColumnsByDef($_REQUEST['coldef']);
 		$foodle->requireOwner();
 		
 		$foodle->setDBhandle($link);
