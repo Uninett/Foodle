@@ -23,7 +23,6 @@ $identifier = preg_replace('/[^a-z0-9]/', '_', $identifier);
 	
 	
 	<!-- Foodle: CSS -->	
-	<!-- <link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>css/design.css" /> -->
 	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>css/foodle.css" /> 
 	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>css/foodle-layout.css" /> 
 
