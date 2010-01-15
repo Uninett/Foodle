@@ -351,7 +351,7 @@ if (!$this->data['authenticated']) {
 	
 	<div id="emailbox" style="display: none">
 		<div class="wmd-ignore" id="inneremailbox" 
-			style="font-family: monospace; white-space: pre; border: 1px solid #ccc; padding: .2em 2em; margin: .1em
+			style="font-family: monospace; white-space: pre; border: 1px solid #ccc; padding: .2em 2em; margin: .1em;
 			 white-space: pre-wrap;       /* css-3 */
 	 white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
 	 white-space: -pre-wrap;      /* Opera 4-6 */
