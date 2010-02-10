@@ -1,15 +1,13 @@
 <?php
 
+session_start();
 
 $SIMPLESAMLPATH = '/var/simplesamlphp-foodle/';
-
 
 $path_extra = $SIMPLESAMLPATH . 'lib';
 $path = ini_get('include_path');
 $path = $path_extra . PATH_SEPARATOR . $path;
 ini_set('include_path', $path);
-
-#include($SIMPLESAMLPATH . 'www/_include.php');
 
 require_once($SIMPLESAMLPATH . 'lib/_autoload.php');
 

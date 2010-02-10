@@ -24,6 +24,7 @@ try {
 	}
 	if (empty($thisfoodle)) throw new Exception('No foodle selected');
 	
+	#echo '<pre>'; print_r($_SESSION); echo '</pre>';
 	
 	
 	$link = mysql_connect(

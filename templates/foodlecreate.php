@@ -5,6 +5,7 @@
 echo('<h1>');
 if(array_key_exists('edit', $this->data)) {
 	echo('<form method="post" action="edit.php">');
+#	echo('<input type="hidden" name="id" value="' . htmlspecialchars($this->data['identifier']) . '" />');
 	echo $this->t('editfoodle'); 
 } else {
 	echo('<form method="post" action="schedule.php">');
@@ -241,15 +242,6 @@ if (isset($this->data['columns'])) {
 
 
 </div>
-
-
-
-
-
-
-
-
-
 
 
 

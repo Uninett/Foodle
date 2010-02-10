@@ -23,13 +23,6 @@ try {
 	$userid = $foodleauth->getUserID();
 	$displayname = $foodleauth->getDisplayName();
 	
-	// If anonymous, create a login link.
-	$loginurl = NULL;
-	if (!$foodleauth->isAuth()) {
-		$sspconfig = SimpleSAML_Configuration::getInstance();
-		$loginurl = '/' . $sspconfig->getValue('baseurlpath') . 'saml2/sp/initSSO.php?RelayState=' . urlencode(SimpleSAML_Utilities::selfURL());
-	}
-	
 	
 	
 	if (!isset($_SESSION['foodle_cache'])) {
@@ -47,6 +40,8 @@ try {
 	mysql_select_db($config->getValue('db.name','feidefoodle'));
 	
 	
+
+	
 	$thisfoodle = null;
 	if (isset($_REQUEST['id'])) {
 		$_SESSION['id'] = $_REQUEST['id'];
@@ -54,9 +49,12 @@ try {
 	} elseif(isset($_SESSION['id'])) {
 		$thisfoodle = $_SESSION['id'];
 	}
+	
+	#echo '<pre>'; print_r($_SESSION); echo '</pre>';
+	
 	if (empty($thisfoodle)) throw new Exception('No foodle selected');
 	
-	
+
 	
 	
 	
