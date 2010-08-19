@@ -1,4 +1,43 @@
+.inneremailbox {
+	font-family: monospace; 
+	border: 1px solid #ccc; 
+	padding: .2em 2em; 
+	margin: .1em;
+	white-space: pre-wrap;       /* css-3 */
+	white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+	white-space: -pre-wrap;      /* Opera 4-6 */
+	white-space: -o-pre-wrap;    /* Opera 7 */
+	word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+
+div.fcol {
+	width: 300px; float: left;
+}
+
+
+
+div.fcol {
+	border: 1px solid #eee; 
+	margin: 5px 5px 1em 5px; 
+	padding: 4px;
+/*	display: table;*/
+}
+.fcoli {
+	display: block; font-size: large; width: 95%
+}
+div.subcolcontainer {
+/*	display: table-row;*/
+}
+input.fscoli {
+/*	display: table-cell;*/
+}
+
+
+
+
 /* ------ Buttons  ----- */
+
 
 
 a {
@@ -90,6 +129,12 @@ div.infobox.registeremail {
 
 
 
+input.fscoli {
+	display: inline; 
+	margin: 0px; 
+	width: 80px;
+}
+
 
 
 
@@ -107,7 +152,7 @@ table#tlayout, table#tlayout td {
 
 
 div.fcol.notinuse{
-	background: #eee;
+/*	background: #eee;*/
 /*			color: #777; */
 }
 div.fcol.notinuse input{
@@ -286,9 +331,8 @@ td.no {
 }
 tr.you td input.comment {
 	background: #f7f7f7;
-	background-image: url('../resources/notes.png');
+	background-image: url('/res/notes.png');
 	background-repeat: no-repeat;
-/*	background-attachment:fixed;*/
  	background-position: 3px 5px; 
 	color: #662;
 	border: 1px solid #ccc;
@@ -379,3 +423,11 @@ div#fcols table.layout  tr.layout  td.layout {
 	border: 0px;
 	padding: .3em;
 }
+
+
+
+
+
+
+
+

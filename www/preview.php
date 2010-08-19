@@ -7,7 +7,7 @@ $parameters = array('def');
 foreach($parameters AS $parameter) {
 #	echo $_REQUEST[$parameter]; exit;
 	$_REQUEST[$paramter] = strip_tags($_REQUEST[$paramter]);
-#	echo htmlentities($_REQUEST[$parameter]); exit;
+	echo htmlentities($_REQUEST[$parameter]); exit;
 }
 
 

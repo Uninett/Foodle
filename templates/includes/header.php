@@ -1,50 +1,68 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta http-equiv="Content-Language" content="en" />
+<head xml:lang="en">
 
-<?php
+	<meta charset="utf-8" />
 
-$identifier = $_REQUEST['id'];
-$identifier = preg_replace('/[^a-z0-9]/', '_', $identifier);
-
-?>
+	<!-- Foodle: CSS -->	
+	<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle.css" /> 
+	<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle-layout.css" /> 
 
 
 	<!-- JQuery -->
-	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/jquery.js"></script>
-	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/jquery-ui.js"></script>
-	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>js/uitheme/jquery-ui-themeroller.css" />
+
+	<script type="text/javascript" src="/res/js/jquery.js"></script>
+	<script type="text/javascript" src="/res/js/jquery-ui.js"></script>
+	<link rel="stylesheet" media="screen" type="text/css" href="/res/js/uitheme/jquery-ui-themeroller.css" />
+	
 	
 	<!-- WMD -->
-	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/wmd.js"></script>
+	<script type="text/javascript" src="/res/js/wmd.js"></script>
 	
 	
-	<!-- Foodle: CSS -->	
-	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>css/foodle.css" /> 
-	<link rel="stylesheet" media="screen" type="text/css" href="/<?php echo($this->data['baseurlpath']); ?>css/foodle-layout.css" /> 
 
 
 	<!-- Foodle: JS -->	
-	<script type="text/javascript" src="/<?php echo($this->data['baseurlpath']); ?>js/foodle.js"></script>	
+	<script type="text/javascript" src="/res/js/foodle.js"></script>	
 
 	<script type="text/javascript">
+	
 		$(document).ready(function() {
+
 			<?php
 				$tab = 0;
 				if (isset($this->data['tab'])) $tab = $this->data['tab'];
-				echo '$("#foodletabs > ul").tabs({ selected: ' . $tab . ' });';
+				echo '$("#foodletabs").tabs({ selected: ' . $tab . ' });';
+				#echo  '$("div#foodletabs").hide();';
 	
 			?>
+			$("div#responsetyperadio").buttonset({ icons: {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'} });
+			<?php
+			if ($this->data['calenabled']) {
+				if ($this->data['defaulttype'] === 'ical') {
+					echo '$(\'#responserowmanual\').hide();';
+				} else {
+					echo '$(\'#responserowcal\').hide();';
+				}
+			}
+			?>
+			
+			$('#radio1').click(function() {
+				$('#responserowmanual').show();
+				$('#responserowcal').hide();
+			});
+			$('#radio2').click(function() {
+				$('#responserowmanual').hide();
+				$('#responserowcal').show();
+			});
+
 		});
 	
 		function showemail(col) {
-			$("div#emailbox").hide("fast");
+			$("div.inneremailbox").hide("fast");
 			<?php
 			if (isset($identifier)) {
-				echo '$("#inneremailbox").load("emailaddr.php", { \'id\': "' . addslashes($identifier) . '", \'col\': col } );'; 
+				echo '$("div#inneremailbox" + col).show("fast");  ';
 			}
 			?>
 			$("div#emailbox").show("fast");
@@ -72,14 +90,14 @@ $identifier = preg_replace('/[^a-z0-9]/', '_', $identifier);
 
 <!-- Red logo header -->
 <div id="header">	
-	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 2.4</span> 
+	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 3.0 beta</span> 
 		<a id="news" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/category/foodle/">
 			∘ <?php echo $this->t('read_news'); ?></a>  
 		<a id="mailinglist" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/software/foodle/">
 			∘ <?php echo $this->t('join_mailinglist'); ?></a>
-	</div>
-	<a href="http://rnd.feide.no"><img id="ulogo" alt="notes" src="/<?php echo($this->data['baseurlpath']); ?>resources/uninettlogo.gif" /></a>
-</div>
+	</div><!-- end #logo -->
+	<a href="http://rnd.feide.no"><img id="ulogo" alt="notes" src="/res/uninettlogo.gif" /></a>
+</div><!-- end #header -->
 
 
 
@@ -230,7 +248,7 @@ if (empty($_POST) ) {
 	
 
 }
-echo '</div>';
+echo '</div><!-- end #langbar -->';
 ?>
 
 

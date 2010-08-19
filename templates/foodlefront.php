@@ -10,8 +10,6 @@
 	<div class="col1">
 
 
-
-
 		<h1><?php echo $this->t('welcomeheader'); ?></h1>
 
 		<p><?php echo $this->t('welcometext'); ?></p>
@@ -36,7 +34,9 @@
 
 		<div id="createnew" style="">
 			<!-- h2><?php echo $this->t('createnew'); ?></h2 -->
-			<form method="get" action="schedule.php"><input type="submit" value="<?php echo $this->t('createnew'); ?>" /></form>
+			<form method="post" action="create">
+				<input type="submit" value="<?php echo $this->t('createnew'); ?>" />
+			</form>
 		</div>
 
 		<h2><?php echo($this->t('statusupdates')); ?></h2>
@@ -49,7 +49,7 @@
 
 			if ($su['type'] == 'discussion') {
 				echo('<li>');
-				echo ('<a href="foodle.php?id=' . $su['foodleid'] .'&amp;tab=1">');
+				echo ('<a href="/foodle/' . $su['foodleid'] .'"/discussion>');
 
 				echo ('' . date('j. M, H:i (l)', strtotime($su['created'])) );
 				echo (' <strong>' . htmlspecialchars($su['username']) . '</strong> ' . 
@@ -63,7 +63,7 @@
 			} else {
 				
 				echo('<li>');
-				echo ('<a href="foodle.php?id=' . $su['foodleid'] .'&amp;tab=0">');
+				echo ('<a href="/foodle/' . $su['foodleid'] .'">');
 
 				echo ('' . date('j. M, H:i (l)', strtotime($su['created'])) );
 				echo (' <strong>' . htmlspecialchars($su['username']) . '</strong> ' . 
@@ -103,7 +103,7 @@
 #			echo '<ul class="statusupdates">';
 			foreach ($this->data['ownerentries'] AS $entry) {
 				echo '<div class="lentry">';
-				echo ' <div class="lheader"><a href="foodle.php?id=' . $entry['id'] . '">' . 
+				echo ' <div class="lheader"><a href="/foodle/' . $entry['id'] . '">' . 
 					htmlspecialchars($entry['name']) . '</a></div>';
 				echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8');
 				echo ' </div>';
@@ -127,7 +127,7 @@
 
 				foreach ($this->data['allentries'] AS $entry) {
 				echo '<div class="lentry">';
-				echo ' <div class="lheader"><a href="foodle.php?id=' . $entry['id'] . '">' . 
+				echo ' <div class="lheader"><a href="/foodle/' . $entry['id'] . '">' . 
 					htmlspecialchars($entry['name']) . '</a></div>';
 				echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8');
 				echo ' </div>';
@@ -164,7 +164,7 @@
 
 				foreach ($this->data['yourentries'] AS $entry) {
 					echo '<div class="lentry">';
-					echo ' <div class="lheader"><a href="foodle.php?id=' . $entry['id'] . '">' . 
+					echo ' <div class="lheader"><a href="/foodle/' . $entry['id'] . '">' . 
 						htmlspecialchars($entry['name']) . '</a></div>';
 					echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8');
 					echo ' </div>';

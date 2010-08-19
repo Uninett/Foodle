@@ -1,22 +1,19 @@
 <?php 
-	$this->includeAtTemplateBase('includes/header.php'); 
 
+$this->includeAtTemplateBase('includes/header.php'); 
 
-echo('<h1>');
 if(array_key_exists('edit', $this->data)) {
-	echo('<form method="post" action="edit.php">');
-#	echo('<input type="hidden" name="id" value="' . htmlspecialchars($this->data['identifier']) . '" />');
-	echo $this->t('editfoodle'); 
+	echo '<h1>' . $this->t('editfoodle') . '</h1>'; 
+	$action = '/edit/' . $this->data['foodle']->identifier;
+
 } else {
-	echo('<form method="post" action="schedule.php">');
-	echo $this->t('createnew'); 
+	echo '<h1>' . $this->t('createnew') . '</h1>'; 
+	$action = '/create';
 }
-echo('</h1>');
+echo('<form method="post" action="' . $action . '">');
 
 
 ?>
-
-
 
 
 
@@ -30,15 +27,15 @@ echo('</h1>');
          -->
     <ul style=" margin: 0px"> 
         <li><a href="#fdescr"><span><?php echo $this->t('foodledescr'); ?></span></a></li> 
-        <li><a href="#fcols"><span><?php echo $this->t('setupcolumns'); ?></span></a></li> 
-        <li><a id="link_preview" href="#preview"><span><?php echo $this->t('preview'); ?></span></a></li> 
+        <li><a id="link_preview" href="#fcols"><span><?php echo $this->t('setupcolumns'); ?></span></a></li> 
+        <!-- <li><a  href="#preview"><span><?php echo $this->t('preview'); ?></span></a></li>  -->
         <li><a href="#advanced"><span><?php echo $this->t('advancedoptions'); ?></span></a></li>
     </ul> 
     <div id="fdescr"> 
 
 	
 		<p><?php echo $this->t('name'); ?>: 
-		<input type="text" name="name" style="width: 400px; font-size: large" value="<?php
+			<input type="text" name="name" style="width: 400px; font-size: large" value="<?php
 		if (isset($this->data['name'])) echo $this->data['name'];
 		?>" /></p>
 	
@@ -49,7 +46,7 @@ echo('</h1>');
 		<?php echo $this->t('htmlinfo'); ?></p>
 	
 
-		<p><a class="button" onclick="$('#foodletabs > ul').tabs('select', 1);">
+		<p><a class="button" onclick="$('#foodletabs').tabs('select', 1);">
 			<span><?php echo $this->t('next'); ?> » <?php echo $this->t('setupcolumns'); ?></span></a></p>
 		<br class="clear" />
 
@@ -68,22 +65,21 @@ echo('</h1>');
 
 if (isset($this->data['columns'])) {
 	foreach($this->data['columns'] AS $header => $subitems) {
-		echo('<div class="fcol" style="border-top: 3px solid #eee; border-left: 3px solid #eee; margin: 5px 2em 1em 5px; padding: 4px" >
-				<!-- <p style="float: right; text-align: right"> <a style="margin: .5em" href="">delete</a> </p> -->
-				<input class="fcoli" style="display: block; font-size: large; width: 95%" 
+		echo('<div class="fcol" style="" >
+				<input class="fcoli" style="" 
 					value="' . htmlspecialchars($header) . '"
 					type="text" name="timeslot[]" />
-				<div class="subcolcontainer">' .  $this->t('suboptions'));
+				<div class="subcolcontainer">' );
 		if(!empty($subitems)) {
 			foreach($subitems AS $subitem) {
-				echo('<input style="display: inline; margin: 3px; width: 80px" 
+				echo('<input class="fscoli" 
 					type="text" name="timeslots[]" value="' . htmlspecialchars($subitem) . '" />');
 			}
 		} else {
-			echo('<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
-			<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
-			<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
-			<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />');
+			echo('<input style="" type="text" value="" name="timeslots[]" />
+			<input style="" type="text" value="" name="timeslots[]" />
+			<input style="" type="text" value="" name="timeslots[]" />
+			<input style="" type="text" value="" name="timeslots[]" />');
 		}
 		echo('</div>
 	</div>');
@@ -94,28 +90,26 @@ if (isset($this->data['columns'])) {
 		
 		
 
-			<div class="fcol" style="border-top: 3px solid #eee; border-left: 3px solid #eee; margin: 5px 2em 1em 5px; padding: 4px" >
+			<div class="fcol" style="" >
 				<!-- <p style="float: right; text-align: right"> <a style="margin: .5em" href="">delete</a> </p> -->
-				<input class="fcoli" style="display: block; font-size: large; width: 95%" type="text" name="timeslot[]" />			
+				<input class="fcoli wmd-ignore" style="" type="text" value="" name="timeslot[]" placeholder="Date" />			
 				<div class="subcolcontainer">
-					<?php echo $this->t('suboptions'); ?>
-					<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
-					<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
-					<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
-					<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
+					<!-- <?php echo $this->t('suboptions'); ?> -->
+					<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Time" />
+					<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Time" />
+					<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Time" />
 				</div>
 			</div>
 	
 			
-			<div class="fcol"  style="border-top: 3px solid #eee; border-left: 3px solid #eee;  margin: 5px 2em 1em 5px; padding: 4px" >
+			<div class="fcol"  style="" >
 				<!-- <p style="float: right; text-align: right"> <a style="margin: .5em" href="">delete</a> </p> -->
-				<input class="fcoli" style="display: block; font-size: large; width: 95%" type="text" name="timeslot[]" />			
+				<input class="fcoli wmd-ignore" style="" type="text" value="" name="timeslot[]" placeholder="Date" />
 				<div  class="subcolcontainer">
-					<?php echo $this->t('suboptions'); ?>
-					<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
-					<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
-					<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
-					<input style="display: inline; margin: 3px; width: 80px" type="text" name="timeslots[]" />
+					<!-- <?php echo $this->t('suboptions'); ?> -->
+					<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Time" />
+					<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Time" />
+					<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Time" />
 				</div>
 			</div>
 
@@ -123,16 +117,16 @@ if (isset($this->data['columns'])) {
 
 
 
-		<p>
-			<a class="button buttonUpdatePreview" onclick="$('#foodletabs > ul').tabs('select', 2);">
+		<!-- <p>
+			<a class="button buttonUpdatePreview" onclick="$('#foodletabs').tabs('select', 2);">
 				<span><?php echo $this->t('next'); ?> » <?php echo $this->t('preview'); ?></span></a>
-			<a class="button" onclick="$('#foodletabs > ul').tabs('select', 3);">
+			<a class="button" onclick="$('#foodletabs').tabs('select', 3);">
 				<span><?php echo $this->t('advancedoptions'); ?></span></a>
-		</p>
+		</p> -->
 		
 		</td><td class="layout">
 
-			<div style="float: right" id="inline"><p><?php echo $this->t('add_dates'); ?></p></div> 	
+			<!-- <div style="float: right" id="inline"><p><?php echo $this->t('add_dates'); ?></p></div> 	 -->
 
 
 		
@@ -146,11 +140,13 @@ if (isset($this->data['columns'])) {
 
 
 
-    </div> 
+<!--     </div> 
     
-    <div id="preview">
+    <div id="preview"> -->
 
-		<p><?php echo $this->t('previewinfo'); ?></p>
+		<h2><?php echo $this->t('preview'); ?></h2>
+
+		<p><?php echo $this->t('previewinfo3'); ?></p>
     
 		<?php
 		
@@ -166,18 +162,18 @@ if (isset($this->data['columns'])) {
 		
 		<input type="hidden" id="coldef" name="coldef" value="" />
 
-    	<p><?php echo $this->t('previewinfo2'); ?>:</p>
+    	<!-- <p><?php echo $this->t('previewinfo2'); ?>:</p> -->
     	
 
     
-		    <div style="margin: 1em; padding: 1em; border: 1px solid #eee">
+		    <!-- <div style="margin: 1em; padding: 1em; border: 1px solid #eee"> -->
 		    	
 		    	<h1 id="previewheader"></h1>
 		    	<div class="wmd-preview"></div>
 		    	
 		    	<div id="previewpane"></div>
 		    	
-		    </div>
+		    <!-- </div> -->
 		    
 		    
 		    
@@ -233,8 +229,8 @@ if (isset($this->data['columns'])) {
 				<option value="5" <?php echo $maxcoldef[5]; ?>>Column 5</option>
 			</select></p>
 		
-		<p><a class="button buttonUpdatePreview" onclick="$('#foodletabs > ul').tabs('select', 2);">
-			<span><?php echo $this->t('next'); ?> » <?php echo $this->t('preview'); ?></span></a></p>
+		<p><a class="button buttonUpdatePreview" onclick="$('#foodletabs').tabs('select', 1);">
+			<span><?php echo $this->t('next'); ?> » <?php echo $this->t('setupcolumns'); ?></span></a></p>
 		<br class="clear" />
 		
 		
