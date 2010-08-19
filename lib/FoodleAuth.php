@@ -52,6 +52,10 @@ class FoodleAuth {
 
 	}
 	
+	public function getUser() {
+		
+	}
+	
 	private function facebookAuth() {
 		
 		$this->as = new SimpleSAML_Auth_Simple('facebook');
@@ -106,6 +110,7 @@ class FoodleAuth {
 			setcookie('foodleDisplayName', $_REQUEST['setDisplayName'], time() + 60*60*24*90);
 			$this->setDisplayName($_REQUEST['setDisplayName']);
 		}
+		
 		
 
 		
@@ -196,6 +201,11 @@ class FoodleAuth {
 		if (array_key_exists('displayName', $this->attributes)) return $this->attributes['displayName'][0];
 		if (array_key_exists('cn', $this->attributes)) return $this->attributes['cn'][0];
 		
+		return NULL;
+	}
+
+	public function getCalendarURL() {
+		if (array_key_exists('labeledURI', $this->attributes)) return $this->attributes['labeledURI'][0];
 		return NULL;
 	}
 
