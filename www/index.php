@@ -24,6 +24,13 @@ try {
 			break;
 	
 		case 'foodle':
+		
+			if (isset($_REQUEST['output']) && $_REQUEST['output'] == 'rss') {
+				$rss = new Pages_RSSFoodle($config, $parameters);
+				$rss->show();
+				break;				
+			}
+		
 			$page = new Pages_PageFoodle($config, $parameters);
 			$page->show();
 			break;
