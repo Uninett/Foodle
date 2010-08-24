@@ -44,9 +44,11 @@ require_once('../lib/Data/ActivityStream.php');
 // Pages
 require_once('../lib/Pages/Page.php');
 require_once('../lib/Pages/PageFoodle.php');
+require_once('../lib/Pages/RSSFoodle.php');
+require_once('../lib/Pages/CSVFoodle.php');
 require_once('../lib/Pages/Debug.php');
 require_once('../lib/Pages/PageFront.php');
-require_once('../lib/Pages/RSSFoodle.php');
+
 require_once('../lib/Pages/PageCreate.php');
 require_once('../lib/Pages/PageEdit.php');
 require_once('../lib/Pages/PagePreview.php');

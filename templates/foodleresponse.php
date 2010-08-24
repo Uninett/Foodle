@@ -1,7 +1,7 @@
 <?php 
 
 $headbar = '<a class="button" style="float: right; " 
-		title="Comma separated file, works with Excel." href="csv.php?id=' . $this->data['foodle']->identifier . '">
+		title="Comma separated file, works with Excel." href="/foodle/' . $this->data['foodle']->identifier . '?output=csv">
 	<span><!-- <img src="resources/spreadsheet.png" /> -->' . 
 		$this->t('open_in_spreadsheet') . '</span></a>';
 
