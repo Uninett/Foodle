@@ -43,44 +43,31 @@
 
 		<?php
 
-		echo('<ul class="statusupdates">');
+		echo('<div class="statusupdates">');
+
 		foreach ($this->data['statusupdate'] AS $su) {
 
-
 			if ($su['type'] == 'discussion') {
-				echo('<li>');
-				echo ('<a href="/foodle/' . $su['foodleid'] .'"/discussion>');
-
-				echo ('' . date('j. M, H:i (l)', strtotime($su['created'])) );
-				echo (' <strong>' . htmlspecialchars($su['username']) . '</strong> ' . 
-					$this->t('has_messaged') . 
-					' <strong>' . htmlspecialchars($su['name']) . 
-					'</strong>');
-					
-				echo ('</a>');
-				echo ('</li>');
-
+				echo('<div class="statusupdate">');
+				echo('<h3><a href="/foodle/' . $su['foodleid'] .'"#discussion>' . htmlspecialchars($su['name']) . '</a></h3>');
+				echo('<p>' . $su['names'] . ' have recently added a discussion entry.</p>');
+				echo('<p style="color: #999; font-size: small">' . FoodleUtils::date_diff(time() - $su['recent']) . ' ago</p>');
+				echo('</div>');
+				
 			} else {
 				
-				echo('<li>');
-				echo ('<a href="/foodle/' . $su['foodleid'] .'">');
-
-				echo ('' . date('j. M, H:i (l)', strtotime($su['created'])) );
-				echo (' <strong>' . htmlspecialchars($su['username']) . '</strong> ' . 
-					$this->t('has_responded') . 
-					' <strong>' . htmlspecialchars($su['name']) . 
-					'</strong>');
-					
-				echo ('</a>');
-				echo ('</li>');
-				
+				echo('<div class="statusupdate">');
+				echo('<h3><a href="/foodle/' . $su['foodleid'] .'"#response>' . htmlspecialchars($su['name']) . '</a></h3>');
+				echo('<p>' . $su['names'] . ' have recently responded to this Foodle.</p>');
+				echo('<p style="color: #999; font-size: small">' . FoodleUtils::date_diff(time() - $su['recent']) . ' ago</p>');
+				echo('</div>');
 
 			}
 
 			#print_r($su);
 
 		}
-		echo('</ul>');
+		echo('</div>');
 
 		?>
 

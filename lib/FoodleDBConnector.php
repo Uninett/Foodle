@@ -408,8 +408,16 @@ class FoodleDBConnector {
 		return $resarray;
 	}
 
+	public function getActivityStream(Data_User $user, $foodleids, $no = 20) {
+		$statusupdates = $this->getStatusUpdate($user, $foodleids, $no);
+#		print_r($statusupdates);
+		$stream = new Data_ActivityStream($this);
+		$stream->activity = $statusupdates;
+		
+		return $stream->compact();
+	}
 
-	public function getStatusUpdate(Data_User $user, $foodleids, $no = 20) {
+	protected function getStatusUpdate(Data_User $user, $foodleids, $no = 20) {
 		
 		$userid = $user->userid;
 		
@@ -417,7 +425,7 @@ class FoodleDBConnector {
 		$fidstr = "('" . join("', '", $foodleids) . "')"; 
 		
 		$sql ="
-			SELECT entries.*,def.name 
+			SELECT entries.*,def.name, UNIX_TIMESTAMP(entries.updated) AS unix
 			FROM entries, def 
 			WHERE foodleid IN " . $fidstr . "
 				and userid != '" . addslashes($userid) . "'
@@ -438,7 +446,7 @@ class FoodleDBConnector {
 
 
 		$sql ="
-			SELECT discussion.*,def.name 
+			SELECT discussion.*,def.name, UNIX_TIMESTAMP(discussion.created) AS unix
 			FROM discussion, def 
 			WHERE foodleid IN " . $fidstr . "
 				and def.id = discussion.foodleid

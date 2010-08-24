@@ -184,7 +184,7 @@ echo '</p>';
 	}
 ?>
 
-<br style="height: 0px; clear: both" />
+<p style="height: 0px; clear: both"></p>
 </div><!-- /#headerbar -->
 
   
@@ -214,7 +214,7 @@ $langnames = array(
 
 
 
-echo '<div id="langbar" style="clar: both">';
+echo '<div id="langbar" style="clear: both"><span>';
 if (empty($_POST) ) {
 	$textarray = array();
 
@@ -248,7 +248,7 @@ if (empty($_POST) ) {
 	
 
 }
-echo '</div><!-- end #langbar -->';
+echo '</span></div><!-- end #langbar -->';
 ?>
 
 
