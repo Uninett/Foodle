@@ -1,0 +1,302 @@
+{
+	"youcreated": {
+		"en": "Foodle you have created"
+	},
+	"respondedto": {
+		"en": "Foodle you have responded to"
+	},
+	"recent": {
+		"en": "Recent foodles (admin access)"
+	},
+	"welcomeheader": {
+		"en": "Welcome to Foodle"
+	},
+	"welcometext": {
+		"en": "Foodle is a service for simple surveys or polls and for scheduling meetings."
+	},
+	"authtext": {
+		"en": "You are successfully authenticated as %DISPLAYNAME% (<tt>%USERID%<\/tt>)"
+	},
+	"youhavecalendar" : {
+		"en" : "Foodle is connected to your calendar. "
+	},
+	"createnew": {
+		"en": "Create a new Foodle"
+	},
+	"createevent": {
+		"en": "Create an event schedule Foodle"
+	},
+	"createmultiple": {
+		"en": "Create a multiple choice Foodle"
+	},
+	"moreinfo": {
+		"en": "More information"
+	},
+	"rndblog": {
+		"en": "Feide RnD blog"
+	},
+	"usermanual": {
+		"en": "Foodle User's Manual"
+	},
+	"schedule": {
+		"en": "schedule an event"
+	},
+	"choice": {
+		"en": "multiple choice"
+	},
+	"name": {
+		"en": "Name"
+	},
+	"description": {
+		"en": "Description"
+	},
+	"expire": {
+		"en": "Expire (optional)"
+	},
+	"format": {
+		"en": "Format"
+	},
+	"dates": {
+		"en": "Select dates"
+	},
+	"timeslots": {
+		"en": "Time slots"
+	},
+	"timeslotsinfo": {
+		"en": "You can optionally add some timeslots that will be added to these days:"
+	},
+	"createchoices": {
+		"en": "Create choices"
+	},
+	"firstlevel": {
+		"en": "First level"
+	},
+	"suboptions": {
+		"en": "Sub-options"
+	},
+	"editfoodle": {
+		"en": "Edit Foodle"
+	},
+	"foodleid": {
+		"en": "Foodle identifier"
+	},
+	"htmlinfo": {
+		"en": "Two newlines will start a new paragraph. Basic HTML is allowed."
+	},
+	"ready": {
+		"en": "Your foodle is now ready"
+	},
+	"visitlink": {
+		"en": "Visit this link your self"
+	},
+	"sendlink": {
+		"en": "And send it to the people you want to foodle with"
+	},
+	"refresh": {
+		"en": "Refresh"
+	},
+	"isclosed": {
+		"en": "This foodle is closed."
+	},
+	"closed": {
+		"en": "Unfortunately you cannot update entries or add new one."
+	},
+	"hasexpire": {
+		"en": "This foodle has an expiration date"
+	},
+	"responses": {
+		"en": "Responses"
+	},
+	"myresponse": {
+		"en": "My response"
+	},
+	"allresponses": {
+		"en": "All responses"
+	},
+	"bc_frontpage": {
+		"en": "Foodle frontpage"
+	},
+	"bc_errorpage": {
+		"en": "Error message"
+	},
+	"bc_createnew": {
+		"en": "Create new"
+	},
+	"bc_edit": {
+		"en": "Edit"
+	},
+	"bc_ready": {
+		"en": "Completed"
+	},
+	"update": {
+		"en": "Update"
+	},
+	"submit": {
+		"en": "Submit"
+	},
+	"alreadysynced": {
+		"en": "Already synced"
+	},
+	"sync": {
+		"en": "Sync"
+	},
+	"issyncedwithcalendar" : {
+		"en" : "This entry is automatically syncronized with the calendar of this user"
+	},
+	"foodledescr": {
+		"en": "Name and description"
+	},
+	"setupcolumns": {
+		"en": "Setup columns"
+	},
+	"preview": {
+		"en": "Preview"
+	},
+	"advancedoptions": {
+		"en": "Advanced options"
+	},
+	"add_dates": {
+		"en": "Add dates (optional)"
+	},
+	"columns": {
+		"en": "Columns"
+	},
+	"columnsdescr": {
+		"en": "You can eigther create manual foodle columns here, or add dates from the pane to the right."
+	},
+	"previewinfo3": {
+		"en": "Below you will see a preview of what your Foodle will look like for. When you are complete, click the ‹Complete Foodle› button below. Feel free to revisit the name and description and configure the advanced options before completing your Foodle."
+	},
+	"maxheader": {
+		"en": "Maximum answers"
+	},
+	"maxdescr": {
+		"en": "Foodle will be locked after how many entries?"
+	},
+	"maxcolinfo": {
+		"en": "Restrict all entries, or only entries with a specific column checked?"
+	},
+	"allentries": {
+		"en": "All entries"
+	},
+	"emailinfo": {
+		"en": "Above is a list of e-mail addresses. To send e-mail copy and paste the e-mail addresses in to the To: or Bcc: field of your e-mail client."
+	},
+	"emailaddresses": {
+		"en": "E-mail addresses"
+	},
+	"emailtoall": {
+		"en": "E-mail addresses of all responders"
+	},
+	"emailtoonecol": {
+		"en": "E-mail addresses of only those that checked this column"
+	},
+	"version": {
+		"en": "Version"
+	},
+	"completefoodle": {
+		"en": "Complete Foodle"
+	},
+	"help": {
+		"en": "Help?"
+	},
+	"addcomment": {
+		"en": "Add a comment"
+	},
+	"open_in_spreadsheet": {
+		"en": "Open in spreadsheet"
+	},
+	"subscribe_rss": {
+		"en": "Subscribe to RSS feed"
+	},
+	"register_email": {
+		"en": "You have not logged in to Foodle and are currently anonymous. We reccomend that you either log in, or fill-in your e-mail and name below. If you leave your e-mail address the Foodle owner may contact you, you will also get an e-mail from foodle that allow you to return and edit your response."
+	},
+	"displayname": {
+		"en": "Your name"
+	},
+	"email": {
+		"en": "E-mail address"
+	},
+	"emailreg_submit": {
+		"en": "Save, and continue using Foodle"
+	},
+	"anonheader": {
+		"en": "Allow anonymous access?"
+	},
+	"allowanon": {
+		"en": "Check to allow users to respond to this Foodle without first logging in. Notice that this may lead to unknown responders, and responders without registered e-mail address."
+	},
+	"login": {
+		"en": "Login"
+	},
+	"updated": {
+		"en": "Updated"
+	},
+	"next": {
+		"en": "Next"
+	},
+	"read_news": {
+		"en": "read news about foodle..."
+	},
+	"join_mailinglist": {
+		"en": "join foodle-users mailinglist"
+	},
+	"facebookshareheader": {
+		"en": "Share Foodle on Facebook"
+	},
+	"facebooklinkabout": {
+		"en": "The link below points to this Foodle, and will automatically initiate authentication with Facebook. Only send this link to users that you know have an account on Facebook and want to use it with Foodle. This is a nice URL to share through your Facebook profile (facebook group etc)."
+	},
+	"linkonfacebook": {
+		"en": "Add link to this Foodle to Facebook"
+	},
+	"facebookshare": {
+		"en": "Share on Facebook"
+	},
+	"facebooklogin": {
+		"en": "Login with Facebook"
+	},
+	"is_anonymous": {
+		"en": "You are currently not logged in."
+	},
+	"maxlimit": {
+		"en": "There is a maximum limit of number of users on this Foodle."
+	},
+	"maxlimittext": {
+		"en": "Currently %NUM% out of %OF% is reached."
+	},
+	"updatefoodle": {
+		"en": "Save changes to this foodle"
+	},
+	"logout": {
+		"en": "Logout"
+	},
+	"visit": {
+		"en": "Visit"
+	},
+	"statistics": {
+		"en": "Statistics"
+	},
+	"cresponses": {
+		"en": "Foodle had %NUM% responses last 7 days."
+	},
+	"statusupdates": {
+		"en": "Status updates"
+	},
+	"add": {
+		"en": "Add"
+	},
+	"entries": {
+		"en": "entries"
+	},
+	"discussion": {
+		"en": "Discussion"
+	},
+	"has_responded": {
+		"en": "has responded to"
+	},
+	"has_messaged": {
+		"en": "has added a discussion message to"
+	}
+}
