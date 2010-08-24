@@ -39,6 +39,7 @@ require_once('../lib/Data/User.php');
 require_once('../lib/Data/Foodle.php');
 require_once('../lib/Data/FoodleResponse.php');
 require_once('../lib/Data/FoodleListings.php');
+require_once('../lib/Data/ActivityStream.php');
 
 // Pages
 require_once('../lib/Pages/Page.php');

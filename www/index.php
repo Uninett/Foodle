@@ -56,6 +56,13 @@ try {
 		case 'foodle.php':
 			header('Location: /foodle/' . $_REQUEST['id']);
 			break;
+
+		// Redirecting user if using old 
+		case 'favicon.ico':
+			header('Content-Type: image/x-icon');
+			include('res/favicon.ico');
+			break;
+
 		
 		// No page found.
 		default:

@@ -36,6 +36,8 @@ input.fscoli {
 
 
 
+
+
 /* ------ Buttons  ----- */
 
 
@@ -199,6 +201,19 @@ div.lentry div.lbody {
 div.lentry div.lowner {
 	color: #888;
 	font-size: 80%;
+}
+
+/* ----- status updates ----- */
+
+div.statusupdates div.statusupdate {
+	border-bottom: 1px solid #ccc;
+	margin: 1em;
+}
+div.statusupdates div.statusupdate h3 {
+	margin: 1px;
+}
+div.statusupdates div.statusupdate p {
+	margin: 1px 0px 2px 1px;
 }
 
 

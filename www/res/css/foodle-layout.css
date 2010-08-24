@@ -63,12 +63,23 @@ h3 {	font-size: 110%;}
 #langbar {
 	font: 80% "arial", sans-serif;
 	text-align: right;
-	margin: 0px;
-	padding: 1px 1em 0px 1em;
+	margin: 2px 0px 0px 0px; 
+	padding: 0px;
 	color: #222;
 }
 #langbar a {
 	color: #600;
+}
+#langbar span {
+	background: #f9f9f9;
+	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	margin: 0px 0px 5px 5px; 
+	padding: 2px 5px 2px 4px;
+	z-index: 4;
+	
+	-moz-border-radius-bottomleft: 5px;
+	border-bottom-left-radius: 5px;
 }
 
 
@@ -85,7 +96,7 @@ h3 {	font-size: 110%;}
 	border-bottom: 1px solid #ccc;
 	margin: 3px 0px 0px 0px; 
 	padding: 0px 0px 0px 0px;
-	z-index: 1;
+	z-index: 3;
 }
 #headerbar #breadcrumb {
 	float: left; 
