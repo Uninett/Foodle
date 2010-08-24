@@ -71,8 +71,8 @@
 
 
 	<?php
-		if (isset($identifier)) {
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $this->t('subscribe_rss') . '" href="rss.php?id=' . $identifier . '" />';
+		if (isset($this->data['foodle'])) {
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $this->t('subscribe_rss') . '" href="/foodle/' . $this->data['foodle']->identifier . '?output=rss" />';
 		}
 		
 	?>
