@@ -45,23 +45,33 @@ if ($this->data['maxnum'] > 0) {
 	} else {
 	
 		// If you have not checked the specific column already....
-		if ($this->data['yourentry']['response'][$this->data['maxcol']-1] == '0') {
-			if ($this->data['used'] >= $this->data['maxnum']) $maxreached = TRUE;
-		} 
+		
+		// echo '<pre>My response:';
+		// print_r($this->data['myresponse']->response['data'][$this->data['maxcol']-1]);
+		// echo '</pre>';
+		
+		
+		if ($this->data['myresponse']->response['data'][$this->data['maxcol']-1] == '0') {
+			if ($this->data['used'] >= $this->data['maxnum']) {
+				$maxreached = TRUE;
+			}
+		}
 		
 	}
 	
 }
+#echo 'max reached: ' . var_export($maxreached, TRUE);
+
 
 
 if (isset($this->data['foodle']->maxentries)) { 
 	echo '<div class="infobox maxnum">';
 #				echo '<img style="float: left" src="resources/closed.png" />';
 
-	if ($this->data['foodle']->isLocked()) {
-		echo '<img style="float: left" src="resources/closed.png" alt="Closed" />';
+	if ($maxreached) {
+		echo '<img style="float: left" src="/res/closed.png" alt="Closed" />';
 	} else {
-		echo '<img style="float: left" src="resources/system-users.png" alt="Open" />';
+		echo '<img style="float: left" src="/res/system-users.png" alt="Open" />';
 	}
 
 
@@ -80,7 +90,7 @@ if (isset($this->data['foodle']->maxentries)) {
 
 	echo '<div style="clear: both; height: 0px" ></div>';
 	echo '</div>';
-} 
+}
 
 
 
@@ -89,6 +99,8 @@ if (isset($this->data['foodle']->maxentries)) {
 if (!empty($this->data['expire'])) { 
 
 	echo '<div class="infobox expire">';
+	
+	#echo '<pre>Expire [' . $this->data['expire'] . ']  now[' . time() . ']</pre>';
 	
 	if ($this->data['expired']) {
 		echo '<img style="float: left" src="/res/closed.png" alt="Closed" />';
@@ -101,8 +113,6 @@ if (!empty($this->data['expire'])) {
 		echo '<p>' . $this->data['expiretext']  . '</p>';
 	}
 
-	
-	
 	echo '<br style="clear: both; height: 0px" />';
 	echo '</div>';
 } 
@@ -152,7 +162,7 @@ $discussion = $this->data['foodle']->getDiscussion();
 		<table class="list" style="width: 100%">
 			
 		<?php
-		XHTMLCol::show($this, $this->data['foodle']);
+			XHTMLCol::show($this, $this->data['foodle']);
 		?>
 			
 						
@@ -168,11 +178,19 @@ $discussion = $this->data['foodle']->getDiscussion();
 		// if (!$editlocked) {
 		// 	XHTMLResponseEntry::showEditable($this, $myresponse);
 		// }
+		$editable = TRUE;
+		if($this->data['expired']) $editable = FALSE;
+		if($maxreached) {
+			if ($this->data['maxnum'] != 0) $editable = FALSE;
+			if (!$this->data['myresponse']->loadedFromDB) { 
+				$editable = FALSE; 
+			}
+		}
 
 		if ($this->data['calenabled']) {
-			XHTMLResponseEntry::showEditable($this, $this->data['myresponse'], TRUE, $this->data['myresponsecal']);
+			XHTMLResponseEntry::showEditable($this, $this->data['myresponse'], $editable, $this->data['myresponsecal'], $this->data['authenticated']);
 		} else {
-			XHTMLResponseEntry::showEditable($this, $this->data['myresponse'], TRUE);
+			XHTMLResponseEntry::showEditable($this, $this->data['myresponse'], $editable, NULL, $this->data['authenticated']);
 		}
 	
 	

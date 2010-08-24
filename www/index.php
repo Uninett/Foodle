@@ -27,6 +27,11 @@ try {
 			$page = new Pages_PageFoodle($config, $parameters);
 			$page->show();
 			break;
+			
+		case 'debug':
+			$page = new Pages_Debug($config, $parameters);
+			$page->show();
+			break;
 
 		case 'create':
 			$page = new Pages_PageCreate($config, $parameters);

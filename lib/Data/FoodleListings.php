@@ -3,7 +3,7 @@
 /**
  *
  */
-class FoodleListings {
+class Data_FoodleListings {
 
 
 	private $db;

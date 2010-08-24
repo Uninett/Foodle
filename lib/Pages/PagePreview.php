@@ -13,7 +13,7 @@ class Pages_PagePreview extends Pages_Page {
 			$_REQUEST[$paramter] = strip_tags($_REQUEST[$paramter]);
 		}
 
-		$foodle = new Foodle($this->fdb);
+		$foodle = new Data_Foodle($this->fdb);
 		$foodle->columns = FoodleUtils::parseOldColDef(strip_tags($_REQUEST['def']));
 
 		echo '<table class="list" style="width: 100%">';
@@ -28,7 +28,7 @@ class Pages_PagePreview extends Pages_Page {
 		/*
 		 * Include demo response
 		 */
-		$demoresponse = new FoodleResponse($this->fdb, $foodle);
+		$demoresponse = new Data_FoodleResponse($this->fdb, $foodle);
 		$demoresponse->userid = 'you@acme.org';
 		$demoresponse->username = 'John Doe';
 		$demoresponse->email = 'you@acme.org';

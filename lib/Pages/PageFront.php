@@ -18,7 +18,7 @@ class Pages_PageFront extends Pages_Page {
 		$this->auth = new FoodleAuth();
 		$this->auth->requireAuth(TRUE);
 
-		$this->user = new User($this->fdb);
+		$this->user = new Data_User($this->fdb);
 		$this->user->email = $this->auth->getMail();
 		$this->user->userid = $this->auth->getUserID();
 		$this->user->name = $this->auth->getDisplayName();

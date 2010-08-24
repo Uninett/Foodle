@@ -40,7 +40,7 @@ class FoodleDBConnector {
 			
 			// echo '<pre>'; print_r($row); echo '</pre>'; exit;
 			
-			$foodle = new Foodle($this);
+			$foodle = new Data_Foodle($this);
 			$foodle->identifier = $id;
 			$foodle->name = $row['name'];
 			$foodle->descr = $row['descr'];
@@ -49,8 +49,7 @@ class FoodleDBConnector {
 			$foodle->allowanonymous = (boolean) ($row['anon'] == '1');
 			
 			
-			if($row['columns'][0] == '{') {
-			// if ($decodedColDef !== NULL) {
+			if(self::isJSON($row['columns'][0])) {
 				#echo 'Use new encoding format';
 				$foodle->columns = json_decode($row['columns'], TRUE);
 			} else {
@@ -60,7 +59,11 @@ class FoodleDBConnector {
 			
 			#echo '<pre>'; print_r($foodle->columns); echo '</pre>'; exit;
 			
+
+			
 			$maxdef = self::parseMaxDef($row['maxdef']);
+			#echo '<pre>Maxdef: ' . $row['maxdef']; echo "\n"; print_r( $maxdef); exit;
+			
 			if ($maxdef[0]) {
 				$foodle->maxentries = $maxdef[0];
 				$foodle->maxcolumn = $maxdef[1];
@@ -74,10 +77,10 @@ class FoodleDBConnector {
 			return $foodle;
 		} 
 		
-		throw new Exception('Could not find foodle in database with id ' . $this->getIdentifier());
+		throw new Exception('Could not find foodle in database with id ' . $id);
 	}
 	
-	public function saveFoodle(Foodle $foodle) {
+	public function saveFoodle(Data_Foodle $foodle) {
 		
 		/*
 		
@@ -175,8 +178,8 @@ class FoodleDBConnector {
 		if (empty($string)) return $result;
 		$split = explode(':', $string);
 		if (count($split) !== 2) return $result;
-		if (!is_int($split[0])) return $result;
-		if (!is_int($split[1])) return $result;
+		if (!is_int((int)$split[0])) return $result;
+		if (!is_int((int)$split[1])) return $result;
 		
 		$result[0] = (int) $split[0];
 		$result[1] = (int) $split[1];
@@ -193,7 +196,7 @@ class FoodleDBConnector {
 	/*
 	 * Collect all responses from a Foodle
 	 */
-	public function readResponses(Foodle $foodle) {
+	public function readResponses(Data_Foodle $foodle) {
 		
 		$sql ="
 			SELECT *, 
@@ -213,7 +216,7 @@ class FoodleDBConnector {
 		if(mysql_num_rows($result) > 0){		
 			while($row = mysql_fetch_assoc($result)){
 
-				$newResponse = new FoodleResponse($this, $foodle);
+				$newResponse = new Data_FoodleResponse($this, $foodle);
 				$newResponse->loadedFromDB = TRUE;
 				$newResponse->userid = $row['userid'];
 				$newResponse->username = $row['username'];
@@ -225,7 +228,7 @@ class FoodleDBConnector {
 				#echo '<pre>'; print_r($row); #exit;
 				
 				
-				if ($row['response'][0] == '{') {
+				if (self::isJSON($row['response'][0])) {
 					#echo 'Decoded resposne as json: <pre>' . $row['response'] . '</pre>';
 
 					$newResponse->response = json_decode($row['response'], TRUE);
@@ -246,12 +249,17 @@ class FoodleDBConnector {
 		return $responses;
 	}
 	
+	public static function isJSON($text) {
+		if ($text[0] == '[') return TRUE;
+		if ($text[0] == '{') return TRUE;
+		return FALSE;
+	}
 	
 	
 	/*
 	 * Collect all 
 	 */
-	public function readDiscussion(Foodle $foodle) {
+	public function readDiscussion(Data_Foodle $foodle) {
 		
 		
 		$sql ="
@@ -283,13 +291,13 @@ class FoodleDBConnector {
 		return $discussion;
 	}
 	
-	public function addDiscussionEntry(Foodle $foodle, User $user, $message) {
+	public function addDiscussionEntry(Data_Foodle $foodle, Data_User $user, $message) {
 		
 		$sql = "
 			INSERT INTO discussion (foodleid,username,message) values (
 				'" . $foodle->identifier . "'," . 
 				"'" . mysql_real_escape_string($user->name) . "', " . 
-				"'" . mysql_real_escape_string($message) . "')";
+				"'" . mysql_real_escape_string(utf8_decode($message)) . "')";
 		
 		$res = mysql_query($sql, $this->db);
 		
@@ -318,7 +326,7 @@ class FoodleDBConnector {
 	/*
 	 * Add or update response to a foodle
 	 */
-	public function saveFoodleResponse(FoodleResponse $response) {
+	public function saveFoodleResponse(Data_FoodleResponse $response) {
 		
 		$response->foodle->updateResponses($response);
 
@@ -401,7 +409,7 @@ class FoodleDBConnector {
 	}
 
 
-	public function getStatusUpdate(User $user, $foodleids, $no = 20) {
+	public function getStatusUpdate(Data_User $user, $foodleids, $no = 20) {
 		
 		$userid = $user->userid;
 		
@@ -453,7 +461,7 @@ class FoodleDBConnector {
 		return $resarray;
 	}
 	
-	public function getYourEntries(User $user) {
+	public function getYourEntries(Data_User $user) {
 
 		$sql ="
 			SELECT * 
@@ -479,7 +487,7 @@ class FoodleDBConnector {
 		return $resarray;
 	}
 	
-	public function getOwnerEntries(User $user, $no = 20) {
+	public function getOwnerEntries(Data_User $user, $no = 20) {
 				
 		$sql ="
 			SELECT * 

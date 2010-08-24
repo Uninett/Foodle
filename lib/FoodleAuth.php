@@ -131,8 +131,8 @@ class FoodleAuth {
 	
 	// If not authenticated return a link to initiate login (with SAML)
 	// If authenticated return NULL.
-	public function getLogoutURL() {
-		if ($this->isAuth()) return $this->as->getLogoutURL();
+	public function getLogoutURL($path = NULL) {
+		if ($this->isAuth()) return $this->as->getLogoutURL($path);
 		return NULL;
 	}
 	
@@ -210,6 +210,8 @@ class FoodleAuth {
 	}
 
 	public function requireAuth($allowAnonymous = FALSE) {
+		
+		#echo '<pre>allowanon:' . var_export($allowAnonymous, TRUE) . '</pre>';
 		
 		if ($this->isAuth) return TRUE;
 		

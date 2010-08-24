@@ -20,7 +20,7 @@ mysql> show columns from entries;
 9 rows in set (0.00 sec)
  *
  */
-class FoodleResponse {
+class Data_FoodleResponse {
 
 	// Foodle identifier
 	public $foodle;
@@ -38,12 +38,12 @@ class FoodleResponse {
 	
 	private $db;
 	
-	function __construct(FoodleDBConnector $db, Foodle $foodle) {
+	function __construct(FoodleDBConnector $db, Data_Foodle $foodle) {
 		$this->db = $db;
 		$this->foodle = $foodle;
 	}
 	
-	public function updateFromical(User $user, $cache = TRUE) {
+	public function updateFromical(Data_User $user, $cache = TRUE) {
 
 		if (!$user->hasCalendar()) throw new Exception('User has no calendar information');
 				
@@ -98,7 +98,7 @@ class FoodleResponse {
 		return json_encode($data);
 	}
 	
-	public function updateFromPost(User $user) {
+	public function updateFromPost(Data_User $user) {
 		$responseData = array_fill(0, $this->foodle->getNofColumns(), '0');
 		
 		if (!empty($_REQUEST['myresponse'])) {
@@ -108,6 +108,10 @@ class FoodleResponse {
 		}		
 		$this->userid = $user->userid;
 		$this->username = $user->name;
+		if (empty($this->username) && isset($_REQUEST['username']) ) {
+			$this->username = FoodleUtils::cleanUsername($_REQUEST['username']);
+		}
+		
 		$this->email = $user->email;
 		$this->notes = $_REQUEST['comment'];
 		#$this->updated = 'now';

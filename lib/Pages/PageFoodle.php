@@ -12,35 +12,41 @@ class Pages_PageFoodle extends Pages_Page {
 	private $loginurl;
 	private $logouturl;
 	
+	private $auth;
+	
 	function __construct($config, $parameters) {
 		parent::__construct($config, $parameters);
 		
 		if (count($parameters) < 1) throw new Exception('Missing [foodleid] parameter in URL.');
 		
-		Foodle::requireValidIdentifier($parameters[0]);
+		Data_Foodle::requireValidIdentifier($parameters[0]);
 		$this->foodleid = $parameters[0];
 		$this->foodlepath = '/foodle/' . $this->foodleid;
 		
-		$this->auth();
-		
 		$this->foodle = $this->fdb->readFoodle($this->foodleid);
+		
+		$this->auth();
 	}
+	
+
+	
 	
 	// Authenticate the user
 	private function auth() {
-		$foodleauth = new FoodleAuth();
-		$foodleauth->requireAuth($this->foodle->allowanonymous);
+		$this->auth = new FoodleAuth();
+		$this->auth->requireAuth(TRUE);
 
-		$this->user = new User($this->fdb);
-		$this->user->email = $foodleauth->getMail();
-		$this->user->userid = $foodleauth->getUserID();
-		$this->user->name = $foodleauth->getDisplayName();
-		$this->user->calendarURL = $foodleauth->getCalendarURL();
+		$this->user = new Data_User($this->fdb);
 		
-		// If anonymous, create a login link.
-		$this->loginurl = $foodleauth->getLoginURL();
-		$this->logouturl = $foodleauth->getLogoutURL('/');
+		if ($this->auth->isAuth()) {
+			$this->user = new Data_User($this->fdb);
+			$this->user->email = $this->auth->getMail();
+			$this->user->userid = $this->auth->getUserID();
+			$this->user->name = $this->auth->getDisplayName();
+		}
+
 	}
+	
 	
 	// Save the users response..
 	private function setResponse() {
@@ -107,6 +113,16 @@ class Pages_PageFoodle extends Pages_Page {
 		$t->data['expired'] = $this->foodle->isExpired();
 		$t->data['expire'] = $this->foodle->expire;
 		$t->data['expiretext'] = $this->foodle->getExpireText();
+		
+		$t->data['maxcol'] = $this->foodle->maxcolumn;
+		$t->data['maxnum'] = $this->foodle->maxentries;
+		$t->data['used'] = $this->foodle->countResponses();
+		
+				
+		$t->data['authenticated'] = $this->auth->isAuth();
+		$t->data['loginurl'] = $this->auth->getLoginURL();
+		$t->data['logouturl'] = $this->auth->getLogoutURL('/');
+		
 
 		// 
 		// $et->data['header'] = $foodle->getName();

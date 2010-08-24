@@ -15,7 +15,7 @@ class Pages_PageCreate extends Pages_Page {
 		$this->auth = new FoodleAuth();
 		$this->auth->requireAuth(FALSE);
 
-		$this->user = new User($this->fdb);
+		$this->user = new Data_User($this->fdb);
 		$this->user->email = $this->auth->getMail();
 		$this->user->userid = $this->auth->getUserID();
 		$this->user->name = $this->auth->getDisplayName();
@@ -24,13 +24,14 @@ class Pages_PageCreate extends Pages_Page {
 	
 	function addEntry() {
 	
-		$foodle = new Foodle($this->fdb);
+		$foodle = new Data_Foodle($this->fdb);
 		$foodle->updateFromPost($this->user);
 		#echo '<pre>'; print_r($foodle); exit;
 		$foodle->save();
 		
 		$t = new SimpleSAML_XHTML_Template($this->config, 'foodleready.php', 'foodle_foodle');
-
+		$t->data['name'] = $foodle->name;
+		$t->data['descr'] = $foodle->descr;
 		$t->data['url'] = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier;
 		$t->data['bread'] = array(
 			array('href' => '/', 'title' => 'bc_frontpage'), 
@@ -53,7 +54,7 @@ class Pages_PageCreate extends Pages_Page {
 		$t = new SimpleSAML_XHTML_Template($this->config, 'foodlecreate.php', 'foodle_foodle');
 
 		$t->data['authenticated'] = $this->auth->isAuth();
-		$t->data['user'] = $this->user;		
+		$t->data['user'] = $this->user;	
 		$t->data['loginurl'] = $this->auth->getLoginURL();
 		$t->data['logouturl'] = $this->auth->getLogoutURL('/');
 
