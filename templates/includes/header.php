@@ -17,7 +17,7 @@
 	
 	
 	<!-- WMD -->
-	<script type="text/javascript" src="/res/js/wmd.js"></script>
+	<!-- script type="text/javascript" src="/res/js/wmd.js"></script  -->
 	
 	
 
@@ -61,7 +61,7 @@
 		function showemail(col) {
 			$("div.inneremailbox").hide("fast");
 			<?php
-			if (isset($identifier)) {
+			if (isset($this->data['foodle']->identifier)) {
 				echo '$("div#inneremailbox" + col).show("fast");  ';
 			}
 			?>
@@ -176,7 +176,7 @@ echo '</p>';
 
 
 	if (array_key_exists('owner', $this->data)) {
-		echo('<a class="button" href="edit.php?id=' .$this->data['identifier'] . '" style="float: right"><span>' . $this->t('editfoodle') . '</span></a>');
+		echo('<a class="button" href="/edit/' .$this->data['foodle']->identifier . '" style="float: right"><span>' . $this->t('editfoodle') . '</span></a>');
 	}
 
 	if (isset($this->data['headbar'])) {

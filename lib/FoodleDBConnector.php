@@ -25,10 +25,11 @@ class FoodleDBConnector {
 	 * Loads a foodle with a given $id from database, as a Foodle object.
 	 */
 	public function readFoodle($id) {
+		Data_Foodle::requireValidIdentifier($id);
 		$sql ="
 			SELECT *,
 			IF(expire=0,null,UNIX_TIMESTAMP(expire)) AS expire_unix 
-			FROM def WHERE id = '" . $id . "'";
+			FROM def WHERE id = '" . mysql_real_escape_string($id) . "'";
 		
 		$result = mysql_query($sql, $this->db);
 		
@@ -120,13 +121,13 @@ class FoodleDBConnector {
 			$sql = "
 				UPDATE def SET 
 					name = '" . mysql_real_escape_string($foodle->name) . "', 
-					descr = '" . json_encode($foodle->descr) . "', 
-					columns = '" . mysql_real_escape_string(json_encode($response->columns))  . "',
-					expire = " . mysql_real_escape_string($expire) . ",
-					maxdef = '" . mysql_real_escape_string($this->getMaxDef()) . "',
-					anon = '" . ($this->allowanonymous ? '1' : '0') . "',
+					descr = '" . mysql_real_escape_string($foodle->descr) . "', 
+					columns = '" . mysql_real_escape_string(json_encode($foodle->columns))  . "',
+					expire = '" . mysql_real_escape_string($foodle->expire) . "',
+					maxdef = '" . mysql_real_escape_string($foodle->getMaxDef()) . "',
+					anon = '" . ($foodle->allowanonymous ? '1' : '0') . "',
 					updated = NOW()	
-				WHERE id = '" . $response->foodle->identifier. "' 
+				WHERE id = '" . $foodle->identifier. "' 
 			";
 			
 		} else {

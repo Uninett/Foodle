@@ -1,4 +1,63 @@
 
+
+function addOneNewColumn() {
+	var columntypeclass = getColumntypeClass();
+	
+	var container = $("div." + columntypeclass);
+	
+	// var nofields = container.eq(0).find("div.subcolcontainer").children().length;
+	
+	var template = $("div." + columntypeclass + " div.fcol").eq(0).clone();
+	
+	template.find("input").val("");
+	template.find("a.duplicate").detach();
+	template.find("input.hasDatepicker").removeAttr("id");
+	template.find("input.hasDatepicker").removeClass("hasDatepicker");
+
+	template.find("a.onemoreoption").click(addOneMoreOption);
+
+	template.insertBefore(container.find("a.onemorecolumn"));
+
+	
+	// $("div." + columntypeclass + " div.fcol").last().find("input").focus();
+	
+	if (columntypeclass == 'columnsetupgeneric') {
+		$("div." + columntypeclass + " div.fcol").last().find("input").first().focus();
+	}
+	prepareDateColumns();	
+}
+
+function addOneMoreOption(event) {
+
+	var container = $(event.target).parentsUntil("div.fcol");
+	
+	var template = container.find("input.fscoli").eq(0).clone();
+	template.val("");
+	template.insertBefore(container.find("a.onemoreoption"));
+	
+
+	
+	container.find("input").last().focus();
+	
+	prepareDateColumns();
+}
+
+function duplicateTimeSlots() {
+
+	var columntypeclass = getColumntypeClass();
+	
+	var container = $("div." + columntypeclass + " div.fcol");
+	var nofields = container.eq(0).find("div.subcolcontainer").children().length;
+	
+	for(var i = 1; i <= nofields; i++) {
+		container.eq(i).find("div.subcolcontainer").empty().append(
+			container.eq(0).find("div.subcolcontainer").clone().unwrap()
+		);
+		container.eq(i).find("a.duplicate").detach();		
+	}
+	prepareDateColumns();
+}
+
 function fillfields() {
 
 	var col = 0;
@@ -35,20 +94,37 @@ function fillfields() {
 	updatePreview();
 }
 
+function getColumntypeClass() {
+	var defs = Array();
+	var columntype = $('input:radio[name="columntypes"]:checked').val();
+	var columntypeclass = 'columnsetupdates';
+	if (columntype == 'text') {
+		columntypeclass = 'columnsetupgeneric';
+	}
+	return columntypeclass;	
+}
 
+/* Generate a string out of */
 function getDefinitionString() {
 
 	var defs = Array();
+	columntypeclass = getColumntypeClass();
+	// alert('column type was ' + columntype + ' and class was ' + columntypeclass);
 	
-	$("div.fcol input.fcoli[value != '']").each(function(i){
+	/* Foreach column header of the selected type */
+	// $("div." + columntypeclass).fadeOut().fadeIn();
+	$("div." + columntypeclass + " div.fcol input.fcoli[value != '']").each(function(i){
+		
+		/* Define an array used for all the sub-item texts.. */
 		var tdef = Array();
-		$("div.fcol").eq(i).find("div.subcolcontainer input[value != '']").each(function(ii){
-			tdef.push( $("div.fcol").eq(i).find("div.subcolcontainer input[value != '']").eq(ii).attr('value').replace(/,/, ";") );
+		/* Find all the sub-items below this column header, and push the content to the array */
+		$("div." + columntypeclass + " div.fcol").eq(i).find("div.subcolcontainer input[value != '']").each(function(ii){
+			tdef.push( $("div." + columntypeclass + " div.fcol").eq(i).find("div.subcolcontainer input[value != '']").eq(ii).attr('value').replace(/,/, ";") );
 		});
 		if (tdef.length > 0) {
-			defs.push( $("div.fcol").eq(i).find('input.fcoli').attr('value').replace(/,/, ";") + '(' + tdef.join(',') + ')' );
+			defs.push( $("div." + columntypeclass + " div.fcol").eq(i).find('input.fcoli').attr('value').replace(/,/, ";") + '(' + tdef.join(',') + ')' );
 		} else {
-			defs.push( $("div.fcol").eq(i).find('input.fcoli').attr('value').replace(/,/, ";") );
+			defs.push( $("div." + columntypeclass + " div.fcol").eq(i).find('input.fcoli').attr('value').replace(/,/, ";") );
 		}
 	});
 	var defstr = defs.join('|');
@@ -93,8 +169,59 @@ function showFacebookShare() {
 	$("#facebookshare").dialog("open");
 }
 
+function selectColumnTypes() {
+	switch($('input:radio[name="columntypes"]:checked').val()) {
+		case 'dates':
+			$("div.columnsetupdates").show();
+			$("div.columnsetupgeneric").hide();
+
+			break;
+		case 'text':
+			$("div.columnsetupdates").hide();
+			$("div.columnsetupgeneric").show();
+
+			break;
+		default: 
+	}
+	updatePreview();
+}
+
+function prepareDateColumns() {
+	$("div.columnsetupdates input.fcoli").datepicker({
+		dateFormat: "yy-mm-dd",
+		numberOfMonths: 1,
+		firstDay: 1,
+		yearRange: '2009:2015',
+	});
+	var availableTags = ["08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", 
+	"14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"];
+	$("div.columnsetupdates input.fscoli").autocomplete({
+		minLength: 0,
+		deplay: 0,
+		source: availableTags,
+
+	});
+	// Event handler on editing the column fields
+	$("div.fcol input").blur(function () {
+		updatePreview();
+	});
+
+}
+
 
 $(document).ready(function() {
+	
+	selectColumnTypes();
+	prepareDateColumns();
+	
+	/* --- Register button clicks --- */
+	$('input:radio[name="columntypes"]').change(selectColumnTypes);
+	
+	$('a.duplicate').click(duplicateTimeSlots);
+	$("a[id='link_preview']").click(updatePreview);
+	$("a.buttonUpdatePreview").click(updatePreview);
+	$("a.onemorecolumn").click(addOneNewColumn);
+	$("a.onemoreoption").click(addOneMoreOption);
 	
 	$("a.ac").
 		click(function(event){
@@ -104,62 +231,22 @@ $(document).ready(function() {
 			$("input[id='comment']").focus();
 		}
 	);
+
 	
+	// Facebook dialog box.
 	$("#facebookshare").dialog({
 		width: 450, height: 260,
 		position: [100, 100],
 		autoOpen: false
 	});
 
-	
-	$("div.fcol input").focus(function () {
-		fillfields();
-	});
 
-
-	$("a[id='link_preview']").click(function(event){updatePreview();});
-	$("a.buttonUpdatePreview").click(function(event){updatePreview();});
-	
-	/*
-	$("#foodledescr").resizable({ 
-	    handles: "all" 
-	});
-	*/
-	$("input.fcoli").datepicker({
-		dateFormat: "yy-mm-dd",
-		numberOfMonths: 1,
-		firstDay: 1,
-		yearRange: '2009:2015',
-	});
-	var availableTags = ["08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", 
-	"14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"];
-	$("input.fscoli").autocomplete({
-		minLength: 0,
-		deplay: 0,
-		source: availableTags,
-
-	});
-	
+	// Datepicker for expiration date
 	$("#deadline").datepicker({  
 		dateFormat: "yy-mm-dd 16:00",
 		firstDay: 1,
 		yearRange: '2009:2015'
-/*		onSelect: function(date) { 
-			alert("The chosen date is " + date); 
-		} */
 	});
-	
-
-	// $("#inline").datepicker({  
-	// 	dateFormat: "yy-mm-dd",
-	// 	numberOfMonths: 1,
-	// 	firstDay: 1,
-	// 	yearRange: '2009:2015',
-	// 	onSelect: function(date) { 
-	// 		addAfter(date);
-	// 		/* alert("The chosen date is " + date);  */
-	// 	} 
-	// });
 	
 });
 

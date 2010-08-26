@@ -4,15 +4,15 @@
 
 class Pages_PageFoodle extends Pages_Page {
 	
-	private $foodle;
-	private $user;
-	private $foodleid;
-	private $foodlepath;
+	protected $foodle;
+	protected $user;
+	protected $foodleid;
+	protected $foodlepath;
 	
-	private $loginurl;
-	private $logouturl;
+	protected $loginurl;
+	protected $logouturl;
 	
-	private $auth;
+	protected $auth;
 	
 	function __construct($config, $parameters) {
 		parent::__construct($config, $parameters);
@@ -32,7 +32,7 @@ class Pages_PageFoodle extends Pages_Page {
 	
 	
 	// Authenticate the user
-	private function auth() {
+	protected function auth() {
 		$this->auth = new FoodleAuth();
 		$this->auth->requireAuth(TRUE);
 
@@ -46,10 +46,10 @@ class Pages_PageFoodle extends Pages_Page {
 		}
 
 	}
-	
+
 	
 	// Save the users response..
-	private function setResponse() {
+	protected function setResponse() {
 		$myresponse = $this->foodle->getMyResponse($this->user);
 		$myresponse->updateFromPost($this->user);
 		
@@ -60,7 +60,7 @@ class Pages_PageFoodle extends Pages_Page {
 	}
 	
 	// Save the users response..
-	private function setResponseCalendar() {
+	protected function setResponseCalendar() {
 		$myresponse = $this->foodle->getMyCalendarResponse($this->user);
 
 		$myresponse->updateFromical($this->user);
@@ -71,7 +71,7 @@ class Pages_PageFoodle extends Pages_Page {
 	}
 
 
-	private function addDiscussionEntry() {
+	protected function addDiscussionEntry() {
 		$this->fdb->addDiscussionEntry($this->foodle, $this->user, $_REQUEST['message']);
 		SimpleSAML_Utilities::redirect(SimpleSAML_Utilities::selfURLNoQuery() . '?tab=2' );
 	}
@@ -123,6 +123,9 @@ class Pages_PageFoodle extends Pages_Page {
 		$t->data['loginurl'] = $this->auth->getLoginURL();
 		$t->data['logouturl'] = $this->auth->getLogoutURL('/');
 		
+		$t->data['owner'] = ($this->user->userid == $this->foodle->owner) || ($this->user->userid == 'andreas@uninett.no') || ($this->user->userid == 'andreas@rnd.feide.no');
+		$t->data['ownerid'] = $this->foodle->owner;
+
 
 		// 
 		// $et->data['header'] = $foodle->getName();
@@ -142,8 +145,7 @@ class Pages_PageFoodle extends Pages_Page {
 		// 
 		// $et->data['registerEmail'] = (empty($email));
 		// 
-		// $et->data['owner'] = ($userid == $foodle->getowner()) || ($userid == 'andreas@uninett.no') || ($userid == 'andreas@rnd.feide.no');
-		// $et->data['ownerid'] = $foodle->getowner();
+
 		// $et->data['userid'] = $userid;
 		// $et->data['displayname'] = $displayname;
 		// $et->data['email'] = $email;

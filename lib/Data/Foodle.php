@@ -76,6 +76,18 @@ class Data_Foodle {
 		return $this->responses;
 	}
 	
+	public function onlyDateColumns() {
+		foreach($this->columns AS $col) {
+			if (!preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $col['title'])) return FALSE;
+			if (isset($col['children'])) {
+				foreach($col['children'] AS $option) {
+					if (!preg_match('/^[0-9]{1,2}:[0-9]{2}$/', $option['title'])) return FALSE;
+				}
+			}
+		}
+		return TRUE;
+	}
+	
 	// Return all responses to this foodle. This function caches.
 	public function getDiscussion() {
 		if ($this->discussion === NULL) $this->discussion = $this->db->readDiscussion($this);
@@ -443,7 +455,6 @@ class Data_Foodle {
 	public function getExpireText() {
 
 		if (empty($this->expire)) return 'This foodle will not expire';
-		
 		if ($this->isExpired()) return 'This foodle is expired';
 		
 		return date("Y-m-d H:i", (int)$this->expire) . ' (expires in ' . FoodleUtils::date_diff((int)$this->expire - time()) . ')';
@@ -451,7 +462,10 @@ class Data_Foodle {
 	
 	
 	
-	
+	public function getExpireTextField() {
+		if (empty($this->expire)) return '';
+		return date("Y-m-d H:i", $this->expire);
+	}
 	
 	
 	
