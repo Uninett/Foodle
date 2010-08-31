@@ -9,6 +9,9 @@ class Event {
 	
 	public function Event($ne) {
 		$this->event = $ne;
+		// echo '<pre>';
+		// print_r($ne);
+		// exit;
 	}
 	
 	private function parseTime($text) {
@@ -74,24 +77,6 @@ class Event {
 		return $this->event->description; 
 	}
 	
-	public function getType() {
-		$types = array(
-			'mote' => 30, 
-			'jh' => 28,
-			'reise' => 32,
-			'avspas' => 26,
-			'syk' => 33,
-			'ferie' => 27,
-			'permisjon' => 31,
-			'perm' => 31,
-#			'lege' => 'Lege',
-		);
-		foreach ($types AS $key => $descr) {
-			if (strstr($this->event->summary, $key)) return $descr;
-		}
-		
-		return 25;
-	}
 	
 	public function dump() {
 		return '<li>' . $this->event->summary . ' (' . $this->getStart() . ' : ' . $this->event->dtstart . ')' . 

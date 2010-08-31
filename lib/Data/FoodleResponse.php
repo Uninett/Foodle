@@ -60,7 +60,6 @@ class Data_FoodleResponse {
 		);
 		
 		$this->icalfill($cache);
-
 	}
 	
 	
@@ -81,8 +80,13 @@ class Data_FoodleResponse {
 		foreach($slots AS $i => $slot) {
 			$crash = $cal->available($slot, $slot + 3600 );
 			if ($crash !== NULL) {
-				$responseData[(int)$i] = '0';
-				$crashingEvents[(int)$i] = $crash->showShort();
+				if (is_a($crash, 'Event')) {
+					$responseData[(int)$i] = '0';
+					$crashingEvents[(int)$i] = $crash->showShort();					
+				} elseif(is_string($crash)) {
+					$responseData[(int)$i] = '0';
+					$crashingEvents[(int)$i] = $crash;
+				}
 			}
 		}
 		$this->response['data'] = $responseData;

@@ -12,6 +12,7 @@ ini_set('include_path', $path);
 require_once($SIMPLESAMLPATH . 'lib/_autoload.php');
 
 
+$THISPATH = dirname(dirname(__FILE__)) . '/';
 
 date_default_timezone_set('Europe/Berlin');
 
@@ -24,46 +25,46 @@ date_default_timezone_set('Europe/Berlin');
  */
 #require_once('../lib/Foodle.class.php');
 
-require_once('../lib/FoodleAuth.php');
-require_once('../lib/FoodleUtils.php');
-require_once('../lib/RSS.class.php');
+require_once($THISPATH . 'lib/FoodleAuth.php');
+require_once($THISPATH . 'lib/FoodleUtils.php');
+require_once($THISPATH . 'lib/RSS.class.php');
 
-require_once('../lib/XHTMLCol.php');
-require_once('../lib/XHTMLResponseEntry.php');
+require_once($THISPATH . 'lib/XHTMLCol.php');
+require_once($THISPATH . 'lib/XHTMLResponseEntry.php');
 
-require_once('../lib/FoodleDBConnector.php');
+require_once($THISPATH . 'lib/FoodleDBConnector.php');
 
 
 // Data objects
-require_once('../lib/Data/User.php');
-require_once('../lib/Data/Foodle.php');
-require_once('../lib/Data/FoodleResponse.php');
-require_once('../lib/Data/FoodleListings.php');
-require_once('../lib/Data/ActivityStream.php');
+require_once($THISPATH . 'lib/Data/User.php');
+require_once($THISPATH . 'lib/Data/Foodle.php');
+require_once($THISPATH . 'lib/Data/FoodleResponse.php');
+require_once($THISPATH . 'lib/Data/FoodleListings.php');
+require_once($THISPATH . 'lib/Data/ActivityStream.php');
 
 // Pages
-require_once('../lib/Pages/Page.php');
-require_once('../lib/Pages/PageFoodle.php');
-require_once('../lib/Pages/RSSFoodle.php');
-require_once('../lib/Pages/CSVFoodle.php');
-require_once('../lib/Pages/Debug.php');
-require_once('../lib/Pages/PageFront.php');
+require_once($THISPATH . 'lib/Pages/Page.php');
+require_once($THISPATH . 'lib/Pages/PageFoodle.php');
+require_once($THISPATH . 'lib/Pages/RSSFoodle.php');
+require_once($THISPATH . 'lib/Pages/CSVFoodle.php');
+require_once($THISPATH . 'lib/Pages/Debug.php');
+require_once($THISPATH . 'lib/Pages/PageFront.php');
 
-require_once('../lib/Pages/PageCreate.php');
-require_once('../lib/Pages/PageEdit.php');
-require_once('../lib/Pages/PagePreview.php');
+require_once($THISPATH . 'lib/Pages/PageCreate.php');
+require_once($THISPATH . 'lib/Pages/PageEdit.php');
+require_once($THISPATH . 'lib/Pages/PagePreview.php');
 
 // Loading icalendar scripts..
-require_once('../lib/cal/Calendar.class.php');
-require_once('../lib/cal/Event.class.php');
-require_once('../lib/cal/functions/class.Parser.php');
-require_once('../lib/cal/functions/class.iCalObj.php');
-require_once('../lib/cal/functions/class.Vcalendar.php');
-require_once('../lib/cal/functions/class.Vtimezone.php');
-require_once('../lib/cal/functions/class.Vevent.php');
-require_once('../lib/cal/functions/class.Vfreebusy.php');
-require_once('../lib/cal/functions/class.Daylight.php');
-require_once('../lib/cal/functions/class.Standard.php');
+require_once($THISPATH . 'lib/cal/Calendar.class.php');
+require_once($THISPATH . 'lib/cal/Event.class.php');
+require_once($THISPATH . 'lib/cal/functions/class.Parser.php');
+require_once($THISPATH . 'lib/cal/functions/class.iCalObj.php');
+require_once($THISPATH . 'lib/cal/functions/class.Vcalendar.php');
+require_once($THISPATH . 'lib/cal/functions/class.Vtimezone.php');
+require_once($THISPATH . 'lib/cal/functions/class.Vevent.php');
+require_once($THISPATH . 'lib/cal/functions/class.Vfreebusy.php');
+require_once($THISPATH . 'lib/cal/functions/class.Daylight.php');
+require_once($THISPATH . 'lib/cal/functions/class.Standard.php');
 
 /**
  * Initializating configuration

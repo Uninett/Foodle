@@ -205,7 +205,7 @@ class FoodleAuth {
 	}
 
 	public function getCalendarURL() {
-		if (array_key_exists('labeledURI', $this->attributes)) return $this->attributes['labeledURI'][0];
+		if (array_key_exists('freebusyurl', $this->attributes)) return $this->attributes['freebusyurl'][0];
 		return NULL;
 	}
 

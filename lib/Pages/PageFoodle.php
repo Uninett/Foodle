@@ -43,6 +43,7 @@ class Pages_PageFoodle extends Pages_Page {
 			$this->user->email = $this->auth->getMail();
 			$this->user->userid = $this->auth->getUserID();
 			$this->user->name = $this->auth->getDisplayName();
+			$this->user->calendarURL = $this->auth->getCalendarURL();
 		}
 
 	}
@@ -96,6 +97,10 @@ class Pages_PageFoodle extends Pages_Page {
 		$t->data['foodle'] = $this->foodle;
 		$t->data['user'] = $this->user;
 		$t->data['foodlepath'] = $this->foodlepath;
+		
+
+		// if ($this->user->hasCalendar()) echo 'User has calendar';
+		// if ($this->foodle->calendarEnabled()) echo 'Foodle has calendar';
 		
 		$t->data['calenabled'] = ($this->foodle->calendarEnabled() && $this->user->hasCalendar());
 		$t->data['myresponse'] = $this->foodle->getMyResponse($this->user);

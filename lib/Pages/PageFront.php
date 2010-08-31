@@ -22,6 +22,7 @@ class Pages_PageFront extends Pages_Page {
 		$this->user->email = $this->auth->getMail();
 		$this->user->userid = $this->auth->getUserID();
 		$this->user->name = $this->auth->getDisplayName();
+		$this->user->calendarURL = $this->auth->getCalendarURL();
 
 	}
 	
@@ -61,6 +62,7 @@ class Pages_PageFront extends Pages_Page {
 
 		$t = new SimpleSAML_XHTML_Template($this->config, 'foodlefront.php', 'foodle_foodle');
  		$t->data['bread'] = array(array('title' => 'bc_frontpage'));
+		$t->data['user'] = $this->user;
 		$t->data['userid'] = $this->user->userid;
 		$t->data['displayname'] = $this->user->name;
 

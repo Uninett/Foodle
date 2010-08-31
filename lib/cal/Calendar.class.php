@@ -5,6 +5,8 @@
  */
 class Calendar {
 
+#	const CACHETIME = 60*60*15;
+	const CACHETIME = 60;
 	
 	/* Instance of sspmod_core_Storage_SQLPermanentStorage
 	 * 
@@ -13,9 +15,11 @@ class Calendar {
 	 * type		'calendar'
 	 *
 	 */
-	var $store;
-	
-	var $events;
+	public $store;
+	public $events;
+	public $freebusy;
+
+	protected $parser;
 	
 	public function Calendar($url, $cache = FALSE) {
 	
@@ -24,43 +28,108 @@ class Calendar {
 		if (empty($url))
 			throw new Exception('Trying to access an Calendar with specifying an empty URL');
 	
-		error_log('Calendar init with URL [' . $url . ']');
+		error_log('Calendar init with URL [' . $url . '] ' . ($cache ? 'CACHE' : 'NOCACHE'));
 	
 		$this->events = array();
-	
+		$this->freebusy = array();
 		$this->store = new sspmod_core_Storage_SQLPermanentStorage('calendarcache');
 	
-		$parser = new Parser();
-		if ($cache && !$this->store->exists('calendar', $url, NULL)) {
-			$parser->process_file($url);
-			if (!empty($parser->event_list)) {
-				foreach($parser->event_list AS $e) {
-					$this->events[] = new Event($e);
-				}
+		$this->parser = new Parser();
+		
+		if (
+			(!$cache)
+				||
+			($cache && !$this->store->exists('calendar', $url, NULL))
+		) {
+			/*
+			 * Retrieving calendar from HTTP, parse it and store the result to cache.
+			 */
+
+			if (!$this->store->exists('calendar', $url, NULL)) {
+				error_log('Calendar was NOT found in cache. Refreshing....');
 			}
 
-			$this->store->set('calendar', $url, NULL, $this->events);
-			error_log('Reading calendar Store to cache [' . $url . ']');
-		} elseif ($cache === FALSE) {
-			$parser->process_file($url);
-			if (!empty($parser->event_list)) {
-				foreach($parser->event_list AS $e) {
+			error_log('Process file (before)');
+			$this->parser->process_file($url);
+			error_log('Process file (after)');
+			
+			if (!empty($this->parser->event_list)) {
+				foreach($this->parser->event_list AS $e) {
 					$this->events[] = new Event($e);
 				}
 			}
-			$this->store->set('calendar', $url, NULL, $this->events, 60*60*15); // Cache time: 15 minutes...
-			error_log('Reading calendar force load, and store to cache [' . $url . ']');
+			if (!empty($this->parser->freebusy_list)) {
+				$this->freebusy = $this->parser->freebusy_list[0]->freebusy;
+			} 
+			$cached = array('events' => $this->events, 'freebusy' => $this->freebusy);
+			
+			$this->store->set('calendar', $url, NULL, $cached, self::CACHETIME);
+			error_log('Storing retrieved calendar to cache [' . $url . ']');
+
+			// echo '<pre>cached:'; print_r($cached); 
+			// echo 'freebusy'; print_r($this->freebusy);
+			// echo 'events:'; print_r($this->events);
+			// echo '</pre>'; 
+			// exit;
+
 		} else {
-			$evnts = (array) $this->store->get('calendar', $url, NULL);
-			$this->events = $evnts['value'];
+			
+			/*
+			 * Retrieving calendar from cache.
+			 */
+			
+			$cached = (array) $this->store->get('calendar', $url, NULL);
+			$this->events = $cached['value']['events'];
+			$this->freebusy = $cached['value']['freebusy'];
+			
 			error_log('Reading calendar reading from cache [' . $url . ']');
+			error_log('From cache: ' . var_export(array_keys($cached['value']), TRUE));
+			
+			// echo '<pre>cached:'; print_r($cached); 
+			// echo "\n" . 'freebusy:'; print_r($this->freebusy);
+			// echo "\n" . 'events:'; print_r($this->events);
+			// echo '</pre>'; 
+			// exit;
+			
 		}
+		
+
+	}
+	
+	public function checkFreeBusy($begin, $end) {
+#		error_log('Checking freebusy');
+		if (!empty($this->freebusy)) {
+			foreach($this->freebusy AS $fb) {
+				$splp = explode('/', $fb);
+				$busybegin = self::parseTime($splp[0]);
+				$busyend   = self::parseTime($splp[1]);
+				
+#				error_log('Checking BUSY slot [' . date('r', $busybegin) . '] to [' . date('r', $busyend) . ']');
+
+				if (((int)$end > (int)$busybegin) && ((int)$end < (int)$busyend)) return FALSE;
+				if (((int)$begin > (int)$busybegin) && ((int)$begin < (int)$busyend)) return FALSE;
+				if (((int)$begin < (int)$busybegin) && ((int)$end > (int)$busyend)) return FALSE;
+			}
+		}
+		return TRUE;
 	}
 	
 	public function available($begin, $end) {
 		$events = $this->getEvents();
 		
 #		echo '<pre>'; print_r($events); echo '</pre>';
+		
+		$freebusyAvailable = $this->checkFreeBusy($begin, $end);
+	
+		if ($freebusyAvailable) {
+#			error_log('Checking if user is avalable in period [' . date('r', $begin) . '] to [' . date('r', $end) .']   AVAILABLE');			
+		} else {
+#			error_log('Checking if user is avalable in period [' . date('r', $begin) . '] to [' . date('r', $end) .']   BUSY');
+		}
+		
+		if (!$freebusyAvailable) return 'Busy';
+		
+
 		
 		if (!empty($events)) {
 			foreach($events AS $event) {
@@ -72,6 +141,19 @@ class Calendar {
 		return NULL;
 	}
 
+	public static function parseTime($text) {
+		// Handle zulu time
+		if (substr($text,-1) == 'Z') {
+			return strtotime($text);
+		}
+		
+		$splitted = explode(':', $text);
+		$key = $splitted[0];
+		$value = $splitted[1];
+
+		return strtotime($value);
+		
+	}
 	
 	public function dump() {
 		echo '<p>Calendar dump:</p><pre>';

@@ -132,7 +132,9 @@ class Parser {
 							case 'Vtimezone': $this->tz_list[$obj->tzid] = $obj; break;
 							case 'Vevent': $this->event_list[$obj->uid] = $obj; break;
 							case 'Vtodo': $this->todo_list[] = $obj; break;
-							case 'Vfreebusy': $this->freebusy_list[] = $obj; break;
+							case 'Vfreebusy': 
+								$this->freebusy_list[] = $obj; 
+								break;
 						}
 						if (is_object(end($obj_stack))) {
 							$parent_obj = end($obj_stack);
