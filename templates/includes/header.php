@@ -17,7 +17,7 @@
 	
 	
 	<!-- WMD -->
-	<!-- script type="text/javascript" src="/res/js/wmd.js"></script  -->
+	<script type="text/javascript" src="/res/js/wmd.js"></script>
 	
 	
 
@@ -169,15 +169,18 @@ echo '</p>';
 		echo '<a class="button" style="float: right" onclick="showFacebookShare()"><span>' . $this->t('facebookshare') . '</span></a>';
 	}
 
-	echo '<a class="button" style="float: right" title="Share this foodle on Twitter" href="' . 
-		htmlspecialchars(
-			SimpleSAML_Utilities::addURLparameter('http://twitter.com/home', array(
-					'status' => 
-						'#foodle ' . $title . ': ' . SimpleSAML_Utilities::addURLparameter(SimpleSAML_Utilities::selfURL(), array('auth' => 'twitter'))
+	if (array_key_exists('twittershare', $this->data) && $this->data['twittershare']) {
+		echo '<a class="button" style="float: right" title="Share this foodle on Twitter" href="' . 
+			htmlspecialchars(
+				SimpleSAML_Utilities::addURLparameter('http://twitter.com/home', array(
+						'status' => 
+							'#foodle ' . $title . ': ' . SimpleSAML_Utilities::addURLparameter(SimpleSAML_Utilities::selfURL(), array('auth' => 'twitter'))
+					)
 				)
-			)
-		) . 
-		'"><span>Tweet</span></a>';
+			) . 
+			'"><span>Tweet</span></a>';
+	}
+
 
 
 	if (array_key_exists('owner', $this->data)) {

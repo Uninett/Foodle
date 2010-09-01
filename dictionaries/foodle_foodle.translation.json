@@ -1028,46 +1028,55 @@
 		"no": "Mitt svar",
 		"sl": "Moj odziv",
 		"de": "Meine Antwort",
-		"sv": "Mitt svar"
+		"sv": "Mitt svar",
+		"da": "Mit svar"
 	},
 	"allresponses": {
 		"no": "Alle svar",
 		"sl": "Vsi odzivi",
 		"de": "Alle Antworten",
-		"sv": "Alla svar"
+		"sv": "Alla svar",
+		"da": "Alle svar"
 	},
 	"youhavecalendar": {
-		"no": "Foodle er koblet sammen med din kalender."
+		"no": "Foodle er koblet sammen med din kalender.",
+		"da": "Foodle er forbundet med din kalender"
 	},
 	"distribute": {
-		"no": "Distribuer"
+		"no": "Distribuer",
+		"da": "Distibu\u00e9r"
 	},
 	"sharing": {
 		"no": "For \u00e5 gi andre tilgang og for \u00e5 oppfordre brukere til \u00e5 besvare denne Foodle-n, kan du dele lenken nedenfor."
 	},
 	"sharinglink": {
-		"no": "URL som gir tilgang til denne Foodle-n:"
+		"no": "URL som gir tilgang til denne Foodle-n:",
+		"da": "Urlen til denne Foodle"
 	},
 	"sharing2": {
-		"no": "Du kan dele lenken via e-post, p\u00e5 en e-post liste, eller via lynmelding eller en annen form for kommunikasjonskanaln hvor du kan n\u00e5 alle de aktuelle brukerene."
+		"no": "Du kan dele lenken via e-post, p\u00e5 en e-post liste, eller via lynmelding eller en annen kommunikasjonskanal hvor du kan n\u00e5 alle de aktuelle brukerene."
 	},
 	"previewinfo3": {
 		"no": "Nedenunder ser du en forh\u00e5ndsvisning av hvordan Foodle-n vil se ut. N\u00e5r du er ferdig klikker p\u00e5 du p\u00e5 \u2039Opprett Foodle\u203a knappen nedenunder. Du m\u00e5 gjerne endre navn og beskrivelse og endre p\u00e5 kolonnedefinisjonen over, f\u00f8r du velger \u00e5 opprette foodle-n."
 	},
 	"calendarenabled": {
-		"no": "Denne Foodle-n inneholder datoer og tidspunkt, som betyr at Foodle kan synkronisere den med kalenderen din automatisk."
+		"no": "Denne Foodle-n inneholder datoer og tidspunkt, som betyr at Foodle kan synkronisere den med kalenderen din automatisk.",
+		"da": "Denne Foodle er"
 	},
 	"manualentry": {
-		"no": "Manuelt innslag"
+		"no": "Manuelt innslag",
+		"da": "Manuel"
 	},
 	"calendarsync": {
-		"no": "Synkronisering med kalender"
+		"no": "Synkronisering med kalender",
+		"da": "Kalender synkronisering"
 	},
 	"calendardescr": {
 		"no": "Velg over om du \u00f8nsker \u00e5 koble svaret ditt synkronisert med din kalender, eller om du \u00f8nsker \u00e5 svare med et manuelt innslag"
 	},
 	"calendarcollision": {
-		"no": "Kollisjon i kalender"
+		"no": "Kollisjon i kalender",
+		"da": "Dobbelt bookning i kalender"
 	},
 	"addeddiscussion": {
 		"no": "har skrevet et diskusjonsinnlegg"
@@ -1085,13 +1094,16 @@
 		"no": "Generelle alternativer i form av fri tekst"
 	},
 	"date": {
-		"no": "Dato"
+		"no": "Dato",
+		"da": "Dato"
 	},
 	"time": {
-		"no": "Tid"
+		"no": "Tid",
+		"da": "Tid"
 	},
 	"addtimeslot": {
-		"no": "Legg til tidspunkt"
+		"no": "Legg til tidspunkt",
+		"da": "tilf\u00f8j tid"
 	},
 	"duplicate": {
 		"no": "Dupliser tidspunktene til alle datoene"
@@ -1100,15 +1112,19 @@
 		"no": "Legg til en ny dato"
 	},
 	"columnheader": {
-		"no": "Overskrift"
+		"no": "Overskrift",
+		"da": "Kollonne overskrift"
 	},
 	"option": {
-		"no": "Alternativ"
+		"no": "Alternativ",
+		"da": "valgmulighed"
 	},
 	"addoption": {
-		"no": "Legg til alternativ"
+		"no": "Legg til alternativ",
+		"da": "tilf\u00f8j valgmulighed"
 	},
 	"addcolumn": {
-		"no": "Legg til en ny overskrift"
+		"no": "Legg til en ny overskrift",
+		"da": "tilf\u00f8j en kolonne"
 	}
 }

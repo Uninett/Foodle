@@ -396,13 +396,13 @@ class Data_Foodle {
 		
 		$this->columns = FoodleUtils::parseOldColDef($_REQUEST['coldef']);
 		
-		if (empty($this->identifier)) $this->setIdentifier();
+		if (empty($this->identifier)) $this->setIdentifier(TRUE);
 		
 		#echo '<pre>'; print_r($this); echo '</pre>'; exit;
 
 	}
 	
-	public function setIdentifier() {
+	public function setIdentifier($privacy = FALSE) {
 		
 		$table = array(
 			'Š'=>'S', 'š'=>'s', 'Đ'=>'Dj', 'đ'=>'dj', 'Ž'=>'Z', 'ž'=>'z', 'Č'=>'C', 'č'=>'c', 'Ć'=>'C', 'ć'=>'c',
@@ -422,9 +422,14 @@ class Data_Foodle {
 		$basename = preg_replace('/^(-*)/', '', $basename);
 		$basename = preg_replace('/(-*)$/', '', $basename);
 		
-		$checkname = $basename; $counter = 1;
+		$privacytag = '';
+		if ($privacy) {
+			$privacytag = '-' . substr(uniqid(), 0, 5);
+		}
+		
+		$checkname = $basename . $privacytag; $counter = 1;
 		while(!$this->db->checkIdentifier($checkname)) {
-			$counter++; $checkname = $basename . '-' . $counter;
+			$counter++; $checkname = $basename . $privacytag . '-' . $counter;
 		}
 		
 		$this->identifier = $checkname;
