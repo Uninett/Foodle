@@ -93,6 +93,9 @@ class Parser {
 		while (!feof($this->fh)) {
 			$line = $this->read_line();
 			# echo "$i:$line\n";$i++;
+			error_log("$i:$line\n"); $i++;
+			
+			
 			if ($line) {
 				$tmp = explode(":",	$line);
 				$tmp2 = explode(";", $tmp[0]);
@@ -122,7 +125,7 @@ class Parser {
 					
 					case 'END':
 						
-						
+						error_log('Process END start');
 						if ($obj_stack[0] === NULL) break;
 
 						$obj = array_pop($obj_stack);
@@ -148,6 +151,7 @@ class Parser {
 						if (is_object(end($obj_stack)))
 							$obj = $parent_obj;
 						
+						error_log('Process END completed');
 						break;
 					
 					default:
@@ -157,6 +161,8 @@ class Parser {
 		#	print_r($obj_stack);
 			}
 		}
+		
+		error_log('Complete line');
 		
 		# "finished stack on line:$line.  Lookahead:$this->lookahead\n";
 		#deal with possible lack of \n at eof
@@ -175,6 +181,8 @@ class Parser {
 				$parent_obj->finish();
 
 		}
+		
+		error_log('Complete line2');
 		
 	#	print_r($this->cal);
 	#	print_r($tz_list);
@@ -203,6 +211,8 @@ class Parser {
 	 */
 	function read_line() {
 		
+		error_log('read line start');
+		
 		if (feof($this->fh)) 
 			return;
 		
@@ -210,8 +220,11 @@ class Parser {
 		$read_more = true;
 		
 		do { 
-			$this->lookahead = fgets($this->fh, 1024); 
+			error_log('BefReading ['  . $this->lookahead . ']');
+			$this->lookahead = fgets($this->fh, 4096); 
+			error_log('Reading ['  . $this->lookahead . ']');
 			$this->lookahead = ereg_replace("[\r\n]", "", $this->lookahead);
+			error_log('Reading ['  . $this->lookahead . ']');
 
 			if (
 				(
@@ -226,6 +239,8 @@ class Parser {
 				$read_more = false;
 			
 		} while ($read_more & !feof($this->fh)); 
+		
+		error_log('read line completed');
 		
 		return trim($tmp_line);
 	} // end function read_line()
