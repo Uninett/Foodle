@@ -214,10 +214,10 @@ div#createnew {
 div.lentry {
 	border-top: 1px solid #eee;
 	margin-top: 4px;
-	margin-bottom: 1.3em;
+	margin-bottom: 0.6em;
 }
 div.lentry div.lheader {
-	font-size: 110%;
+	font-size: 95%;
 }
 div.lentry div.lbody {
 	color: #555;

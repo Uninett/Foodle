@@ -29,18 +29,10 @@ class Pages_PageCreate extends Pages_Page {
 		#echo '<pre>'; print_r($foodle); exit;
 		$foodle->save();
 		
-		$t = new SimpleSAML_XHTML_Template($this->config, 'foodleready.php', 'foodle_foodle');
-		$t->data['name'] = $foodle->name;
-		$t->data['descr'] = $foodle->descr;
-		$t->data['url'] = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier;
-		$t->data['bread'] = array(
-			array('href' => '/', 'title' => 'bc_frontpage'), 
-			array('href' => '/foodle/' . $foodle->identifier, 'title' => $foodle->name), 
-			array('title' => 'bc_ready')
-		);
-
-		$t->show();
+		$newurl = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier . '?tab=3';
+		SimpleSAML_Utilities::redirect($newurl);
 		exit;
+
 	}
 	
 	

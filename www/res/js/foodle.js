@@ -56,6 +56,7 @@ function duplicateTimeSlots() {
 		container.eq(i).find("a.duplicate").detach();		
 	}
 	prepareDateColumns();
+	updatePreview();
 }
 
 function fillfields() {

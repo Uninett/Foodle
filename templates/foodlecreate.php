@@ -71,13 +71,13 @@ echo('		<input type="hidden" id="coldef" name="coldef" value="" />');
 		
 		<div style="border: 1px solid #ccc; background: #f5f5f5; margin: .5em; padding: 3px 1em">
 
-			<p style="margin: 5px 2px" >What kind of columns do you want to use in your Foodle?</p>
+			<p style="margin: 5px 2px" ><?php echo $this->t('qcolumntype'); ?></p>
 			
 			<p style="margin: 2px"><input type="radio" name="columntypes" id="columntypesdates" value="dates" <?php echo $columntypesdatesChecked; ?> />
-				<label for="columntypesdates">Dates and time slots (meeting planning etc.)</label></p>
+				<label for="columntypesdates"><?php echo $this->t('qcolumntypedates'); ?></label></p>
 			
 			<p style="margin: 2px"><input type="radio" name="columntypes" id="columntypestext" value="text" <?php echo $columntypestextChecked; ?> />
-				<label for="columntypestext">Column headers with generic text</label></p>
+				<label for="columntypestext"><?php echo $this->t('qcolumntypetext'); ?></label></p>
 
 		</div>
 		
@@ -123,20 +123,20 @@ echo('		<input type="hidden" id="coldef" name="coldef" value="" />');
 					$i = 0;
 					foreach($this->data['columns'] AS $column) {
 						echo '<div class="fcol">';
-						echo ' <input class="fcoli wmd-ignore" style="" type="text" name="timeslot[]" placeholder="Date" 
+						echo ' <input class="fcoli wmd-ignore" style="" type="text" name="timeslot[]" placeholder="' . $this->t('date'). '" 
 							value="' . htmlspecialchars($column['title']) . '" style="width: 100%" />';
 						echo ' <div style="display: inline" class="subcolcontainer">';
 					
 						if (isset($column['children'])) {
 							foreach($column['children'] AS $option) {
-								echo '<input class="fscoli wmd-ignore" type="text" value="' . htmlspecialchars($option['title']) . '" name="timeslots[]" placeholder="Time" />';
+								echo '<input class="fscoli wmd-ignore" type="text" value="' . htmlspecialchars($option['title']) . '" name="timeslots[]" placeholder="' . $this->t('time'). '" />';
 							}
 						} else {
-							echo '<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Time" />';
+							echo '<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="' . $this->t('time'). '" />';
 						}
-						echo ' <a style="float: right" class="minibutton onemoreoption"><span>Add time-slot</span></a>';
+						echo ' <a style="float: right" class="minibutton onemoreoption"><span>' . $this->t('addtimeslot'). '</span></a>';
 						if ($i++ == 0) {
-							echo ' <a style="float: right" class="minibutton duplicate"><span>Duplicate these time-slots to all dates</span></a>';
+							echo ' <a style="float: right" class="minibutton duplicate"><span>' . $this->t('duplicate'). '</span></a>';
 						}
 						echo ' </div>';
 						echo '</div>';
@@ -147,29 +147,31 @@ echo('		<input type="hidden" id="coldef" name="coldef" value="" />');
 			
 				?>
 
-				<div class="fcol"  style="" >
-					<input class="fcoli wmd-ignore" type="text" value="" name="timeslot[]" placeholder="Date" />
-					<div style="display: inline" class="subcolcontainer">
-						<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Time" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Time" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Time" />
 
-						<a style="float: right" class="minibutton onemoreoption"><span>Add time-slot</span></a>
-						<a style="float: right" class="minibutton duplicate"><span>Duplicate these time-slots to all dates</span></a>
+
+				<div class="fcol"  style="" >
+					<input class="fcoli wmd-ignore" type="text" value="" name="timeslot[]" placeholder="<?php echo $this->t('date'); ?>" />
+					<div style="display: inline" class="subcolcontainer">
+						<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" />
+
+						<a style="float: right" class="minibutton onemoreoption"><span><?php echo $this->t('addtimeslot'); ?></span></a>
+						<a style="float: right" class="minibutton duplicate"><span><?php echo $this->t('duplicate'); ?></span></a>
 					</div>
 				</div>
 	
 				<div class="fcol"  style="" >
-					<input class="fcoli wmd-ignore" type="text" value="" name="timeslot[]" placeholder="Date" />
+					<input class="fcoli wmd-ignore" type="text" value="" name="timeslot[]" placeholder="<?php echo $this->t('date'); ?>" />
 					<div style="display: inline" class="subcolcontainer">
-						<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Time" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Time" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Time" />
+						<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" />
 
-						<a style="float: right" class="minibutton onemoreoption"><span>Add time-slot</span></a>
+						<a style="float: right" class="minibutton onemoreoption"><span><?php echo $this->t('addtimeslot'); ?></span></a>
 					</div>
 				</div>
 				<?php } ?>
 
 			
 			
-				<div><a style="float: left" class="minibutton onemorecolumn"><span>Add one more date column</span></a></div>
+				<div><a style="float: left" class="minibutton onemorecolumn"><span><?php echo $this->t('onemoredate'); ?></span></a></div>
 			
 			</div>
 			
@@ -185,18 +187,18 @@ echo('		<input type="hidden" id="coldef" name="coldef" value="" />');
 					
 					foreach($this->data['columns'] AS $column) {
 						echo '<div class="fcol">';
-						echo ' <input class="fcoli wmd-ignore" style="" type="text" name="timeslot[]" placeholder="Column header" 
+						echo ' <input class="fcoli wmd-ignore" style="" type="text" name="timeslot[]" placeholder="' . $this->t('columnheader') . '" 
 							value="' . htmlspecialchars($column['title']) . '" style="width: 100%" />';
 						echo ' <div style="display: inline" class="subcolcontainer">';
 						
 						if (isset($column['children'])) {
 							foreach($column['children'] AS $option) {
-								echo '<input class="fscoli wmd-ignore" type="text" value="' . htmlspecialchars($option['title']) . '" name="timeslots[]" placeholder="Option" />';
+								echo '<input class="fscoli wmd-ignore" type="text" value="' . htmlspecialchars($option['title']) . '" name="timeslots[]" placeholder="' . $this->t('option') . '" />';
 							}
 						} else {
-							echo '<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Option" />';
+							echo '<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="' . $this->t('option') . '" />';
 						}
-						echo ' <a style="float: right" class="minibutton onemoreoption"><span>Add option</span></a>';
+						echo ' <a style="float: right" class="minibutton onemoreoption"><span>' . $this->t('addoption') . '</span></a>';
 						echo ' </div>';
 						echo '</div>';
 					}
@@ -206,22 +208,23 @@ echo('		<input type="hidden" id="coldef" name="coldef" value="" />');
 				
 				?>
 				<div class="fcol" style="" >
-					<input class="fcoli wmd-ignore" style="" type="text" value="" name="timeslot[]" placeholder="Column header" style="width: 100%" />
+					<input class="fcoli wmd-ignore" style="" type="text" value="" name="timeslot[]" placeholder="<?php echo $this->t('columnheader'); ?>" style="width: 100%" />
 					<div style="display: inline" class="subcolcontainer">
-						<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Option" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Option" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Option" />
-						<a style="float: right" class="minibutton onemoreoption"><span>Add option</span></a>
+						<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('option'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('option'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('option'); ?>" />
+						<a style="float: right" class="minibutton onemoreoption"><span><?php echo $this->t('addoption'); ?></span></a>
 					</div>
 				</div>
 				
 				<div class="fcol" style="" >
-					<input class="fcoli wmd-ignore" style="" type="text" value="" name="timeslot[]" placeholder="Column header" style="width: 100%" />
+					<input class="fcoli wmd-ignore" style="" type="text" value="" name="timeslot[]" placeholder="<?php echo $this->t('columnheader'); ?>" style="width: 100%" />
 					<div style="display: inline" class="subcolcontainer">
-						<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Option" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Option" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="Option" />
-						<a style="float: right" class="minibutton onemoreoption"><span>Add option</span></a>
+						<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('option'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('option'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('option'); ?>" />
+						<a style="float: right" class="minibutton onemoreoption"><span><?php echo $this->t('addoption'); ?></span></a>
 					</div>
 				</div>
+
 				<?php } ?>
-				<div><a style="float: left" class="minibutton onemorecolumn"><span>Add one more column</span></a></div>
+				<div><a style="float: left" class="minibutton onemorecolumn"><span><?php echo $this->t('addcolumn'); ?></span></a></div>
 
 			
 			</div>

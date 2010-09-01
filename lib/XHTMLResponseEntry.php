@@ -22,7 +22,7 @@ class XHTMLResponseEntry {
 		if ($authenticated) {
 			echo '<abbr title="' . $response->userid . '">' . htmlspecialchars($response->username) . '</abbr>' . $extra;	
 		} else {
-			echo '<input type="text" name="username" value="'  . htmlspecialchars($response->username). '" placeholder="Your name..." />';
+			echo '<input type="text" name="username" value="'  . htmlspecialchars($response->username). '" placeholder="' . $t->t('displayname'). '..." />';
 		}
 		
 		
@@ -190,7 +190,7 @@ class XHTMLResponseEntry {
 				if ($entry == '1') {
 					echo '<td class="yes center"><img class="yesimg" alt="No" src="/res/yes.png" /></td>';
 				} else {
-					echo '<td class="no center"><img class="yesimg" alt="Yes" title="Colliding event: ' . $response->response['crash'][$no] . '" src="/res/busy.png" /></td>';
+					echo '<td class="no center"><img class="yesimg" alt="Yes" title="' . $t->t('calendarcollision') . ': '. $response->response['crash'][$no] . '" src="/res/busy.png" /></td>';
 				}
 			}
 		} else {

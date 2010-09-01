@@ -323,42 +323,6 @@
 		"hr": "Dva nova retka zapo\u010dinju novi paragraf. Dopu\u0161ten je osnovni HTML.",
 		"fi": "Kaksi tyhj\u00e4\u00e4 rivi\u00e4 aloittaa uuden kappaleen. Perus-HTML on sallittua."
 	},
-	"ready": {
-		"no": "Din Foodle er n\u00e5 klar",
-		"da": "Din Foodle er klar",
-		"nl": "Je Foodle is nu gereed.",
-		"de": "Ihr Foodle ist jetzt fertig",
-		"sv": "Din Foodle \u00e4r nu klar",
-		"es": "Su foodle ya est\u00e1 disponible",
-		"sl": "Va\u0161 Foodle je pripravljen",
-		"nn": "Foodlen din er klar",
-		"hr": "Va\u0161 Foodle je sada spreman",
-		"fi": "Foodlesi on nyt valmis"
-	},
-	"visitlink": {
-		"no": "Bes\u00f8k denne lenken selv",
-		"da": "Bes\u00f8g dette link",
-		"nl": "Bezoek zelf de link",
-		"de": "Besuchen Sie den Link selbst",
-		"sv": "Bes\u00f6k denna l\u00e4nk sj\u00e4lv",
-		"es": "Visite este enlace usted mismo",
-		"sl": "Odpri to povezavo",
-		"nn": "Du m\u00e5 sj\u00f8lv f\u00f8lgja denne peikaren",
-		"hr": "Otvorite sami ovaj link",
-		"fi": "Avaa linkki"
-	},
-	"sendlink": {
-		"no": "Og send den til de du \u00f8nsker skal svare p\u00e5 Foodle-en",
-		"da": "og send det til folk du vil 'Foodle' med",
-		"nl": "En stuur de link naar de mensen die je wil laten meedoen aan de Foodle",
-		"de": "Und senden Sie ihn an die Personen, die daran teilnehmen sollen",
-		"sv": "Skicka den till de personer du vill foodla med",
-		"es": "Y env\u00edelo a la gente con la que quiera compartirlo",
-		"sl": "in jo po\u0161lji ljudem, s katerimi \u017eeli\u0161 deliti izbrani Foodle",
-		"nn": "Og send peikaren til dei du \u00f8nskjer skal svara p\u00e5 Foodlen din.",
-		"hr": "I po\u0161aljite ga ljudima s kojima \u017eelite dijeliti Foodle",
-		"fi": "Ja l\u00e4het\u00e4 se haluamillesi ihmisille"
-	},
 	"refresh": {
 		"no": "Oppdatere",
 		"da": "Opdat\u00e9r",
@@ -376,7 +340,7 @@
 		"da": "Denne Foodle er lukket",
 		"nl": "Deze Foodle is afgesloten.",
 		"de": "Dieser Foodle ist geschlossen.",
-		"sv": "Denna foodle \u00e4r st\u00e4ngd",
+		"sv": "Denna Foodle \u00e4r st\u00e4ngd",
 		"es": "Este foodle est\u00e1 cerrado.",
 		"sl": "Ta foodle je zaklju\u010den.",
 		"nn": "Denne foodlen er stengt",
@@ -388,7 +352,7 @@
 		"da": "Du kan desv\u00e6rre ikke opdatere eller tilf\u00f8je felter",
 		"nl": "Helaas kun je geen elementen veranderen of toevoegen.",
 		"de": "Sie k\u00f6nnen leider keine Eintr\u00e4ge hinzuf\u00fcgen oder \u00e4ndern.",
-		"sv": "Tyv\u00e4rr kan du inte uppdatera delar eller l\u00e4gga till nya",
+		"sv": "Tyv\u00e4rr kan du inte uppdatera delar eller l\u00e4gga till nya.",
 		"es": "Lo sentimos, pero no puede actualizar entradas o a\u00f1adir nuevas.",
 		"sl": "\u017dal ne morete posodobiti vnose ali dodate nove.",
 		"nn": "Dessverre kan du ikkje oppdatera eller leggja til nye svar.",
@@ -400,7 +364,7 @@
 		"da": "Denne Foodle har en udl\u00f8bsdato",
 		"nl": "Deze Foodle heeft een verval datum",
 		"de": "Dieser Foodle hat ein Ablaufdatum",
-		"sv": "Denna foodle \u00e4r st\u00e4ngd",
+		"sv": "Denna Foodle har en st\u00e4ngningstidpunkt",
 		"es": "Este foodle tiene una fecha l\u00edmite",
 		"sl": "Ta foodle ima nastavljen datum veljavnosti.",
 		"nn": "Denne foodlen har ein utl\u00f8psdato",
@@ -587,30 +551,6 @@
 		"hr": "Stupce mo\u017eete izraditi ru\u010dno ili mo\u017eete dodati datume iz kalendara s desne strane.",
 		"fi": "Voit luoda Foodlen sarakkeet tai lis\u00e4t\u00e4 p\u00e4iv\u00e4t oikealta."
 	},
-	"previewinfo": {
-		"no": "Her kan du se hvordan din Foodle blir seende ut. Du kan fortsatt g\u00e5 tilbake for \u00e5 endre navn og beskrivelse eller kolonneoppsett, og komme tilbake her og sjekke igjen. N\u00e5r alt er rett, og du vil opprette foodlen, trykk p\u00e5 knappen under.",
-		"da": "Her kan du hvordan din kommer til at se ud. Du kan stadigv\u00e6k g\u00e5 tilbage for at tilrette navn og beskrivelse, s\u00f8jler eller indstillinger - for derp\u00e5 at komme tilbage til forh\u00e5ndsvisning igen. N\u00e5r Foodlen er klar, skal du klikke p\u00e5 knappen herunder.",
-		"nl": "Hier kun je zien hoe je Foodle er uit gaat zien en je kan nog teruggaan om de naam en omschrijving, de kolommen en de opties te wijzigen, en vervolgens deze preview nog eens the bekijken. Wanneer je denkt klaar te zijn kun je de button hieronder aanklikken.",
-		"de": "Dies ist eine Vorschau ihres Foodles. Sie k\u00f6nnen alle Daten und Einstellungen noch \u00e4ndern und hier kontrollieren. Abschlie\u00dfend k\u00f6nnen sie den Foodle hier erzeugen.",
-		"sv": "H\u00e4r kan du se hur din foodle kommer att se ut som. Du kan fortfarande g\u00e5 tillbaka f\u00f6r \u00e4ndra namn, beskrivning, kolumner och inst\u00e4llningar och sedan f\u00f6rhandsgranska igen. N\u00e4r du \u00e4r f\u00e4rdig f\u00f6r att publicera klicka p\u00e5 knappen nedan.",
-		"es": "Aqu\u00ed puede ver como quedar\u00e1 su foodle. A\u00fan puede volver atr\u00e1s para modificar el nombre y la descripci\u00f3n, las columnas o la configuraci\u00f3n y regresar para comprobar como queda otra vez. Cuando crea que est\u00e1 listo, pulse el bot\u00f3n situado debajo.",
-		"sl": "Tako bo izgledal va\u0161 foodle. \u0160e vedno se lahko vrnete nazaj in ga urejate. Ko boste z izgledom zadovoljni, kliknite gumb spodaj.",
-		"nn": "Sj\u00e5 korleis din Foodle blir.  Du kan framleis g\u00e5 tilbake for \u00e5 endra omtale eller kolonneoppsett, for s\u00e5 \u00e5 sjekka her igjen.  N\u00e5r alt er riktig og du vil oppretta din Foodle, trykker du p\u00e5 knappen under.",
-		"hr": "Ovdje mo\u017eete vidjeti kako \u0107e izgledati va\u0161 Foodle. Jo\u0161 uvijek se mo\u017eete vratiti natrag i izmijeniti ime, opis, stupce ili postavke. Nakon toga se mo\u017eete vratiti ovamo i pregledati rezultat. Kada ste zadovoljni, kliknite mi\u0161em na dugme ispod.",
-		"fi": "T\u00e4ss\u00e4 n\u00e4et milt\u00e4 Foodlesi n\u00e4ytt\u00e4\u00e4 ja voit palata muokkamaan sen nime\u00e4, kuvausta, sarakkeita, asetuksia tai palata esikatseluun. Kun olet valmis, paina nappia alla."
-	},
-	"previewinfo2": {
-		"no": "Slik vil din Foodle bli",
-		"da": "S\u00e5dan vil din Foodle se ud",
-		"nl": "Zo gaat je Foodle er uit zien",
-		"de": "So wird Ihr Foodle aussehen",
-		"sv": "S\u00e5 h\u00e4r kommer din foodle att se ut",
-		"es": "As\u00ed es como quedar\u00e1 su foodle",
-		"sl": "Tako bo izgledal va\u0161 foodle",
-		"nn": "Din Foodle ser slik ut",
-		"hr": "Ovako \u0107e izgledati va\u0161 Foodle",
-		"fi": "T\u00e4st\u00e4 n\u00e4et milt\u00e4 Foodlesi n\u00e4ytt\u00e4\u00e4"
-	},
 	"maxheader": {
 		"no": "Max antall svar",
 		"da": "Maksimalt antal svar",
@@ -687,7 +627,7 @@
 		"no": "Over finner du en liste med e-postadresser. For \u00e5 sende epost til disse, kopier listen og lim inn i <tt>To:<\/tt> eller <tt>Bcc:<\/tt> feltet i din e-post leser.",
 		"da": "Herover er en liste af email-adresser. For at sende besked, kopieres adresserne ind i 'To'- eller 'BCc'-felterne i dit email-program.",
 		"nl": "Hierboven vind je een lijst met e-mail adressen. Om een e-mail te versturen kopieer je adressen in het To: of Bcc: veld van de e-mail client.",
-		"de": "Hier ist die Liste der vorhandenen Email-Adressen. Um diese Email-Adressen anzuschreiben, k\u00f6nnen Sie die Adressen markieren, kopieren und in das To: oder Bcc: Feld ihres Emailprogramms einf\u00fcgen.",
+		"de": "Hier ist die Liste der vorhandenen E-Mail-Adressen. Um diese E-Mail-Adressen anzuschreiben, k\u00f6nnen Sie die Adressen markieren, kopieren und in das To: oder Bcc: Feld ihres E-Mail-Programms einf\u00fcgen.",
 		"sv": "Ovan finns en lista med e-postadresser. F\u00f6r att skicka e-post kopiera och klipp in e-postadresserna i n\u00e5got av adressf\u00e4lten (Till, Kopia eller Hemlig kopia) i din e-postklient.",
 		"es": "Arriba aparece una lista de direcciones de correo electr\u00f3nico. Para enviar un correo, copie y pegue las direcciones en los campos To: (para:) o Bcc:(cco:) de su cliente de correo.",
 		"sl": "\u010ce \u017eelite poslati e-po\u0161tno sporo\u010dilo vsem, ki so se odzvali, ustvarite novo e-po\u0161tno sporo\u010dilo in skopirajte zgornji seznam naslovov v To: ali BCc polje.",
@@ -699,7 +639,7 @@
 		"no": "E-postadressene til alle som har svart",
 		"da": "Emailadresser p\u00e5 alle respondenter",
 		"nl": "E-mail adressen van alle deelnemers",
-		"de": "Email-Adressen aller TeilnehmerInnen",
+		"de": "E-Mail-Adressen aller TeilnehmerInnen",
 		"sv": "E-postadresser till alla svarande",
 		"es": "Direcciones de correo electr\u00f3nico de todos",
 		"sl": "E-po\u0161tni naslovi vseh, ki so se odzvali",
@@ -735,7 +675,7 @@
 		"no": "E-postadresser",
 		"da": "Email-adresser",
 		"nl": "E-mail adressen",
-		"de": "Email-Adresse",
+		"de": "E-Mail-Adresse",
 		"sv": "E-postadresser",
 		"es": "Direcciones de correo electr\u00f3nico",
 		"sl": "E-po\u0161tni naslov",
@@ -819,7 +759,7 @@
 		"no": "Du har ikke logget inn og er anonym. Vi anbefaler at du enten logger inn, eller fyller inn din e-post adresse og navn nedenunder. Hvis du legger igjen e-postadressen, vil vedkommende som opprettet Foodle-n  kunne kontakte deg, og du vil og f\u00e5 en mail i fra Foodle med en lenke du kan trykke p\u00e5 for \u00e5 endre p\u00e5 besvarelsen din.",
 		"da": "Du er ikke logget ind i Foodle og er i \u00f8jeblikket anonym. Vi anbefale at du enten logger ind eller udfylder dit navn og e-mail adresse neden for. Hvis du angiver din e-mail adresse, kan ejeren af denne Foodle kontakte dig og du vil modtage en kvittering, som g\u00f8r det muligt at vende tilbage og redigere dit svar.",
 		"nl": "Je bent niet ingelogd in Foodle en hebt dus anonieme toegang. We raden je aan om in te loggen of je e-mail adres en naam hieronder in te vullen. Als je je e-mail adres invult kan de Foodle eigenaar contact met je opnemen en je krijgt ook een e-mail van Foodle waarmee je hier kan terugkeren en je antwoord kan wijzigen.",
-		"de": "Sie sind noch nicht angemeldet. Sie k\u00f6nnen sich nun anmelden oder optional auch Ihren Namen und Email-Adresse angeben. Mit Angabe dieser Daten erhalten Sie automatisch eine Best\u00e4tigung, die auch das sp\u00e4tere \u00c4ndern Ihrer Antwort erm\u00f6glicht.",
+		"de": "Sie sind noch nicht angemeldet. Sie k\u00f6nnen sich nun anmelden oder optional auch Ihren Namen und E-Mail-Adresse angeben. Mit Angabe dieser Daten erhalten Sie automatisch eine Best\u00e4tigung, die auch das sp\u00e4tere \u00c4ndern Ihrer Antwort erm\u00f6glicht.",
 		"sv": "Du har inte loggat in i Foodle och \u00e4r f\u00f6r tillf\u00e4llet anonym. Vi rekommendrar att du antingen loggar in eller att du l\u00e4mnar namn och e-postadress nedan. Om du l\u00e4mnar din e-postadress kan \u00e4garen av denna Foodle kontakta dig. Du f\u00e5r ocks\u00e5 ett e-postmeddelande frpm Foodle som medf\u00f6r att du kan \u00e5terkomma och \u00e4ndra ditt svar.",
 		"es": "No se ha identificado en Foodle y es actualmente un usuario an\u00f3nimo. Le recomendamos que se identifique o que (al menos) nos proporcione su direcci\u00f3n de e-mail y su nombre. Si deja su direcci\u00f3n de e-mail, el creador del Foodle podr\u00e1 ponerse en contacto con usted, y recibir\u00e1 un mensaje de correo que le perimitir\u00e1 volver y modificar su respuesta.",
 		"sl": "Trenutno niste prijavljeni v Foodle, sistem vas obravnava kot anonimnega uporabnika. Prioro\u010damo, da se prijavite ali v spodnje polje vpi\u0161ete va\u0161 e-po\u0161tni naslov. Izpolnjen e-po\u0161tni naslov omogo\u010da lastniku tega Foodla da vas kontaktira oz. vi se lahko vrnete nazaj na ta Foodle in spremenite svoje glasovanje.",
@@ -843,7 +783,7 @@
 		"no": "E-postadresse",
 		"da": "E-mail adresse",
 		"nl": "E-mail adres",
-		"de": "Email-Adresse",
+		"de": "E-Mail-Adresse",
 		"sv": "E-postadress",
 		"es": "Direcci\u00f3n de e-mail",
 		"sl": "E-po\u0161tni naslov",
@@ -1015,7 +955,7 @@
 		"sv": "Logga ut",
 		"sl": "Odjava",
 		"fi": "Kirjaudu ulos",
-		"de": "Logout"
+		"de": "Abmelden"
 	},
 	"visit": {
 		"no": "Bes\u00f8k",
@@ -1060,7 +1000,7 @@
 		"no": "innlegg",
 		"da": "felter",
 		"sv": "inl\u00e4gg",
-		"sl": "Zapisi",
+		"sl": "komentarjev",
 		"de": "Eintr\u00e4ge"
 	},
 	"discussion": {
@@ -1074,20 +1014,101 @@
 		"no": "har svart p\u00e5",
 		"da": "har svaret p\u00e5",
 		"sv": "har svarat p\u00e5",
-		"sl": "se je odzval na",
+		"sl": "se je odzval(a) na",
 		"de": "hat geantwortet an"
 	},
 	"has_messaged": {
 		"no": "har lagt inn en melding p\u00e5",
 		"da": "har tilf\u00f8jet en diskussions besked til",
-		"sv": "har skapat ett ",
-		"sl": "je dodal diskusijsko sporo\u010dilo v",
+		"sv": "har skapat ett diskussionsmeddelande till",
+		"sl": "je dodal(a) diskusijsko sporo\u010dilo v",
 		"de": "hat eine Diskussionsnachricht hinzugef\u00fcgt zu"
 	},
 	"myresponse": {
-		"no": "Mitt svar"
+		"no": "Mitt svar",
+		"sl": "Moj odziv",
+		"de": "Meine Antwort",
+		"sv": "Mitt svar"
 	},
 	"allresponses": {
-		"no": "Alle svar"
+		"no": "Alle svar",
+		"sl": "Vsi odzivi",
+		"de": "Alle Antworten",
+		"sv": "Alla svar"
+	},
+	"youhavecalendar": {
+		"no": "Foodle er koblet sammen med din kalender."
+	},
+	"distribute": {
+		"no": "Distribuer"
+	},
+	"sharing": {
+		"no": "For \u00e5 gi andre tilgang og for \u00e5 oppfordre brukere til \u00e5 besvare denne Foodle-n, kan du dele lenken nedenfor."
+	},
+	"sharinglink": {
+		"no": "URL som gir tilgang til denne Foodle-n:"
+	},
+	"sharing2": {
+		"no": "Du kan dele lenken via e-post, p\u00e5 en e-post liste, eller via lynmelding eller en annen form for kommunikasjonskanaln hvor du kan n\u00e5 alle de aktuelle brukerene."
+	},
+	"previewinfo3": {
+		"no": "Nedenunder ser du en forh\u00e5ndsvisning av hvordan Foodle-n vil se ut. N\u00e5r du er ferdig klikker p\u00e5 du p\u00e5 \u2039Opprett Foodle\u203a knappen nedenunder. Du m\u00e5 gjerne endre navn og beskrivelse og endre p\u00e5 kolonnedefinisjonen over, f\u00f8r du velger \u00e5 opprette foodle-n."
+	},
+	"calendarenabled": {
+		"no": "Denne Foodle-n inneholder datoer og tidspunkt, som betyr at Foodle kan synkronisere den med kalenderen din automatisk."
+	},
+	"manualentry": {
+		"no": "Manuelt innslag"
+	},
+	"calendarsync": {
+		"no": "Synkronisering med kalender"
+	},
+	"calendardescr": {
+		"no": "Velg over om du \u00f8nsker \u00e5 koble svaret ditt synkronisert med din kalender, eller om du \u00f8nsker \u00e5 svare med et manuelt innslag"
+	},
+	"calendarcollision": {
+		"no": "Kollisjon i kalender"
+	},
+	"addeddiscussion": {
+		"no": "har skrevet et diskusjonsinnlegg"
+	},
+	"respondedrecent": {
+		"no": "har svar p\u00e5 denne Foodle-n"
+	},
+	"qcolumntype": {
+		"no": "Hvilke type alternativer vil du benytte?"
+	},
+	"qcolumntypedates": {
+		"no": "Dato og tidspunkt (m\u00f8teplanlegging og lignende)"
+	},
+	"qcolumntypetext": {
+		"no": "Generelle alternativer i form av fri tekst"
+	},
+	"date": {
+		"no": "Dato"
+	},
+	"time": {
+		"no": "Tid"
+	},
+	"addtimeslot": {
+		"no": "Legg til tidspunkt"
+	},
+	"duplicate": {
+		"no": "Dupliser tidspunktene til alle datoene"
+	},
+	"onemoredate": {
+		"no": "Legg til en ny dato"
+	},
+	"columnheader": {
+		"no": "Overskrift"
+	},
+	"option": {
+		"no": "Alternativ"
+	},
+	"addoption": {
+		"no": "Legg til alternativ"
+	},
+	"addcolumn": {
+		"no": "Legg til en ny overskrift"
 	}
 }

@@ -20,6 +20,21 @@
 	"youhavecalendar" : {
 		"en" : "Foodle is connected to your calendar. "
 	},
+	"calendarenabled" : {
+		"en" : "This Foodle is calendar enabled, which means that you can synchronize your response from your calendar."
+	},
+	"manualentry" : {
+		"en" : "Manual entry"
+	},
+	"calendarsync" : {
+		"en" : "Calendar sync"
+	},
+	"calendardescr" : {
+		"en" : "Select above whether you would like to connect your response to your calendar, or if you would like to enter the dates manually"
+	},
+	"calendarcollision" : {
+		"en" : "Collision in calendar"
+	},
 	"createnew": {
 		"en": "Create a new Foodle"
 	},
@@ -136,15 +151,6 @@
 	},
 	"submit": {
 		"en": "Submit"
-	},
-	"alreadysynced": {
-		"en": "Already synced"
-	},
-	"sync": {
-		"en": "Sync"
-	},
-	"issyncedwithcalendar" : {
-		"en" : "This entry is automatically syncronized with the calendar of this user"
 	},
 	"foodledescr": {
 		"en": "Name and description"
@@ -301,5 +307,47 @@
 	},
 	"has_messaged": {
 		"en": "has added a discussion message to"
+	},
+	"addeddiscussion": {
+		"en": "have added a discussion entry"
+	},
+	"respondedrecent": {
+		"en": "have responded to this Foodle"
+	},
+	"qcolumntype" : {
+		"en" : "What kind of columns do you want to use in your Foodle?"
+	},
+	"qcolumntypedates" : {
+		"en": "Dates and time slots (meeting planning etc.)"
+	},
+	"qcolumntypetext": {
+		"en" : "Column headers with generic text"
+	},
+	"date" : {
+		"en": "Date"
+	},
+	"time": {
+		"en": "Time"
+	},
+	"addtimeslot": {
+		"en": "Add time-slot"
+	},
+	"duplicate": {
+		"en": "Duplicate these time-slots to all dates"		
+	},
+	"onemoredate": {
+		"en": "Add one more date column"
+	},
+	"columnheader": {
+		"en": "Column header"
+	},
+	"option": {
+		"en": "Option"
+	},
+	"addoption": {
+		"en": "Add option"
+	},
+	"addcolumn": {
+		"en": "Add one more column"
 	}
 }

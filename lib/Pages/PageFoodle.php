@@ -110,6 +110,8 @@ class Pages_PageFoodle extends Pages_Page {
 		}
 		if (isset($_REQUEST['tab'])) {
 			$t->data['tab'] = $_REQUEST['tab'];
+		} elseif($t->data['myresponse']->loadedFromDB) {
+			$t->data['tab'] = '1';
 		}
 
 		// Configuration

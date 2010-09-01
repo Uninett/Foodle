@@ -16,7 +16,6 @@ class Pages_PageEdit extends Pages_PageFoodle {
 		
 		$newurl = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier . '?tab=3';
 		SimpleSAML_Utilities::redirect($newurl);
-
 		exit;
 	}
 

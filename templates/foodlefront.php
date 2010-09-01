@@ -49,16 +49,16 @@
 
 			if ($su['type'] == 'discussion') {
 				echo('<div class="statusupdate">');
-				echo('<h3><a href="/foodle/' . $su['foodleid'] .'"#discussion>' . htmlspecialchars($su['name']) . '</a></h3>');
-				echo('<p>' . $su['names'] . ' have recently added a discussion entry.</p>');
+				echo('<h3><a href="/foodle/' . $su['foodleid'] .'?tab=2">' . htmlspecialchars($su['name']) . '</a></h3>');
+				echo('<p>' . $su['names'] . ' ' . $this->t('addeddiscussion') . '.</p>');
 				echo('<p style="color: #999; font-size: small">' . FoodleUtils::date_diff(time() - $su['recent']) . ' ago</p>');
 				echo('</div>');
 				
 			} else {
 				
 				echo('<div class="statusupdate">');
-				echo('<h3><a href="/foodle/' . $su['foodleid'] .'"#response>' . htmlspecialchars($su['name']) . '</a></h3>');
-				echo('<p>' . $su['names'] . ' have recently responded to this Foodle.</p>');
+				echo('<h3><a href="/foodle/' . $su['foodleid'] .'">' . htmlspecialchars($su['name']) . '</a></h3>');
+				echo('<p>' . $su['names'] . ' ' . $this->t('respondedrecent') . '.</p>');
 				echo('<p style="color: #999; font-size: small">' . FoodleUtils::date_diff(time() - $su['recent']) . ' ago</p>');
 				echo('</div>');
 
@@ -92,8 +92,7 @@
 				echo '<div class="lentry">';
 				echo ' <div class="lheader"><a href="/foodle/' . $entry['id'] . '">' . 
 					htmlspecialchars($entry['name']) . '</a></div>';
-				echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8');
-				echo ' </div>';
+#				echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8') . ' </div>';
 #				echo '<pre>'; print_r($entry); echo '</pre>';
 				echo '</div>';
 			}
@@ -116,8 +115,7 @@
 				echo '<div class="lentry">';
 				echo ' <div class="lheader"><a href="/foodle/' . $entry['id'] . '">' . 
 					htmlspecialchars($entry['name']) . '</a></div>';
-				echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8');
-				echo ' </div>';
+#				echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8') . ' </div>';
 				echo ' <div class="lowner">' . $entry['owner'] . '</div>';
 #				echo '<pre>'; print_r($entry); echo '</pre>';
 				echo '</div>';
@@ -153,10 +151,11 @@
 					echo '<div class="lentry">';
 					echo ' <div class="lheader"><a href="/foodle/' . $entry['id'] . '">' . 
 						htmlspecialchars($entry['name']) . '</a></div>';
-					echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8');
-					echo ' </div>';
+#					echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8').  ' </div>';
 					echo ' <div class="lowner">' . $entry['owner'] . '</div>';
-	#				echo '<pre>'; print_r($entry); echo '</pre>';
+					
+					
+#				echo '<pre>'; print_r($entry); echo '</pre>';
 					echo '</div>';
 				}
 

@@ -209,17 +209,17 @@ $discussion = $this->data['foodle']->getDiscussion();
 		
 			echo '<div style="float: right; width: 400px" id="responsetyperadio">';
 
-			echo '<p>This Foodle is calendar enabled, which means that you can synchronize your response from your calendar.</p>';
+			echo '<p>' . $this->t('calendarenabled'). '</p>';
 			
 			if ($this->data['defaulttype'] == 'ical') {
-				echo '	<input type="radio" id="radio1" name="radio" /><label for="radio1">Manual entry</label>';
-				echo '	<input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2">Calendar sync</label>';				
+				echo '	<input type="radio" id="radio1" name="radio" /><label for="radio1">' . $this->t('manualentry') . '</label>';
+				echo '	<input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2">' . $this->t('calendarsync'). '</label>';				
 			} else {
-				echo '	<input type="radio" id="radio1" name="radio" checked="checked" /><label for="radio1">Manual entry</label>';
-				echo '	<input type="radio" id="radio2" name="radio" /><label for="radio2">Calendar sync</label>';				
+				echo '	<input type="radio" id="radio1" name="radio" checked="checked" /><label for="radio1">' . $this->t('manualentry') . '</label>';
+				echo '	<input type="radio" id="radio2" name="radio" /><label for="radio2">' . $this->t('calendarsync'). '</label>';				
 				
 			}
-						echo '<p>Select above whether you would like to connect your response to your calendar, or if you would like to enter the dates manually</p>';
+			echo '<p>' . $this->t('calendardescr'). '</p>';
 			echo ' </div>';
 
 			echo '</div>';
