@@ -53,7 +53,7 @@ class Pages_PageFront extends Pages_Page {
 		if(!empty($allentries)) foreach($allentries AS $e) $foodleids[] = $e['id'];
  		if(!empty($ownerentries)) foreach($ownerentries AS $e) $foodleids[] = $e['id'];
 
-		$statusupdate = $this->fdb->getActivityStream($this->user, $foodleids, 20);
+		$statusupdate = $this->fdb->getActivityStream($this->user, $foodleids, 100);
 		
 		$stats = $this->fdb->getStats($userid);
 		// ---- o ----- o ---- o ----- o ---- o ----- o

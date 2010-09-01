@@ -418,7 +418,7 @@ class FoodleDBConnector {
 		return $stream->compact();
 	}
 
-	protected function getStatusUpdate(Data_User $user, $foodleids, $no = 20) {
+	protected function getStatusUpdate(Data_User $user, $foodleids, $no = 100) {
 		
 		$userid = $user->userid;
 		
@@ -426,7 +426,7 @@ class FoodleDBConnector {
 		$fidstr = "('" . join("', '", $foodleids) . "')"; 
 		
 		$sql ="
-			SELECT entries.*,def.name, UNIX_TIMESTAMP(entries.updated) AS unix
+			SELECT entries.*,def.name, UNIX_TIMESTAMP(IFNULL(entries.updated, entries.created)) AS unix
 			FROM entries, def 
 			WHERE foodleid IN " . $fidstr . "
 				and userid != '" . addslashes($userid) . "'

@@ -36,7 +36,7 @@ class Data_ActivityStream {
 	
 	public function compact() {
 		$collapsed = array();
-	#	echo '<pre>'; print_r($this->activity); echo '</pre>';
+#		echo '<pre>'; print_r($this->activity); echo '</pre>';
 		
 		
 		foreach($this->activity AS $a) {
@@ -53,7 +53,7 @@ class Data_ActivityStream {
 			if (!empty($cfoodle['messages'])) $compactlist[] = $this->compactEntry($cfoodle['messages']);
 		}
 		
-	#	echo '<pre>compact:'; print_r($compactlist); echo '</pre>';
+#		echo '<pre>compact:'; print_r($compactlist); echo '</pre>';
 		
 		function cmp($a, $b){
 		    if ($a['recent'] == $b['recent']) {
