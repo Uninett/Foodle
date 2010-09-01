@@ -58,7 +58,7 @@
 
 		});
 	
-		function showemail(col) {
+		function showemailX(col) {
 			$("div.inneremailbox").hide("fast");
 			<?php
 			if (isset($this->data['foodle']->identifier)) {
@@ -66,6 +66,11 @@
 			}
 			?>
 			$("div#emailbox").show("fast");
+		}
+
+		function showemail(col) {
+			$("div.inneremailbox").hide("fast");
+			$("div#inneremailbox" + col).show("fast");
 		}
 	</script>
 

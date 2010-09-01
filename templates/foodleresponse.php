@@ -295,12 +295,12 @@ $discussion = $this->data['foodle']->getDiscussion();
 
 
 	
-	<div id="emailbox" style="display: none">
+	<div id="emailbox">
 		
 		<?php
 		
 		foreach ($emailaddrs AS $key => $emails) {
-			echo '<div class="wmd-ignore inneremailbox" id="inneremailbox' . $key . '" >';
+			echo '<div class="wmd-ignore inneremailbox" style="display: none" id="inneremailbox' . $key . '" >';
 			if (!empty($emails)) {
 				echo htmlspecialchars(join(', ', $emails));
 			} else {
