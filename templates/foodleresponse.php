@@ -151,7 +151,11 @@ $discussion = $this->data['foodle']->getDiscussion();
         <li><a href="#discussion"><span><?php 
 			echo $this->t('discussion') . ' (' . count($discussion). ' ' . $this->t('entries') . ')'; 
 		?></span></a></li> 
-		
+		<?php
+		if ($this->data['showsharing']) {
+			echo '<li><a href="#distribute"><span>' . $this->t('distribute') . '</span></a></li>';
+		}
+		?>
     </ul> 
 
 
@@ -365,6 +369,23 @@ echo '</div><!-- end #discussionouterbox -->';
 ?>
 
 </div> <!-- end #discussion tab -->
+
+
+<?php
+if ($this->data['showsharing']) {
+	echo '<div id="distribute" style="margin: .2em 5em .2em 5em; ">';
+
+	echo( '<p>' . $this->t('sharing') . '</p>');
+	echo( '<p>' . $this->t('sharinglink') . '</p>');
+	echo('<div class="sharinglink">' . 
+		htmlentities($this->data['url']) . 
+		'</div>');
+	echo( '<p>' . $this->t('sharing2') . '</p>');
+
+	echo '</div>';
+}
+?>
+
 
 
 

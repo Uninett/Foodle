@@ -83,14 +83,17 @@
 	"htmlinfo": {
 		"en": "Two newlines will start a new paragraph. Basic HTML is allowed."
 	},
-	"ready": {
-		"en": "Your foodle is now ready"
+	"distribute": {
+		"en": "Distribute"
 	},
-	"visitlink": {
-		"en": "Visit this link your self"
+	"sharing": {
+		"en": "In order to give others access and request others to respond to this Foodle, you should point the individuals to the link below."
 	},
-	"sendlink": {
-		"en": "And send it to the people you want to foodle with"
+	"sharinglink": {
+		"en": "URL to access this Foodle:"
+	},
+	"sharing2": {
+		"en": "You may choose to send the link with e-mail, on a mailinglist, on instant messager or some other communication path where you can reach the users."
 	},
 	"refresh": {
 		"en": "Refresh"

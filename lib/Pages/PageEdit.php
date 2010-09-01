@@ -14,17 +14,9 @@ class Pages_PageEdit extends Pages_PageFoodle {
 		#echo '<pre>'; print_r($foodle); exit;
 		$this->foodle->save();
 		
-		$t = new SimpleSAML_XHTML_Template($this->config, 'foodleready.php', 'foodle_foodle');
-		$t->data['name'] = $this->foodle->name;
-		$t->data['descr'] = $this->foodle->descr;
-		$t->data['url'] = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier;
-		$t->data['bread'] = array(
-			array('href' => '/', 'title' => 'bc_frontpage'), 
-			array('href' => '/foodle/' . $this->foodle->identifier, 'title' => $this->foodle->name), 
-			array('title' => 'bc_ready')
-		);
+		$newurl = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier . '?tab=3';
+		SimpleSAML_Utilities::redirect($newurl);
 
-		$t->show();
 		exit;
 	}
 
