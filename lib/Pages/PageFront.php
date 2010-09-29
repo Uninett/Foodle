@@ -67,6 +67,7 @@ class Pages_PageFront extends Pages_Page {
 		$t->data['displayname'] = $this->user->name;
 
 		$t->data['authenticated'] = $this->auth->isAuth();
+		
 		$t->data['loginurl'] = $this->auth->getLoginURL();
 		$t->data['logouturl'] = $this->auth->getLogoutURL();
 		
