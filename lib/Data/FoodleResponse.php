@@ -78,7 +78,7 @@ class Data_FoodleResponse {
 		$cal = new Calendar($this->response['calendarURL'], TRUE);
 		$slots = $this->foodle->getColumnDates();
 		foreach($slots AS $i => $slot) {
-			$crash = $cal->available($slot, $slot + 3600 );
+			$crash = $cal->available($slot[0], $slot[1]);
 			if ($crash !== NULL) {
 				if (is_a($crash, 'Event')) {
 					$responseData[(int)$i] = '0';

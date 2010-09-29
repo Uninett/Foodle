@@ -54,7 +54,7 @@
 		"de": "Foodle ist ein Werkzeug f\u00fcr einfache Umfragen oder Abstimmungen, sowie zum Planen von Treffen.",
 		"sv": "Foodle \u00e4r en tj\u00e4nst f\u00f6r enkla unders\u00f6kningar och m\u00f6tesbokningar.",
 		"es": "Foodle es un servicio para sondeos o encuestas sencillas y para planificar encuentros.",
-		"sl": "Foodle je storitev, ki omogo\u010da planiranje sestankov in izdelavo preprostih anket ter vpra\u0161alnikov.",
+		"sl": "Foodle je storitev, ki omogo\u010da planiranje terminov za sestanke in izdelavo preprostih anket ter vpra\u0161alnikov.",
 		"nn": "Foodle er ei teneste for enkle sp\u00f8rjeunders\u00f8kingar eller meningsm\u00e5lingar, og for \u00e5 finna ein m\u00f8tedato som passer for alle.",
 		"hr": "Foodle je usluga za planiranje sastanaka i provo\u0111enje jednostavnih anketa i upitnika.",
 		"fi": "Foodle on yksinkertaisten kyselyiden tai aikataulujen laatimispalvelu."
@@ -246,7 +246,7 @@
 		"de": "Sie k\u00f6nnen optional einige Zeitfenster hinzuf\u00fcgen, die zu diesen Tagen hinzugef\u00fcgt werden:",
 		"sv": "Du kan om du vill l\u00e4gga till n\u00e5gra tidsperioder till dessa dagar:",
 		"es": "Opcionalmente puede a\u00f1adir algunas franjas temporales que se a\u00f1adir\u00e1n a estos d\u00edas:",
-		"sl": "Tukaj lahko k obstoje\u010dim dodate nove \u010dasovne termine (za izbrane dni):",
+		"sl": "Obstoje\u010dim \u010dasovnim terminom lahko dodate nove (za izbrane dni):",
 		"nn": "Du kan (valfritt) velja \u00e5 leggja til alternative tidsluker for kvar av datoane du har vald (f.eks. f\u00f8r og etter lunsj):",
 		"hr": "Mo\u017eete dodati nove termine koji \u0107e biti dodani ovim danima:",
 		"fi": "Voit halutessasi lis\u00e4t\u00e4 ajankohtia, jotka lis\u00e4t\u00e4\u00e4n n\u00e4ihin p\u00e4iv\u00e4m\u00e4\u00e4riin:"
@@ -304,7 +304,7 @@
 		"da": "Foodle-navn",
 		"nl": "Foodle identifier",
 		"de": "Foodle-Kennung",
-		"sv": "Foodle identifierare",
+		"sv": "Foodleidentifierare",
 		"es": "Identificador Foodle",
 		"sl": "Foodle identifikator",
 		"nn": "Foodle ID",
@@ -354,7 +354,7 @@
 		"de": "Sie k\u00f6nnen leider keine Eintr\u00e4ge hinzuf\u00fcgen oder \u00e4ndern.",
 		"sv": "Tyv\u00e4rr kan du inte uppdatera delar eller l\u00e4gga till nya.",
 		"es": "Lo sentimos, pero no puede actualizar entradas o a\u00f1adir nuevas.",
-		"sl": "\u017dal ne morete posodobiti vnose ali dodate nove.",
+		"sl": "Posodabljanje in dodajanje novih vnosov ni ve\u010d mo\u017eno.",
 		"nn": "Dessverre kan du ikkje oppdatera eller leggja til nye svar.",
 		"hr": "Na\u017ealost ne mo\u017eete izmijeniti unose niti dodati nove.",
 		"fi": "Valitettavasti et voi p\u00e4ivitt\u00e4\u00e4 tai lis\u00e4t\u00e4 uutta tapahtumaa."
@@ -868,7 +868,7 @@
 		"de": "Der Link unten zeigt auf dieses Foodle und wird automatisch eine Authentifizierung mit Facebook durchf\u00fchren. Schicken Sie diesen Link nur Nutzern von denen Sie wissen, dass diese einen Account auf Facebook haben und diesen mit Foodle nutzen wollen. Diese URL funktioniert super in Verbindung mit Ihrem Facebook Profil (Facebook-Gruppe etc.)",
 		"sv": "L\u00e4nken nedan pekar p\u00e5 denna Foodle och vill automatiskt aktivera inloggning p\u00e5 Facebook. Skicka endast denna l\u00e4nk till personer som du vet har Facebook och vill anv\u00e4nda detta tillsammans med Foodle. Denna l\u00e4nk som \u00e4r l\u00e4mplig att dela via t.ex. din profil p\u00e5 Facebook, grupp i Facebook o.s.v.",
 		"es": "El siguiente enlace apunta a este Foodle, y puede llevar autom\u00e1ticamente a la autenticaci\u00f3n con Facebook. Env\u00ede este enlace \u00fanicamente a usuarios que sepa que tienen una cuenta en Facebook y con los que quiera que usen Foodle. Es una buena URL para compartir con tu perfil de Facebook (grupo facebook, etc).",
-		"sl": "Spodnji URL predstavlja ta Foodle, s klikom nanj se samodejno spro\u017ei avtentikacija preko Facebooka. Prijatelji, ki imajo Facebook uporabni\u0161ka imena se lahko v ta Foodle prijavijo z njim. URL je primerne oblike tudi za objavo v va\u0161em Facebook profilu (Facebook skupinah, itd)",
+		"sl": "Spodnji URL naslov predstavlja ta Foodle, s klikom nanj se samodejno spro\u017ei avtentikacija preko Facebooka. Prijatelji, ki imajo Facebook uporabni\u0161ka imena se lahko v ta Foodle prijavijo z njim. URL je primerne oblike tudi za objavo v va\u0161em Facebook profilu (Facebook skupinah, itd)",
 		"nn": "Lenka under peikar p\u00e5 denne Foodlen, og vil automatisk starta innlogging via Facebook. Send denne lenka KUN til brukarar som du veit har Facebook-konto og som \u00f8nskjer \u00e5 logga inn med Facebook. Lenka til tilrettelagt for bruk fr\u00e5  er fin \u00e5 bruke fr\u00e5 din Facebook-profil eller en Facebook-gruppe.",
 		"hr": "Donji link pokazuje na ovaj Foodle i automatski pokre\u0107e autentikaciju putem Facebooka. Ovaj link po\u0161aljite samo onim korisnicima za koje znate da imaju korisni\u010dki ra\u010dun na Facebooku i da ga \u017eele koristiti s Foodleom. Ovo je skra\u0107eni URL koji mo\u017eete podijeliti putem va\u0161eg Facebook profila (grupe)",
 		"fi": "Alla oleva linkki osoittaa t\u00e4h\u00e4n Foodleen ja avaa automaattisen tunnistautumisen Facebookiin. L\u00e4het\u00e4 t\u00e4m\u00e4 linkki vain k\u00e4ytt\u00e4jille, joiden tied\u00e4t haluavan k\u00e4ytt\u00e4\u00e4 Foodlea suoraan Facebookista. Linkin voi k\u00e4tev\u00e4sti julkaista suoraan Facebook -profiilissa tai -ryhm\u00e4ss\u00e4."
@@ -879,7 +879,7 @@
 		"de": "Link zu diesem Foodle auf Facebook hinzuf\u00fcgen",
 		"sv": "L\u00e4gg till l\u00e4nk till Facebook f\u00f6r denna Foodle",
 		"es": "A\u00f1adir enlace a este Foodle a Facebook",
-		"sl": "Dodaj link na ta Foodle v Facebook",
+		"sl": "Dodaj URL naslov tega Foodla na Facebook",
 		"nn": "Legg link til denne Foodlen p\u00e5 Facebook",
 		"hr": "Dodaj link za ovaj Foodle na Facebook",
 		"fi": "Lis\u00e4\u00e4 Foodle-linkki Facebookiin"
@@ -947,7 +947,8 @@
 		"es": "Guardar cambios a este foodle",
 		"sl": "Shrani spremembe foodla",
 		"hr": "Spremi izmjene ovog Foodlea",
-		"fi": "Tallenna muutokset t\u00e4h\u00e4n Foodleen"
+		"fi": "Tallenna muutokset t\u00e4h\u00e4n Foodleen",
+		"nn": "Lagra endringar til denne foodlen"
 	},
 	"logout": {
 		"no": "Logg ut",
@@ -955,7 +956,9 @@
 		"sv": "Logga ut",
 		"sl": "Odjava",
 		"fi": "Kirjaudu ulos",
-		"de": "Abmelden"
+		"de": "Abmelden",
+		"es": "Cerrar sesi\u00f3n",
+		"nn": "Logg ut"
 	},
 	"visit": {
 		"no": "Bes\u00f8k",
@@ -963,7 +966,9 @@
 		"sv": "Bes\u00f6k",
 		"sl": "Obi\u0161\u010di",
 		"fi": "Katso my\u00f6s",
-		"de": "Besuch"
+		"de": "Besuch",
+		"es": "Visitas",
+		"nn": "Vitjing"
 	},
 	"statistics": {
 		"no": "Statistikk",
@@ -971,15 +976,19 @@
 		"sv": "Statistik",
 		"sl": "Statistika",
 		"fi": "Tilastoja",
-		"de": "Statistiken"
+		"de": "Statistiken",
+		"es": "Estad\u00edsticas",
+		"nn": "Statistikk"
 	},
 	"cresponses": {
 		"no": "Foodle har blitt besvart %NUM% ganger i l\u00f8pet av de siste 7 dagene.",
 		"da": "Foodle har haft %NUM% svar de sidste 7 dage.",
 		"sv": "Foodle har registrerat %NUM% svar de senaste 7 dagarna.",
-		"sl": "Foodle je imel %NUM% odzivov v zadnjih 7 dneh.",
+		"sl": "\u0160tevilo odzivov v zadnjih 7 dneh: %NUM% ",
 		"fi": "Foodle sai %NUM% vastausta viimeisten 7 p\u00e4iv\u00e4n aikana.",
-		"de": "Foodle hatte %NUM% Antworten in den letzten 7 Tagen."
+		"de": "Foodle hatte %NUM% Antworten in den letzten 7 Tagen.",
+		"es": "Foodle tuvo %NUM% respuestas en los \u00faltimos 7 d\u00edas",
+		"nn": "Foodle hadde %NUM% svar dei siste 7 d\u00f8gn."
 	},
 	"statusupdates": {
 		"no": "Statusoppdateringer",
@@ -987,144 +996,260 @@
 		"sv": "Statusuppdateringar",
 		"sl": "Dnevnik dogodkov",
 		"fi": "Tilatietoja",
-		"de": "Statusupdates"
+		"de": "Statusupdates",
+		"es": "Actualizaciones de estado",
+		"nn": "Statusoppdatering"
 	},
 	"add": {
 		"no": "Legg til",
 		"da": "Tilf\u00f8j",
 		"sv": "L\u00e4gg till",
 		"sl": "Dodaj",
-		"de": "Hinzuf\u00fcgen"
+		"de": "Hinzuf\u00fcgen",
+		"es": "A\u00f1adir",
+		"nn": "Legg til"
 	},
 	"entries": {
 		"no": "innlegg",
 		"da": "felter",
 		"sv": "inl\u00e4gg",
 		"sl": "komentarjev",
-		"de": "Eintr\u00e4ge"
+		"de": "Eintr\u00e4ge",
+		"es": "Entradas",
+		"nn": "innslag"
 	},
 	"discussion": {
 		"no": "Diskusjon",
 		"da": "Diskussion",
 		"sv": "Diskussion",
 		"sl": "Razprava",
-		"de": "Diskussion"
+		"de": "Diskussion",
+		"es": "Discusi\u00f3n",
+		"nn": "Diskusjon"
 	},
 	"has_responded": {
 		"no": "har svart p\u00e5",
 		"da": "har svaret p\u00e5",
 		"sv": "har svarat p\u00e5",
-		"sl": "se je odzval(a) na",
-		"de": "hat geantwortet an"
+		"sl": "se je odzval\/a na",
+		"de": "hat geantwortet an",
+		"es": "ha respondido a",
+		"nn": "har svart p\u00e5"
 	},
 	"has_messaged": {
 		"no": "har lagt inn en melding p\u00e5",
 		"da": "har tilf\u00f8jet en diskussions besked til",
 		"sv": "har skapat ett diskussionsmeddelande till",
-		"sl": "je dodal(a) diskusijsko sporo\u010dilo v",
-		"de": "hat eine Diskussionsnachricht hinzugef\u00fcgt zu"
+		"sl": "je dodal\/a diskusijsko sporo\u010dilo v",
+		"de": "hat eine Diskussionsnachricht hinzugef\u00fcgt zu",
+		"es": "ha a\u00f1adido un mensaje de discusi\u00f3n a",
+		"nn": "har lagt til diskusjonsmelding"
 	},
 	"myresponse": {
 		"no": "Mitt svar",
 		"sl": "Moj odziv",
 		"de": "Meine Antwort",
 		"sv": "Mitt svar",
-		"da": "Mit svar"
+		"da": "Mit svar",
+		"es": "Mi respuesta",
+		"nn": "Mitt svar"
 	},
 	"allresponses": {
 		"no": "Alle svar",
 		"sl": "Vsi odzivi",
 		"de": "Alle Antworten",
 		"sv": "Alla svar",
-		"da": "Alle svar"
+		"da": "Alle svar",
+		"es": "Todas las respuestas",
+		"nn": "Alle svar"
 	},
 	"youhavecalendar": {
 		"no": "Foodle er koblet sammen med din kalender.",
-		"da": "Foodle er forbundet med din kalender"
+		"da": "Foodle er forbundet med din kalender",
+		"es": "Foodle est\u00e1 conectado a tu calendario",
+		"sv": "Foodle \u00e4r ansluten till din kalender.",
+		"sl": "Foodle je povezan z va\u0161im koledarjem",
+		"nn": "Foodle er kopla med kalenderen din"
 	},
 	"distribute": {
 		"no": "Distribuer",
-		"da": "Distibu\u00e9r"
+		"da": "Distibu\u00e9r",
+		"es": "Distribuye",
+		"sv": "Distribuera",
+		"sl": "Posreduj",
+		"nn": "Send ut"
 	},
 	"sharing": {
-		"no": "For \u00e5 gi andre tilgang og for \u00e5 oppfordre brukere til \u00e5 besvare denne Foodle-n, kan du dele lenken nedenfor."
+		"no": "For \u00e5 gi andre tilgang og for \u00e5 oppfordre brukere til \u00e5 besvare denne Foodle-n, kan du dele lenken nedenfor.",
+		"es": "Para poder dar acceso a otros y permitirles responder a este Foodle, deber\u00edas indicarlo en el link a continuaci\u00f3n",
+		"sv": "F\u00f6r att andra ska kunna komma \u00e5t att svara p\u00e5 denna Foodle m\u00e5ste du ge l\u00e4nken nedan till dessa personer.",
+		"sl": "Tistim, ki bi \u017eeleli, da sodelujejo v tem Foodlu, posredujte spodnji URL naslov.",
+		"nn": "For \u00e5 gje andre tilgang og sp\u00f8rja dei om svar p\u00e5 denne foodlen, b\u00f8r du peika kvar enkelt p\u00e5 lenka under"
 	},
 	"sharinglink": {
 		"no": "URL som gir tilgang til denne Foodle-n:",
-		"da": "Urlen til denne Foodle"
+		"da": "Urlen til denne Foodle",
+		"es": "URL para acceder a este Foodle",
+		"sv": "URL f\u00f6r tillg\u00e5ng till denna Foodle:",
+		"sl": "URL za dostop do tega Foodla:",
+		"nn": "URL for tilgang til denne foodlen"
 	},
 	"sharing2": {
-		"no": "Du kan dele lenken via e-post, p\u00e5 en e-post liste, eller via lynmelding eller en annen kommunikasjonskanal hvor du kan n\u00e5 alle de aktuelle brukerene."
+		"no": "Du kan dele lenken via e-post, p\u00e5 en e-post liste, eller via lynmelding eller en annen kommunikasjonskanal hvor du kan n\u00e5 alle de aktuelle brukerene.",
+		"es": "Puedes elegir enviar el enlace por email, en una lista de correo, mediante mensajer\u00eda instant\u00e1nea o por cualquier otro mecanismos mediante el que puedas llegar a los usuarios",
+		"sv": "Du kan skicka l\u00e4nken via e-post, via en e-postlista, via direktmeddelanden eller p\u00e5 annat s\u00e4tt till de som ska svara.",
+		"sl": "URL naslov lahko posredujete preko e-po\u0161te, dopisnega seznama, sistemov takoj\u0161njega sporo\u010danja ali katere kole druge poti, preko katere lahko dose\u017eete \u017eeljene uporabnike.",
+		"nn": "Du kan senda informasjonen med epost, p\u00e5 ei postliste, via chat eller p\u00e5 andre m\u00e5tar som n\u00e5r dine samarbeidspartnarar."
 	},
 	"previewinfo3": {
-		"no": "Nedenunder ser du en forh\u00e5ndsvisning av hvordan Foodle-n vil se ut. N\u00e5r du er ferdig klikker p\u00e5 du p\u00e5 \u2039Opprett Foodle\u203a knappen nedenunder. Du m\u00e5 gjerne endre navn og beskrivelse og endre p\u00e5 kolonnedefinisjonen over, f\u00f8r du velger \u00e5 opprette foodle-n."
+		"no": "Nedenunder ser du en forh\u00e5ndsvisning av hvordan Foodle-n vil se ut. N\u00e5r du er ferdig klikker p\u00e5 du p\u00e5 \u2039Opprett Foodle\u203a knappen nedenunder. Du m\u00e5 gjerne endre navn og beskrivelse og endre p\u00e5 kolonnedefinisjonen over, f\u00f8r du velger \u00e5 opprette foodle-n.",
+		"es": "A continuaci\u00f3n, ver\u00e1 una vista previa de c\u00f3mo se mostrar\u00e1 tu Foodle. Cuando termines, haz click en el bot\u00f3n \"Terminar Foodle\". Si\u00e9ntete libre de modificar el nombre y la descripci\u00f3n y configurar las opciones avanzadas antes de dar por terminado tu Foodle",
+		"sv": "Nedan kan du se en f\u00f6rhandsgranskning hur denna Foodle kommer att se ut. N\u00e4r du \u00e4r klar ska du klicka p\u00e5 knappen \"Spara och aktivera Foodle\". G\u00e5 g\u00e4rna tillbaka till \"Namn och beskrivning\" och \"Avancerade inst\u00e4llningar\" f\u00f6r kompletteringar innan du sparar och aktiverar din Foodle.",
+		"sl": "Spodaj je prikazan predogled va\u0161e Foodla. \u0160e vedno ga lahko poljubno spreminjate. Ko boste z izgledom in vsebino zadovoljni, kliknite na gumb \"Dokon\u010daj Foodle\".",
+		"nn": "Under ser du ein forsmak p\u00e5 korleis din foodle ser ut.  N\u00e5r du er ferdig, trykk p\u00e5 knappen \"Opprett Foodle\".  G\u00e5 gjerne tilbake til namn og omtale og sett opp avanserte val f\u00f8r du oppretter foodlen."
 	},
 	"calendarenabled": {
 		"no": "Denne Foodle-n inneholder datoer og tidspunkt, som betyr at Foodle kan synkronisere den med kalenderen din automatisk.",
-		"da": "Denne Foodle er"
+		"da": "Denne Foodle er",
+		"es": "Este Foodle es apto para su uso con calendarios lo que quiere decir que puedes sincronizar tu respuesta desde tu calendario",
+		"sv": "Denna Foodle \u00e4r kalenderaktiverad. Detta inneb\u00e4r att du kan synkronisera ditt svar med din kalender.",
+		"sl": "Ta Foodle ima mo\u017enost sinhronizacije z va\u0161im koledarjem.",
+		"nn": "Foodle er kalender-kapable, som inneber at du kan synkronisera svaret ditt fr\u00e5 din kalender"
 	},
 	"manualentry": {
 		"no": "Manuelt innslag",
-		"da": "Manuel"
+		"da": "Manuel",
+		"es": "Introducci\u00f3n manual",
+		"sv": "Ange manuellt",
+		"sl": "Ro\u010dni vnos",
+		"nn": "Manuelt innslag"
 	},
 	"calendarsync": {
 		"no": "Synkronisering med kalender",
-		"da": "Kalender synkronisering"
+		"da": "Kalender synkronisering",
+		"es": "Sincronizaci\u00f3n de calendario",
+		"sv": "Synkronisera med kalender",
+		"sl": "Sinhronizacija s koledarjem",
+		"nn": "Kalender-synkronisering"
 	},
 	"calendardescr": {
-		"no": "Velg over om du \u00f8nsker \u00e5 koble svaret ditt synkronisert med din kalender, eller om du \u00f8nsker \u00e5 svare med et manuelt innslag"
+		"no": "Velg over om du \u00f8nsker \u00e5 koble svaret ditt synkronisert med din kalender, eller om du \u00f8nsker \u00e5 svare med et manuelt innslag",
+		"es": "Selecciona si te gustar\u00eda conectar tu respuesta con tu calendario o si deseas introducir las fechas manualmente",
+		"sv": "V\u00e4lj ovan om du vill ansluta till din kalender eller om du vill ange datum manuellt.",
+		"sl": "Izberite ali \u017eelite va\u0161 vnos povezati z va\u0161im koledarjem ali \u017eelite datum vnesti ro\u010dno.",
+		"nn": "Vel over om du vil knyta saman svaret ditt med kalenderen din, eller om du vil leggja inn dagar for hand"
 	},
 	"calendarcollision": {
 		"no": "Kollisjon i kalender",
-		"da": "Dobbelt bookning i kalender"
+		"da": "Dobbelt bookning i kalender",
+		"es": "Colisi\u00f3n en calendario",
+		"sv": "Konflikt med annan avtalad tid!",
+		"sl": "Konflikt med dogodki v koledarju",
+		"nn": "Kollisjon i kalender"
 	},
 	"addeddiscussion": {
-		"no": "har skrevet et diskusjonsinnlegg"
+		"no": "har skrevet et diskusjonsinnlegg",
+		"es": "ha a\u00f1adido una nueva entrada de discusi\u00f3n",
+		"sv": "har lagt till ett diskussionsinl\u00e4gg",
+		"sl": "je dodal\/a komentar",
+		"nn": "har laga diskusjonsinnlegg"
 	},
 	"respondedrecent": {
-		"no": "har svar p\u00e5 denne Foodle-n"
+		"no": "har svar p\u00e5 denne Foodle-n",
+		"es": "han respondido a este Foodle",
+		"sv": "har svarat p\u00e5 denna Foodle",
+		"sl": "se je odzval\/a na ta Foodle",
+		"nn": "har svart p\u00e5 denne foodlen"
 	},
 	"qcolumntype": {
-		"no": "Hvilke type alternativer vil du benytte?"
+		"no": "Hvilke type alternativer vil du benytte?",
+		"es": "\u00bfQu\u00e9 tipo de columnas quieres usar en tu Foodle?",
+		"sv": "Vilken typ av kolumner vill du anv\u00e4nda i din Foodle?",
+		"sl": "Katere vrste stolpcev \u017eelite uporabiti v tem Foodlu?",
+		"nn": "Kva type kolonner \u00f8nskjer du \u00e5 bruka i din foodle?"
 	},
 	"qcolumntypedates": {
-		"no": "Dato og tidspunkt (m\u00f8teplanlegging og lignende)"
+		"no": "Dato og tidspunkt (m\u00f8teplanlegging og lignende)",
+		"es": "Fechas y ranuras de tiempo (planificaci\u00f3n de reuniones etc.)",
+		"sv": "Datum och tidsperioder (m\u00f6tesplanering etc.)",
+		"sl": "Datumi in \u010dasovni termini (planiranje sestankov ipd.)",
+		"nn": "Dato og tidsrammer (m\u00f8teplanlegging mm)"
 	},
 	"qcolumntypetext": {
-		"no": "Generelle alternativer i form av fri tekst"
+		"no": "Generelle alternativer i form av fri tekst",
+		"es": "Encabezados de columna con texto gen\u00e9rico",
+		"sv": "Kolumnrubriker med generisk text",
+		"sl": "Stolpci s poljubnim besedilom v naslovu",
+		"nn": "Kolonner med generisk tekst"
 	},
 	"date": {
 		"no": "Dato",
-		"da": "Dato"
+		"da": "Dato",
+		"es": "Fecha",
+		"sv": "Datum",
+		"sl": "Datum",
+		"nn": "Dato"
 	},
 	"time": {
 		"no": "Tid",
-		"da": "Tid"
+		"da": "Tid",
+		"es": "Tiempo",
+		"sv": "Tid",
+		"sl": "\u010cas",
+		"nn": "Tid"
 	},
 	"addtimeslot": {
 		"no": "Legg til tidspunkt",
-		"da": "tilf\u00f8j tid"
+		"da": "tilf\u00f8j tid",
+		"es": "A\u00f1adir franja de tiempo",
+		"sv": "L\u00e4g till en tidsperiod",
+		"sl": "Dodaj \u010dasovni termin",
+		"nn": "Legg til tidsramme"
 	},
 	"duplicate": {
-		"no": "Dupliser tidspunktene til alle datoene"
+		"no": "Dupliser tidspunktene til alle datoene",
+		"es": "Duplicar estas franjas de tiempo a todas las fechas",
+		"sv": "Kopiera dessa tidsperioder till alla datum",
+		"sl": "Dodaj te \u010dasovne termine vsem datumom",
+		"nn": "Kopier desse tidsrammene til alle datoar"
 	},
 	"onemoredate": {
-		"no": "Legg til en ny dato"
+		"no": "Legg til en ny dato",
+		"es": "A\u00f1adir una columna m\u00e1s de fecha",
+		"sv": "L\u00e4gg till en datumkolumn",
+		"sl": "Dodaj enega ali ve\u010d stolpcev z datumom",
+		"nn": "Legg til ei dato-kolonne"
 	},
 	"columnheader": {
 		"no": "Overskrift",
-		"da": "Kollonne overskrift"
+		"da": "Kollonne overskrift",
+		"es": "Encabezado de columna",
+		"sv": "Kolumnrubrik",
+		"sl": "Naslov stolpca",
+		"nn": "Tittel for kolonne"
 	},
 	"option": {
 		"no": "Alternativ",
-		"da": "valgmulighed"
+		"da": "valgmulighed",
+		"es": "Opci\u00f3n",
+		"sv": "Alternativ",
+		"sl": "Mo\u017enost",
+		"nn": "Opsjon"
 	},
 	"addoption": {
 		"no": "Legg til alternativ",
-		"da": "tilf\u00f8j valgmulighed"
+		"da": "tilf\u00f8j valgmulighed",
+		"es": "A\u00f1adir opci\u00f3n",
+		"sv": "L\u00e4gg till alternativ",
+		"sl": "Dodaj mo\u017enost",
+		"nn": "Legg til opsjon"
 	},
 	"addcolumn": {
 		"no": "Legg til en ny overskrift",
-		"da": "tilf\u00f8j en kolonne"
+		"da": "tilf\u00f8j en kolonne",
+		"es": "A\u00f1adir una columna m\u00e1s",
+		"sv": "L\u00e4gg till en kolumn",
+		"sl": "Dodaj enega ali ve\u010d stolpcev",
+		"nn": "Legg til ei kolonne"
 	}
 }

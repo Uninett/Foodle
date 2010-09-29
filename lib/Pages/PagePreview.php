@@ -63,16 +63,30 @@ class Pages_PagePreview extends Pages_Page {
 		foreach($columns AS $i => $column) {
 
 			echo '<tr>';
-			echo '<td>'. htmlspecialchars($column) . '</td>';
-			if (!empty($columnDates[$i])) {
-				echo '<td>' . 
-					'<img src="/res/yes.png" alt="yes" /> ' .
-					date('j. M Y H:i', $columnDates[$i]) . '</td>';				
+			if (is_array($column)) {
+				echo '<td>'. htmlspecialchars($column[0]) . ' - ' . htmlspecialchars($column[1]) .  '</td>';				
+			} else {
+				echo '<td>'. htmlspecialchars($column) . '</td>';
+			}
+
+			
+			if (is_array($columnDates[$i]) && !empty($columnDates[$i][0]) && !empty($columnDates[$i][1])) {
+				echo '<td><img src="/res/yes.png" alt="yes" /> ';
+				echo date('j. M Y H:i', $columnDates[$i][0]) . ' - ' . date('j. M Y H:i', $columnDates[$i][1]);
+				echo '</td>';
 			} else {
 				echo '<td>' . 
 					'<img src="/res/no2trans.png" alt="no" /> ' .
 					'Not reckognized as a date'. '</td>';
 			}
+			
+			// if (!empty($columnDates[$i])) {
+			// 	echo '<td>' . 
+			// 		'<img src="/res/yes.png" alt="yes" /> ' .
+			// 		date('j. M Y H:i', $columnDates[$i]) . '</td>';				
+			// } else {
+			// 
+			// }
 
 			echo '</tr>';
 		}

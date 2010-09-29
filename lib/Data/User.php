@@ -25,5 +25,39 @@ class Data_User {
 		return ($this->calendarURL !== NULL);
 	}
 	
+	public static function debugfield($text, $value) {
+		$text = '<dt>' . $text . '</dt><dd><tt>' . var_export($value, TRUE) . '</tt></dd>';
+		return $text;
+	}
+	
+	public function debug() {
+		$text = '<dl>' .
+			self::debugfield('User ID', $this->userid) . 
+			self::debugfield('Name', $this->name) . 
+			self::debugfield('E-mail', $this->email) . 
+			self::debugfield('Calendar URL', $this->calendarURL) . '</dl>'
+			;
+		return $text;
+	}
+	
+	public function debugCalendar() {
+		$text = '';
+		if ($this->hasCalendar() ) {
+			
+			$cal = new Calendar($this->calendarURL, TRUE);
+			$freebusy = $cal->getFreeBusy();
+			
+			$text .= '<p>List of free busy times:</p><ul>';
+			foreach($freebusy AS $fb) {
+				$text .= '<li>Busy from <i>' . date('r', $fb[0]). '</i> to <i>' . date('r', $fb[1]). '</i>.</li>';
+			}
+			$text .= '</ul>';
+#			$text .= '<p>Calenar output: ' . var_export($freebusy, TRUE) . '</p>';
+			
+		} else {
+			$text .= '<p>User has not enabled calendar</p>';
+		}
+		return $text;
+	}
 	
 }

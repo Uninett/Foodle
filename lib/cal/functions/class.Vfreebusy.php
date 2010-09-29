@@ -38,6 +38,10 @@ class Vfreebusy extends iCalObj {
 		
 		#echo 'processing key [' . $key . ']';
 		
+		if (preg_match('/^(.*?):(.*?)$/', $line, $matches)) {
+			$line = $matches[2];
+		}
+		
 		switch ($key)
 		{
 			case 'FREEBUSY':

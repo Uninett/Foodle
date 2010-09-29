@@ -93,7 +93,7 @@ class Parser {
 		while (!feof($this->fh)) {
 			$line = $this->read_line();
 			# echo "$i:$line\n";$i++;
-			error_log("$i:$line\n"); $i++;
+			#error_log("$i:$line\n"); $i++;
 			
 			
 			if ($line) {
@@ -125,7 +125,7 @@ class Parser {
 					
 					case 'END':
 						
-						error_log('Process END start');
+						#error_log('Process END start');
 						if ($obj_stack[0] === NULL) break;
 
 						$obj = array_pop($obj_stack);
@@ -151,7 +151,7 @@ class Parser {
 						if (is_object(end($obj_stack)))
 							$obj = $parent_obj;
 						
-						error_log('Process END completed');
+						#error_log('Process END completed');
 						break;
 					
 					default:
@@ -162,7 +162,7 @@ class Parser {
 			}
 		}
 		
-		error_log('Complete line');
+		#error_log('Complete line');
 		
 		# "finished stack on line:$line.  Lookahead:$this->lookahead\n";
 		#deal with possible lack of \n at eof
@@ -182,7 +182,7 @@ class Parser {
 
 		}
 		
-		error_log('Complete line2');
+		#error_log('Complete line2');
 		
 	#	print_r($this->cal);
 	#	print_r($tz_list);
@@ -198,7 +198,14 @@ class Parser {
 	 * @return bool Returns whether or not the file handle was opened successfully.
 	 */
 	function open_file($filename) {
-		$this->fh = fopen($filename, "r");
+		$options = array(
+		    'http' => array(
+		        'header' => 'Connection: close'
+		    )
+		);
+		$ctx = stream_context_create($options);
+#		$content = file_get_contents('http://english.aljazeera.net/', false, $ctx);
+		$this->fh = fopen($filename, "r", FALSE, $ctx);
 		return ($this->fh == FALSE) ? false : true;
 	} // end function open_file() 
 	
@@ -211,7 +218,7 @@ class Parser {
 	 */
 	function read_line() {
 		
-		error_log('read line start');
+		#error_log('read line start');
 		
 		if (feof($this->fh)) 
 			return;
@@ -220,11 +227,11 @@ class Parser {
 		$read_more = true;
 		
 		do { 
-			error_log('BefReading ['  . $this->lookahead . ']');
+			#error_log('BefReading ['  . $this->lookahead . ']');
 			$this->lookahead = fgets($this->fh, 4096); 
-			error_log('Reading ['  . $this->lookahead . ']');
+			#error_log('Reading ['  . $this->lookahead . ']');
 			$this->lookahead = ereg_replace("[\r\n]", "", $this->lookahead);
-			error_log('Reading ['  . $this->lookahead . ']');
+			#error_log('Reading ['  . $this->lookahead . ']');
 
 			if (
 				(
@@ -240,7 +247,7 @@ class Parser {
 			
 		} while ($read_more & !feof($this->fh)); 
 		
-		error_log('read line completed');
+		#error_log('read line completed');
 		
 		return trim($tmp_line);
 	} // end function read_line()

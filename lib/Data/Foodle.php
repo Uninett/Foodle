@@ -57,6 +57,39 @@ class Data_Foodle {
 		$this->db = $db;
 	}
 	
+	public static function debugfield($text, $value) {
+		$text = '<dt>' . $text . '</dt><dd><tt>' . var_export($value, TRUE) . '</tt></dd>';
+		return $text;
+	}
+	
+	public function debug() {
+		$text = '<dl>' .
+			self::debugfield('Identifier', $this->userid) . 
+			self::debugfield('Name', $this->name) . 
+			self::debugfield('Description', $this->descr) . 
+			self::debugfield('Columns', $this->columns) . 
+			self::debugfield('Max entries', $this->maxentries) . 
+			self::debugfield('Max column', $this->maxcolumn) . 
+			self::debugfield('Expire', $this->expire) . 
+			self::debugfield('Owner', $this->owner) . 			
+			self::debugfield('Allow anonymous', $this->allowanonymous) . 
+			'</dl>'
+			;
+		if ($this->calendarEnabled()) {
+			$dates = $this->getColumnDates();
+			$text .= '<p>This Foodle is calendar-enabled:</p><ul>';
+			foreach($dates AS $d) {
+				$text .= '<li>From ' . date('r', $d[0]). ' to ' . date('r', $d[1]). '.</li>';
+			}
+			$text .= '</ul>';
+
+		} else {
+			$text .= '<p>This Foodle is not calendar-enabled. That means not all column text is reckognized as text.</p>';
+		}
+		
+		return $text;
+	}
+	
 	public function updateResponses(Data_FoodleResponse $response) {
 		$this->responses[$response->userid] = $response;
 	}
@@ -164,9 +197,17 @@ class Data_Foodle {
 	
 	public function calendarEnabled() {
 		$coldates = $this->getColumnDates();
+		
+#		echo '<pre>'; print_r($coldates); echo '</pre>';
 		foreach($coldates AS $cd) {
+			if (is_array($cd)) {
+				if (count($cd) != 2) return FALSE;
+				if (empty($cd[0])) return FALSE;
+				if (empty($cd[1])) return FALSE;
+			}
 			if (empty($cd)) return FALSE;
 		}
+
 		return TRUE;
 	}
 	
@@ -219,6 +260,46 @@ class Data_Foodle {
 		}
 	}
 	
+	
+	
+	/*
+	 * Returns an array prepared for presentation using XHTML (90 degrees rotated)
+	 * Contains information about row and colspan.
+	 * Each element in the array (first level) represents one row of 
+	 * column headers.
+	 */
+	public function getColumnHeadersVertical() {
+		$depth = $this->getColumnDepth();
+		$col = $this->columns;
+		$headers = array();
+		
+		foreach($col AS $c) {
+			
+			$newRow = array();
+			if (isset($c['children'])) {
+				$newRow[] = array(
+					'title' => $c['title'],
+					'rowspan' => count($c['children']),
+				);
+				$i = 0;
+				foreach($c['children'] AS $child) {
+					if ($i++ == 0) {
+						$newRow[] = array('title' => $child['title']);
+						$headers[] = $newRow;
+					} else {
+						$headers[] = array(array('title' => $child['title']));
+					}
+
+				}
+			} else {
+				$headers[] =  array(array('title' => $c['title']));
+			}
+		}
+		return $headers;
+	}
+
+	
+	
 	/*
 	 * Get each raw column as a concatenated string of the headers above the column.
 	 * Such that:
@@ -234,8 +315,17 @@ class Data_Foodle {
 				$this->getColumnList(&$columns, $c['children'], $lstrings);
 			} else {
 				$lstrings = $strings;
-				$lstrings[] = $c['title'];
-				$columns[] = join(' ', $lstrings);				
+#				$lstrings[] = $c['title'];
+
+				if (preg_match('|^[^-]+-[^-]+$|', $c['title'])) {
+					$splitted = explode('-', $c['title']);
+					$columns[] = array(
+						join(' ', $lstrings) . ' ' . $splitted[0],
+						join(' ', $lstrings) . ' ' . $splitted[1]
+					);
+				} else {
+					$columns[] = join(' ', $lstrings) . ' ' . $c['title'];
+				}
 			}
 		}
 	}
@@ -247,9 +337,27 @@ class Data_Foodle {
 		$dates = array();
 		$anyDate = FALSE;
 		
+		
+		
 		foreach($cols AS $col) {
-			$dates[] = strtotime($col);
+			
+			if (is_array($col)) {
+				$from = strtotime($col[0]);
+				$to = strtotime($col[1]);
+				$dates[] = array($from, $to );
+			} else {
+				$from = strtotime($col);
+				if (!empty($from)) {
+					$to = strtotime($col)+3600;
+					$dates[] = array($from, $to );
+				} else {
+					$dates[] = NULL;
+				}
+
+			}
 		}
+		// echo '<pre>collected Dates'; print_r($dates); echo '</pre>';
+		// echo '<pre>columns: '; print_r($cols); echo '</pre>';
 		return $dates;
 	}
 	

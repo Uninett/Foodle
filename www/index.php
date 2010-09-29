@@ -23,6 +23,14 @@ try {
 			$page->show();
 			break;
 	
+		case 'embed':
+
+
+			$embed = new Pages_EmbedFoodle($config, $parameters);
+			$embed->getContent($_REQUEST['output']);
+			break;
+
+	
 		case 'foodle':
 		
 			if (isset($_REQUEST['output']) && $_REQUEST['output'] == 'rss') {

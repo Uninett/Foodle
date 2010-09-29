@@ -5,8 +5,8 @@
  */
 class Calendar {
 
-#	const CACHETIME = 60*60*15;
-	const CACHETIME = 60;
+#	const CACHETIME = 60*15; // 15 minutes
+	const CACHETIME = 15; // 15 seconds
 	
 	/* Instance of sspmod_core_Storage_SQLPermanentStorage
 	 * 
@@ -49,9 +49,7 @@ class Calendar {
 				error_log('Calendar was NOT found in cache. Refreshing....');
 			}
 
-			error_log('Process file (before)');
 			$this->parser->process_file($url);
-			error_log('Process file (after)');
 			
 			if (!empty($this->parser->event_list)) {
 				foreach($this->parser->event_list AS $e) {
@@ -95,6 +93,35 @@ class Calendar {
 		
 
 	}
+
+	public static function parseFreeBusyLine($line) {
+		$splp = explode('/', $line);
+		$busybegin = self::parseTime($splp[0]);
+		$busyend   = self::parseTime($splp[1]);
+		return array($busybegin, $busyend);
+	}
+
+	
+	public function checkFreeBusy2($begin, $end) {
+#		error_log('Checking freebusy');
+		if (!empty($this->freebusy)) {
+			$i = 0;
+			foreach($this->freebusy AS $fb) {
+
+				$splp = explode('/', $fb);
+				$busybegin = self::parseTime($splp[0]);
+				$busyend   = self::parseTime($splp[1]);
+
+#				error_log('Checking BUSY slot [' . date('r', $busybegin) . '] to [' . date('r', $busyend) . ']');
+
+				if (((int)$end > (int)$busybegin) && ((int)$end < (int)$busyend)) return $i;
+				if (((int)$begin > (int)$busybegin) && ((int)$begin < (int)$busyend)) return $i;
+				if (((int)$begin < (int)$busybegin) && ((int)$end > (int)$busyend)) return $i;
+								$i++;
+			}
+		}
+		return NULL;
+	}
 	
 	public function checkFreeBusy($begin, $end) {
 #		error_log('Checking freebusy');
@@ -120,12 +147,18 @@ class Calendar {
 #		echo '<pre>'; print_r($events); echo '</pre>';
 		
 		$freebusyAvailable = $this->checkFreeBusy($begin, $end);
-	
-		if ($freebusyAvailable) {
-#			error_log('Checking if user is avalable in period [' . date('r', $begin) . '] to [' . date('r', $end) .']   AVAILABLE');			
-		} else {
-#			error_log('Checking if user is avalable in period [' . date('r', $begin) . '] to [' . date('r', $end) .']   BUSY');
-		}
+
+		// if ($freebusyAvailable !== NULL) {
+		// 	error_log('Checking if user is avalable in period [' . date('r', $begin) . '] to [' . date('r', $end) .']   BUSY [' . $freebusyAvailable. ']');			
+		// } else {
+		// 	error_log('Checking if user is avalable in period [' . date('r', $begin) . '] to [' . date('r', $end) .']   AVAIL');
+		// }
+		// 	
+		// if ($freebusyAvailable) {
+		// 	error_log('Checking if user is avalable in period [' . date('r', $begin) . '] to [' . date('r', $end) .']   AVAILABLE');			
+		// } else {
+		// 	error_log('Checking if user is avalable in period [' . date('r', $begin) . '] to [' . date('r', $end) .']   BUSY');
+		// }
 		
 		if (!$freebusyAvailable) return 'Busy';
 		
@@ -159,6 +192,16 @@ class Calendar {
 		echo '<p>Calendar dump:</p><pre>';
 		print_r($this->parser);
 		echo '</pre>';
+
+		echo '<p>Events dump:</p><pre>';
+		print_r($this->events);
+		echo '</pre>';
+
+		echo '<p>Freebusy dump:</p><pre>';
+		print_r($this->freebusy);
+		echo '</pre>';
+
+
 	}
 	
 	public function getSlots($begin, $end, $resolution = 900 ) {
@@ -188,6 +231,13 @@ class Calendar {
 		return $this->events;
 	}
 
+	public function getFreeBusy() {
+		$res = array();
+		foreach($this->freebusy AS $fb) {
+			$res[] = self::parseFreeBusyLine($fb);
+		}
+		return $res;
+	}
 
 
 }

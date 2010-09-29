@@ -155,6 +155,10 @@ $discussion = $this->data['foodle']->getDiscussion();
 		if ($this->data['showsharing']) {
 			echo '<li><a href="#distribute"><span>' . $this->t('distribute') . '</span></a></li>';
 		}
+		if ($this->data['showdebug']) {
+			echo '<li><a href="#showdebug"><span>' . $this->t('debug') . '</span></a></li>';
+		}
+		
 		?>
     </ul> 
 
@@ -384,6 +388,25 @@ if ($this->data['showsharing']) {
 
 	echo '</div>';
 }
+
+if ($this->data['showdebug']) {
+	echo '<div id="showdebug" style="margin: .2em 5em .2em 5em; ">';
+
+	echo( '<h2>Current User</h2>');	
+	echo($this->data['debugUser']);
+
+	echo( '<h2>Current Foodle</h2>');	
+	echo($this->data['debugFoodle']);
+
+	echo( '<h2>User calendar data</h2>');	
+	echo($this->data['debugCalendar']);
+	
+
+	echo '</div>';
+}
+
+
+
 ?>
 
 

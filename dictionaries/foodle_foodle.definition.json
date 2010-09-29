@@ -349,5 +349,8 @@
 	},
 	"addcolumn": {
 		"en": "Add one more column"
+	},
+	"debug": {
+		"en": "Debug"
 	}
 }

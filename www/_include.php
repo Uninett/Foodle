@@ -30,6 +30,7 @@ require_once($THISPATH . 'lib/FoodleUtils.php');
 require_once($THISPATH . 'lib/RSS.class.php');
 
 require_once($THISPATH . 'lib/XHTMLCol.php');
+require_once($THISPATH . 'lib/XHTMLEmbed.php');
 require_once($THISPATH . 'lib/XHTMLResponseEntry.php');
 
 require_once($THISPATH . 'lib/FoodleDBConnector.php');
@@ -45,10 +46,12 @@ require_once($THISPATH . 'lib/Data/ActivityStream.php');
 // Pages
 require_once($THISPATH . 'lib/Pages/Page.php');
 require_once($THISPATH . 'lib/Pages/PageFoodle.php');
-require_once($THISPATH . 'lib/Pages/RSSFoodle.php');
-require_once($THISPATH . 'lib/Pages/CSVFoodle.php');
 require_once($THISPATH . 'lib/Pages/Debug.php');
 require_once($THISPATH . 'lib/Pages/PageFront.php');
+
+require_once($THISPATH . 'lib/Pages/EmbedFoodle.php');
+require_once($THISPATH . 'lib/Pages/RSSFoodle.php');
+require_once($THISPATH . 'lib/Pages/CSVFoodle.php');
 
 require_once($THISPATH . 'lib/Pages/PageCreate.php');
 require_once($THISPATH . 'lib/Pages/PageEdit.php');
