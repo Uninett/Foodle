@@ -49,6 +49,8 @@ class FoodleDBConnector {
 			$foodle->owner = $row['owner'];
 			$foodle->allowanonymous = (boolean) ($row['anon'] == '1');
 			
+			if (!empty($row['timezone'])) $foodle->timezone = $row['timezone'];
+			
 			
 			if(self::isJSON($row['columns'][0])) {
 				#echo 'Use new encoding format';
@@ -126,13 +128,14 @@ class FoodleDBConnector {
 					expire = '" . mysql_real_escape_string($foodle->expire) . "',
 					maxdef = '" . mysql_real_escape_string($foodle->getMaxDef()) . "',
 					anon = '" . ($foodle->allowanonymous ? '1' : '0') . "',
+					timezone = '" . mysql_real_escape_string($foodle->getTimeZone()) . "',
 					updated = NOW()	
 				WHERE id = '" . $foodle->identifier. "' 
 			";
 			
 		} else {
 			$sql = "
-				INSERT INTO def (id, name, descr, columns, expire, maxdef,  owner, anon) values (" . 
+				INSERT INTO def (id, name, descr, columns, expire, maxdef,  owner, anon, timezone) values (" . 
 					"'" . mysql_real_escape_string($foodle->identifier) . "'," . 
 					"'" . mysql_real_escape_string($foodle->name) . "', " . 
 					"'" . mysql_real_escape_string($foodle->descr) . "', " . 
@@ -140,7 +143,8 @@ class FoodleDBConnector {
 					"'" . $foodle->expire . "', " . 
 					"'" . mysql_real_escape_string($foodle->getMaxDef()) . "', " . 
 					"'" . mysql_real_escape_string($foodle->owner) . "', " . 
-					"'" . ($foodle->allowanonymous ? '1' : '0') . "')
+					"'" . ($foodle->allowanonymous ? '1' : '0') . "', " . 
+					"'" . mysql_real_escape_string($foodle->getTimeZone()) . "')
 			";
 			
 		}

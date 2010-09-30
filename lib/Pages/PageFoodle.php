@@ -12,6 +12,10 @@ class Pages_PageFoodle extends Pages_Page {
 	protected $loginurl;
 	protected $logouturl;
 	
+	protected $timezone;
+	protected $timezoneEnable;
+	protected $calendarEnabled;
+	
 	protected $auth;
 	
 	function __construct($config, $parameters) {
@@ -22,8 +26,16 @@ class Pages_PageFoodle extends Pages_Page {
 		Data_Foodle::requireValidIdentifier($parameters[0]);
 		$this->foodleid = $parameters[0];
 		$this->foodlepath = '/foodle/' . $this->foodleid;
-		
+
+
+		$this->timezone = new TimeZone();
+				
 		$this->foodle = $this->fdb->readFoodle($this->foodleid);
+		$this->calendarEnabled = $this->foodle->calendarEnabled();
+		$this->timezoneEnable = $this->foodle->timeZoneEnabled();
+		if ($this->timezoneEnable) {
+			$this->foodle->presentInTimeZone($this->timezone->getSelectedTimeZone());
+		}
 		
 		$this->auth();
 	}
@@ -102,7 +114,7 @@ class Pages_PageFoodle extends Pages_Page {
 		// if ($this->user->hasCalendar()) echo 'User has calendar';
 		// if ($this->foodle->calendarEnabled()) echo 'Foodle has calendar';
 		
-		$t->data['calenabled'] = ($this->foodle->calendarEnabled() && $this->user->hasCalendar());
+		$t->data['calenabled'] = ($this->calendarEnabled && $this->user->hasCalendar());
 		$t->data['myresponse'] = $this->foodle->getMyResponse($this->user);
 		
 		if ($t->data['calenabled']) {
@@ -114,6 +126,15 @@ class Pages_PageFoodle extends Pages_Page {
 		} elseif($t->data['myresponse']->loadedFromDB) {
 			$t->data['tab'] = '1';
 		}
+
+		if ($this->timezoneEnable) {
+			if (isset($_REQUEST['timezone'])) {
+				$t->data['stimezone'] = $_REQUEST['timezone'];
+			}
+			$t->data['timezone'] = $this->timezone;
+		}
+
+
 
 		// Configuration
 		$t->data['facebookshare'] = $this->config->getValue('enableFacebookAuth', TRUE);
@@ -137,6 +158,8 @@ class Pages_PageFoodle extends Pages_Page {
 		$t->data['ownerid'] = $this->foodle->owner;
 		$t->data['showsharing'] = $isAdmin;
 		$t->data['showdebug'] = TRUE;
+		
+
 		
 		$t->data['debugUser'] = $this->user->debug();
 		$t->data['debugFoodle'] = $this->foodle->debug();

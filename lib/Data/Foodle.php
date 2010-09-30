@@ -4,21 +4,22 @@
  * This class represents a Foodle
  *
 mysql> show columns from def;
-+---------+--------------+------+-----+-------------------+-------+
-| Field   | Type         | Null | Key | Default           | Extra |
-+---------+--------------+------+-----+-------------------+-------+
-| id      | varchar(100) | NO   | PRI |                   |       | 
-| name    | tinytext     | YES  |     | NULL              |       | 
-| descr   | text         | YES  |     | NULL              |       | 
-| columns | text         | YES  |     | NULL              |       | 
-| owner   | text         | YES  |     | NULL              |       | 
-| created | timestamp    | NO   |     | CURRENT_TIMESTAMP |       | 
-| updated | timestamp    | YES  |     | NULL              |       | 
-| expire  | datetime     | YES  |     | NULL              |       | 
-| maxdef  | text         | YES  |     | NULL              |       | 
-| anon    | tinytext     | YES  |     | NULL              |       | 
-+---------+--------------+------+-----+-------------------+-------+
-10 rows in set (0.00 sec)
++----------+--------------+------+-----+-------------------+-------+
+| Field    | Type         | Null | Key | Default           | Extra |
++----------+--------------+------+-----+-------------------+-------+
+| id       | varchar(100) | NO   | PRI | NULL              |       |
+| name     | tinytext     | YES  |     | NULL              |       |
+| descr    | text         | YES  |     | NULL              |       |
+| columns  | text         | YES  |     | NULL              |       |
+| owner    | text         | YES  |     | NULL              |       |
+| created  | timestamp    | NO   |     | CURRENT_TIMESTAMP |       |
+| updated  | timestamp    | YES  |     | NULL              |       |
+| expire   | datetime     | YES  |     | NULL              |       |
+| maxdef   | text         | YES  |     | NULL              |       |
+| anon     | tinytext     | YES  |     | NULL              |       |
+| timezone | text         | YES  |     | NULL              |       |
++----------+--------------+------+-----+-------------------+-------+
+11 rows in set (0.00 sec)
 
 mysql> show columns from discussion;
 +----------+--------------+------+-----+-------------------+----------------+
@@ -47,6 +48,8 @@ class Data_Foodle {
 	public $owner;
 	public $allowanonymous = FALSE;
 	
+	public $timezone = NULL;
+	
 	public $loadedFromDB = FALSE;
 	
 	private $db;
@@ -73,6 +76,7 @@ class Data_Foodle {
 			self::debugfield('Expire', $this->expire) . 
 			self::debugfield('Owner', $this->owner) . 			
 			self::debugfield('Allow anonymous', $this->allowanonymous) . 
+			self::debugfield('Timezone', $this->timezone) . 
 			'</dl>'
 			;
 		if ($this->calendarEnabled()) {
@@ -97,9 +101,7 @@ class Data_Foodle {
 	// Return all responses to this foodle. This function caches.
 	public function getResponses() {
 		if ($this->responses === NULL) $this->responses = $this->db->readResponses($this);
-		
-		
-		
+
 		foreach($this->responses AS $resp) {
 			#$resp2 = $resp; unset($resp2->foodle); echo '<pre>NEW RESPONSE'; print_r($resp2); echo '</pre>'; 
 			$resp->icalfill();
@@ -109,12 +111,57 @@ class Data_Foodle {
 		return $this->responses;
 	}
 	
+	public function timezoneEnabled() {
+		if (empty($this->timezone)) return FALSE;
+		if (!$this->onlyDateColumns()) return FALSE;
+		return TRUE;
+	}
+	
+	public function toTimezone($time, $timezone) {
+		$d =  new DateTime('@' . $time, new DateTimeZone($this->timezone));
+		$d->setTimeZone(new DateTimeZone($timezone));
+		return $d;
+	}
+	
+	public function presentInTimeZone($timezone) {
+		$dates = $this->getColumnDates();
+		
+		$sortedByDate = array();
+		foreach($dates AS $date) {
+			$sortedByDate[$this->toTimezone($date[0], $timezone)->format('Y-m-d')][] = $date;
+		}
+		
+		$this->columns = array();
+		foreach($sortedByDate AS $dates) {
+#			print_r($dates[0][0]); exit;
+#			echo 'convert: ' . $this->toTimezone($dates[0][0], $timezone)->format('D j. M');
+			
+			$newDate = array('title' => $this->toTimezone($dates[0][0], $timezone)->format('D j. M') );
+			
+			#print_r($newDate);
+			$children = array();
+			foreach($dates AS $date) {
+				$children[] = array(
+					'title' => $this->toTimezone($date[0], $timezone)->format('H:i') . '-' . 
+						$this->toTimezone($date[1], $timezone)->format('H:i')
+				);
+			}
+			$newDate['children'] = $children;
+			$this->columns[] = $newDate;
+		}
+		
+		// echo '<pre>Present in [' . $timezone.  ']: '; print_r($sortedByDate); 
+		// echo 'Present in [' . $timezone.  ']: '; print_r($this->columns); 
+		// 
+		// exit;
+	}
+	
 	public function onlyDateColumns() {
 		foreach($this->columns AS $col) {
 			if (!preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $col['title'])) return FALSE;
 			if (isset($col['children'])) {
 				foreach($col['children'] AS $option) {
-					if (!preg_match('/^[0-9]{1,2}:[0-9]{2}$/', $option['title'])) return FALSE;
+					if (!preg_match('/^[0-9]{1,2}[:.][0-9]{2}(-[0-9]{1,2}[:.][0-9]{2})?$/', $option['title'])) return FALSE;
 				}
 			}
 		}
@@ -497,6 +544,11 @@ class Data_Foodle {
 		}
 		if (array_key_exists('anon', $_REQUEST) && !empty($_REQUEST['anon']))
 			$this->allowanonymous = TRUE;
+			
+		if (!empty($_REQUEST['timezone'])) {
+			$this->timezone = $_REQUEST['timezone'];			
+		}
+
 		
 		$this->expire = strip_tags($_REQUEST['expire']);
 		
@@ -548,6 +600,11 @@ class Data_Foodle {
 	
 	public function save() {
 		$this->db->saveFoodle($this);
+	}
+	
+	public function getTimeZone() {
+		if (!empty($this->timezone)) return $this->timezone;
+		return '';
 	}
 	
 	

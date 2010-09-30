@@ -1,5 +1,6 @@
 /* --- General --- */
 
+
 body {
 	margin: 0px;
 	padding: 0px;
@@ -161,6 +162,29 @@ h3 {	font-size: 110%;}
 	margin-bottom: 1em;
 }
 
-
-
-
+#timezone {
+	font: 80% "arial", sans-serif;
+	text-align: right;
+	margin: 2px 0px 0px 0px; 
+	padding: 0px;
+	color: #222;
+}
+#timezone a {
+	color: #666;
+}
+#timezone span {
+	float: right;
+	background: #f9f9f9;
+	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	margin: 0px 0px 5px 5px; 
+	padding: 2px 5px 2px 4px;
+	z-index: 4;
+	
+	-moz-border-radius-bottomleft: 5px;
+	border-bottom-left-radius: 5px;
+	
+	-moz-border-radius-bottomright: 5px;
+	border-bottom-right-radius: 5px;
+}

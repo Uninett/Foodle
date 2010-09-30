@@ -82,6 +82,7 @@ class Calendar {
 			
 			error_log('Reading calendar reading from cache [' . $url . ']');
 			error_log('From cache: ' . var_export(array_keys($cached['value']), TRUE));
+			error_log('Cache expires: ' . date('j. F Y  H:i:s', $cached['expire']));
 			
 			// echo '<pre>cached:'; print_r($cached); 
 			// echo "\n" . 'freebusy:'; print_r($this->freebusy);
@@ -123,6 +124,12 @@ class Calendar {
 		return NULL;
 	}
 	
+	/*
+	 * Check if the user is available in the period (begin, end).
+	 * That means that no freebusy overlaps with this interval.
+	 * 
+	 * Returns TRUE if no overlap was found.
+	 */
 	public function checkFreeBusy($begin, $end) {
 #		error_log('Checking freebusy');
 		if (!empty($this->freebusy)) {
@@ -133,9 +140,9 @@ class Calendar {
 				
 #				error_log('Checking BUSY slot [' . date('r', $busybegin) . '] to [' . date('r', $busyend) . ']');
 
-				if (((int)$end > (int)$busybegin) && ((int)$end < (int)$busyend)) return FALSE;
-				if (((int)$begin > (int)$busybegin) && ((int)$begin < (int)$busyend)) return FALSE;
-				if (((int)$begin < (int)$busybegin) && ((int)$end > (int)$busyend)) return FALSE;
+				if (((int)$end > (int)$busybegin) && ((int)$end <= (int)$busyend)) return FALSE;
+				if (((int)$begin >= (int)$busybegin) && ((int)$begin < (int)$busyend)) return FALSE;
+				if (((int)$begin <= (int)$busybegin) && ((int)$end >= (int)$busyend)) return FALSE;
 			}
 		}
 		return TRUE;

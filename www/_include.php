@@ -25,6 +25,7 @@ date_default_timezone_set('Europe/Berlin');
  */
 #require_once('../lib/Foodle.class.php');
 
+require_once($THISPATH . 'lib/TimeZone.php');
 require_once($THISPATH . 'lib/FoodleAuth.php');
 require_once($THISPATH . 'lib/FoodleUtils.php');
 require_once($THISPATH . 'lib/RSS.class.php');

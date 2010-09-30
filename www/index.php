@@ -29,6 +29,10 @@ try {
 			$embed = new Pages_EmbedFoodle($config, $parameters);
 			$embed->getContent($_REQUEST['output']);
 			break;
+			
+		case 'timezone':
+			require('timezone.php');
+			break;
 
 	
 		case 'foodle':

@@ -112,6 +112,30 @@ echo('		<input type="hidden" id="coldef" name="coldef" value="" />');
 
 			
 			<div class="columnsetupdates">
+				
+				
+				
+				<?php 
+				
+					echo('<p>' . $this->t('selecttimezone') . '<br />');
+				
+					if (isset($this->data['ftimezone'])) {
+						echo($this->data['timezone']->getHTMLList($this->data['ftimezone']) . '');
+					} else {
+						echo($this->data['timezone']->getHTMLList() . '');
+					}
+
+					
+					
+					echo('</p>')
+					
+				?>
+				
+				
+				<div></div>
+				
+				
+				
 
 				<?php
 			

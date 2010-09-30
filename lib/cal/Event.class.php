@@ -50,12 +50,20 @@ class Event {
 		return ($starttime >= $begin AND $starttime < $end);
 	}
 	
+	/*
+	 * Returns TRUE if the given interval overlaps this event.
+	 */
 	public function overlap($begin, $end) {
 		$ebegin = $this->getStart();
 		$eend = $this->getEnd();
 		
+		/*
+		 * Sjekker om en aktuelt intervall (begin, end)
+		 * overlapper med denne hendelsen (ebegin, eend)
+		 */
+		
 		if ($begin >= $ebegin && $begin < $eend) return TRUE;
-		if ($end > $ebegin && $end < $eend ) return TRUE;
+		if ($end > $ebegin && $end <= $eend ) return TRUE;
 		if ($begin <= $ebegin && $end >= $eend ) return TRUE;
 		
 		return FALSE;

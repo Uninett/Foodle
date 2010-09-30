@@ -5,9 +5,13 @@ class Pages_PageCreate extends Pages_Page {
 	private $user;
 	private $auth;
 	
+	private $timezone;
+	
 	function __construct($config, $parameters) {
 		parent::__construct($config, $parameters);
 		$this->auth();
+		
+		$this->timezone = new TimeZone();
 	}
 	
 	// Authenticate the user
@@ -49,6 +53,8 @@ class Pages_PageCreate extends Pages_Page {
 		$t->data['user'] = $this->user;	
 		$t->data['loginurl'] = $this->auth->getLoginURL();
 		$t->data['logouturl'] = $this->auth->getLogoutURL('/');
+		
+		$t->data['timezone'] = $this->timezone;
 
 		$t->data['bread'] = array(
 			array('href' => '/', 'title' => 'bc_frontpage'), 

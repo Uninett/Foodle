@@ -5,6 +5,8 @@ class Pages_PageEdit extends Pages_PageFoodle {
 	
 	function __construct($config, $parameters) {
 		parent::__construct($config, $parameters);
+		
+		$this->timezone = new TimeZone();
 	}
 	
 
@@ -31,6 +33,9 @@ class Pages_PageEdit extends Pages_PageFoodle {
 		$t->data['user'] = $this->user;
 		
 		$t->data['edit'] = TRUE;
+		
+		$t->data['timezone'] = $this->timezone;
+		$t->data['ftimezone'] = $this->foodle->timezone;
 
 		$t->data['name'] = $this->foodle->name;
 		$t->data['identifier'] = $this->foodle->identifier;
@@ -40,6 +45,8 @@ class Pages_PageEdit extends Pages_PageFoodle {
 		
 		$t->data['maxcol'] = $this->foodle->maxcolumn;
 		$t->data['maxnum'] = $this->foodle->maxentries;
+		
+
 		
 		$t->data['columns'] = $this->foodle->columns;
 		
