@@ -52,6 +52,8 @@ class Data_Foodle {
 	
 	public $loadedFromDB = FALSE;
 	
+	protected $datecache = NULL;
+	
 	private $db;
 	private $responses = NULL;
 	private $discussion = NULL;
@@ -379,6 +381,9 @@ class Data_Foodle {
 	
 	
 	public function getColumnDates() {
+		
+		if (!is_null($this->datecache)) return $this->datecache;
+		
 		$cols = array();
 		$this->getColumnList(&$cols);
 		$dates = array();
@@ -405,6 +410,8 @@ class Data_Foodle {
 		}
 		// echo '<pre>collected Dates'; print_r($dates); echo '</pre>';
 		// echo '<pre>columns: '; print_r($cols); echo '</pre>';
+		
+		$this->datecache = $dates;
 		return $dates;
 	}
 	

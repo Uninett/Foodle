@@ -31,6 +31,7 @@ class Pages_PageFoodle extends Pages_Page {
 		$this->timezone = new TimeZone();
 				
 		$this->foodle = $this->fdb->readFoodle($this->foodleid);
+		$this->foodle->getColumnDates();
 		$this->calendarEnabled = $this->foodle->calendarEnabled();
 		$this->timezoneEnable = $this->foodle->timeZoneEnabled();
 		if ($this->timezoneEnable) {
