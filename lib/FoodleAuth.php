@@ -106,9 +106,9 @@ class FoodleAuth {
 			setcookie('foodleEmail', $_REQUEST['setEmail'], time() + 60*60*24*90);
 			$this->setEmail($_REQUEST['setEmail']);
 		}
-		if (array_key_exists('setDisplayName', $_REQUEST)) {
-			setcookie('foodleDisplayName', $_REQUEST['setDisplayName'], time() + 60*60*24*90);
-			$this->setDisplayName($_REQUEST['setDisplayName']);
+		if (array_key_exists('username', $_REQUEST)) {
+			setcookie('foodleDisplayName', $_REQUEST['username'], time() + 60*60*24*90);
+			$this->setDisplayName($_REQUEST['username']);
 		}
 		
 		

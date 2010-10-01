@@ -22,14 +22,14 @@ class XHTMLResponseEntry {
 		if ($authenticated) {
 			echo '<abbr title="' . $response->userid . '">' . htmlspecialchars($response->username) . '</abbr>' . $extra;	
 		} else {
-			echo '<input type="text" name="username" value="'  . htmlspecialchars($response->username). '" placeholder="' . $t->t('displayname'). '..." />';
+			echo '<p style="margin: 2px">' . $t->t('name') . ': <input type="text" name="username" value="'  . htmlspecialchars($response->username). '" placeholder="' . $t->t('displayname'). '..." /></p>';
 #			echo '<form method="post" action="' . $this->data['foodlepath'] . '">';
 #			echo '<p>' . $this->t('register_email') . '</p>';
 #			echo '<p>' . $this->t('displayname') . ': <input type="text" name="setDisplayName" value="' . 
 #				(isset($this->data['displayname']) ? htmlentities($this->data['displayname']) : '') . '"/><br />';		
 #			echo '' . $this->t('email') . ': 
 			if (empty($response->email)) {
-				echo '<p>' . $t->t('email') . ': <input type="text" name="setEmail"  placeholder="' . $t->t('email'). '..."/></p>';						
+				echo '<p  style="margin: 2px">' . $t->t('email') . ': <input type="text" name="setEmail"  placeholder="' . $t->t('email'). '..."/></p>';						
 			}
 
 #			echo '<input type="submit" name="reg" value="' . $this->t('emailreg_submit') . '" />';
