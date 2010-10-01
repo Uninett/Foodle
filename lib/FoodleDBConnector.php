@@ -44,7 +44,7 @@ class FoodleDBConnector {
 			$foodle = new Data_Foodle($this);
 			$foodle->identifier = $id;
 			$foodle->name = $row['name'];
-			$foodle->descr = $row['descr'];
+			$foodle->descr = stripslashes($row['descr']);
 			$foodle->expire = $row['expire_unix'];
 			$foodle->owner = $row['owner'];
 			$foodle->allowanonymous = (boolean) ($row['anon'] == '1');

@@ -67,6 +67,16 @@ class Data_Foodle {
 		return $text;
 	}
 	
+	public function getDescription() {
+		return self::cleanMarkdownInput($this->descr);
+	}
+	
+	public static function cleanMarkdownInput($input) {
+		$input = Markdown($input);
+		$input = strip_tags($input, '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
+		return $input;
+	}
+	
 	public function debug() {
 		$text = '<dl>' .
 			self::debugfield('Identifier', $this->userid) . 

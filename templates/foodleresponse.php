@@ -43,7 +43,7 @@ if (isset($this->data['timezone'])) {
 
 echo '<h1>' . htmlspecialchars($this->data['foodle']->name) . '</h1>';
 
-echo $this->data['foodle']->descr;
+echo $this->data['foodle']->getDescription();
 
 	
 	

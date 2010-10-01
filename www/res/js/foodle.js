@@ -134,8 +134,8 @@ function getDefinitionString() {
 
 function updatePreview() {
 	var defstr = getDefinitionString();
-	$("div[id='previewpane']").load('/preview', { 'def' : defstr }); 
-	$("*[id='previewheader']").text($("input[name='name']").attr('value'));
+	$("div[id='previewpane']").load('/preview', { 'def' : defstr, "name" : $("input#foodlename").val(), "descr" : $("textarea#foodledescr").val() }); 
+	// $("*[id='previewheader']").text($("input[name='name']").attr('value'));
 	$("input[id='coldef']").attr('value', defstr);
 }
 
@@ -220,6 +220,7 @@ $(document).ready(function() {
 	
 	$('a.duplicate').click(duplicateTimeSlots);
 	$("a[id='link_preview']").click(updatePreview);
+	$("a[id='btnToColSetup']").click(updatePreview);
 	$("a.buttonUpdatePreview").click(updatePreview);
 	$("a.onemorecolumn").click(addOneNewColumn);
 	$("a.onemoreoption").click(addOneMoreOption);

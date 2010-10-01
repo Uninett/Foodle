@@ -17,7 +17,7 @@
 	
 	
 	<!-- WMD -->
-	<script type="text/javascript" src="/res/js/wmd.js"></script>
+	<!-- <script type="text/javascript" src="/res/js/wmd.js"></script> -->
 	
 	
 
@@ -89,6 +89,14 @@
 		echo $title;
 	?></title> 
 
+<?php
+
+if (isset($this->data['head']))
+	echo $this->data['head']; 
+
+
+?>
+
 	
 </head>
 <body>
@@ -103,23 +111,6 @@
 	</div><!-- end #logo -->
 	<a href="http://rnd.feide.no"><img id="ulogo" alt="notes" src="/res/uninettlogo.gif" /></a>
 </div><!-- end #header -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

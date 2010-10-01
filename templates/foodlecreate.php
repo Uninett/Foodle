@@ -1,5 +1,19 @@
 <?php 
 
+$this->data['head'] = '
+
+	<script type="text/javascript" src="/res/markitup/jquery.markitup.js"></script>
+	<script type="text/javascript" src="/res/markitup/sets/markdown/set.js"></script>
+	<link rel="stylesheet" media="screen" type="text/css" href="/res/markitup/skins/markitup/style.css" />
+	<link rel="stylesheet" media="screen" type="text/css" href="/res/markitup/sets/markdown/style.css" />
+
+	<script type="text/javascript" >
+	   $(document).ready(function() {
+	      $("#foodledescr").markItUp(mySettings);
+	   });
+	</script>
+';
+
 $this->includeAtTemplateBase('includes/header.php'); 
 
 if(array_key_exists('edit', $this->data)) {
@@ -11,7 +25,7 @@ if(array_key_exists('edit', $this->data)) {
 	$action = '/create';
 }
 echo('<form method="post" action="' . $action . '">');
-echo('		<input type="hidden" id="coldef" name="coldef" value="" />');
+echo(' <input type="hidden" id="coldef" name="coldef" value="" />');
 
 
 ?>
@@ -19,25 +33,19 @@ echo('		<input type="hidden" id="coldef" name="coldef" value="" />');
 
 
 <div id="foodletabs"> 
-     <!--
-        <input type="button" onclick="$('#tabsEx1 > ul').tabs('add', '#appended-tab', 'New Tab');" value="Add new tab"> 
-        <input type="button" onclick="$('#tabsEx1 > ul').tabs('add', '#inserted-tab', 'New Tab', 1);" value="Insert tab"> 
-        <input type="button" onclick="$('#tabsEx1 > ul').tabs('disable', 1);" value="Disable tab 2"> 
-        <input type="button" onclick="$('#tabsEx1 > ul').tabs('enable', 1);" value="Enable tab 2"> 
-        <input type="button" onclick="$('#tabsEx1 > ul').tabs('select', 2);" value="Select tab 3"> 
-         -->
+
+
     <ul style=" margin: 0px"> 
         <li><a href="#fdescr"><span><?php echo $this->t('foodledescr'); ?></span></a></li> 
         <li><a id="link_preview" href="#fcols"><span><?php echo $this->t('setupcolumns'); ?></span></a></li> 
         <!-- <li><a  href="#preview"><span><?php echo $this->t('preview'); ?></span></a></li>  -->
         <li><a href="#advanced"><span><?php echo $this->t('advancedoptions'); ?></span></a></li>
-       <!--   <li><a href="#sharing"><span><?php echo $this->t('sharing'); ?></span></a></li> -->
     </ul> 
     <div id="fdescr"> 
 
 	
 		<p><?php echo $this->t('name'); ?>: 
-			<input type="text" name="name" style="width: 400px; font-size: large" value="<?php
+			<input type="text" name="name" id="foodlename" style="width: 400px; font-size: large" value="<?php
 		if (isset($this->data['name'])) echo $this->data['name'];
 		?>" /></p>
 	
@@ -45,10 +53,14 @@ echo('		<input type="hidden" id="coldef" name="coldef" value="" />');
 		<textarea id="foodledescr" style="width: 95%; height: 160px" name="descr" rows="80" cols="5"><?php
 		if (isset($this->data['descr'])) echo $this->data['descr'];
 		?></textarea><br />
-		<?php echo $this->t('htmlinfo'); ?></p>
+		<?php 
+			echo $this->t('markdowninfo', 
+					array('%Markdown%' => '<a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>')
+				) . ' ' . $this->t('htmlinfo'); 
+		?></p>
 	
 
-		<p><a class="button" onclick="$('#foodletabs').tabs('select', 1);">
+		<p><a class="button" id="btnToColSetup" onclick="$('#foodletabs').tabs('select', 1);">
 			<span><?php echo $this->t('next'); ?> » <?php echo $this->t('setupcolumns'); ?></span></a></p>
 		<br class="clear" />
 
@@ -83,37 +95,9 @@ echo('		<input type="hidden" id="coldef" name="coldef" value="" />');
 		
 		
 		<div class="fcols">
-		<?php
 
-// if (isset($this->data['columns'])) {
-// 	foreach($this->data['columns'] AS $header => $subitems) {
-// 		echo('<div class="fcol" style="" >
-// 				<input class="fcoli" style="" 
-// 					value="' . htmlspecialchars($header) . '"
-// 					type="text" name="timeslot[]" />
-// 				<div class="subcolcontainer">' );
-// 		if(!empty($subitems)) {
-// 			foreach($subitems AS $subitem) {
-// 				echo('<input class="fscoli" 
-// 					type="text" name="timeslots[]" value="' . htmlspecialchars($subitem) . '" />');
-// 			}
-// 		} else {
-// 			echo('<input style="" type="text" value="" name="timeslots[]" />
-// 			<input style="" type="text" value="" name="timeslots[]" />
-// 			<input style="" type="text" value="" name="timeslots[]" />
-// 			<input style="" type="text" value="" name="timeslots[]" />');
-// 		}
-// 		echo('</div>
-// 			</div>');
-// 	}
-// }
-// 		
-		?>
 
-			
 			<div class="columnsetupdates">
-				
-				
 				
 				<?php 
 				
@@ -125,17 +109,11 @@ echo('		<input type="hidden" id="coldef" name="coldef" value="" />');
 						echo($this->data['timezone']->getHTMLList() . '');
 					}
 
-					
-					
 					echo('</p>')
 					
 				?>
 				
-				
-				<div></div>
-				
-				
-				
+			<div></div>
 
 				<?php
 			
@@ -275,8 +253,8 @@ echo('		<input type="hidden" id="coldef" name="coldef" value="" />');
 		
 		?>
 
-		<h1 id="previewheader"></h1>
-		<div class="wmd-preview"></div>
+		<!-- <h1 id="previewheader"></h1>
+		<div class="wmd-preview"></div> -->
     	<div id="previewpane"></div>		    
 		    
 		    
@@ -340,11 +318,6 @@ echo('		<input type="hidden" id="coldef" name="coldef" value="" />');
 
 
 </div>
-
-
-
-
-
 
 </form>
 	

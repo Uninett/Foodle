@@ -36,6 +36,8 @@ require_once($THISPATH . 'lib/XHTMLResponseEntry.php');
 
 require_once($THISPATH . 'lib/FoodleDBConnector.php');
 
+require_once($THISPATH . 'lib/Markdown/markdown.php');
+
 
 // Data objects
 require_once($THISPATH . 'lib/Data/User.php');

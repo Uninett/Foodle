@@ -12,6 +12,14 @@ class Pages_PagePreview extends Pages_Page {
 		foreach($parameters AS $parameter) {
 			$_REQUEST[$paramter] = strip_tags($_REQUEST[$paramter]);
 		}
+		$descr = Data_Foodle::cleanMarkdownInput($_REQUEST['descr']);
+		
+		// echo '<pre>';
+		// print_r($_REQUEST);
+		// echo '</pre>';
+		
+		echo '<h1>' . htmlspecialchars($_REQUEST['name']) . '</h1>';
+		echo '<p>' . $descr . '</p>';
 
 		$foodle = new Data_Foodle($this->fdb);
 		$foodle->columns = FoodleUtils::parseOldColDef(strip_tags($_REQUEST['def']));

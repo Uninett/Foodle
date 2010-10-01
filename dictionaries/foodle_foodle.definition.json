@@ -95,6 +95,9 @@
 	"foodleid": {
 		"en": "Foodle identifier"
 	},
+	"markdowninfo": {
+		"en": "The syntax for the description field above is %Markdown%. Markdown is a simple plain text format that allows simple markup. Go to the ‹Setup column› tab to preview how it will look on your final Foodle."
+	},
 	"htmlinfo": {
 		"en": "Two newlines will start a new paragraph. Basic HTML is allowed."
 	},
