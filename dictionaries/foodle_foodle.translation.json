@@ -66,7 +66,7 @@
 		"de": "Sie sind erfolgreich als %DISPLAYNAME% (<tt>%USERID%<\/tt>) angemeldet",
 		"sv": "Du \u00e4r inloggad som %DISPLAYNAME% (<tt>%USERID%<\/tt>)",
 		"es": "Se ha autenticado correctamente como %DISPLAYNAME% (<tt>%USERID%<\/tt>)",
-		"sl": "Uspe\u0161no ste se prijavili kot %DISPLAYNAME% (<tt>%USERID%<\/tt>)",
+		"sl": "Prijavljeni ste kot %DISPLAYNAME% (<tt>%USERID%<\/tt>)",
 		"nn": "Du er logga inn som %DISPLAYNAME% (<tt>%USERID%<\/tt>)",
 		"hr": "Uspje\u0161no ste se autenticirali kao %DISPLAYNAME% (<tt>%USERID%<\/tt>)",
 		"fi": "Olet kirjautunut k\u00e4ytt\u00e4j\u00e4n\u00e4 %DISPLAYNAME% (<tt>%USERID%<\/tt>)"
@@ -1091,7 +1091,7 @@
 		"da": "Urlen til denne Foodle",
 		"es": "URL para acceder a este Foodle",
 		"sv": "URL f\u00f6r tillg\u00e5ng till denna Foodle:",
-		"sl": "URL za dostop do tega Foodla:",
+		"sl": "URL naslov za dostop do tega Foodla:",
 		"nn": "URL for tilgang til denne foodlen"
 	},
 	"sharing2": {
@@ -1105,7 +1105,7 @@
 		"no": "Nedenunder ser du en forh\u00e5ndsvisning av hvordan Foodle-n vil se ut. N\u00e5r du er ferdig klikker p\u00e5 du p\u00e5 \u2039Opprett Foodle\u203a knappen nedenunder. Du m\u00e5 gjerne endre navn og beskrivelse og endre p\u00e5 kolonnedefinisjonen over, f\u00f8r du velger \u00e5 opprette foodle-n.",
 		"es": "A continuaci\u00f3n, ver\u00e1 una vista previa de c\u00f3mo se mostrar\u00e1 tu Foodle. Cuando termines, haz click en el bot\u00f3n \"Terminar Foodle\". Si\u00e9ntete libre de modificar el nombre y la descripci\u00f3n y configurar las opciones avanzadas antes de dar por terminado tu Foodle",
 		"sv": "Nedan kan du se en f\u00f6rhandsgranskning hur denna Foodle kommer att se ut. N\u00e4r du \u00e4r klar ska du klicka p\u00e5 knappen \"Spara och aktivera Foodle\". G\u00e5 g\u00e4rna tillbaka till \"Namn och beskrivning\" och \"Avancerade inst\u00e4llningar\" f\u00f6r kompletteringar innan du sparar och aktiverar din Foodle.",
-		"sl": "Spodaj je prikazan predogled va\u0161e Foodla. \u0160e vedno ga lahko poljubno spreminjate. Ko boste z izgledom in vsebino zadovoljni, kliknite na gumb \"Dokon\u010daj Foodle\".",
+		"sl": "Spodaj je prikazan predogled va\u0161ega Foodla. \u0160e vedno ga lahko poljubno spreminjate. Ko boste z izgledom in vsebino zadovoljni, kliknite na gumb \"Dokon\u010daj Foodle\".",
 		"nn": "Under ser du ein forsmak p\u00e5 korleis din foodle ser ut.  N\u00e5r du er ferdig, trykk p\u00e5 knappen \"Opprett Foodle\".  G\u00e5 gjerne tilbake til namn og omtale og sett opp avanserte val f\u00f8r du oppretter foodlen."
 	},
 	"calendarenabled": {
@@ -1158,7 +1158,7 @@
 		"no": "har svar p\u00e5 denne Foodle-n",
 		"es": "han respondido a este Foodle",
 		"sv": "har svarat p\u00e5 denna Foodle",
-		"sl": "se je odzval\/a na ta Foodle",
+		"sl": "je seznam sodelujo\u010dih v tem Foodlu",
 		"nn": "har svart p\u00e5 denne foodlen"
 	},
 	"qcolumntype": {
@@ -1251,5 +1251,17 @@
 		"sv": "L\u00e4gg till en kolumn",
 		"sl": "Dodaj enega ali ve\u010d stolpcev",
 		"nn": "Legg til ei kolonne"
+	},
+	"timeslotinfo": {
+		"no": "Tidsluker kan v\u00e6re enkle tidspunkt (slik som 10:00 eller 15:00) eller det kan representere en tidsperiode (slik som 12:00-14:00)."
+	},
+	"markdowninfo": {
+		"no": "Syntaksen for beskrivelsen over er basert p\u00e5 %Markdown%. Markdown er et enkelt tekstformat som tillater en enkel form for markup. G\u00e5 til \u2039Oppsett av kolonner\u203a for \u00e5 forh\u00e5ndsvise hvordan teksten vil vises p\u00e5 den ferdige Foodlen."
+	},
+	"debug": {
+		"no": "Debug"
+	},
+	"selecttimezone": {
+		"no": "Velg din tidssone"
 	}
 }
