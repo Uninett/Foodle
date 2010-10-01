@@ -77,6 +77,9 @@
 	"timeslots": {
 		"en": "Time slots"
 	},
+	"timeslotinfo": {
+		"en": "Time slots can be a single time stamp (such as 10:00 or 15:00) or it could be a time range (such as 12:00-14:00)."
+	},
 	"timeslotsinfo": {
 		"en": "You can optionally add some timeslots that will be added to these days:"
 	},

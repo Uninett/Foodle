@@ -137,6 +137,11 @@ function updatePreview() {
 	$("div[id='previewpane']").load('/preview', { 'def' : defstr, "name" : $("input#foodlename").val(), "descr" : $("textarea#foodledescr").val() }); 
 	// $("*[id='previewheader']").text($("input[name='name']").attr('value'));
 	$("input[id='coldef']").attr('value', defstr);
+	if ($("input#foodlename").val() == '' || defstr == '') {
+		$("input#save").attr("disabled", "disabled");
+	} else {
+		$("input#save").removeAttr("disabled", "false");
+	}
 }
 
 

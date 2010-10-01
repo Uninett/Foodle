@@ -109,7 +109,9 @@ echo(' <input type="hidden" id="coldef" name="coldef" value="" />');
 						echo($this->data['timezone']->getHTMLList() . '');
 					}
 
-					echo('</p>')
+					echo('</p>');
+					
+					echo('<p style="color: #888">' . $this->t('timeslotinfo') . '</p>');
 					
 				?>
 				
@@ -246,9 +248,9 @@ echo(' <input type="hidden" id="coldef" name="coldef" value="" />');
 		<?php
 		
 		if(array_key_exists('edit', $this->data)) {
-			echo('<input style="display: block; margin: 2em" type="submit" name="save" value="' . $this->t('updatefoodle') . '" />');
+			echo('<input id="save" style="display: block; margin: 2em" type="submit" name="save" value="' . $this->t('updatefoodle') . '" />');
 		} else {
-			echo('<input style="display: block; margin: 2em" type="submit" name="save" value="' . $this->t('completefoodle') . '" />');
+			echo('<input id="save" style="display: block; margin: 2em" type="submit" name="save" value="' . $this->t('completefoodle') . '" />');
 		}
 		
 		?>
