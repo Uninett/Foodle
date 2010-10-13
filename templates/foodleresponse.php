@@ -409,6 +409,10 @@ if ($this->data['showsharing']) {
 		htmlentities($this->data['url']) . 
 		'</div>');
 	echo( '<p>' . $this->t('sharing2') . '</p>');
+	
+	if (isset($this->data['customDistribute'])) {
+		$this->data['customDistribute']->show();
+	}
 
 	echo '</div>';
 }

@@ -34,14 +34,18 @@ class Pages_PageFoodle extends Pages_Page {
 		$this->foodle->getColumnDates();
 		$this->calendarEnabled = $this->foodle->calendarEnabled();
 		$this->timezoneEnable = $this->foodle->timeZoneEnabled();
-		if ($this->timezoneEnable) {
-			$this->foodle->presentInTimeZone($this->timezone->getSelectedTimeZone());
-		}
+
+		$this->presentInTimeZone();
 		
 		$this->auth();
 	}
 	
 
+	protected function presentInTimeZone() {
+		if ($this->timezoneEnable) {
+			$this->foodle->presentInTimeZone($this->timezone->getSelectedTimeZone());
+		}
+	}
 	
 	
 	// Authenticate the user
@@ -160,6 +164,7 @@ class Pages_PageFoodle extends Pages_Page {
 		$t->data['showsharing'] = $isAdmin;
 		$t->data['showdebug'] = TRUE;
 		
+		$t->data['customDistribute'] = new UNINETTDistribute($this->foodle, $t);
 
 		
 		$t->data['debugUser'] = $this->user->debug();

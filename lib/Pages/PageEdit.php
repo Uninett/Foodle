@@ -21,6 +21,9 @@ class Pages_PageEdit extends Pages_PageFoodle {
 		exit;
 	}
 
+	protected function presentInTimeZone() {
+	}
+	
 	// Process the page.
 	function show() {
 
