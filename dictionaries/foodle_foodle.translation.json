@@ -378,7 +378,7 @@
 		"de": "Antworten",
 		"sv": "Svar",
 		"es": "Respuestas",
-		"sl": "Odzivi",
+		"sl": "Glasovi",
 		"nn": "Svar",
 		"hr": "Odgovori",
 		"fi": "Vastaukset"
@@ -984,7 +984,7 @@
 		"no": "Foodle har blitt besvart %NUM% ganger i l\u00f8pet av de siste 7 dagene.",
 		"da": "Foodle har haft %NUM% svar de sidste 7 dage.",
 		"sv": "Foodle har registrerat %NUM% svar de senaste 7 dagarna.",
-		"sl": "\u0160tevilo odzivov v zadnjih 7 dneh: %NUM% ",
+		"sl": "\u0160tevilo glasov v zadnjih 7 dneh: %NUM% ",
 		"fi": "Foodle sai %NUM% vastausta viimeisten 7 p\u00e4iv\u00e4n aikana.",
 		"de": "Foodle hatte %NUM% Antworten in den letzten 7 Tagen.",
 		"es": "Foodle tuvo %NUM% respuestas en los \u00faltimos 7 d\u00edas",
@@ -1047,7 +1047,7 @@
 	},
 	"myresponse": {
 		"no": "Mitt svar",
-		"sl": "Moj odziv",
+		"sl": "Moj glas",
 		"de": "Meine Antwort",
 		"sv": "Mitt svar",
 		"da": "Mit svar",
@@ -1056,7 +1056,7 @@
 	},
 	"allresponses": {
 		"no": "Alle svar",
-		"sl": "Vsi odzivi",
+		"sl": "Vsi glasovi",
 		"de": "Alle Antworten",
 		"sv": "Alla svar",
 		"da": "Alle svar",
@@ -1083,8 +1083,9 @@
 		"no": "For \u00e5 gi andre tilgang og for \u00e5 oppfordre brukere til \u00e5 besvare denne Foodle-n, kan du dele lenken nedenfor.",
 		"es": "Para poder dar acceso a otros y permitirles responder a este Foodle, deber\u00edas indicarlo en el link a continuaci\u00f3n",
 		"sv": "F\u00f6r att andra ska kunna komma \u00e5t att svara p\u00e5 denna Foodle m\u00e5ste du ge l\u00e4nken nedan till dessa personer.",
-		"sl": "Tistim, ki bi \u017eeleli, da sodelujejo v tem Foodlu, posredujte spodnji URL naslov.",
-		"nn": "For \u00e5 gje andre tilgang og sp\u00f8rja dei om svar p\u00e5 denne foodlen, b\u00f8r du peika kvar enkelt p\u00e5 lenka under"
+		"sl": "Tistim, za katere bi \u017eeleli, da sodelujejo v tem Foodlu, posredujte spodnji URL naslov.",
+		"nn": "For \u00e5 gje andre tilgang og sp\u00f8rja dei om svar p\u00e5 denne foodlen, b\u00f8r du peika kvar enkelt p\u00e5 lenka under",
+		"da": "For at andre kan svare p\u00e5 denne Foodle skal du sende linket herunder til dem"
 	},
 	"sharinglink": {
 		"no": "URL som gir tilgang til denne Foodle-n:",
@@ -1099,14 +1100,16 @@
 		"es": "Puedes elegir enviar el enlace por email, en una lista de correo, mediante mensajer\u00eda instant\u00e1nea o por cualquier otro mecanismos mediante el que puedas llegar a los usuarios",
 		"sv": "Du kan skicka l\u00e4nken via e-post, via en e-postlista, via direktmeddelanden eller p\u00e5 annat s\u00e4tt till de som ska svara.",
 		"sl": "URL naslov lahko posredujete preko e-po\u0161te, dopisnega seznama, sistemov takoj\u0161njega sporo\u010danja ali katere kole druge poti, preko katere lahko dose\u017eete \u017eeljene uporabnike.",
-		"nn": "Du kan senda informasjonen med epost, p\u00e5 ei postliste, via chat eller p\u00e5 andre m\u00e5tar som n\u00e5r dine samarbeidspartnarar."
+		"nn": "Du kan senda informasjonen med epost, p\u00e5 ei postliste, via chat eller p\u00e5 andre m\u00e5tar som n\u00e5r dine samarbeidspartnarar.",
+		"da": "Du kan sende linket med email, til en mailingliste eller lignende."
 	},
 	"previewinfo3": {
 		"no": "Nedenunder ser du en forh\u00e5ndsvisning av hvordan Foodle-n vil se ut. N\u00e5r du er ferdig klikker p\u00e5 du p\u00e5 \u2039Opprett Foodle\u203a knappen nedenunder. Du m\u00e5 gjerne endre navn og beskrivelse og endre p\u00e5 kolonnedefinisjonen over, f\u00f8r du velger \u00e5 opprette foodle-n.",
 		"es": "A continuaci\u00f3n, ver\u00e1 una vista previa de c\u00f3mo se mostrar\u00e1 tu Foodle. Cuando termines, haz click en el bot\u00f3n \"Terminar Foodle\". Si\u00e9ntete libre de modificar el nombre y la descripci\u00f3n y configurar las opciones avanzadas antes de dar por terminado tu Foodle",
 		"sv": "Nedan kan du se en f\u00f6rhandsgranskning hur denna Foodle kommer att se ut. N\u00e4r du \u00e4r klar ska du klicka p\u00e5 knappen \"Spara och aktivera Foodle\". G\u00e5 g\u00e4rna tillbaka till \"Namn och beskrivning\" och \"Avancerade inst\u00e4llningar\" f\u00f6r kompletteringar innan du sparar och aktiverar din Foodle.",
 		"sl": "Spodaj je prikazan predogled va\u0161ega Foodla. \u0160e vedno ga lahko poljubno spreminjate. Ko boste z izgledom in vsebino zadovoljni, kliknite na gumb \"Dokon\u010daj Foodle\".",
-		"nn": "Under ser du ein forsmak p\u00e5 korleis din foodle ser ut.  N\u00e5r du er ferdig, trykk p\u00e5 knappen \"Opprett Foodle\".  G\u00e5 gjerne tilbake til namn og omtale og sett opp avanserte val f\u00f8r du oppretter foodlen."
+		"nn": "Under ser du ein forsmak p\u00e5 korleis din foodle ser ut.  N\u00e5r du er ferdig, trykk p\u00e5 knappen \"Opprett Foodle\".  G\u00e5 gjerne tilbake til namn og omtale og sett opp avanserte val f\u00f8r du oppretter foodlen.",
+		"da": "Herunder kan du se hvordan din Foodle kommer til at se ud. N\u00e5r den er klar, klik p\u00e5 \u2039Complete Foodle\u203a. Du kan \u00e6ndre navn, beskrivelse og andre indstillinger f\u00f8r end den er f\u00e6rdig."
 	},
 	"calendarenabled": {
 		"no": "Denne Foodle-n inneholder datoer og tidspunkt, som betyr at Foodle kan synkronisere den med kalenderen din automatisk.",
@@ -1137,7 +1140,8 @@
 		"es": "Selecciona si te gustar\u00eda conectar tu respuesta con tu calendario o si deseas introducir las fechas manualmente",
 		"sv": "V\u00e4lj ovan om du vill ansluta till din kalender eller om du vill ange datum manuellt.",
 		"sl": "Izberite ali \u017eelite va\u0161 vnos povezati z va\u0161im koledarjem ali \u017eelite datum vnesti ro\u010dno.",
-		"nn": "Vel over om du vil knyta saman svaret ditt med kalenderen din, eller om du vil leggja inn dagar for hand"
+		"nn": "Vel over om du vil knyta saman svaret ditt med kalenderen din, eller om du vil leggja inn dagar for hand",
+		"da": "V\u00e6lg om du til forbinde til din kalender eller om du vil indtaste datoer manuelt"
 	},
 	"calendarcollision": {
 		"no": "Kollisjon i kalender",
@@ -1152,35 +1156,40 @@
 		"es": "ha a\u00f1adido una nueva entrada de discusi\u00f3n",
 		"sv": "har lagt till ett diskussionsinl\u00e4gg",
 		"sl": "je dodal\/a komentar",
-		"nn": "har laga diskusjonsinnlegg"
+		"nn": "har laga diskusjonsinnlegg",
+		"da": "indl\u00e6g tilf\u00f8jet"
 	},
 	"respondedrecent": {
 		"no": "har svar p\u00e5 denne Foodle-n",
 		"es": "han respondido a este Foodle",
 		"sv": "har svarat p\u00e5 denna Foodle",
 		"sl": "je seznam sodelujo\u010dih v tem Foodlu",
-		"nn": "har svart p\u00e5 denne foodlen"
+		"nn": "har svart p\u00e5 denne foodlen",
+		"da": "Svar givet"
 	},
 	"qcolumntype": {
 		"no": "Hvilke type alternativer vil du benytte?",
 		"es": "\u00bfQu\u00e9 tipo de columnas quieres usar en tu Foodle?",
 		"sv": "Vilken typ av kolumner vill du anv\u00e4nda i din Foodle?",
 		"sl": "Katere vrste stolpcev \u017eelite uporabiti v tem Foodlu?",
-		"nn": "Kva type kolonner \u00f8nskjer du \u00e5 bruka i din foodle?"
+		"nn": "Kva type kolonner \u00f8nskjer du \u00e5 bruka i din foodle?",
+		"da": "Hvilke s\u00f8jler vil du bruge?"
 	},
 	"qcolumntypedates": {
 		"no": "Dato og tidspunkt (m\u00f8teplanlegging og lignende)",
 		"es": "Fechas y ranuras de tiempo (planificaci\u00f3n de reuniones etc.)",
 		"sv": "Datum och tidsperioder (m\u00f6tesplanering etc.)",
 		"sl": "Datumi in \u010dasovni termini (planiranje sestankov ipd.)",
-		"nn": "Dato og tidsrammer (m\u00f8teplanlegging mm)"
+		"nn": "Dato og tidsrammer (m\u00f8teplanlegging mm)",
+		"da": "Dato- og tidsangivelse"
 	},
 	"qcolumntypetext": {
 		"no": "Generelle alternativer i form av fri tekst",
 		"es": "Encabezados de columna con texto gen\u00e9rico",
 		"sv": "Kolumnrubriker med generisk text",
 		"sl": "Stolpci s poljubnim besedilom v naslovu",
-		"nn": "Kolonner med generisk tekst"
+		"nn": "Kolonner med generisk tekst",
+		"da": "S\u00f8jletitler med tekst"
 	},
 	"date": {
 		"no": "Dato",
@@ -1211,14 +1220,16 @@
 		"es": "Duplicar estas franjas de tiempo a todas las fechas",
 		"sv": "Kopiera dessa tidsperioder till alla datum",
 		"sl": "Dodaj te \u010dasovne termine vsem datumom",
-		"nn": "Kopier desse tidsrammene til alle datoar"
+		"nn": "Kopier desse tidsrammene til alle datoar",
+		"da": "Gentag disse tider p\u00e5 alle datoer"
 	},
 	"onemoredate": {
 		"no": "Legg til en ny dato",
 		"es": "A\u00f1adir una columna m\u00e1s de fecha",
 		"sv": "L\u00e4gg till en datumkolumn",
 		"sl": "Dodaj enega ali ve\u010d stolpcev z datumom",
-		"nn": "Legg til ei dato-kolonne"
+		"nn": "Legg til ei dato-kolonne",
+		"da": "Tilf\u00f8j dato-s\u00f8jle"
 	},
 	"columnheader": {
 		"no": "Overskrift",
@@ -1253,15 +1264,35 @@
 		"nn": "Legg til ei kolonne"
 	},
 	"timeslotinfo": {
-		"no": "Tidsluker kan v\u00e6re enkle tidspunkt (slik som 10:00 eller 15:00) eller det kan representere en tidsperiode (slik som 12:00-14:00)."
+		"no": "Tidsluker kan v\u00e6re enkle tidspunkt (slik som 10:00 eller 15:00) eller det kan representere en tidsperiode (slik som 12:00-14:00).",
+		"sl": "\u010casovni termin je lahko ura (npr. 10:00 ali 15:00) ali \u010dasovno obdobje (npr. 12:00-14:00).",
+		"da": "Tidsrum kan v\u00e6re pr\u00e6cise tider (f.eks. 10:00) eller tidsintervaller (f.eks. 10:00-12:00)",
+		"sv": "Tidsperioder kan antingen vara en tidsangivelse, t.ex. 10:00 eller 15:00, eller vara en tidsperiod, t.ex. 12:00-14:00.",
+		"es": "Las franjas horarias pueden ser una \u00fanica hora (como las 10:00 o las 15:00) o un margen de tiempo (como 12:00-14:00)",
+		"nn": "Tidsluker kan vera enten eit enkelt tidspunkt (som 10:00 eller 15:00) eller det kan vera ei tidsluke (som 12-00-14:00)"
 	},
 	"markdowninfo": {
-		"no": "Syntaksen for beskrivelsen over er basert p\u00e5 %Markdown%. Markdown er et enkelt tekstformat som tillater en enkel form for markup. G\u00e5 til \u2039Oppsett av kolonner\u203a for \u00e5 forh\u00e5ndsvise hvordan teksten vil vises p\u00e5 den ferdige Foodlen."
+		"no": "Syntaksen for beskrivelsen over er basert p\u00e5 %Markdown%. Markdown er et enkelt tekstformat som tillater en enkel form for markup. G\u00e5 til \u2039Oppsett av kolonner\u203a for \u00e5 forh\u00e5ndsvise hvordan teksten vil vises p\u00e5 den ferdige Foodlen.",
+		"sl": "Tekst v polju za opis lahko oblikujete z %Markdown%. Markdown omogo\u010da enostavno dodajanja poudarkov (krepko, le\u017ee\u010de), strukture (ozna\u010devanje s to\u010dkami in naslovi) in povezav (na slike ali druge spletne vire). Za predogled izberite zavihek \"Nastavi stolpce\".",
+		"da": "Syntaksen for feltet ovenfor er %Markdown%, som tillader simpel markup. G\u00e5 til \u2039Setup column\u203a tab'en for visning af den endelige Foodle.",
+		"sv": "Syntaxen f\u00f6r beskrivningen ovan \u00e4r %Markdown%. Markdown \u00e4r ett enkelt textformat som till\u00e5ter m\u00e4rkningstaggar. G\u00e5 till fliken <Konfigurera kolumner> f\u00f6r att f\u00f6rhandsgranska hur det kommer se ut i den f\u00e4rdiga Foodle.",
+		"es": "La sintaxis para el campo descripci\u00f3n es %Markdown%. Markdown es un formato sencillo en texto plano que permite un marcado sencillo. Dir\u00edgete a la pesta\u00f1a \"Columna de configuraci\u00f3n\" para previsualizar como aparecer\u00e1 en tu Foodle final",
+		"nn": "Syntaks for feltet over er basert p\u00e5 %Markdown%. Markdown er eit enkelt tekstformat som gjev deg ei enkel form for markup. G\u00e5 til \u2039Oppsett av kolonner\u203a for \u00e5 sj\u00e5 korlis teksten vil bli vist fram p\u00e5 den ferdige Foodlen."
 	},
 	"debug": {
-		"no": "Debug"
+		"no": "Debug",
+		"sl": "Razhro\u0161\u010devanje",
+		"da": "Debug",
+		"sv": "Fels\u00f6kning (debug)",
+		"es": "Depuraci\u00f3n",
+		"nn": "Feils\u00f8king"
 	},
 	"selecttimezone": {
-		"no": "Velg din tidssone"
+		"no": "Velg din tidssone",
+		"sl": "Izberite \u010dasovni pas",
+		"da": "V\u00e6lg tidszone",
+		"sv": "V\u00e4lj din tidszon",
+		"es": "Seleccione su zona horaria",
+		"nn": "Vel din tidssone"
 	}
 }

@@ -66,7 +66,23 @@ class TimeZone {
 	}
 	
 	public function getTimeZone() {
-		return $this->lookupRegion($this->lookupIP($this->ip));
+		$tz = 'Europe/Amsterdam';
+		
+		try {
+			$tz = $this->lookupRegion($this->lookupIP($this->ip));
+		} catch(Exception $e) {
+			$tz = 'Europe/Amsterdam';
+		}
+		
+		return $tz;
+	
+#		try {
+#			$tz = $this->lookupRegion($this->lookupIP($this->ip))
+#		} catch(Exception $e) {
+#			$tz = 'Europe/Amsterdam';
+#		}
+		
+#		return $tz;
 	}
 	
 	public function TimeZone($ip = NULL) {
@@ -75,6 +91,8 @@ class TimeZone {
 		if (empty($ip))
 			throw new Exception('Trying to use the TimeZone class without specifying an IP address');
 		$this->ip = $ip;
+		
+#		$this->ip = '2.107.80.62';
 	
 		$this->store = new sspmod_core_Storage_SQLPermanentStorage('iptimezone');
 
