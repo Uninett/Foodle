@@ -25,6 +25,8 @@ class Pages_CSVFoodle extends Pages_Page {
 		$url = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier;
 
 		$responses = $this->foodle->getResponses();
+		
+		session_cache_limiter('public'); 
 
 		header("Content-type: text/csv; charset=utf-8");
 		header("Content-disposition:  attachment; filename=foodle-" . $this->foodle->identifier . "_" . date("Y-m-d") . ".csv");

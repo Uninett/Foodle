@@ -57,7 +57,8 @@ class Calendar {
 				}
 			}
 			if (!empty($this->parser->freebusy_list)) {
-				$this->freebusy = $this->parser->freebusy_list[0]->freebusy;
+				$this->processFreeBusyObjects();
+
 			} 
 			$cached = array('events' => $this->events, 'freebusy' => $this->freebusy);
 			
@@ -91,9 +92,33 @@ class Calendar {
 			// exit;
 			
 		}
-		
 
 	}
+	
+	private function processFreeBusyObjects() {
+		
+		$this->freebusy = array();
+		if (!is_array($this->parser->freebusy_list)) continue;
+		
+		foreach($this->parser->freebusy_list AS $fbobj) {
+			if (!$fbobj instanceof Vfreebusy) continue;
+			
+			if (isset($fbobj->freebusy)) {
+				foreach($fbobj->freebusy AS $fb) {
+					$this->freebusy[] = self::parseFreeBusyLine($fb);
+				}
+			} else {
+				
+				$start = self::parseTime($fbobj->dtstart);
+				$end   = self::parseTime($fbobj->dtend);
+				
+				$this->freebusy[] = array($start, $end);
+			}
+		}
+		
+#		$this->freebusy = $this->parser->freebusy_list[0]->freebusy;
+	}
+	
 
 	public static function parseFreeBusyLine($line) {
 		$splp = explode('/', $line);
@@ -103,26 +128,26 @@ class Calendar {
 	}
 
 	
-	public function checkFreeBusy2($begin, $end) {
-#		error_log('Checking freebusy');
-		if (!empty($this->freebusy)) {
-			$i = 0;
-			foreach($this->freebusy AS $fb) {
-
-				$splp = explode('/', $fb);
-				$busybegin = self::parseTime($splp[0]);
-				$busyend   = self::parseTime($splp[1]);
-
-#				error_log('Checking BUSY slot [' . date('r', $busybegin) . '] to [' . date('r', $busyend) . ']');
-
-				if (((int)$end > (int)$busybegin) && ((int)$end < (int)$busyend)) return $i;
-				if (((int)$begin > (int)$busybegin) && ((int)$begin < (int)$busyend)) return $i;
-				if (((int)$begin < (int)$busybegin) && ((int)$end > (int)$busyend)) return $i;
-								$i++;
-			}
-		}
-		return NULL;
-	}
+// 	public function checkFreeBusy2($begin, $end) {
+// #		error_log('Checking freebusy');
+// 		if (!empty($this->freebusy)) {
+// 			$i = 0;
+// 			foreach($this->freebusy AS $fb) {
+// 
+// 				$splp = explode('/', $fb);
+// 				$busybegin = self::parseTime($splp[0]);
+// 				$busyend   = self::parseTime($splp[1]);
+// 
+// #				error_log('Checking BUSY slot [' . date('r', $busybegin) . '] to [' . date('r', $busyend) . ']');
+// 
+// 				if (((int)$end > (int)$busybegin) && ((int)$end < (int)$busyend)) return $i;
+// 				if (((int)$begin > (int)$busybegin) && ((int)$begin < (int)$busyend)) return $i;
+// 				if (((int)$begin < (int)$busybegin) && ((int)$end > (int)$busyend)) return $i;
+// 								$i++;
+// 			}
+// 		}
+// 		return NULL;
+// 	}
 	
 	/*
 	 * Check if the user is available in the period (begin, end).
@@ -134,9 +159,11 @@ class Calendar {
 #		error_log('Checking freebusy');
 		if (!empty($this->freebusy)) {
 			foreach($this->freebusy AS $fb) {
-				$splp = explode('/', $fb);
-				$busybegin = self::parseTime($splp[0]);
-				$busyend   = self::parseTime($splp[1]);
+				#$splp = explode('/', $fb);
+				$busybegin = $fb[0];
+#				self::parseTime($splp[0]);
+				$busyend   = $fb[1];
+#				self::parseTime($splp[1]);
 				
 #				error_log('Checking BUSY slot [' . date('r', $busybegin) . '] to [' . date('r', $busyend) . ']');
 
@@ -183,15 +210,19 @@ class Calendar {
 
 	public static function parseTime($text) {
 		// Handle zulu time
-		if (substr($text,-1) == 'Z') {
-			return strtotime($text);
+		// if (substr($text,-1) == 'Z') {
+		// 	return strtotime($text);
+		// }
+		
+		if (preg_match('/^(.*?:)(.*)$/', $text, $matches)) {
+			$text = $matches[2];
 		}
 		
-		$splitted = explode(':', $text);
-		$key = $splitted[0];
-		$value = $splitted[1];
+		// $splitted = explode(':', $text);
+		// $key = $splitted[0];
+		// $value = $splitted[1];
 
-		return strtotime($value);
+		return strtotime($text);
 		
 	}
 	
@@ -239,11 +270,7 @@ class Calendar {
 	}
 
 	public function getFreeBusy() {
-		$res = array();
-		foreach($this->freebusy AS $fb) {
-			$res[] = self::parseFreeBusyLine($fb);
-		}
-		return $res;
+		return $this->freebusy;
 	}
 
 

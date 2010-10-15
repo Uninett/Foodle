@@ -42,6 +42,8 @@ try {
 				$rss->show();
 				break;				
 			} elseif(isset($_REQUEST['output']) && $_REQUEST['output'] == 'csv') {
+				
+
 				$csv = new Pages_CSVFoodle($config, $parameters);
 				$csv->show();
 				break;								

@@ -55,7 +55,7 @@ class Data_FoodleResponse {
 		$this->response = array(
 			'type' => 'ical',
 			'data' => $responseData,
-			'crash' => $crashingEvents,
+#			'crash' => $crashingEvents,
 			'calendarURL' => $user->calendarURL,
 		);
 		

@@ -5,9 +5,14 @@
 
 
 
+
 <div class="columned">
 	<div class="gutter"></div>
 	<div class="col1">
+
+
+
+
 
 
 		<h1><?php echo $this->t('welcomeheader'); ?></h1>
@@ -176,7 +181,6 @@
 	</div><!-- /#col3 -->
 	<br style="height: 0px; clear: both">
 </div>
-
 
 
 

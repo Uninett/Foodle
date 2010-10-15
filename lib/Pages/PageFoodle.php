@@ -162,9 +162,14 @@ class Pages_PageFoodle extends Pages_Page {
 		$t->data['owner'] = $isAdmin;
 		$t->data['ownerid'] = $this->foodle->owner;
 		$t->data['showsharing'] = $isAdmin;
-		$t->data['showdebug'] = TRUE;
+				
+		$t->data['showdebug'] = $isAdmin;
+		if (isset($_REQUEST['debug'])) {
+			$t->data['showdebug'] = TRUE;
+		}
+
 		
-		$t->data['customDistribute'] = new UNINETTDistribute($this->foodle, $t);
+#		$t->data['customDistribute'] = new UNINETTDistribute($this->foodle, $t);
 
 		
 		$t->data['debugUser'] = $this->user->debug();

@@ -114,6 +114,10 @@ class Data_Foodle {
 	public function getResponses() {
 		if ($this->responses === NULL) $this->responses = $this->db->readResponses($this);
 
+		if (isset($_REQUEST['debug'])) {
+			echo '<pre>'; print_r($this->responses); exit;
+		}
+
 		foreach($this->responses AS $resp) {
 			#$resp2 = $resp; unset($resp2->foodle); echo '<pre>NEW RESPONSE'; print_r($resp2); echo '</pre>'; 
 			$resp->icalfill();
@@ -173,7 +177,7 @@ class Data_Foodle {
 			if (!preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $col['title'])) return FALSE;
 			if (isset($col['children'])) {
 				foreach($col['children'] AS $option) {
-					if (!preg_match('/^[0-9]{1,2}[:.][0-9]{2}(-[0-9]{1,2}[:.][0-9]{2})?$/', $option['title'])) return FALSE;
+					if (!preg_match('/^[0-9]{1,2}([:.][0-9]{2})?(-[0-9]{1,2}([:.][0-9]{2})?)?$/', $option['title'])) return FALSE;
 				}
 			}
 		}
@@ -377,12 +381,24 @@ class Data_Foodle {
 #				$lstrings[] = $c['title'];
 
 				if (preg_match('|^[^-]+-[^-]+$|', $c['title'])) {
+
 					$splitted = explode('-', $c['title']);
+					
+					foreach($splitted AS $k => $v) {
+						if (preg_match('/^[0-9]{2}$/', $v)) {
+							$splitted[$k] = $v . ':00';
+						}
+					}
+
 					$columns[] = array(
 						join(' ', $lstrings) . ' ' . $splitted[0],
 						join(' ', $lstrings) . ' ' . $splitted[1]
 					);
 				} else {
+					if (preg_match('/^[0-9]{2}$/', $c['title'])) {
+						$c['title'] = $c['title'] . ':00';
+					}
+
 					$columns[] = join(' ', $lstrings) . ' ' . $c['title'];
 				}
 			}
