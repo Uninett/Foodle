@@ -61,12 +61,18 @@ class Pages_PageFront extends Pages_Page {
 
 
 		$t = new SimpleSAML_XHTML_Template($this->config, 'foodlefront.php', 'foodle_foodle');
- 		$t->data['bread'] = array(array('title' => 'bc_frontpage'));
+
+		$t->data['bread'] = array(
+			array('title' => 'bc_frontpage'), 
+		);
+
 		$t->data['user'] = $this->user;
 		$t->data['userid'] = $this->user->userid;
 		$t->data['displayname'] = $this->user->name;
 
 		$t->data['authenticated'] = $this->auth->isAuth();
+		
+		$t->data['showsupport'] = TRUE;
 		
 		$t->data['loginurl'] = $this->auth->getLoginURL();
 		$t->data['logouturl'] = $this->auth->getLogoutURL();

@@ -53,6 +53,7 @@ require_once($THISPATH . 'lib/Pages/Page.php');
 require_once($THISPATH . 'lib/Pages/PageFoodle.php');
 require_once($THISPATH . 'lib/Pages/Debug.php');
 require_once($THISPATH . 'lib/Pages/PageFront.php');
+require_once($THISPATH . 'lib/Pages/PageSupport.php');
 
 require_once($THISPATH . 'lib/Pages/EmbedFoodle.php');
 require_once($THISPATH . 'lib/Pages/RSSFoodle.php');
@@ -61,6 +62,9 @@ require_once($THISPATH . 'lib/Pages/CSVFoodle.php');
 require_once($THISPATH . 'lib/Pages/PageCreate.php');
 require_once($THISPATH . 'lib/Pages/PageEdit.php');
 require_once($THISPATH . 'lib/Pages/PagePreview.php');
+
+require_once($THISPATH . 'lib/getsatisfaction/FastPass.php');
+require_once($THISPATH . 'lib/getsatisfaction/OAuth.php');
 
 // Loading icalendar scripts..
 require_once($THISPATH . 'lib/cal/Calendar.class.php');

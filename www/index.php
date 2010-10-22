@@ -57,6 +57,11 @@ try {
 			$page = new Pages_Debug($config, $parameters);
 			$page->show();
 			break;
+			
+		case 'support':
+			$page = new Pages_PageSupport($config, $parameters);
+			$page->show();
+			break;
 
 		case 'create':
 			$page = new Pages_PageCreate($config, $parameters);
@@ -98,9 +103,26 @@ try {
 
 } catch(Exception $e) {
 
+
+	$auth = new FoodleAuth();
+	$auth->requireAuth(TRUE);
+
+	
+	$email = $auth->getMail();
+	$userid = $auth->getUserID();
+	$name = $auth->getDisplayName();
+
 	$t = new SimpleSAML_XHTML_Template($config, 'foodleerror.php', 'foodle_foodle');
 	$t->data['bread'] = array(array('href' => '/' . $config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), array('title' => 'bc_errorpage'));
-	$t->data['message'] = $e->getMessage() . '<pre>' . $e->getTraceAsString() . '</pre>';	
+	$t->data['message'] = $e->getMessage() . '<pre>' . $e->getTraceAsString() . '</pre>';
+	$t->data['authenticated'] = $auth->isAuth();
+	$t->data['showsupport'] = TRUE;
+	
+	FastPass::$domain = "tjenester.ecampus.no";
+	$t->data['getsatisfactionscript'] = FastPass::script(
+		$config->getValue('getsatisfaction.key'), $config->getValue('getsatisfaction.secret'), 
+		$email, $name, $userid);
+	
 	$t->show();
 
 }

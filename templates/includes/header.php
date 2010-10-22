@@ -10,7 +10,6 @@
 
 
 	<!-- JQuery -->
-
 	<script type="text/javascript" src="/res/js/jquery.js"></script>
 	<script type="text/javascript" src="/res/js/jquery-ui.js"></script>
 	<link rel="stylesheet" media="screen" type="text/css" href="/res/js/uitheme/jquery-ui-themeroller.css" />
@@ -18,8 +17,6 @@
 	
 	<!-- WMD -->
 	<!-- <script type="text/javascript" src="/res/js/wmd.js"></script> -->
-	
-	
 
 
 	<!-- Foodle: JS -->	
@@ -100,25 +97,6 @@ if (isset($this->data['head']))
 	
 </head>
 <body>
-	
-	
-<script type="text/javascript" charset="utf-8">
-  var is_ssl = ("https:" == document.location.protocol);
-  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-
-<script type="text/javascript" charset="utf-8">
-  var feedback_widget_options = {};
-
-  feedback_widget_options.display = "overlay";  
-  feedback_widget_options.company = "uninett";
-  feedback_widget_options.placement = "bottom";
-  feedback_widget_options.color = "#222";
-  feedback_widget_options.style = "idea";
-
-  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-</script>
 
 
 
@@ -176,6 +154,11 @@ echo '</p>';
 	} elseif(isset($this->data['logouturl'])) {
 		echo '<a class="button" style="float: right" href="' . htmlentities($this->data['logouturl']) . '"><span>' . $this->t('logout') . '</span></a>';
 	}
+	
+	if (isset($this->data['showsupport'])) {
+		echo '<a class="button" style="float: right" href="' . htmlentities('/support') . '"><span>' . $this->t('support') . '</span></a>';
+	}
+
 	
 	if (array_key_exists('facebookshare', $this->data) && $this->data['facebookshare']) {
 		echo '<a class="button" style="float: right" onclick="showFacebookShare()"><span>' . $this->t('facebookshare') . '</span></a>';

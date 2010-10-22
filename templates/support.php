@@ -4,17 +4,13 @@
 ?>
 
 
-<div id="content">
-
-	<h2>Error</h2>
 
 
-	<p><?php echo $this->data['message']; ?></p>
-		
+<div class="columned">
 
-	<div style="border: 1px solid #ccc; padding: 0.5em 2em; margin: 0.5em;">
+<h1>Support</h1>
+
 <?php
-
 
 if ($this->data['authenticated']) {
 	echo $this->data['getsatisfactionscript'];
@@ -38,7 +34,7 @@ if ($this->data['authenticated']) {
   feedback_widget_options.company = "ecampus";
   
   
-  feedback_widget_options.style = "problem";
+  feedback_widget_options.style = "question";
   feedback_widget_options.product = "ecampus_foodle";
   
   feedback_widget_options.limit = "5";
@@ -51,6 +47,11 @@ if ($this->data['authenticated']) {
 </script>
 
 
-	</div>
-		
+
+</div>
+
+
+
+
+			
 <?php $this->includeAtTemplateBase('includes/footer.php'); ?>

@@ -361,5 +361,8 @@
 	},
 	"selecttimezone": {
 		"en": "Select your time zone"
+	},
+	"support": {
+		"en": "Support"
 	}
 }

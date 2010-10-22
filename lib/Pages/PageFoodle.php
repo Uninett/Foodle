@@ -167,6 +167,8 @@ class Pages_PageFoodle extends Pages_Page {
 		if (isset($_REQUEST['debug'])) {
 			$t->data['showdebug'] = TRUE;
 		}
+		
+		$t->data['showsupport'] = TRUE;
 
 		
 #		$t->data['customDistribute'] = new UNINETTDistribute($this->foodle, $t);
