@@ -1,0 +1,24 @@
+# Installing Foodle
+
+Third party installs are NOT prioritised with Foodle (yet). Instead people are encourage to use the central foodl.org service. Contact Andreas for more details.
+
+
+* Setup simplesamlphp
+* Configure the path to simplesamlphp in `www/_include.php`
+* Configure `config.php` with correct paths.
+* Initialise the database with `config/init.sql`
+
+
+## Apache setup
+
+Example:
+
+
+The Alias section is the important one.
+
+	Alias /simplesaml "/var/simplesamlphp-foodle/www"
+	Alias /res "/home/www/foodl.org/www/res"
+	Alias / /home/www/foodl.org/www/index.php/
+
+
+

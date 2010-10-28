@@ -18,7 +18,7 @@ $config = array (
 	/*
 	 * Languages available and what language is default
 	 */
-	'language.available'	=> array('en', 'no', 'nn', 'da', 'sv', 'nl', 'de', 'es', 'sl', 'hr'),
+	'language.available'	=> array('en', 'no', 'nn', 'da', 'sv', 'fi', 'nl', 'de', 'es', 'sl', 'hr'),
 	'language.default'	  => 'en',
 	
 	'auth' => 'default-sp',
@@ -31,6 +31,10 @@ $config = array (
 	
 	// E-mails from Foodle to end-users is sent from this address.
 	'fromAddress' => 'no-reply@foodle.example.org',
+	
+	'getsatisfaction.key' => 'xxx',
+	'getsatisfaction.secret' => 'xxx',
+	
 	
 	'db.host'	=> 'sql.example.org',
 	'db.name'	=> 'feidefoodle',
