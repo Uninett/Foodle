@@ -63,6 +63,12 @@ try {
 			$page->show();
 			break;
 
+		case 'getsatisfaction':
+			$page = new Pages_PageGS($config, $parameters);
+			$page->show();
+
+			break;
+
 		case 'create':
 			$page = new Pages_PageCreate($config, $parameters);
 			$page->show();

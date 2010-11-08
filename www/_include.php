@@ -50,6 +50,7 @@ require_once($THISPATH . 'lib/Data/ActivityStream.php');
 
 // Pages
 require_once($THISPATH . 'lib/Pages/Page.php');
+require_once($THISPATH . 'lib/Pages/PageGS.php');
 require_once($THISPATH . 'lib/Pages/PageFoodle.php');
 require_once($THISPATH . 'lib/Pages/Debug.php');
 require_once($THISPATH . 'lib/Pages/PageFront.php');

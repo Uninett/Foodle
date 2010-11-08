@@ -2,7 +2,7 @@
   require_once("OAuth.php");
   
   class FastPass {
-    public static $domain = "getsaitsfaction.com";
+    public static $domain = "tjenester.ecampus.no";
     
     public static function url($key, $secret, $email, $name, $uid, $is_secure=false, $additionalFields=array()) {
       $consumer = new OAuthConsumer($key, $secret);
