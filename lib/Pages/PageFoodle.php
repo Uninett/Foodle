@@ -171,8 +171,9 @@ class Pages_PageFoodle extends Pages_Page {
 		$t->data['showsupport'] = TRUE;
 
 		
-#		$t->data['customDistribute'] = new UNINETTDistribute($this->foodle, $t);
-
+		if (in_array($this->user->userid, array('andreas@rnd.feide.no', 'kulvik@rnd.feide.no'))) {
+			$t->data['customDistribute'] = new UNINETTDistribute($this->foodle, $t);
+		}
 		
 		$t->data['debugUser'] = $this->user->debug();
 		$t->data['debugFoodle'] = $this->foodle->debug();
