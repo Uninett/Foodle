@@ -1,20 +1,141 @@
-Installing Foodle
-=================
+# Installing Foodle
+
+Third party installs are NOT prioritised with Foodle (yet). Instead people are encourage to use the central foodl.org service. Contact Andreas for more details.
+
+
+* Setup simplesamlphp
+* Configure the path to simplesamlphp in `www/_include.php`
+* Configure `config.php` with correct paths.
+* Initialise the database with `config/init.sql`
 
 
 
-First, install SimpleSAMLphp somewhere, and follow the installation instructions of simpleSAMLphp. In this example, let say you install it in `/var/simplesamlphp`.
+## Download the stuff you need
 
-Before continuing, please ensure that the example login page on your simpleSAMLphp installation is working.
+In this example, we install Foodle in `/home/www/deploy.foodl.org`.
 
-  * [Consult the simpleSAMLphp documentation on how to install simpleSAMLphp as a service provider](http://rnd.feide.no/view/simplesamlphpdocs)
+	mkdir /home/www/deploy.foodl.org
+	cd /home/www/deploy.foodl.org
+	svn checkout http://foodle.googlecode.com/svn/trunk/ foodle
 
-Preparing the attributes in simpleSAMLphp
------------------------------------------
+Install SimpleSAMLphp:
 
-You need to setup simpleSAMLphp to translate the attribute names from your IdP to match the one expected by Foodle.
+* [Install simpleSAMLphp](http://simplesamlphp.org/docs/1.6/simplesamlphp-install)
+* [SimpleSAMLphp Service Provider QuickStart](http://simplesamlphp.org/docs/1.6/simplesamlphp-sp)
 
-This will diffed depending on which naming scheme that is used by your IdP.
+If you install simpleSAMLphp from subversion:
+
+	svn checkout http://simplesamlphp.googlecode.com/svn/trunk/ simplesamlphp
+
+
+
+
+## Apache setup
+
+Configure apache.
+
+Example:
+
+	<VirtualHost *:80>
+		ServerName deploy.foodl.org
+		
+		Alias /simplesaml "/home/www/deploy.foodl.org/simplesamlphp/www"
+		Alias /res "/home/www/deploy.foodl.org/foodle/www/res"
+		Alias / /home/www/deploy.foodl.org/foodle/www/index.php/
+		
+		ErrorLog /var/log/apache2/error-deploy.foodl.org.log
+		CustomLog /var/log/apache2/access-deploy.foodl.org.log combined
+	</VirtualHost>
+
+
+## Setup the database
+
+First create a user and a database in mysql:
+
+	mysql -u root -h sql.foo.org
+	create database feidefoodle_deploytest;
+	GRANT ALL PRIVILEGES ON feidefoodle_deploytest.* TO "dbuser"@"%" IDENTIFIED BY "xxxxxxx";
+	flush privileges;
+
+Initialise the table definitions:
+
+	mysql -u dbuser -h sql.foo.org -p feidefoodle_deploytest < foodle/config/init.sql
+
+
+## Fix the configuration
+
+
+First; you need to edit `foodle/www/_include.php` and set the path to your simplesamlphp installation:
+
+	$SIMPLESAMLPATH = '/home/www/deploy.foodl.org/simplesamlphp/';
+
+Then, make the Foodle config file:
+
+	cp foodle/config/config-template.php foodle/config/config.php
+
+And edit it.
+
+First, fix the paths:
+
+	'simplesamlphpdir'   => '/home/www/deploy.foodl.org/simplesamlphp',
+	'basedir'            => '/home/www/deploy.foodl.org/foodle',
+
+Then setup the database connection details:
+
+	'db.host'	=> 'sql.foo.org',
+	'db.name'	=> 'feidefoodle_deploytest',
+	'db.user'	=> 'dbuser',
+	'db.pass'	=> 'xxxxxxxx',
+
+Also, you may want to configure your user ID as an administrator:
+
+	'adminUsers' => array('andreas@rnd.feide.no', 'andreas@uninett.no'),
+
+
+
+## Test the installation
+
+Go to the installed URL, in this example: `http://deploy.foodl.org/`.
+
+You should see a page like this:
+
+![](http://clippings.erlang.no/ZZ5CB3C973.jpg)
+
+
+
+## Test authentication
+
+Then, next step is to test if the login works. First, I reccomend testing with Feide OpenIdP.
+
+Then the support integration with GetSatisfaction requires a key and a secret. That is a problem for third party installations; I have no solution for that yet. Probably I should add an config option to turn of integration with GetSatisfaction.
+
+
+## Configuring attributes
+
+One thing that you probably MUST think about and configure is attribute names.
+
+Foodle will need this attributes form simpleSAMLphp:
+
+One of these is required for user ID:
+
+* eduPersonTargetedID
+* eduPersonPrincipalName
+* mail
+
+One of these is highly reccomended for name:
+
+* smartname-fullname
+* displayName
+* cn
+
+For calendar integration, free busy url goes in this attribute:
+
+* freebusyurl
+
+Reccomended attribute:
+
+* mail
+
 
 If the IdP is using the MACE oid naming scheme, then proceed as this:
 
@@ -41,87 +162,22 @@ As you can see, I have also enabled a filter called `SmartName`. If you add this
 
 This filter will generate a new attribute named smartname-fullname (if I remember correctly). This is useful because it differ from IdP to IdP what attributes are available, and while at some IdP you can create the fullname by concatenating `givenName` + `sn`, at another IdP only `cn` is available. Take a look at the source code of this module if you are interested in how it works.
 
-After you can setup attribute name translation, visit the SP example login page at the installation page of your installation, and verify that you are logged in with the following attributes:
-
-  - cn
-  - givenName
-  - sn
-  - eduPersonPrincipalName
-  - eduPersonTargetedID
-  - mail
-  - displayName
-
-or at least a sensible subset of them.
-
-
-Install the source code
------------------------
-
-Check out the source code from google code: 
-
- - <http://code.google.com/p/foodle/source/checkout>
-
-Let's say you install the code in `/var/www/foodle`. Then you need to set the `DocumentRoot` on the VHOST in your apache configuration to point at: `/var/www/foodle/www`.
+After you can setup attribute name translation, visit the SP example login page at the installation page of your installation, and verify that you are logged in with the needed attributes.
 
 
 
-Setting up the database
------------------------
+### If it does not work as expected
 
-Foodle is prepared for use with MySQL, but should hopefully work with other databases too without too much tweaking.
+If the page is blank, look in the Apache error log:
 
- - Create the database, ensure that the access control allow the web server to access it.
- - Initialize the database with the `init.sql` script.
+	tail -f /var/log/apache2/error-deploy.foodl.org.log 
 
+If it shows an exception, try to understand what the error message is saying.
 
-Database schema:
+If you stil have problems, you may ask on the Foodle support forum:
 
-	CREATE TABLE def (
-		id varchar(100) NOT NULL PRIMARY KEY,
-		name tinytext,
-		descr text,
-		columns text,
-		
-		owner text,
-		created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-		updated TIMESTAMP null DEFAULT null,
-		expire DATETIME null,
-		maxdef text,
-		anon tinytext
-	);
-	
-	CREATE TABLE entries (
-		id int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-		foodleid varchar(100) NOT NULL,
-		userid tinytext,
-		username tinytext,
-		response tinytext,
-		
-		created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-		updated TIMESTAMP null DEFAULT null,
-		
-		notes text,
-		email text
-	);
-	
-	CREATE TABLE discussion (
-		id int NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-		foodleid varchar(100) NOT NULL,
-		username tinytext,
-		message text,
-
-		created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-	);
+  * <http://tjenester.ecampus.no/ecampus/products/ecampus_foodle>
 
 
 
-Creating the configuration file
--------------------------------
-
-Go into the `config/` directory of Foodle, and copy the `config-template.php` to `config.php`.
-
-Then edit the `config.php`.
-
- - Add the path to your simpleSAMLphp installation.
- - Add database connection information.
 
