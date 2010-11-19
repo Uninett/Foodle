@@ -52,6 +52,25 @@ input.fscoli {
 /*	display: table-cell;*/
 }
 
+
+input.placeholdertemp {
+	color: #999;
+}
+
+div.columnsetupdates input.fcoli {
+	background-image: url(../calendar.png); 
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+div.columnsetupdates input.fscoli {
+	background-image: url(../clock.png); 
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+
+
+
 a.minibutton {
 	border-bottom: 1px dotted #ddd;
 	color: #999;

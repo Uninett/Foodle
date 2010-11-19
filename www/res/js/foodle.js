@@ -15,6 +15,7 @@ function addOneNewColumn() {
 	template.find("input.hasDatepicker").removeClass("hasDatepicker");
 
 	template.find("a.onemoreoption").click(addOneMoreOption);
+//	template.f("a.onemoreoption").click(addOneMoreOption);
 
 	template.insertBefore(container.find("a.onemorecolumn"));
 
@@ -51,9 +52,10 @@ function duplicateTimeSlots() {
 	
 	for(var i = 1; i <= nofields; i++) {
 		container.eq(i).find("div.subcolcontainer").empty().append(
-			container.eq(0).find("div.subcolcontainer").clone().unwrap()
+			container.eq(0).find("div.subcolcontainer").clone()
 		);
 		container.eq(i).find("a.duplicate").detach();		
+		container.eq(i).find("a.onemoreoption").click(addOneMoreOption);
 	}
 	prepareDateColumns();
 	updatePreview();
@@ -211,6 +213,9 @@ function prepareDateColumns() {
 	$("div.fcol input").blur(function () {
 		updatePreview();
 	});
+	
+	$("div.columnsetupdates input.fscoli").placeholder({'className': 'placeholdertemp'});
+	$("div.columnsetupdates input.fcoli").placeholder({'className': 'placeholdertemp'});
 
 }
 
@@ -229,6 +234,10 @@ $(document).ready(function() {
 	$("a.buttonUpdatePreview").click(updatePreview);
 	$("a.onemorecolumn").click(addOneNewColumn);
 	$("a.onemoreoption").click(addOneMoreOption);
+	
+	$("div.columnsetupgeneric input.fscoli").placeholder({'className': 'placeholdertemp'});
+	$("div.columnsetupgeneric input.fcoli").placeholder({'className': 'placeholdertemp'});
+
 	
 	$("a.ac").
 		click(function(event){
