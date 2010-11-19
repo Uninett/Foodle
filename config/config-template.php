@@ -18,7 +18,7 @@ $config = array (
 	/*
 	 * Languages available and what language is default
 	 */
-	'language.available'	=> array('en', 'no', 'nn', 'da', 'sv', 'fi', 'nl', 'de', 'es', 'sl', 'hr'),
+	'language.available'	=> array('en', 'no', 'nn', 'da', 'sv', 'fi', 'fr', 'nl', 'de', 'es', 'sl', 'hr'),
 	'language.default'	  => 'en',
 	
 	'auth' => 'default-sp',
