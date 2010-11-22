@@ -33,6 +33,9 @@ try {
 		case 'timezone':
 			require('timezone.php');
 			break;
+		case 'mail':
+			require('mail.php');
+			break;
 
 	
 		case 'foodle':

@@ -32,6 +32,7 @@ require_once($THISPATH . 'lib/RSS.class.php');
 
 require_once($THISPATH . 'lib/UNINETTDistribute.php');
 
+require_once($THISPATH . 'lib/EMail.php');
 require_once($THISPATH . 'lib/XHTMLCol.php');
 require_once($THISPATH . 'lib/XHTMLEmbed.php');
 require_once($THISPATH . 'lib/XHTMLResponseEntry.php');

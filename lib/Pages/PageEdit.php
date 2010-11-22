@@ -9,12 +9,44 @@ class Pages_PageEdit extends Pages_PageFoodle {
 		$this->timezone = new TimeZone();
 	}
 	
+	
+	protected function sendMail() {
+		$url = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier;
+		$name = $this->foodle->name;
+		$to = $this->user->email;
+		$mail = '
+		
+		<p>Hi, your new Foodle named <i>' . htmlspecialchars($name) . '</i> was successfully updated.</p>
+		
+		<p>You may visit the Foodle link below to respond to the foodle or to view other responses:
+		<ul>
+			<li><a href="' . $url . '?tab=0">Response to this Foodle</a></li>
+			<li><a href="' . $url . '?tab=1">View responses of other participants</a></li>
+		</ul></p>
+		
+		<p>If you want so invite others to respond to this Foodle, you should share the link below:</p>
+		
+		<pre><code>' . htmlspecialchars($url) . '</code></pre>
+		
+		';
+		$mailer = new Foodle_EMail($to, 'Updated foodle: ' . htmlspecialchars($name), 'Foodl.org <no-reply@foodl.org>');
+		$mailer->setBody($mail);
+		$mailer->send();
+		
+		#echo '<pre>'; print_r($mail); exit;
+
+	}
+	
 
 	protected function saveChanges() {
 
 		$this->foodle->updateFromPost($this->user);
 		#echo '<pre>'; print_r($foodle); exit;
 		$this->foodle->save();
+		
+		if (isset($this->user->email)) {
+			$this->sendMail();
+		}
 		
 		$newurl = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier . '?tab=3';
 		SimpleSAML_Utilities::redirect($newurl);

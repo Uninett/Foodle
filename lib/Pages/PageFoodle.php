@@ -73,6 +73,35 @@ class Pages_PageFoodle extends Pages_Page {
 	}
 
 	
+	protected function sendMail() {
+		$url = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier;
+		$name = $this->foodle->name;
+		$to = $this->user->email;
+		$mail = '
+		
+		<p>Hi, your response to the Foodle named <i>' . htmlspecialchars($name) . '</i> was successfully stored.</p>
+		
+		<p>You may re-enter the Foodle link below to update your response, and view other responses:
+		<ul>
+			<li><a href="' . $url . '?tab=0">Edit your response for this Foodle</a></li>
+			<li><a href="' . $url . '?tab=1">View responses of other participants</a></li>
+		</ul></p>
+
+		<h2>Did you know?</h2>
+		<p>You may also create new Foodles on your own, and invite others to respond.
+		<ul>
+			<li><a href="http://foodl.org">Go to Foodl.org to create a new Foodle.</a></li>
+		</ul></p>
+		
+		';
+		$mailer = new Foodle_EMail($to, 'Foodle: ' . htmlspecialchars($name), 'Foodl.org <no-reply@foodl.org>');
+		$mailer->setBody($mail);
+		$mailer->send();
+		
+		#echo '<pre>'; print_r($mail); exit;
+
+	}
+	
 	// Save the users response..
 	protected function setResponse() {
 		$myresponse = $this->foodle->getMyResponse($this->user);
@@ -80,6 +109,10 @@ class Pages_PageFoodle extends Pages_Page {
 		
 		#echo '<pre>Setting manual:'; print_r($myresponse); exit;
 		$myresponse->save();
+		
+		if (isset($this->user->email)) {
+			$this->sendMail();
+		}
 		
 		SimpleSAML_Utilities::redirect(SimpleSAML_Utilities::selfURLNoQuery() . '?tab=1' );
 	}
