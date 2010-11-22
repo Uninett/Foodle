@@ -12,7 +12,7 @@
 	<!-- JQuery -->
 	<script type="text/javascript" src="/res/js/jquery.js"></script>
 	<script type="text/javascript" src="/res/js/jquery-ui.js"></script>
-<!-- 	<script type="text/javascript" src="/res/js/jquery-placeholder.js"></script> -->
+	<script type="text/javascript" src="/res/js/jquery-placeholder.js"></script>
 	<link rel="stylesheet" media="screen" type="text/css" href="/res/js/uitheme/jquery-ui-themeroller.css" />
 	
 	

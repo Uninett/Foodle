@@ -116,18 +116,18 @@ function getDefinitionString() {
 	
 	/* Foreach column header of the selected type */
 	// $("div." + columntypeclass).fadeOut().fadeIn();
-	$("div." + columntypeclass + " div.fcol input.fcoli[value != '']").each(function(i){
+	$("div." + columntypeclass + " div.fcol input.fcoli[value != '']").not("input[class~='placeholdertemp']").each(function(i){
 		
 		/* Define an array used for all the sub-item texts.. */
 		var tdef = Array();
 		/* Find all the sub-items below this column header, and push the content to the array */
-		$("div." + columntypeclass + " div.fcol").eq(i).find("div.subcolcontainer input[value != '']").each(function(ii){
-			tdef.push( $("div." + columntypeclass + " div.fcol").eq(i).find("div.subcolcontainer input[value != '']").eq(ii).attr('value').replace(/,/, ";") );
+		$("div." + columntypeclass + " div.fcol").eq(i).find("div.subcolcontainer input[value != '']").not("input[class~='placeholdertemp']").each(function(ii){
+			tdef.push( $("div." + columntypeclass + " div.fcol").eq(i).find("div.subcolcontainer input[value != '']").not("input[class~='placeholdertemp']").eq(ii).attr('value').replace(/,/, ";") );
 		});
 		if (tdef.length > 0) {
-			defs.push( $("div." + columntypeclass + " div.fcol").eq(i).find('input.fcoli').attr('value').replace(/,/, ";") + '(' + tdef.join(',') + ')' );
+			defs.push( $("div." + columntypeclass + " div.fcol").not("input[class~='placeholdertemp']").eq(i).find('input.fcoli').attr('value').replace(/,/, ";") + '(' + tdef.join(',') + ')' );
 		} else {
-			defs.push( $("div." + columntypeclass + " div.fcol").eq(i).find('input.fcoli').attr('value').replace(/,/, ";") );
+			defs.push( $("div." + columntypeclass + " div.fcol").not("input[class~='placeholdertemp']").eq(i).find('input.fcoli').attr('value').replace(/,/, ";") );
 		}
 	});
 	var defstr = defs.join('|');
@@ -214,8 +214,8 @@ function prepareDateColumns() {
 		updatePreview();
 	});
 	
-// 	$("div.columnsetupdates input.fscoli").placeholder({'className': 'placeholdertemp'});
-// 	$("div.columnsetupdates input.fcoli").placeholder({'className': 'placeholdertemp'});
+	$("div.columnsetupdates input.fscoli").placeholder({'className': 'placeholdertemp'});
+	$("div.columnsetupdates input.fcoli").placeholder({'className': 'placeholdertemp'});
 
 }
 
@@ -235,8 +235,8 @@ $(document).ready(function() {
 	$("a.onemorecolumn").click(addOneNewColumn);
 	$("a.onemoreoption").click(addOneMoreOption);
 	
-// 	$("div.columnsetupgeneric input.fscoli").placeholder({'className': 'placeholdertemp'});
-// 	$("div.columnsetupgeneric input.fcoli").placeholder({'className': 'placeholdertemp'});
+	$("div.columnsetupgeneric input.fscoli").placeholder({'className': 'placeholdertemp'});
+	$("div.columnsetupgeneric input.fcoli").placeholder({'className': 'placeholdertemp'});
 
 	
 	$("a.ac").
