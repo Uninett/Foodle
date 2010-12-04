@@ -246,6 +246,22 @@ class FoodleDBConnector {
 				
 				#$newResponse->icalfill();
 				
+				$nof = $foodle->getNofColumns();
+				if ($newResponse->response['type'] == 'manual' && count($newResponse->response['data']) !== $nof) {
+						
+					$newResponse->invalid = TRUE;
+					if (count($newResponse->response['data']) < $nof) {
+						$remaining = $nof - count($newResponse->response['data']);
+						for($i = 0; $i < $remaining; $i++) {
+							$newResponse->response['data'][] = NULL;
+						}
+					}
+					if (count($newResponse->response['data']) > $nof) {
+						$newResponse->response['data'] = array_slice($newResponse->response['data'], 0, $nof);
+					}
+					//	echo '<pre>'; print_r($newResponse); exit;
+				}
+				
 				$responses[$row['userid']] = $newResponse;
 			}
 		}

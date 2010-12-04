@@ -8,6 +8,8 @@ class XHTMLResponseEntry {
 	
 	public static function showEditable(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response, $editable = TRUE, Data_FoodleResponse $responsecal = NULL, $authenticated = TRUE) { 
 		
+#		echo '<tr id="responserowmanual" class="you"><pre>'; print_r($response); exit;
+		
 		echo '<tr id="responserowmanual" class="you">';
 		echo '<td> </td>';
 		
@@ -57,8 +59,10 @@ class XHTMLResponseEntry {
 			foreach ($response->response['data'] AS $no => $entry) {
 				if ($entry == '1') {
 					echo '<td class="yes center"><input type="checkbox" name="myresponse[]" checked="checked" value="' . $no . '" /></td>';
-				} else {
+				} elseif($entry == '0') {
 					echo '<td class="no center"><input type="checkbox" name="myresponse[]" value="' . $no . '"  /></td>';
+				} else {
+					echo '<td class="no center grey"><input type="checkbox" name="myresponse[]" value="' . $no . '"  /></td>';
 				}
 			}
 		}
@@ -173,6 +177,12 @@ class XHTMLResponseEntry {
 		if (!empty($response->email)) {
 			echo '<img style="float: right" alt="' . htmlspecialchars($response->email) . '" title="' . htmlspecialchars($response->email) . '" class="" src="/res/mail16.png" />';
 		}
+		if ($response->invalid) {
+			echo '<img style="float: right" 
+				alt="Entry was made with a different number of columns. This might happen when the Foodle was edited after this user responded."
+				title="Entry was made with a different number of columns. This might happen when the Foodle was edited after this user responded." class="" src="/res/error.png" />';
+		}
+
 		$userid = htmlspecialchars($response->userid);
 		$username = preg_replace('/ /', ' ', $response->username);
 		
@@ -205,13 +215,17 @@ class XHTMLResponseEntry {
 				}
 			}
 		} else {
+		
 			foreach ($response->response['data'] AS $no => $entry) {
 				if ($entry == '1') {
 					echo '<td class="yes center"><img class="yesimg" alt="No" src="/res/yes.png" /></td>';
-				} else {
+				} elseif ($entry == '0') {
 					echo '<td class="no center"><img class="yesimg" alt="Yes" src="/res/no2trans.png" /></td>';
+				} else {
+					echo '<td class="no center grey"><img class="yesimg" alt="Invalid entry" src="/res/error.png" /></td>';
 				}
 			}
+
 		}
 		
 		

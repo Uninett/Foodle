@@ -36,6 +36,9 @@ class Data_FoodleResponse {
 
 	public $loadedFromDB = FALSE;
 	
+	// this is set to TRUE if the number of columns does not match...
+	public $invalid = FALSE;
+	
 	private $db;
 	
 	function __construct(FoodleDBConnector $db, Data_Foodle $foodle) {

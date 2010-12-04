@@ -388,6 +388,11 @@ td.yes {
 	color: white;
 	text-align: center;
 }
+td.yes.grey,td.no.grey {
+	background: #ccc;
+	color: white;
+	text-align: center;
+}
 td.no {
 	text-align: center;
 	background: #edd;
