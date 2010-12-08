@@ -211,6 +211,7 @@ $langnames = array(
 	'fr' => 'Français',
 	'nl' => 'Nederlands',
 	'lb' => 'Luxembourgish', 
+	'cs' => 'čeština',
 	'sl' => 'Slovenščina', // Slovensk
 	'hr' => 'Hrvatski', // Croatian
 	'hu' => 'Magyar', // Hungarian
