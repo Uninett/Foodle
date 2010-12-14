@@ -13,7 +13,7 @@ class XHTMLEmbed {
 		
 		$counts = $foodle->calculateColumns();
 		
-
+#		echo '<pre>'; print_r($coldef); exit;
 
 		
 		$text .= '<table>';
@@ -25,14 +25,16 @@ class XHTMLEmbed {
 
 		$colno = 0;
 		foreach($coldef AS $row) {
-			$text .= '<tr>' . "\n";
+			$text .= '<tr style="">' . "\n";
 			foreach($row AS $col) {
+				$colspan =  ((isset($col['colspan']) ? ' colspan="' . $col['colspan'] . '"' : ''));
 				$rowspan = ((isset($col['rowspan']) ? ' rowspan="' . $col['rowspan'] . '"' : ''));
-				$text .= ' <td' . $rowspan . ' style="text-align: right; vertical-align: top">' . $col['title'] . '</td>' . "\n";
+				$text .= ' <td' . $rowspan . ' ' . $colspan . ' style="text-align: left; vertical-align: top">' . $col['title'] . '</td>' . "\n";
 
 			}
 
 			$style = '';
+#			$colspan =  ((isset($col['colspan']) ? ' rowspan="' . $col['rowspan'] . '"' : ''));
 			if (isset($counts[$colno]['style'])) $style = ' class="' . $counts[$colno]['style'] . '"';
 			$text .= ' <td' . $style . ' style="text-align: right; vertical-align: top">' . $counts[$colno]['count'] . '</td>' . "\n";
 			$colno++;

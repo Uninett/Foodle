@@ -336,6 +336,8 @@ class Data_Foodle {
 		$col = $this->columns;
 		$headers = array();
 		
+#		echo '<pre>'; print_r($col); exit;
+		
 		foreach($col AS $c) {
 			
 			$newRow = array();
@@ -355,7 +357,7 @@ class Data_Foodle {
 
 				}
 			} else {
-				$headers[] =  array(array('title' => $c['title']));
+				$headers[] =  array(array('title' => $c['title'], 'colspan' => 2));
 			}
 		}
 		return $headers;
