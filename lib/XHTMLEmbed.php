@@ -19,7 +19,7 @@ class XHTMLEmbed {
 		$text .= '<table>';
 		
 		$text .= '<thead>';
-		$text .= '<tr><th colspan="' . $coldepth . '">Option</th><th>Number of responses</th></tr>';
+		$text .= '<tr><th colspan="2">Option</th><th>Number of responses</th></tr>';
 		$text .= '</thead>';
 		$text .= '<tbody>' . "\n";
 
