@@ -30,7 +30,7 @@ class UNINETTDistribute {
 		);
 
 		echo('
-			<form action="http://lab.nymedia.no/uninett/addfoodle" method="get" >
+			<form action="https://eureka.uninett.no/addfoodle" method="get" >
 				<input type="hidden" name="id" value="' . htmlspecialchars($this->getId()) . '" />
 				<input type="hidden" name="name" value="' . htmlspecialchars($this->getTitle()) . '" />
 				<input type="submit" value="'  . 
