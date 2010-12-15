@@ -170,8 +170,9 @@
 
 			<h2><?php echo $this->t('moreinfo'); ?></h2>
 			<ul>
+				<li><a href="https://rnd.feide.no/software/foodle/"><?php echo $this->t('foodlesoftware'); ?></a></li>
+				<li><a href="https://rnd.feide.no/software/foodle/foodle-privacy-policy/"><?php echo $this->t('privacypolicy'); ?></a></li>
 				<li><a href="http://rnd.feide.no"><?php echo $this->t('rndblog'); ?></a></li>
-				<li><a href="http://rnd.feide.no/content/foodle-users-guide"><?php echo $this->t('usermanual'); ?></a></li>
 			</ul>
 
 
