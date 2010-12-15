@@ -1505,5 +1505,14 @@
 		"es": "Seleccione su zona horaria",
 		"nn": "Vel din tidssone",
 		"cs": "Zvolte svou \u010dasovou z\u00f3nu"
+	},
+	"foodlesoftware": {
+		"no": "Programvaren Foodle"
+	},
+	"privacypolicy": {
+		"no": "Personvern i Foodle"
+	},
+	"support": {
+		"no": "Hjelp"
 	}
 }
