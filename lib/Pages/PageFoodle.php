@@ -111,7 +111,10 @@ class Pages_PageFoodle extends Pages_Page {
 		$myresponse->save();
 		
 		if (isset($this->user->email)) {
-			$this->sendMail();
+			/* 
+				Disabled until we get a user profile where people can unset the preference for email notifications.
+			*/
+		//	$this->sendMail();
 		}
 		
 		SimpleSAML_Utilities::redirect(SimpleSAML_Utilities::selfURLNoQuery() . '?tab=1' );
