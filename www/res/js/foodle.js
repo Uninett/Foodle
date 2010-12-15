@@ -214,7 +214,7 @@ function prepareDateColumns() {
 		updatePreview();
 	});
 	
-//	$("div.columnsetupdates input.fscoli").placeholder({'className': 'placeholdertemp'});
+	$("div.columnsetupdates input.fscoli").placeholder({'className': 'placeholdertemp'});
 //	$("div.columnsetupdates input.fcoli").placeholder({'className': 'placeholdertemp'});
 
 }
