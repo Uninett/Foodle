@@ -193,7 +193,10 @@ class Pages_PageFoodle extends Pages_Page {
 		$t->data['loginurl'] = $this->auth->getLoginURL();
 		$t->data['logouturl'] = $this->auth->getLogoutURL('/');
 		
-		$isAdmin = ($this->user->userid == $this->foodle->owner) || ($this->user->userid == 'andreas@uninett.no') || ($this->user->userid == 'andreas@rnd.feide.no');
+		$isAdmin = ($this->user->userid == $this->foodle->owner) || 
+			($this->user->userid == 'andreas@uninett.no') || 
+			($this->user->userid == 'andreas@rnd.feide.no') 
+			;
 		
 		$t->data['owner'] = $isAdmin;
 		$t->data['ownerid'] = $this->foodle->owner;
@@ -205,9 +208,8 @@ class Pages_PageFoodle extends Pages_Page {
 		}
 		
 		$t->data['showsupport'] = TRUE;
-
 		
-		if (in_array($this->user->userid, array('andreas@rnd.feide.no', 'kulvik@rnd.feide.no'))) {
+		if (in_array($this->user->userid, array('andreas@rnd.feide.no', 'kulvik@rnd.feide.no', 'mprestvik@uninett.no', 'andreas@uninett.no'))) {
 			$t->data['customDistribute'] = new UNINETTDistribute($this->foodle, $t);
 		}
 		
