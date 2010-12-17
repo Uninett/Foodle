@@ -31,7 +31,10 @@
 			$("#foodletabs").bind('tabsshow',function(event, ui) {
 	            window.location = ui.tab;
 	        });
-			window.onhashchange = selectTab;
+			if (selectTab) {
+				window.onhashchange = selectTab;				
+			}
+
 			
 			$("div#responsetyperadio").buttonset({ icons: {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'} });
 			<?php
