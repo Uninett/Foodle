@@ -37,7 +37,7 @@ class Pages_PageCreate extends Pages_Page {
 			$this->sendMail($foodle);
 		}
 		
-		$newurl = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier . '?tab=3';
+		$newurl = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier . '#distribute';
 		SimpleSAML_Utilities::redirect($newurl);
 		exit;
 
@@ -53,8 +53,8 @@ class Pages_PageCreate extends Pages_Page {
 		
 		<p>You may visit the Foodle link below to respond to the foodle or to view other responses:
 		<ul>
-			<li><a href="' . $url . '?tab=0">Response to this Foodle</a></li>
-			<li><a href="' . $url . '?tab=1">View responses of other participants</a></li>
+			<li><a href="' . $url . '">Response to this Foodle</a></li>
+			<li><a href="' . $url . '#responses">View responses of other participants</a></li>
 		</ul></p>
 		
 		<p>If you want so invite others to respond to this Foodle, you should share the link below:</p>

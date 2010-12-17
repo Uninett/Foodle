@@ -20,8 +20,8 @@ class Pages_PageEdit extends Pages_PageFoodle {
 		
 		<p>You may visit the Foodle link below to respond to the foodle or to view other responses:
 		<ul>
-			<li><a href="' . $url . '?tab=0">Response to this Foodle</a></li>
-			<li><a href="' . $url . '?tab=1">View responses of other participants</a></li>
+			<li><a href="' . $url . '">Response to this Foodle</a></li>
+			<li><a href="' . $url . '#responses">View responses of other participants</a></li>
 		</ul></p>
 		
 		<p>If you want so invite others to respond to this Foodle, you should share the link below:</p>
@@ -48,7 +48,7 @@ class Pages_PageEdit extends Pages_PageFoodle {
 			$this->sendMail();
 		}
 		
-		$newurl = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier . '?tab=3';
+		$newurl = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier . '#distribute';
 		SimpleSAML_Utilities::redirect($newurl);
 		exit;
 	}

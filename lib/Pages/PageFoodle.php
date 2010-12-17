@@ -83,8 +83,8 @@ class Pages_PageFoodle extends Pages_Page {
 		
 		<p>You may re-enter the Foodle link below to update your response, and view other responses:
 		<ul>
-			<li><a href="' . $url . '?tab=0">Edit your response for this Foodle</a></li>
-			<li><a href="' . $url . '?tab=1">View responses of other participants</a></li>
+			<li><a href="' . $url . '">Edit your response for this Foodle</a></li>
+			<li><a href="' . $url . '#responses">View responses of other participants</a></li>
 		</ul></p>
 
 		<h2>Did you know?</h2>
@@ -117,7 +117,7 @@ class Pages_PageFoodle extends Pages_Page {
 		//	$this->sendMail();
 		}
 		
-		SimpleSAML_Utilities::redirect(SimpleSAML_Utilities::selfURLNoQuery() . '?tab=1' );
+		SimpleSAML_Utilities::redirect(SimpleSAML_Utilities::selfURLNoQuery() . '#responses' );
 	}
 	
 	// Save the users response..
@@ -128,13 +128,13 @@ class Pages_PageFoodle extends Pages_Page {
 
 		#echo '<pre>Setting icalendar:'; print_r($myresponse); exit;
 		$myresponse->save();
-		SimpleSAML_Utilities::redirect(SimpleSAML_Utilities::selfURLNoQuery() . '?tab=1' );
+		SimpleSAML_Utilities::redirect(SimpleSAML_Utilities::selfURLNoQuery() . '#responses' );
 	}
 
 
 	protected function addDiscussionEntry() {
 		$this->fdb->addDiscussionEntry($this->foodle, $this->user, $_REQUEST['message']);
-		SimpleSAML_Utilities::redirect(SimpleSAML_Utilities::selfURLNoQuery() . '?tab=2' );
+		SimpleSAML_Utilities::redirect(SimpleSAML_Utilities::selfURLNoQuery() . '#discussion' );
 	}
 	
 	// Process the page.
