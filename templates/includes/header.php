@@ -27,13 +27,12 @@
 	
 		$(document).ready(function() {
 
-			<?php
-				$tab = 0;
-				if (isset($this->data['tab'])) $tab = $this->data['tab'];
-				echo '$("#foodletabs").tabs({ selected: ' . $tab . ' });';
-				#echo  '$("div#foodletabs").hide();';
-	
-			?>
+			$("#foodletabs").tabs();
+			$("#foodletabs").bind('tabsshow',function(event, ui) {
+	            window.location = ui.tab;
+	        });
+			window.onhashchange = selectTab;
+			
 			$("div#responsetyperadio").buttonset({ icons: {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'} });
 			<?php
 			if ($this->data['calenabled']) {

@@ -1,4 +1,12 @@
-
+function selectTab() {
+	var opts = {};
+	$("#foodletabs ul li a").each(function(index) {
+		opts[$(this).attr('href').substring(1)] = index;
+	});
+	if (window.location.hash && opts[window.location.hash.substring(1)]) {
+		 $("#foodletabs").tabs('select', opts[window.location.hash.substring(1)]);
+	}
+}
 
 function addOneNewColumn() {
 	var columntypeclass = getColumntypeClass();
