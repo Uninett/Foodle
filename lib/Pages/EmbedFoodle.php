@@ -77,6 +77,20 @@ class Pages_EmbedFoodle extends Pages_PageFoodle {
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 			<title>Foodle</title>
+			<style type="text/css">
+				body {
+					font-family: Arial;					
+				}
+				table {
+					border: 1px solid #ccc;
+					border-collapse: collapse;
+					margin: .5em 0px;
+				}
+				table tr td {
+					padding: 3px 5px;
+					border: 1px solid #ccc;
+				}
+			</style>
 
 		</head>
 

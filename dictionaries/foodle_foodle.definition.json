@@ -370,5 +370,16 @@
 	},
 	"support": {
 		"en": "Support"
+	},
+	
+	"embed_header": {
+		"en": "Embed this Foodle on your site"
+	},
+	"embed_text1": {
+		"en": "Foodle allows you to embed an automatically updated summary of this Foodle including a link, by copying and pasting the sniplet below to your site (if it allows you to post HTML input)."
+	},
+	"embed_api": {
+		"en": "Foodle also provides a developer REST API for developers that would like to include Foodle support into third party applications. Contact UNINETT for more information about this."
 	}
+	
 }

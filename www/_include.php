@@ -31,6 +31,7 @@ require_once($THISPATH . 'lib/FoodleUtils.php');
 require_once($THISPATH . 'lib/RSS.class.php');
 
 require_once($THISPATH . 'lib/UNINETTDistribute.php');
+require_once($THISPATH . 'lib/EmbedDistribute.php');
 
 require_once($THISPATH . 'lib/EMail.php');
 require_once($THISPATH . 'lib/XHTMLCol.php');

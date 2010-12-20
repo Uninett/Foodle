@@ -410,8 +410,10 @@ if ($this->data['showsharing']) {
 		'</div>');
 	echo( '<p>' . $this->t('sharing2') . '</p>');
 	
-	if (isset($this->data['customDistribute'])) {
-		$this->data['customDistribute']->show();
+	if (isset($this->data['customDistribute']) && count($this->data['customDistribute']) > 0) {	
+		foreach($this->data['customDistribute'] AS $cd) {
+			$cd->show();
+		}
 	}
 
 	echo '</div>';
