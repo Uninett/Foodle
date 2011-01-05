@@ -116,10 +116,14 @@ try {
 	$auth = new FoodleAuth();
 	$auth->requireAuth(TRUE);
 
-	
-	$email = $auth->getMail();
-	$userid = $auth->getUserID();
-	$name = $auth->getDisplayName();
+	try {
+		$email = $auth->getMail();
+		$userid = $auth->getUserID();
+		$name = $auth->getDisplayName();
+		
+	} catch (Exception $e) {
+		
+	}
 
 	$t = new SimpleSAML_XHTML_Template($config, 'foodleerror.php', 'foodle_foodle');
 	$t->data['bread'] = array(array('href' => '/' . $config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), array('title' => 'bc_errorpage'));
