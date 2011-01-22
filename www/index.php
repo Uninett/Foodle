@@ -45,14 +45,18 @@ try {
 				$rss->show();
 				break;				
 			} elseif(isset($_REQUEST['output']) && $_REQUEST['output'] == 'csv') {
-				
-
 				$csv = new Pages_CSVFoodle($config, $parameters);
 				$csv->show();
 				break;								
 			}
 		
 			$page = new Pages_PageFoodle($config, $parameters);
+			$page->show();
+			break;
+
+			
+		case 'delete':
+			$page = new Pages_PageDelete($config, $parameters);
 			$page->show();
 			break;
 			

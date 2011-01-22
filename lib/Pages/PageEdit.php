@@ -7,6 +7,8 @@ class Pages_PageEdit extends Pages_PageFoodle {
 		parent::__construct($config, $parameters);
 		
 		$this->timezone = new TimeZone();
+		
+		$this->foodle->acl($this->user, 'write');
 	}
 	
 	
@@ -42,6 +44,7 @@ class Pages_PageEdit extends Pages_PageFoodle {
 
 		$this->foodle->updateFromPost($this->user);
 		#echo '<pre>'; print_r($foodle); exit;
+		$this->foodle->acl($this->user, 'write');
 		$this->foodle->save();
 		
 		if (isset($this->user->email)) {

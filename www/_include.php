@@ -64,6 +64,7 @@ require_once($THISPATH . 'lib/Pages/CSVFoodle.php');
 
 require_once($THISPATH . 'lib/Pages/PageCreate.php');
 require_once($THISPATH . 'lib/Pages/PageEdit.php');
+require_once($THISPATH . 'lib/Pages/PageDelete.php');
 require_once($THISPATH . 'lib/Pages/PagePreview.php');
 
 require_once($THISPATH . 'lib/getsatisfaction/FastPass.php');

@@ -380,6 +380,14 @@
 	},
 	"embed_api": {
 		"en": "Foodle also provides a developer REST API for developers that would like to include Foodle support into third party applications. Contact UNINETT for more information about this."
-	}
-	
+	},
+	"delete": {
+		"en": "Delete"
+	},
+	"delete_this": {
+		"en": "Delete this Foodle"
+	},
+	"delete_confirm": {
+		"en": "Yes, I would like to delete this Foodle and associated responses. There is no way to restore the lost data."
+	}	
 }

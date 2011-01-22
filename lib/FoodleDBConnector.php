@@ -159,6 +159,26 @@ class FoodleDBConnector {
 		}
 	}
 	
+	private function execute($sql) {
+	
+		# echo '<pRE>SQL: ' . $sql . "\n\n" ; return;
+		$result = mysql_query($sql, $this->db);
+		if(!$result)
+			throw new Exception ("Could not successfully run query ($sql) fromDB:" . mysql_error());
+		return mysql_num_rows($result);
+	}
+	
+	public function deleteFoodle(Data_Foodle $foodle) {
+	
+		if (empty($foodle)) throw new Exception('deleteFoodle() not provided with a foodle to delete');
+		if (empty($foodle->identifier)) throw new Exception('deleteFoodle() asked to delete a foodle with an empty identifier');
+		
+		$this->execute("DELETE FROM discussion WHERE foodleid = '" . mysql_real_escape_string($foodle->identifier) . "'");
+		$this->execute("DELETE FROM entries WHERE foodleid = '" . mysql_real_escape_string($foodle->identifier) . "'");
+		$this->execute("DELETE FROM def WHERE id = '" . mysql_real_escape_string($foodle->identifier) . "'");
+	
+	}
+	
 	
 	public function checkIdentifier($id) {
 		$sql ="

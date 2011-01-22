@@ -631,11 +631,22 @@ class Data_Foodle {
 	}
 	
 	
+	public function acl(Data_User $user, $operation = 'write') {
+		if ($user->userid === $this->owner) {
+			return TRUE;
+		}
+		throw new Exception('Current user [' . $user->userid . '] do not have permissions to perform operation [' . $operation . '] on this Foodle.');
+	}
 	
 	
 	public function save() {
 		$this->db->saveFoodle($this);
 	}
+
+	public function delete() {
+		$this->db->deleteFoodle($this);
+	}
+	
 	
 	public function getTimeZone() {
 		if (!empty($this->timezone)) return $this->timezone;

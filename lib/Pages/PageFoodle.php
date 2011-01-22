@@ -199,12 +199,12 @@ class Pages_PageFoodle extends Pages_Page {
 		$t->data['ownerid'] = $this->foodle->owner;
 		$t->data['showsharing'] = $isAdmin;
 				
-		$t->data['showdebug'] = $isAdmin;
+		$t->data['showdebug'] = ($this->user->userid == 'andreas@uninett.no') || ($this->user->userid == 'andreas@rnd.feide.no');
 		if (isset($_REQUEST['debug'])) {
 			$t->data['showdebug'] = TRUE;
 		}
-		
 		$t->data['showsupport'] = TRUE;
+		$t->data['showdelete'] = $isAdmin;
 
 		$t->data['customDistribute'] = array();
 		$t->data['customDistribute'][] = new EmbedDistribute($this->foodle, $t);

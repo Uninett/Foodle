@@ -182,6 +182,9 @@ $discussion = $this->data['foodle']->getDiscussion();
 		if ($this->data['showdebug']) {
 			echo '<li><a href="#showdebug"><span>' . $this->t('debug') . '</span></a></li>';
 		}
+		if ($this->data['showdelete']) {
+			echo '<li><a href="#delete"><span>' . $this->t('delete') . '</span></a></li>';
+		}
 		
 		?>
     </ul> 
@@ -435,7 +438,22 @@ if ($this->data['showdebug']) {
 	echo '</div>';
 }
 
+if ($this->data['showdelete']) {
+	echo '<div id="delete" style="margin: .2em 5em .2em 5em; ">';
 
+	echo( '<h2>' . $this->t('delete_this') . '</h2>');	
+	
+	echo('
+			<form method="post" action="/delete/' . $this->data['foodle']->identifier . '">
+			<p><input type="checkbox" id="confirmdelete" name="confirmdelete" value="yes">
+			<label for="confirmdelete">' . $this->t('delete_confirm') . '</label></p>
+			<p><input type="submit" id="deletefoodle" name="deletefoodle" value="' . $this->t('delete'). '" /></p>
+			</form>
+			
+		');
+
+	echo '</div>';
+}
 
 ?>
 
@@ -444,4 +462,28 @@ if ($this->data['showdebug']) {
 
 </div><!-- end foodletabs -->
 			
-<?php $this->includeAtTemplateBase('includes/footer.php'); ?>
+<?php $this->includeAtTemplateBase('includes/footer.php'); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
