@@ -237,7 +237,7 @@ class Pages_PageFoodle extends Pages_Page {
 		$this->template->data['loginurl'] = $this->auth->getLoginURL();
 		$this->template->data['logouturl'] = $this->auth->getLogoutURL('/');
 		
-		$isAdmin = ($this->user->userid == $this->foodle->owner) || ($this->user->userid == 'andreas@uninett.no') || ($this->user->userid == 'andreas@rnd.feide.no');
+		$isAdmin = ($this->user->userid == $this->foodle->owner) || ($this->user->isAdmin());
 		
 		$this->template->data['owner'] = $isAdmin;
 		$this->template->data['ownerid'] = $this->foodle->owner;

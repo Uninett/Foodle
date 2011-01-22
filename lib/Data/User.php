@@ -40,6 +40,12 @@ class Data_User {
 		return $text;
 	}
 	
+	public function isAdmin() {
+		if ($this->userid == 'andreas@uninett.no') return TRUE;
+		if ($this->userid == 'andreas@rnd.feide.no') return TRUE;
+		return FALSE;
+	}
+	
 	public function debugCalendar() {
 		$text = '';
 		if ($this->hasCalendar() ) {

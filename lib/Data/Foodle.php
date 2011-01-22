@@ -709,8 +709,8 @@ class Data_Foodle {
 		$this->identifier = $checkname;
 	}
 	
-	
 	public function acl(Data_User $user, $operation = 'write') {
+		if ($user->isAdmin()) return TRUE;
 		if ($user->userid === $this->owner) {
 			return TRUE;
 		}
