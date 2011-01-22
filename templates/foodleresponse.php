@@ -193,6 +193,15 @@ $discussion = $this->data['foodle']->getDiscussion();
     <div id="myresponse">
 	<!-- BEGIN Responses -->
 	<form method="post" action="<?php echo $this->data['foodlepath'] ?>">
+		
+<?php
+
+if (isset($_REQUEST['timezone'])) {
+	echo(' <input type="hidden" id="keeptimezone" name="timezone" value="' . htmlspecialchars($_REQUEST['timezone']) . '" />');	
+}
+
+
+?>
 	
 		<table class="list" style="width: 100%">
 			
@@ -234,6 +243,23 @@ $discussion = $this->data['foodle']->getDiscussion();
 		</table>';
 
 
+		
+		if (isset($this->data['responsetype']) && $this->data['responsetype'] === 'yesnomaybe') {
+		
+			echo('
+				<div style="float: left">
+					<table class="info"><tr>
+						<td class="center yes">' . $this->t('yes') . '</td>
+						<td class="center maybe">' . $this->t('maybe') . '</td>
+						<td class="center no">' . $this->t('no') . '</td>
+					</tr></table>
+				</div>
+			');
+		
+		}
+		
+		
+		
 		if ($this->data['calenabled']) {
 			echo '<div>';
 
@@ -254,11 +280,16 @@ $discussion = $this->data['foodle']->getDiscussion();
 			echo ' </div>';
 
 			echo '</div>';
-			echo '<br style="height: 0px; clear: both;"/>';
+
 		}
+		
+		echo '<br style="height: 0px; clear: both;"/>';		
 ?>
 
 	</form>
+	
+
+	
 
 
 	</div> <!-- end #responses tab -->
@@ -425,6 +456,18 @@ if ($this->data['showsharing']) {
 if ($this->data['showdebug']) {
 	echo '<div id="showdebug" style="margin: .2em 5em .2em 5em; ">';
 
+	echo( '<h2>Page loading time</h2>');	
+	$list = $this->data['timer'];
+	
+	echo '<ul>';
+	foreach($list AS $l) {
+		echo('<li>' .  number_format((float)$l[0] * (float)1000, 2) . ' ms ' . $l[1] . '</li>');
+	}
+	echo('</ul>');
+	
+	echo($this->data['debugUser']);
+
+
 	echo( '<h2>Current User</h2>');	
 	echo($this->data['debugUser']);
 
@@ -445,9 +488,9 @@ if ($this->data['showdelete']) {
 	
 	echo('
 			<form method="post" action="/delete/' . $this->data['foodle']->identifier . '">
-			<p><input type="checkbox" id="confirmdelete" name="confirmdelete" value="yes">
-			<label for="confirmdelete">' . $this->t('delete_confirm') . '</label></p>
-			<p><input type="submit" id="deletefoodle" name="deletefoodle" value="' . $this->t('delete'). '" /></p>
+				<p><input type="checkbox" id="confirmdelete" name="confirmdelete" value="yes">
+				<label for="confirmdelete">' . $this->t('delete_confirm') . '</label></p>
+				<p><input type="submit" id="deletefoodle" name="deletefoodle" value="' . $this->t('delete'). '" /></p>
 			</form>
 			
 		');

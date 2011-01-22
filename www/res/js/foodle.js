@@ -43,9 +43,7 @@ function addOneMoreOption(event) {
 	var template = container.find("input.fscoli").eq(0).clone();
 	template.val("");
 	template.insertBefore(container.find("a.onemoreoption"));
-	
 
-	
 	container.find("input").last().focus();
 	
 	prepareDateColumns();
@@ -105,17 +103,26 @@ function fillfields() {
 	updatePreview();
 }
 
+function getColumntype() {
+	return $('input:radio[name="columntypes"]:checked').val();
+}
+function getResponsetype() {
+	return $('input:radio[name="responsetype"]:checked').val();
+}
+
 function getColumntypeClass() {
 	var defs = Array();
 	var columntype = $('input:radio[name="columntypes"]:checked').val();
 	var columntypeclass = 'columnsetupdates';
 	if (columntype == 'text') {
 		columntypeclass = 'columnsetupgeneric';
+	} else if (columntype == 'timezone') {
+		columntypeclass = 'columnsetuptimezone';
 	}
-	return columntypeclass;	
+	return columntypeclass;
 }
 
-/* Generate a string out of */
+/* Generate a string out of the column definition... */
 function getDefinitionString() {
 
 	var defs = Array();
@@ -143,10 +150,21 @@ function getDefinitionString() {
 }
 
 function updatePreview() {
+	var columntype = getColumntype();
+	var responsetype = getResponsetype();
 	var defstr = getDefinitionString();
-	$("div[id='previewpane']").load('/preview', { 'def' : defstr, "name" : $("input#foodlename").val(), "descr" : $("textarea#foodledescr").val() }); 
+	$("div[id='previewpane']").load('/preview', 
+		{ 
+			'def' : defstr, 
+			"name" : $("input#foodlename").val(), 
+			"descr" : $("textarea#foodledescr").val(),
+			"columntype": columntype,
+			"responsetype": responsetype
+		}
+	); 
 	// $("*[id='previewheader']").text($("input[name='name']").attr('value'));
 	$("input[id='coldef']").attr('value', defstr);
+	$("input[id='columntype']").attr('value', columntype);
 	if ($("input#foodlename").val() == '' || defstr == '') {
 		$("input#save").attr("disabled", "disabled");
 	} else {
@@ -190,13 +208,22 @@ function selectColumnTypes() {
 		case 'dates':
 			$("div.columnsetupdates").show();
 			$("div.columnsetupgeneric").hide();
-
+			$("div.columnsetuptimezone").hide();
 			break;
+			
 		case 'text':
 			$("div.columnsetupdates").hide();
 			$("div.columnsetupgeneric").show();
-
+			$("div.columnsetuptimezone").hide();
 			break;
+
+		case 'timezone':
+			$("div.columnsetupdates").hide();
+			$("div.columnsetupgeneric").hide();
+			$("div.columnsetuptimezone").show();
+			break;
+
+			
 		default: 
 	}
 	updatePreview();
@@ -210,6 +237,14 @@ function prepareDateColumns() {
 		yearRange: '2009:2015',
 		onSelect: updatePreview
 	});
+	$("div.columnsetuptimezone input.fcoli").datepicker({
+		dateFormat: "yy-mm-dd",
+		numberOfMonths: 1,
+		firstDay: 1,
+		yearRange: '2009:2015'
+//		onSelect: updatePreview
+	});
+
 	var availableTags = ["08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", 
 	"14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"];
 	$("div.columnsetupdates input.fscoli").autocomplete({

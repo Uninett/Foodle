@@ -26,6 +26,7 @@ date_default_timezone_set('Europe/Berlin');
 #require_once('../lib/Foodle.class.php');
 
 require_once($THISPATH . 'lib/TimeZone.php');
+
 require_once($THISPATH . 'lib/FoodleAuth.php');
 require_once($THISPATH . 'lib/FoodleUtils.php');
 require_once($THISPATH . 'lib/RSS.class.php');
@@ -55,6 +56,7 @@ require_once($THISPATH . 'lib/Pages/Page.php');
 require_once($THISPATH . 'lib/Pages/PageGS.php');
 require_once($THISPATH . 'lib/Pages/PageFoodle.php');
 require_once($THISPATH . 'lib/Pages/Debug.php');
+require_once($THISPATH . 'lib/Pages/FDebug.php');
 require_once($THISPATH . 'lib/Pages/PageFront.php');
 require_once($THISPATH . 'lib/Pages/PageSupport.php');
 

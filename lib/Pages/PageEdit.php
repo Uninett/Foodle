@@ -43,7 +43,7 @@ class Pages_PageEdit extends Pages_PageFoodle {
 	protected function saveChanges() {
 
 		$this->foodle->updateFromPost($this->user);
-		#echo '<pre>'; print_r($foodle); exit;
+#		echo '<pre>'; print_r($_REQUEST); exit; print_r($this->foodle); exit;
 		$this->foodle->acl($this->user, 'write');
 		$this->foodle->save();
 		
@@ -83,6 +83,9 @@ class Pages_PageEdit extends Pages_PageFoodle {
 		
 		$t->data['maxcol'] = $this->foodle->maxcolumn;
 		$t->data['maxnum'] = $this->foodle->maxentries;
+		
+		$t->data['columntype'] = $this->foodle->columntype;
+		$t->data['responsetype'] = $this->foodle->responsetype;
 		
 
 		

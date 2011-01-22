@@ -1,6 +1,16 @@
 <?php
 
+$THISPATH = dirname(dirname(__FILE__)) . '/';
+require_once($THISPATH . 'lib/Timer.php');
+
+
+Timer::start();
+
+Timer::tick('started');
+
 require_once('_include.php');
+
+#Timer::tick('Include complete');
 
 $config = SimpleSAML_Configuration::getInstance('foodle');
 
@@ -9,6 +19,7 @@ $script = $_SERVER['SCRIPT_NAME'];
 
 $path = substr($fullURI, strlen($script) + 1, strlen($fullURI) - strlen($script) - 1);
 $parameters = explode('/', $path);
+
 
 #echo '<pre>'; print_r($parameters); exit;
 
@@ -50,7 +61,9 @@ try {
 				break;								
 			}
 		
+			#Timer::tick('before new foodle page');
 			$page = new Pages_PageFoodle($config, $parameters);
+			#Timer::tick('before foodle show');
 			$page->show();
 			break;
 
@@ -64,6 +77,12 @@ try {
 			$page = new Pages_Debug($config, $parameters);
 			$page->show();
 			break;
+
+		case 'debug2':
+			$page = new Pages_FDebug($config, $parameters);
+			$page->show();
+			break;
+			
 			
 		case 'support':
 			$page = new Pages_PageSupport($config, $parameters);
@@ -94,6 +113,7 @@ try {
 		case 'test':
 			require_once('test-calendar.php');
 			break;
+
 
 		// Redirecting user if using old 
 		case 'foodle.php':

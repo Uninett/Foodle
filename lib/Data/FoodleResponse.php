@@ -105,12 +105,21 @@ class Data_FoodleResponse {
 		return json_encode($data);
 	}
 	
+	public static function parsePostN($n) {
+		if(preg_match('/([0-9]+)-([0-9]+)/', $n, $matches)) {
+			return array('key' => $matches[1], 'value' => $matches[2]);
+		} else {
+			return array('key' => $n, 'value' => 1);
+		}
+	}
+	
 	public function updateFromPost(Data_User $user) {
 		$responseData = array_fill(0, $this->foodle->getNofColumns(), '0');
 		
 		if (!empty($_REQUEST['myresponse'])) {
 			foreach ($_REQUEST['myresponse'] AS $yes) {
-				$responseData[(int)$yes] = '1';
+				$pn = self::parsePostN($yes);
+				$responseData[$pn['key']] = $pn['value'];
 			}
 		}		
 		$this->userid = $user->userid;

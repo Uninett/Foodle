@@ -67,7 +67,11 @@ div.columnsetupdates input.fscoli {
 	background-repeat: no-repeat;
 	background-position: center right;
 }
-
+div.columnsetuptimezone input.fcoli {
+	background-image: url(../calendar.png); 
+	background-repeat: no-repeat;
+	background-position: center right;
+}
 
 
 
@@ -85,10 +89,13 @@ a.minibutton:hover {
 
 input.fscoli {
 	display: inline; 
-	margin: 0px 5px; 
+	margin: 0px 3px; 
 	width: 90px;
 }
-
+div.columnsetuptimezone input.fscoli {
+	margin: 0px 2px; 
+	width: 40px;
+}
 
 
 /* ------ Buttons  ----- */
@@ -358,9 +365,6 @@ div.extbox a:hover {
 	font-weight: normal;
 }
 
-
-
-
 .yesimg {
 	margin: 0px;
 	border: 0px;
@@ -373,6 +377,7 @@ table {
 
 td {
 	border: 1px solid #ccc;
+	padding: 0px;
 }
 td,th {
 	border: 1px solid #aaa;
@@ -380,12 +385,36 @@ td,th {
 }
 th {
 	background: #dda;
-	padding: .1em 1em .1em 1em;
+	padding: .1em 3px .1em 3px;
 
 }
+
+div.ryes,div.rmaybe,div.rno {
+	width: 100%; margin: 0px; padding: 0px;
+}
+div.ryes {
+	background: #9c9;
+	border-bottom: 1px solid #363;
+}
+div.rmaybe {
+	background: #FFEF00;
+/*
+	border-left: 1px solid #555500;
+	border-right: 1px solid #555500;
+*/
+}
+div.rno {
+	background: #CE1620	;
+	border-top: 1px solid #660000;
+}
+
 td.yes {
 	background: #9c9;
 	color: white;
+	text-align: center;
+}
+td.maybe {
+	background: #fec;
 	text-align: center;
 }
 td.yes.grey,td.no.grey {
@@ -398,6 +427,17 @@ td.no {
 	background: #edd;
 	color: #c77;
 }
+table.info td.no {
+	background: #CE1620	;
+	color: #fbb;
+}
+table.info td.maybe {
+	background: #FFEF00;
+}
+table.info td {
+	padding: .5em 2em;
+}
+
 tr.you td input.comment {
 	background: #f7f7f7;
 	background-image: url('/res/notes.png');
@@ -477,7 +517,7 @@ table.list tr.header {
 	border-bottom: 1px solid #ccc;
 }
 table.list td {
-	padding: 2px;
+
 }
 table.list td.odd {
 	background: #e5e5e5;

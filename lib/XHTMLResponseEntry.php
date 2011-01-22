@@ -55,6 +55,27 @@ class XHTMLResponseEntry {
 					echo '<td class="no center"><img class="yesimg" alt="Yes" src="/res/busy.png" /></td>';
 				}
 			}
+		} else if($response->foodle->responseType() === 'yesnomaybe') {
+						
+			foreach ($response->response['data'] AS $no => $entry) {
+			
+				$checked = array('', '', '');
+				if (isset($entry)) $checked[$entry] = ' checked="checked" ';
+				echo '<td class="center">
+					<div class="ryes"><input type="radio" name="myresponse[' . $no . ']" value="' . $no . '-1" ' . $checked[1] . '/></div>
+					<div class="rmaybe"><input type="radio" name="myresponse[' . $no . ']" value="' . $no . '-2" ' . $checked[2] . '/></div>
+					<div class="rno"><input type="radio" name="myresponse[' . $no . ']" value="' . $no . '-0" ' . $checked[0] . '/></div>
+				</td>';
+				
+// 				if ($entry == '1') {
+// 					echo '<td class="yes center"><input type="checkbox" name="myresponse[]" checked="checked" value="' . $no . '" /></td>';
+// 				} elseif($entry == '0') {
+// 					echo '<td class="no center"><input type="checkbox" name="myresponse[]" value="' . $no . '"  /></td>';
+// 				} else {
+// 					echo '<td class="no center grey"><input type="checkbox" name="myresponse[]" value="' . $no . '"  /></td>';
+// 				}
+			}
+		
 		} else {
 			foreach ($response->response['data'] AS $no => $entry) {
 				if ($entry == '1') {
@@ -111,6 +132,27 @@ class XHTMLResponseEntry {
 						echo '<td class="no center"><img class="yesimg" alt="Yes" src="/res/busy.png" /></td>';
 					}
 				}
+			} else if($responsecal->foodle->responseType() === 'yesnomaybe') {
+							
+				foreach ($responsecal->response['data'] AS $no => $entry) {
+				
+					$checked = array('', '', '');
+					if (isset($entry)) $checked[$entry] = ' checked="checked" ';
+					echo '<td class="center">
+						<div class="ryes"><input type="radio" name="myresponse[' . $no . ']" value="' . $no . '-1" ' . $checked[1] . '/></div>
+						<div class="rmaybe"><input type="radio" name="myresponse[' . $no . ']" value="' . $no . '-2" ' . $checked[2] . '/></div>
+						<div class="rno"><input type="radio" name="myresponse[' . $no . ']" value="' . $no . '-0" ' . $checked[0] . '/></div>
+					</td>';
+					
+	// 				if ($entry == '1') {
+	// 					echo '<td class="yes center"><input type="checkbox" name="myresponse[]" checked="checked" value="' . $no . '" /></td>';
+	// 				} elseif($entry == '0') {
+	// 					echo '<td class="no center"><input type="checkbox" name="myresponse[]" value="' . $no . '"  /></td>';
+	// 				} else {
+	// 					echo '<td class="no center grey"><input type="checkbox" name="myresponse[]" value="' . $no . '"  /></td>';
+	// 				}
+				}
+			
 			} else {
 				foreach ($responsecal->response['data'] AS $no => $entry) {
 					if ($entry == '1') {
@@ -221,6 +263,8 @@ class XHTMLResponseEntry {
 					echo '<td class="yes center"><img class="yesimg" alt="No" src="/res/yes.png" /></td>';
 				} elseif ($entry == '0') {
 					echo '<td class="no center"><img class="yesimg" alt="Yes" src="/res/no2trans.png" /></td>';
+				} elseif ($entry == '2') {
+					echo '<td class="maybe center"><img class="maybeimg" alt="Maybe" src="/res/maybe.png" /></td>';
 				} else {
 					echo '<td class="no center grey"><img class="yesimg" alt="Invalid entry" src="/res/error.png" /></td>';
 				}

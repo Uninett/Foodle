@@ -335,6 +335,9 @@
 	"qcolumntypetext": {
 		"en" : "Column headers with generic text"
 	},
+	"qcolumntypetimezone": {
+		"en": "Timezone planner"
+	},
 	"date" : {
 		"en": "Date"
 	},
@@ -345,7 +348,7 @@
 		"en": "Add time-slot"
 	},
 	"duplicate": {
-		"en": "Duplicate these time-slots to all dates"		
+		"en": "Duplicate these time-slots to all dates"	
 	},
 	"onemoredate": {
 		"en": "Add one more date column"
@@ -371,7 +374,6 @@
 	"support": {
 		"en": "Support"
 	},
-	
 	"embed_header": {
 		"en": "Embed this Foodle on your site"
 	},
@@ -388,6 +390,33 @@
 		"en": "Delete this Foodle"
 	},
 	"delete_confirm": {
-		"en": "Yes, I would like to delete this Foodle and associated responses. There is no way to restore the lost data."
-	}	
+		"en": "Yes, I would like to delete this Foodle and associated responses. The foodle it self and all responses and discussion entries added to this foodle will be deleted. There is no way to restore the lost data."
+	},
+	"timezonedateinfo": {
+		"en": "You need to specify a date (today is default). Even though the date is not directly relvevant, and never shown, it is needed in order to get the summer time right in the various time zones."
+	},
+	"timezonetimeinfo": {
+		"en": "The day is split into 24 hour time slots. You may not modify these in the time zone planner."
+	},
+	"responsetype": {
+		"en": "Type of response"
+	},
+	"responsetypeinfo": {
+		"en": "Which options do you want to give the user for each column?"
+	},
+	"responsetype_default": {
+		"en": "Default: Use the default response type for the kind of Foodle you created. Generic text uses Yes/No, while date and timezone Foodles uses Yes/No/Maybe."
+	},
+	"responsetype_yesno": {
+		"en": "Yes/No: The will get a checkbox in each column. A checked box means Yes, or availability of the user."
+	},
+	"responsetype_yesnomaybe": {
+		"en": "Yes/No/Maybe: For each column the user will get three options: Yes, No and Maybe. Maybe may indicate uncertainty, or a possible, but less suitable option."
+	},
+	"yes" : { "en": "Yes" },
+	"no" : { "en": "No" },
+	"maybe" : { "en": "Maybe" }
+
+
+
 }

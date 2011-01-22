@@ -82,6 +82,7 @@ class Pages_PageCreate extends Pages_Page {
 		$t->data['user'] = $this->user;	
 		$t->data['loginurl'] = $this->auth->getLoginURL();
 		$t->data['logouturl'] = $this->auth->getLogoutURL('/');
+		$t->data['today'] = date('Y-m-d');
 		
 		$t->data['timezone'] = $this->timezone;
 

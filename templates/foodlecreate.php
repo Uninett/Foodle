@@ -26,7 +26,7 @@ if(array_key_exists('edit', $this->data)) {
 }
 echo('<form method="post" action="' . $action . '">');
 echo(' <input type="hidden" id="coldef" name="coldef" value="" />');
-
+echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset($this->data['columntype']) ? htmlspecialchars($this->data['columntype']) : '') . '" />');
 
 ?>
 
@@ -72,12 +72,19 @@ echo(' <input type="hidden" id="coldef" name="coldef" value="" />');
 		<?php
 		
 			$columntypesdatesChecked = '';
+			$columntypestimezoneChecked = '';
 			$columntypestextChecked = ' checked="checked"';
 			
-			if (isset($this->data['isDates']) && $this->data['isDates']) {
+			if ($this->data['columntype'] === 'timezone') {
+				$columntypesdatesChecked = '';
+				$columntypestimezoneChecked = ' checked="checked"';
+				$columntypestextChecked = '';
+				
+			} else if (isset($this->data['isDates']) && $this->data['isDates']) {
 				$columntypesdatesChecked = ' checked="checked"';
-				$columntypestextChecked = '';				
-			}
+				$columntypestimezoneChecked = '';
+				$columntypestextChecked = '';
+			} 
 		?>
 
 		
@@ -91,12 +98,17 @@ echo(' <input type="hidden" id="coldef" name="coldef" value="" />');
 			<p style="margin: 2px"><input type="radio" name="columntypes" id="columntypestext" value="text" <?php echo $columntypestextChecked; ?> />
 				<label for="columntypestext"><?php echo $this->t('qcolumntypetext'); ?></label></p>
 
+			<p style="margin: 2px"><input type="radio" name="columntypes" id="columntypestimezone" value="timezone" <?php echo $columntypestimezoneChecked; ?> />
+				<label for="columntypestimezone"><?php echo $this->t('qcolumntypetimezone'); ?></label></p>
+
 		</div>
 		
 		
 		<div class="fcols">
 
 
+
+			<!--     ==============  DATES =============== -->
 			<div class="columnsetupdates">
 				
 				<?php 
@@ -119,7 +131,9 @@ echo(' <input type="hidden" id="coldef" name="coldef" value="" />');
 
 				<?php
 			
-				if (isset($this->data['isDates']) && $this->data['isDates'] && isset($this->data['columns'])) {
+				if (isset($this->data['isDates']) && $this->data['isDates'] && isset($this->data['columns']) &&
+					$this->data['columntype'] !== 'timezone'
+					) {
 					// echo '<pre>';
 					// echo(var_export($this->data['columns'], TRUE));
 					// echo '</pre>';
@@ -179,6 +193,14 @@ echo(' <input type="hidden" id="coldef" name="coldef" value="" />');
 			
 			</div>
 			
+			
+			
+			
+			
+			
+			
+			
+			<!--     ==============  GENERIC  =============== -->
 			<div class="columnsetupgeneric" style="clear: both">
 			
 			
@@ -233,6 +255,92 @@ echo(' <input type="hidden" id="coldef" name="coldef" value="" />');
 			
 			</div>
 
+
+
+
+
+
+
+			<!--     ==============  TIMEZONE PLANNER =============== -->
+			<div class="columnsetuptimezone">
+				
+				<?php 
+				
+					echo('<p>' . $this->t('selecttimezone') . '<br />');
+				
+					if (isset($this->data['ftimezone'])) {
+						echo($this->data['timezone']->getHTMLList($this->data['ftimezone']) . '');
+					} else {
+						echo($this->data['timezone']->getHTMLList() . '');
+					}
+
+					echo('</p>');
+				?>
+				
+				
+				<div></div>
+				
+				
+				<div class="fcol"  style="" >
+					<?php
+						
+						$date = $this->data['today'];
+						if (isset($this->data['isDates']) && $this->data['isDates'] && isset($this->data['columns'])) {
+							$date = ($this->data['columns'][0]['title']);
+						}
+						
+					
+						echo('<p style="color: #888">' . $this->t('timezonedateinfo') . '</p>');
+						
+						echo('<input class="fcoli wmd-ignore" type="text" value="' . htmlspecialchars($date) . '" name="timeslot[]" placeholder="' . $this->t('date') . '" />');
+					?>
+
+					
+
+				<?php
+					echo('<p style="color: #888">' . $this->t('timezonetimeinfo') . '</p>');
+					
+					
+				?>
+					<div style="display: inline" class="subcolcontainer">
+						<input class="fscoli wmd-ignore" type="text" value="00:00" name="timeslots[]" disabled="disabled"  />
+						<input class="fscoli wmd-ignore" type="text" value="01:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="02:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="03:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="04:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="05:00" name="timeslots[]" disabled="disabled" />
+
+						<input class="fscoli wmd-ignore" type="text" value="06:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="07:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="08:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="09:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="10:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="11:00" name="timeslots[]" disabled="disabled" />
+
+						<input class="fscoli wmd-ignore" type="text" value="12:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="13:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="14:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="15:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="16:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="17:00" name="timeslots[]" disabled="disabled" />
+
+						<input class="fscoli wmd-ignore" type="text" value="18:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="19:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="20:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="21:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="22:00" name="timeslots[]" disabled="disabled" />
+						<input class="fscoli wmd-ignore" type="text" value="23:00" name="timeslots[]" disabled="disabled" />
+					</div>
+
+									
+				</div>
+
+			
+			</div>
+			<!--     ==============  END =============== -->
+
+
+
 		</div>
 
 
@@ -282,8 +390,48 @@ echo(' <input type="hidden" id="coldef" name="coldef" value="" />');
 				}
 			}
 			
-			echo('<p><input type="checkbox" name="anon" ' . $checked . '/> ' . $this->t('allowanon') . '</p>');
+			echo('<p><input type="checkbox" id="allowanon" name="anon" ' . $checked . '/> <label for="allowanon">' . $this->t('allowanon') . '</label></p>');
 		?>
+		
+		
+		<?php
+		
+			echo('<h2>' . $this->t('responsetype') . '</h2>');
+			echo('<p>' . $this->t('responsetypeinfo') . '</p>');
+
+			
+			$responsetypeChecked = array(
+				'default' => '',
+				'yesno' => '',
+				'yesnomaybe' => '',
+			);
+			if (isset($this->data['responsetype'])) {
+				$responsetypeChecked[$this->data['responsetype']] = ' checked="checked" ';
+			} else {
+				$responsetypeChecked['default'] = ' checked="checked" ';
+			}
+
+			echo('<p style="margin: 2px">
+				<input type="radio" name="responsetype" id="responsetype_default" value="default" ' . $responsetypeChecked['default'] . '/>
+				<label for="responsetype_default">' . $this->t('responsetype_default') . '</label></p>');
+
+			echo('<p style="margin: 2px">
+				<input type="radio" name="responsetype" id="responsetype_yesno" value="yesno" ' . $responsetypeChecked['yesno'] . '/>
+				<label for="responsetype_yesno">' . $this->t('responsetype_yesno') . '</label></p>');
+
+			echo('<p style="margin: 2px">
+				<input type="radio" name="responsetype" id="responsetype_yesnomaybe" value="yesnomaybe" ' . $responsetypeChecked['yesnomaybe'] . '/>
+				<label for="responsetype_yesnomaybe">' . $this->t('responsetype_yesnomaybe') . '</label></p>');
+				
+
+		
+		?>
+		
+
+
+
+		
+		
 		
 		
 		

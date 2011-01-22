@@ -18,10 +18,15 @@ class Pages_PageFoodle extends Pages_Page {
 	
 	protected $auth;
 	
+	protected $template;
+	
 	function __construct($config, $parameters) {
 		parent::__construct($config, $parameters);
 		
 		if (count($parameters) < 1) throw new Exception('Missing [foodleid] parameter in URL.');
+		
+		$this->template = new SimpleSAML_XHTML_Template($this->config, 'foodleresponse.php', 'foodle_foodle');
+		$this->setLocale();
 		
 		Data_Foodle::requireValidIdentifier($parameters[0]);
 		$this->foodleid = $parameters[0];
@@ -29,21 +34,50 @@ class Pages_PageFoodle extends Pages_Page {
 
 
 		$this->timezone = new TimeZone();
+		
+		#Timer::tick('Preparation started');
 				
 		$this->foodle = $this->fdb->readFoodle($this->foodleid);
+		
+		#Timer::tick('Foodle read');
+		
 		$this->foodle->getColumnDates();
 		$this->calendarEnabled = $this->foodle->calendarEnabled();
 		$this->timezoneEnable = $this->foodle->timeZoneEnabled();
+		$this->datesonly = $this->foodle->datesOnly();
+		
 
-		$this->presentInTimeZone();
+		
+		#Timer::tick('Timezone preparations');
 		
 		$this->auth();
 	}
 	
+	protected function setLocale() {
+		$lang = $this->template->getLanguage();
+		
+		error_log('Language: ' . $lang);
+		
+		$localeMap = array(
+			'no' => 'no_NO',
+			'nn' => 'no_NO',
+			'de' => 'de_DE',
+			'fr' => 'fr_FR',
+		);
+		
+		if (isset($localeMap[$lang])) {	
+			setlocale(LC_ALL, $localeMap[$lang]);
+			error_log('Setting locale to ' . $localeMap[$lang]);
+		}
+		
+	}
+	
 
-	protected function presentInTimeZone() {
+	protected function presentCustom() {
 		if ($this->timezoneEnable) {
 			$this->foodle->presentInTimeZone($this->timezone->getSelectedTimeZone());
+		} elseif($this->datesonly) {
+			$this->foodle->presentDatesOnly();
 		}
 	}
 	
@@ -117,7 +151,12 @@ class Pages_PageFoodle extends Pages_Page {
 		//	$this->sendMail();
 		}
 		
-		SimpleSAML_Utilities::redirect(SimpleSAML_Utilities::selfURLNoQuery() . '#responses' );
+		$newurl = SimpleSAML_Utilities::selfURLNoQuery() ;
+		if (isset($_REQUEST['timezone'])) {
+			$newurl .= '?timezone=' . urlencode($_REQUEST['timezone']);
+		}
+		
+		SimpleSAML_Utilities::redirect($newurl  . '#responses' );
 	}
 	
 	// Save the users response..
@@ -140,95 +179,104 @@ class Pages_PageFoodle extends Pages_Page {
 	// Process the page.
 	function show() {
 
+		
+		$this->presentCustom();
+		
+#		echo '<pre>'; print_r($_REQUEST); exit;
+
 		if (isset($_REQUEST['save'])) $this->setResponse();
 		if (isset($_REQUEST['savecal'])) $this->setResponseCalendar();
 		if (isset($_REQUEST['discussionentry'])) $this->addDiscussionEntry();
 
-		$t = new SimpleSAML_XHTML_Template($this->config, 'foodleresponse.php', 'foodle_foodle');
+		
 
-		$t->data['title'] = 'Foodle :: ' . $this->foodle->name;
-		$t->data['foodle'] = $this->foodle;
-		$t->data['user'] = $this->user;
-		$t->data['foodlepath'] = $this->foodlepath;
+		$this->template->data['title'] = 'Foodle :: ' . $this->foodle->name;
+		$this->template->data['foodle'] = $this->foodle;
+		$this->template->data['user'] = $this->user;
+		$this->template->data['foodlepath'] = $this->foodlepath;
 		
 
 		// if ($this->user->hasCalendar()) echo 'User has calendar';
 		// if ($this->foodle->calendarEnabled()) echo 'Foodle has calendar';
 		
-		$t->data['calenabled'] = ($this->calendarEnabled && $this->user->hasCalendar());
-		$t->data['myresponse'] = $this->foodle->getMyResponse($this->user);
+		$this->template->data['calenabled'] = ($this->calendarEnabled && $this->user->hasCalendar());
+		$this->template->data['myresponse'] = $this->foodle->getMyResponse($this->user);
 		
-		if ($t->data['calenabled']) {
-			$t->data['myresponsecal'] = $this->foodle->getMyCalendarResponse($this->user);
-			$t->data['defaulttype'] = $this->foodle->getDefaultResponse($this->user);
+		if ($this->template->data['calenabled']) {
+			$this->template->data['myresponsecal'] = $this->foodle->getMyCalendarResponse($this->user);
+			$this->template->data['defaulttype'] = $this->foodle->getDefaultResponse($this->user);
 		}
 		if (isset($_REQUEST['tab'])) {
-			$t->data['tab'] = $_REQUEST['tab'];
-		} elseif($t->data['myresponse']->loadedFromDB) {
-			$t->data['tab'] = '1';
+			$this->template->data['tab'] = $_REQUEST['tab'];
+		} elseif($this->template->data['myresponse']->loadedFromDB) {
+			$this->template->data['tab'] = '1';
 		}
 
 		if ($this->timezoneEnable) {
 			if (isset($_REQUEST['timezone'])) {
-				$t->data['stimezone'] = $_REQUEST['timezone'];
+				$this->template->data['stimezone'] = $_REQUEST['timezone'];
 			}
-			$t->data['timezone'] = $this->timezone;
+			$this->template->data['timezone'] = $this->timezone;
 		}
 
 
 
 		// Configuration
-		$t->data['facebookshare'] = $this->config->getValue('enableFacebookAuth', TRUE);
+		$this->template->data['facebookshare'] = $this->config->getValue('enableFacebookAuth', TRUE);
 
-		$t->data['expired'] = $this->foodle->isExpired();
-		$t->data['expire'] = $this->foodle->expire;
-		$t->data['expiretext'] = $this->foodle->getExpireText();
+		$this->template->data['expired'] = $this->foodle->isExpired();
+		$this->template->data['expire'] = $this->foodle->expire;
+		$this->template->data['expiretext'] = $this->foodle->getExpireText();
 		
-		$t->data['maxcol'] = $this->foodle->maxcolumn;
-		$t->data['maxnum'] = $this->foodle->maxentries;
-		$t->data['used'] = $this->foodle->countResponses();
+		$this->template->data['maxcol'] = $this->foodle->maxcolumn;
+		$this->template->data['maxnum'] = $this->foodle->maxentries;
+		$this->template->data['used'] = $this->foodle->countResponses();
 		
 				
-		$t->data['authenticated'] = $this->auth->isAuth();
-		$t->data['loginurl'] = $this->auth->getLoginURL();
-		$t->data['logouturl'] = $this->auth->getLogoutURL('/');
+		$this->template->data['authenticated'] = $this->auth->isAuth();
+		$this->template->data['loginurl'] = $this->auth->getLoginURL();
+		$this->template->data['logouturl'] = $this->auth->getLogoutURL('/');
 		
 		$isAdmin = ($this->user->userid == $this->foodle->owner) || ($this->user->userid == 'andreas@uninett.no') || ($this->user->userid == 'andreas@rnd.feide.no');
 		
-		$t->data['owner'] = $isAdmin;
-		$t->data['ownerid'] = $this->foodle->owner;
-		$t->data['showsharing'] = $isAdmin;
+		$this->template->data['owner'] = $isAdmin;
+		$this->template->data['ownerid'] = $this->foodle->owner;
+		$this->template->data['showsharing'] = $isAdmin;
 				
-		$t->data['showdebug'] = ($this->user->userid == 'andreas@uninett.no') || ($this->user->userid == 'andreas@rnd.feide.no');
+		$this->template->data['showdebug'] = ($this->user->userid == 'andreas@uninett.no') || ($this->user->userid == 'andreas@rnd.feide.no');
 		if (isset($_REQUEST['debug'])) {
-			$t->data['showdebug'] = TRUE;
+			$this->template->data['showdebug'] = TRUE;
 		}
-		$t->data['showsupport'] = TRUE;
-		$t->data['showdelete'] = $isAdmin;
+		$this->template->data['showsupport'] = TRUE;
+		$this->template->data['showdelete'] = $isAdmin;
+		
+		$this->template->data['responsetype'] = $this->foodle->responseType();
 
-		$t->data['customDistribute'] = array();
-		$t->data['customDistribute'][] = new EmbedDistribute($this->foodle, $t);
+		$this->template->data['customDistribute'] = array();
+		$this->template->data['customDistribute'][] = new EmbedDistribute($this->foodle, $this->template);
 		if (preg_match('/^.*?@uninett\.no$/', $this->user->userid)) {
-			$t->data['customDistribute'][] = new UNINETTDistribute($this->foodle, $t);			
+			$this->template->data['customDistribute'][] = new UNINETTDistribute($this->foodle, $this->template);			
 		}
 
 
 		
-		$t->data['debugUser'] = $this->user->debug();
-		$t->data['debugFoodle'] = $this->foodle->debug();
-		$t->data['debugCalendar'] = $this->user->debugCalendar();
+		$this->template->data['debugUser'] = $this->user->debug();
+		$this->template->data['debugFoodle'] = $this->foodle->debug();
+		$this->template->data['debugCalendar'] = $this->user->debugCalendar();
 		
-		$t->data['url'] = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier;
+		$this->template->data['url'] = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier;
 
-		$t->data['bread'] = array(
+		$this->template->data['bread'] = array(
 			array('href' => '/' . $this->config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), 
 			array('href' => '/foodle/' . $this->foodle->identifier, 'title' => $this->foodle->name), 
 		);
 
+		Timer::tick('Presenting page');
+		$this->template->data['timer'] = Timer::getList();
 
-		# echo '<pre>'; print_r($t->data); exit;
+		# echo '<pre>'; print_r($this->template->data); exit;
 
-		$t->show();
+		$this->template->show();
 
 
 	}

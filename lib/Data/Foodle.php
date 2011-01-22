@@ -39,6 +39,10 @@ class Data_Foodle {
 	public $identifier;
 	public $name;
 	public $descr;
+	
+	public $columntype;
+	public $responsetype = 'default';
+	
 	public $columns;
 	
 	public $maxentries;
@@ -47,7 +51,7 @@ class Data_Foodle {
 	public $expire;
 	public $owner;
 	public $allowanonymous = FALSE;
-	
+
 	public $timezone = NULL;
 	
 	public $loadedFromDB = FALSE;
@@ -129,6 +133,7 @@ class Data_Foodle {
 	
 	public function timezoneEnabled() {
 		if (empty($this->timezone)) return FALSE;
+		if ($this->getColumnDepth() < 2) return FALSE;
 		if (!$this->onlyDateColumns()) return FALSE;
 		return TRUE;
 	}
@@ -139,7 +144,41 @@ class Data_Foodle {
 		return $d;
 	}
 	
+	private function presentTimeZonePlanner($timezone) {
+		
+		$slots = $this->getColumnDates();
+
+		$this->columns = array();
+		
+		foreach($slots AS $slot) {
+			$newDate = array('title' => $this->toTimezone($slot[0], $timezone)->format('H:i') );			
+			$this->columns[] = $newDate;
+		}
+		
+	}
+	
+	public function presentDatesOnly() {
+		
+		$slots = $this->getColumnDates();
+
+		$this->columns = array();
+		
+		foreach($slots AS $slot) {
+		
+#			echo '<pre>FOOOO'; print_r($slot);
+			$newDate = array('title' => strftime('%a %e. %b', $slot[0]) );
+			$this->columns[] = $newDate;
+		}
+		
+	}
+	
 	public function presentInTimeZone($timezone) {
+	
+		if (isset($this->columntype) && $this->columntype === 'timezone') {
+			$this->presentTimeZonePlanner($timezone); 
+			return;
+		}
+	
 		$dates = $this->getColumnDates();
 		
 		$sortedByDate = array();
@@ -166,11 +205,20 @@ class Data_Foodle {
 			$this->columns[] = $newDate;
 		}
 		
-		// echo '<pre>Present in [' . $timezone.  ']: '; print_r($sortedByDate); 
-		// echo 'Present in [' . $timezone.  ']: '; print_r($this->columns); 
-		// 
-		// exit;
+// echo '<pre>Present in [' . $timezone.  ']: '; print_r($sortedByDate); 
+// echo 'Present in [' . $timezone.  ']: '; print_r($this->columns); 
+// 
+// exit;
 	}
+	
+	public function datesOnly() {
+		foreach($this->columns AS $col) {
+			if (!preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $col['title'])) return FALSE;
+			if (isset($col['children'])) return FALSE;
+		}
+		return TRUE;
+	}
+	
 	
 	public function onlyDateColumns() {
 		foreach($this->columns AS $col) {
@@ -259,6 +307,10 @@ class Data_Foodle {
 	}
 	
 	public function calendarEnabled() {
+	
+		if ($this->getColumnDepth() < 2) return FALSE;
+		if (isset($this->columntype) && $this->columntype === 'timezone') return FALSE;
+	
 		$coldates = $this->getColumnDates();
 		
 #		echo '<pre>'; print_r($coldates); echo '</pre>';
@@ -417,8 +469,6 @@ class Data_Foodle {
 		$dates = array();
 		$anyDate = FALSE;
 		
-		
-		
 		foreach($cols AS $col) {
 			
 			if (is_array($col)) {
@@ -522,6 +572,29 @@ class Data_Foodle {
 		return $no;
 	}
 	
+	/*
+	 * will return a specific responsetype to use; if the responsetype is set to default, it will resolve
+	 * the default response type for the columntype.
+	 */
+	public function responseType() {
+		
+		switch($this->responsetype) {
+			case 'yesno':
+				return 'yesno';
+			
+			case 'yesnomaybe':
+				return 'yesnomaybe';
+			
+			case 'default':
+			default:
+				if ($this->columntype === 'timezone') return 'yesnomaybe';
+				if ($this->columntype === 'dates') return 'yesnomaybe';
+				if ($this->columntype === 'text') return 'yesno';
+
+		}
+		return 'yesno';		
+	}
+	
 	
 	private static function emailformat($username, $email) {
 		if (isset($username)) 
@@ -584,6 +657,12 @@ class Data_Foodle {
 			$this->timezone = $_REQUEST['timezone'];			
 		}
 
+		if (!empty($_REQUEST['columntype'])) {
+			$this->columntype = $_REQUEST['columntype'];
+		}
+		if (!empty($_REQUEST['responsetype'])) {
+			$this->responsetype = $_REQUEST['responsetype'];
+		}
 		
 		$this->expire = strip_tags($_REQUEST['expire']);
 		
