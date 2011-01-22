@@ -222,7 +222,7 @@ function prepareDateColumns() {
 		updatePreview();
 	});
 	
-	$("div.columnsetupdates input.fscoli").placeholder({'className': 'placeholdertemp'});
+//	$("div.columnsetupdates input.fscoli").placeholder({'className': 'placeholdertemp'});
 //	$("div.columnsetupdates input.fcoli").placeholder({'className': 'placeholdertemp'});
 
 }
@@ -243,8 +243,8 @@ $(document).ready(function() {
 	$("a.onemorecolumn").click(addOneNewColumn);
 	$("a.onemoreoption").click(addOneMoreOption);
 	
-	$("div.columnsetupgeneric input.fscoli").placeholder({'className': 'placeholdertemp'});
-	$("div.columnsetupgeneric input.fcoli").placeholder({'className': 'placeholdertemp'});
+// 	$("div.columnsetupgeneric input.fscoli").placeholder({'className': 'placeholdertemp'});
+// 	$("div.columnsetupgeneric input.fcoli").placeholder({'className': 'placeholdertemp'});
 
 	
 	$("a.ac").
