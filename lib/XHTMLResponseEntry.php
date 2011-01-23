@@ -22,7 +22,7 @@ class XHTMLResponseEntry {
 		}
 		
 		if ($authenticated) {
-			echo '<abbr title="' . $response->userid . '">' . htmlspecialchars($response->username) . '</abbr>' . $extra;	
+			echo '<abbr title="' . htmlspecialchars($response->userid) . '">' . htmlspecialchars($response->username) . '</abbr>' . $extra;	
 		} else {
 			echo '<p style="margin: 2px">' . $t->t('name') . ': <input type="text" name="username" value="'  . htmlspecialchars($response->username). '" placeholder="' . $t->t('displayname'). '..." /></p>';
 #			echo '<form method="post" action="' . $this->data['foodlepath'] . '">';
@@ -117,7 +117,7 @@ class XHTMLResponseEntry {
 			if (empty($responsecal->notes)) {
 				echo '<a style="float: right" class="ac" >' . $t->t('addcomment') . '</a>';
 			}
-			echo '<abbr title="' . $responsecal->userid . '">' . htmlspecialchars($responsecal->username) . '</abbr>' . $extra;
+			echo '<abbr title="' . htmlspecialchars($responsecal->userid) . '">' . htmlspecialchars($responsecal->username) . '</abbr>' . $extra;
 	#		echo htmlspecialchars($response->username);
 			# echo ' <input type="text" name="username" value="' . htmlspecialchars($response->username) . '" /> (<tt>' . htmlspecialchars($response->userid). '</tt>)';
 			echo '</td>';
@@ -232,7 +232,7 @@ class XHTMLResponseEntry {
 		if (preg_match('|^@(.*)$|', $userid, $matches))
 			$extra = ' (<a href="http://twitter.com/' . $matches[1] . '">' . $userid . '</a>)';
 
-		echo '<abbr title="' . $userid . '">' . $username . '</abbr>' . $extra;
+		echo '<abbr title="' . htmlspecialchars($userid) . '">' . htmlspecialchars($username) . '</abbr>' . $extra;
 		echo '</td>';
 		
 		
