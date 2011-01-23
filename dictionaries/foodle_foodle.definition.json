@@ -408,7 +408,7 @@
 		"en": "Default: Use the default response type for the kind of Foodle you created. Generic text uses Yes/No, while date and timezone Foodles uses Yes/No/Maybe."
 	},
 	"responsetype_yesno": {
-		"en": "Yes/No: The will get a checkbox in each column. A checked box means Yes, or availability of the user."
+		"en": "Yes/No: The user will get a checkbox in each column. A checked box means Yes, or availability of the user."
 	},
 	"responsetype_yesnomaybe": {
 		"en": "Yes/No/Maybe: For each column the user will get three options: Yes, No and Maybe. Maybe may indicate uncertainty, or a possible, but less suitable option."

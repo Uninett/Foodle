@@ -426,7 +426,7 @@
 		"de": "Dieser Foodle hat ein Ablaufdatum",
 		"sv": "Denna Foodle har en st\u00e4ngningstidpunkt",
 		"es": "Este foodle tiene una fecha l\u00edmite",
-		"sl": "Ta foodle ima nastavljen datum veljavnosti.",
+		"sl": "Ta foodle ima nastavljen datum poteka.",
 		"nn": "Denne foodlen har ein utl\u00f8psdato",
 		"hr": "Ovaj Foodle ima rok valjanosti.",
 		"fi": "T\u00e4h\u00e4n Foodleen on m\u00e4\u00e4ritelty umpeutumisp\u00e4iv\u00e4",
@@ -1252,7 +1252,8 @@
 		"sv": "Foodle \u00e4r ansluten till din kalender.",
 		"sl": "Foodle je povezan z va\u0161im koledarjem",
 		"nn": "Foodle er kopla med kalenderen din",
-		"cs": "Foodle je napojen na v\u00e1\u0161 kalend\u00e1\u0159."
+		"cs": "Foodle je napojen na v\u00e1\u0161 kalend\u00e1\u0159.",
+		"de": "Foodle ist mit ihrem Kalender verbunden"
 	},
 	"distribute": {
 		"no": "Distribuer",
@@ -1261,7 +1262,8 @@
 		"sv": "Distribuera",
 		"sl": "Posreduj",
 		"nn": "Send ut",
-		"cs": "Distribuovat"
+		"cs": "Distribuovat",
+		"de": "Verteilen"
 	},
 	"sharing": {
 		"no": "For \u00e5 gi andre tilgang og for \u00e5 oppfordre brukere til \u00e5 besvare denne Foodle-n, kan du dele lenken nedenfor.",
@@ -1279,7 +1281,8 @@
 		"sv": "URL f\u00f6r tillg\u00e5ng till denna Foodle:",
 		"sl": "URL naslov za dostop do tega Foodla:",
 		"nn": "URL for tilgang til denne foodlen",
-		"cs": "URL pro p\u0159\u00edstup k tomuto Foodle:"
+		"cs": "URL pro p\u0159\u00edstup k tomuto Foodle:",
+		"de": "URL um auf diesen Foodle zuzugreifen:"
 	},
 	"sharing2": {
 		"no": "Du kan dele lenken via e-post, p\u00e5 en e-post liste, eller via lynmelding eller en annen kommunikasjonskanal hvor du kan n\u00e5 alle de aktuelle brukerene.",
@@ -1306,7 +1309,8 @@
 		"sv": "Denna Foodle \u00e4r kalenderaktiverad. Detta inneb\u00e4r att du kan synkronisera ditt svar med din kalender.",
 		"sl": "Ta Foodle ima mo\u017enost sinhronizacije z va\u0161im koledarjem.",
 		"nn": "Foodle er kalender-kapable, som inneber at du kan synkronisera svaret ditt fr\u00e5 din kalender",
-		"cs": "Foodle um\u00ed spolupracovat s kalend\u00e1\u0159em, co\u017e znamen\u00e1, \u017ee m\u016f\u017eete synchronizovat odpov\u011bdi se sv\u00fdm kalend\u00e1\u0159em."
+		"cs": "Foodle um\u00ed spolupracovat s kalend\u00e1\u0159em, co\u017e znamen\u00e1, \u017ee m\u016f\u017eete synchronizovat odpov\u011bdi se sv\u00fdm kalend\u00e1\u0159em.",
+		"de": "Dieser Foodle hat eine Kalenderfunktion, dies bedeutet sie k\u00f6nnen ihre Antworten mit ihrem Kalender synchronisieren."
 	},
 	"manualentry": {
 		"no": "Manuelt innslag",
@@ -1315,7 +1319,8 @@
 		"sv": "Ange manuellt",
 		"sl": "Ro\u010dni vnos",
 		"nn": "Manuelt innslag",
-		"cs": "Manu\u00e1ln\u00ed polo\u017eka"
+		"cs": "Manu\u00e1ln\u00ed polo\u017eka",
+		"de": "Manueller Eintrag"
 	},
 	"calendarsync": {
 		"no": "Synkronisering med kalender",
@@ -1324,7 +1329,8 @@
 		"sv": "Synkronisera med kalender",
 		"sl": "Sinhronizacija s koledarjem",
 		"nn": "Kalender-synkronisering",
-		"cs": "Synchronizace kalend\u00e1\u0159e"
+		"cs": "Synchronizace kalend\u00e1\u0159e",
+		"de": "Kalender Synchonisation"
 	},
 	"calendardescr": {
 		"no": "Velg over om du \u00f8nsker \u00e5 koble svaret ditt synkronisert med din kalender, eller om du \u00f8nsker \u00e5 svare med et manuelt innslag",
@@ -1333,7 +1339,8 @@
 		"sl": "Izberite ali \u017eelite va\u0161 vnos povezati z va\u0161im koledarjem ali \u017eelite datum vnesti ro\u010dno.",
 		"nn": "Vel over om du vil knyta saman svaret ditt med kalenderen din, eller om du vil leggja inn dagar for hand",
 		"da": "V\u00e6lg om du til forbinde til din kalender eller om du vil indtaste datoer manuelt",
-		"cs": "Zvolte, pokud chcete p\u0159ipojit odpov\u011bd ke sv\u00e9mu kalend\u00e1\u0159i nebo pokud chcete zvolit data ru\u010dn\u011b."
+		"cs": "Zvolte, pokud chcete p\u0159ipojit odpov\u011bd ke sv\u00e9mu kalend\u00e1\u0159i nebo pokud chcete zvolit data ru\u010dn\u011b.",
+		"de": "W\u00e4hlen sie oben aus ob sie ihre Antwort mit ihrem Kalender verbinden m\u00f6chten oder ob sie die Termine lieber manuell eintragen m\u00f6chten"
 	},
 	"calendarcollision": {
 		"no": "Kollisjon i kalender",
@@ -1342,7 +1349,8 @@
 		"sv": "Konflikt med annan avtalad tid!",
 		"sl": "Konflikt med dogodki v koledarju",
 		"nn": "Kollisjon i kalender",
-		"cs": "Kolize v kalend\u00e1\u0159i"
+		"cs": "Kolize v kalend\u00e1\u0159i",
+		"de": "Konflikt im Kalender"
 	},
 	"addeddiscussion": {
 		"no": "har skrevet et diskusjonsinnlegg",
@@ -1351,7 +1359,8 @@
 		"sl": "je dodal\/a komentar",
 		"nn": "har laga diskusjonsinnlegg",
 		"da": "indl\u00e6g tilf\u00f8jet",
-		"cs": "p\u0159idali diskuzn\u00ed p\u0159\u00edsp\u011bvek"
+		"cs": "p\u0159idali diskuzn\u00ed p\u0159\u00edsp\u011bvek",
+		"de": "haben einen Diskussionsbeitrag hinzugef\u00fcgt"
 	},
 	"respondedrecent": {
 		"no": "har svar p\u00e5 denne Foodle-n",
@@ -1360,7 +1369,8 @@
 		"sl": "je seznam sodelujo\u010dih v tem Foodlu",
 		"nn": "har svart p\u00e5 denne foodlen",
 		"da": "Svar givet",
-		"cs": "reagovali na toto Foodle"
+		"cs": "reagovali na toto Foodle",
+		"de": "haben diesen Foodle beantwortet"
 	},
 	"qcolumntype": {
 		"no": "Hvilke type alternativer vil du benytte?",
@@ -1396,7 +1406,8 @@
 		"sv": "Datum",
 		"sl": "Datum",
 		"nn": "Dato",
-		"cs": "Datum"
+		"cs": "Datum",
+		"de": "Datum"
 	},
 	"time": {
 		"no": "Tid",
@@ -1405,16 +1416,18 @@
 		"sv": "Tid",
 		"sl": "\u010cas",
 		"nn": "Tid",
-		"cs": "\u010cas"
+		"cs": "\u010cas",
+		"de": "Zeit"
 	},
 	"addtimeslot": {
 		"no": "Legg til tidspunkt",
 		"da": "tilf\u00f8j tid",
 		"es": "A\u00f1adir franja de tiempo",
-		"sv": "L\u00e4g till en tidsperiod",
+		"sv": "L\u00e4gg till en tidsperiod",
 		"sl": "Dodaj \u010dasovni termin",
 		"nn": "Legg til tidsramme",
-		"cs": "P\u0159idat \u010dasov\u00fd \u00fasek"
+		"cs": "P\u0159idat \u010dasov\u00fd \u00fasek",
+		"de": "Zeit hinzuf\u00fcgen"
 	},
 	"duplicate": {
 		"no": "Dupliser tidspunktene til alle datoene",
@@ -1450,7 +1463,8 @@
 		"sv": "Alternativ",
 		"sl": "Mo\u017enost",
 		"nn": "Opsjon",
-		"cs": "Volba"
+		"cs": "Volba",
+		"de": "Option"
 	},
 	"addoption": {
 		"no": "Legg til alternativ",
@@ -1459,7 +1473,8 @@
 		"sv": "L\u00e4gg till alternativ",
 		"sl": "Dodaj mo\u017enost",
 		"nn": "Legg til opsjon",
-		"cs": "P\u0159idat volbu"
+		"cs": "P\u0159idat volbu",
+		"de": "Option hinzuf\u00fcgen"
 	},
 	"addcolumn": {
 		"no": "Legg til en ny overskrift",
@@ -1477,7 +1492,8 @@
 		"sv": "Tidsperioder kan antingen vara en tidsangivelse, t.ex. 10:00 eller 15:00, eller vara en tidsperiod, t.ex. 12:00-14:00.",
 		"es": "Las franjas horarias pueden ser una \u00fanica hora (como las 10:00 o las 15:00) o un margen de tiempo (como 12:00-14:00)",
 		"nn": "Tidsluker kan vera enten eit enkelt tidspunkt (som 10:00 eller 15:00) eller det kan vera ei tidsluke (som 12-00-14:00)",
-		"cs": "\u010casov\u00e9 \u00faseky mohou p\u0159edstavovat konkr\u00e9tn\u00ed \u010das (jako 10:00 nebo 15:00) nebo mohou p\u0159edstavovat \u010dasov\u00fd interval (nap\u0159. 12:00-14:00)."
+		"cs": "\u010casov\u00e9 \u00faseky mohou p\u0159edstavovat konkr\u00e9tn\u00ed \u010das (jako 10:00 nebo 15:00) nebo mohou p\u0159edstavovat \u010dasov\u00fd interval (nap\u0159. 12:00-14:00).",
+		"de": "Zeiten k\u00f6nnen entweder einzelne Zeiten (wie zb 10:00 oder 15:00) oder Zeitspannen sein (wie zb 12.00-14.00)"
 	},
 	"markdowninfo": {
 		"no": "Syntaksen for beskrivelsen over er basert p\u00e5 %Markdown%. Markdown er et enkelt tekstformat som tillater en enkel form for markup. G\u00e5 til \u2039Oppsett av kolonner\u203a for \u00e5 forh\u00e5ndsvise hvordan teksten vil vises p\u00e5 den ferdige Foodlen.",
@@ -1495,7 +1511,8 @@
 		"sv": "Fels\u00f6kning (debug)",
 		"es": "Depuraci\u00f3n",
 		"nn": "Feils\u00f8king",
-		"cs": "Lad\u011bn\u00ed"
+		"cs": "Lad\u011bn\u00ed",
+		"de": "Debug"
 	},
 	"selecttimezone": {
 		"no": "Velg din tidssone",
@@ -1504,27 +1521,86 @@
 		"sv": "V\u00e4lj din tidszon",
 		"es": "Seleccione su zona horaria",
 		"nn": "Vel din tidssone",
-		"cs": "Zvolte svou \u010dasovou z\u00f3nu"
+		"cs": "Zvolte svou \u010dasovou z\u00f3nu",
+		"de": "W\u00e4hlen sie ihre Zeitzone"
 	},
 	"foodlesoftware": {
 		"no": "Programvaren Foodle",
-		"cs": "Foodle Software"
+		"cs": "Foodle Software",
+		"de": "Die Foodle Software",
+		"sv": "Information om programmet Foodle",
+		"sl": "Programska oprema Foodle"
 	},
 	"privacypolicy": {
 		"no": "Personvern i Foodle",
-		"cs": "Ochrana soukrom\u00ed na Foodle"
+		"cs": "Ochrana soukrom\u00ed na Foodle",
+		"de": "Foodle Datenschutz",
+		"sv": "Integritetspolicy f\u00f6r Foodle",
+		"sl": "Foodle politika zasebnosti"
 	},
 	"support": {
 		"no": "Hjelp",
-		"cs": "Podpora"
+		"cs": "Podpora",
+		"de": "Unterst\u00fctzung",
+		"sv": "Support",
+		"sl": "Podpora"
 	},
 	"embed_header": {
-		"no": "Inkluder denne Foodle-n p\u00e5 din egen webside"
+		"no": "Inkluder denne Foodle-n p\u00e5 din egen webside",
+		"de": "F\u00fcgen sie diesen Foodle in ihre Seite ein",
+		"sv": "Inkludera denna Foodle i din webbplats",
+		"sl": "Vklju\u010di ta foodle v svojo spletno stran"
 	},
 	"embed_text1": {
-		"no": "Foodle lar deg inkludere et automatisk oppdatert sammendrag av denne Foodle-n, inkludert en lenke, ved \u00e5 klippe og lime ut koden nedenunder til din webside (dersom den tillater HTML kode)."
+		"no": "Foodle lar deg inkludere et automatisk oppdatert sammendrag av denne Foodle-n, inkludert en lenke, ved \u00e5 klippe og lime ut koden nedenunder til din webside (dersom den tillater HTML kode).",
+		"sv": "Foodle till\u00e5ter att du inkluderar en uppdaterad sammanfattning, inklusive l\u00e4nk, av denna Foodle i webbplats. Kopiera och klistra in kodsnutten nedan d\u00e4r du vill visa sammanfattningen. Observera att du m\u00e5ste ha r\u00e4tt att infoga HTML-kod i webbsidan f\u00f6r att det ska fungera.",
+		"sl": "Foodle lahko vklju\u010dite v svojo spletno stran tako, da spodnji URL vklju\u010dite v HTML va\u0161e spletne strani."
 	},
 	"embed_api": {
-		"no": "Foodle tilbyr ogs\u00e5 et REST API for utviklere som vil inkludere st\u00f8tte for Foodle i tredjeparts applikasjoner. Kontakt UNINETT for mer informasjon om dette."
+		"no": "Foodle tilbyr ogs\u00e5 et REST API for utviklere som vil inkludere st\u00f8tte for Foodle i tredjeparts applikasjoner. Kontakt UNINETT for mer informasjon om dette.",
+		"sv": "Foodle tillhandah\u00e5ller \u00e4ven ett REST-baserat API f\u00f6r utvecklare som vill inkludera st\u00f6d f\u00f6r Foodle i andra program. Ta kontakt med UNINETT f\u00f6r mer infromation.",
+		"sl": "Foodle ima vgrajen REST API, ki spletnim programerjem omogo\u010da vklju\u010devanje foodlov v druge spletne strani. "
+	},
+	"qcolumntypetimezone": {
+		"no": "Tidssoneplanlegger"
+	},
+	"delete": {
+		"no": "Slett"
+	},
+	"delete_this": {
+		"no": "Slett denne Foodlen"
+	},
+	"delete_confirm": {
+		"no": "Ja, jeg vil slette denne Foodlen og alle tilknyttede svar. Foodlen selv og alle svar og diskusjonsinnlegg som er tilknyttet vil bli slettet. Det er ikke mulig \u00e5 angre etter at man har slettet en Foodle."
+	},
+	"timezonedateinfo": {
+		"no": "Du m\u00e5 spesifisere en dato (i dag er forh\u00e5ndsutfylt). Selv om datoen ikke er relevant, og heller ikke vises for brukere, s\u00e5 er det n\u00f8vendig for at utregningen av sommertid skal bli korrekt."
+	},
+	"timezonetimeinfo": {
+		"no": "Dagen er delt inn i 24 perioder. Du kan ikke endre disse in tidssoneplanleggeren."
+	},
+	"responsetype": {
+		"no": "Svartype"
+	},
+	"responsetypeinfo": {
+		"no": "Hvilken type valg vil du at brukeren skal ha for hver kolonne?"
+	},
+	"responsetype_default": {
+		"no": "Standard: Bruk standard svartype basert p\u00e5 hvilken type Foodle du har opprettet. Generell tekst blir Ja\/Nei, og dato og tidssoneplanleggeren bruker Ja\/Nei\/Kanskje."
+	},
+	"responsetype_yesno": {
+		"no": "Ja\/Nei: Brukerene vil f\u00e5 en sjekkboks i hver kolonne. En avkrysset boks betyr Ja, eller at brukeren er tilgjengelig."
+	},
+	"responsetype_yesnomaybe": {
+		"no": "Ja\/Nei\/Kanskje: For hver kolonne vil brukeren f\u00e5 tre valg: Ja, Nei og Kanskje. Kanskje indikerer usikkerhet, eller et mulig men mindre passende valg."
+	},
+	"yes": {
+		"no": "Ja"
+	},
+	"no": {
+		"no": "Nei"
+	},
+	"maybe": {
+		"no": "Kanskje"
 	}
 }
