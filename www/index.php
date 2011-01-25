@@ -137,10 +137,13 @@ try {
 } catch(Exception $e) {
 
 
-	$auth = new FoodleAuth();
+	try {
+	
+		$db = new FoodleDBConnector($config);
+	$auth = new FoodleAuth($db);
 	$auth->requireAuth(TRUE);
 
-	try {
+	
 		$email = $auth->getMail();
 		$userid = $auth->getUserID();
 		$name = $auth->getDisplayName();
