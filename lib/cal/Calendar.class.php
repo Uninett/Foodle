@@ -6,7 +6,7 @@
 class Calendar {
 
 #	const CACHETIME = 60*15; // 15 minutes
-	const CACHETIME = 15; // 15 seconds
+	const CACHETIME = 60*15; // 15 seconds
 	
 	/* Instance of sspmod_core_Storage_SQLPermanentStorage
 	 * 
