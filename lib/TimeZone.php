@@ -25,6 +25,7 @@ class TimeZone {
 			return $this->store->getValue('region', $region, NULL);
 		}
 		
+		error_log('Lookup region');
 		$rawdata = file_get_contents('http://freegeoip.net/tz/json/' . $region);
 		
 		if (empty($rawdata)) throw new Exception('Error looking up IP geo location for [' . $ip . ']');
@@ -36,7 +37,7 @@ class TimeZone {
 		$timezone = $data['timezone'];
 		
 		error_log('IP Geo location: Store region [' . $region . '] in cache: ' . $timezone);
-		$this->store->set('ip', $ip, NULL, $timezone);
+		$this->store->set('region', $region, NULL, $timezone);
 		
 		return $timezone;	
 	}
@@ -48,6 +49,7 @@ class TimeZone {
 			return $this->store->getValue('ip', $ip, NULL);
 		}
 		
+		error_log('Lookup IP');
 		$rawdata = file_get_contents('http://freegeoip.net/json/' . $ip);
 		
 		if (empty($rawdata)) throw new Exception('Error looking up IP geo location for [' . $ip . ']');
