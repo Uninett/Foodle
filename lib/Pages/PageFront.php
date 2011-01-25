@@ -55,7 +55,7 @@ class Pages_PageFront extends Pages_Page {
 
 		$statusupdate = $this->fdb->getActivityStream($this->user, $foodleids, 100);
 		
-		$stats = $this->fdb->getStats($userid);
+		$stats = $this->fdb->getStats($this->user->userid);
 		// ---- o ----- o ---- o ----- o ---- o ----- o
 
 
