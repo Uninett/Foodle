@@ -222,6 +222,42 @@ class FoodleDBConnector {
 
 
 
+	/*
+	 * Collect all responses calendar urls
+	 */
+	public function getCalendarURLs() {
+		
+		$urls = array();
+		
+		$sql ="
+			SELECT response, 
+				UNIX_TIMESTAMP(created) AS createdu,
+				UNIX_TIMESTAMP(updated) AS updatedu
+			FROM entries
+			ORDER BY updated desc, created desc
+			LIMIT 2000
+			";
+
+		$result = mysql_query($sql, $this->db);
+		if(!$result){
+			throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
+		}
+		if(mysql_num_rows($result) > 0){		
+			while($row = mysql_fetch_assoc($result)){
+				if (self::isJSON($row['response'][0])) {
+					#echo 'Decoded resposne as json: <pre>' . $row['response'] . '</pre>';
+					
+					$response = json_decode($row['response'], TRUE);
+					
+					if($response['type'] !== 'ical') continue;
+					$urls[$response['calendarURL']] = 1;
+				}
+			}
+		}
+		mysql_free_result($result);
+		
+		return array_keys($urls);
+	}
 
 
 
