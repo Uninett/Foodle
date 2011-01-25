@@ -95,29 +95,27 @@ class FoodleAuth {
 				$this->setEmail($decodes[2]);
 				
 			}
-			#print_r($decodes); exit;
+
 		} elseif(!array_key_exists('foodleSession', $_COOKIE)) {
 			$sessid = SimpleSAML_Utilities::generateID();
 			setcookie('foodleSession', $sessid, time() + 60*60*24*90);
 			$this->setUserID(substr(sha1('sf65d4d5' . $sessid), 0, 10));
 		}
-		
-		if (array_key_exists('setEmail', $_REQUEST)) {
-			setcookie('foodleEmail', $_REQUEST['setEmail'], time() + 60*60*24*90);
-			$this->setEmail($_REQUEST['setEmail']);
-		}
+
+
 		if (array_key_exists('username', $_REQUEST)) {
 			setcookie('foodleDisplayName', $_REQUEST['username'], time() + 60*60*24*90);
 			$this->setDisplayName($_REQUEST['username']);
 		}
-		
-		
 
-		
-		if (array_key_exists('setEmail', $_REQUEST)) {
+		if (!empty($_REQUEST['setEmail'])) {
+			setcookie('foodleEmail', $_REQUEST['setEmail'], time() + 60*60*24*90);
+			$this->setEmail($_REQUEST['setEmail']);
+			
 			$this->sendEmail();
 		}
-		
+
+
 		return TRUE;
 		
 	}

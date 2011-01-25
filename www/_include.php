@@ -2,7 +2,7 @@
 
 session_start();
 
-$SIMPLESAMLPATH = '/var/simplesamlphp-foodle/';
+$SIMPLESAMLPATH = '/home/www/deploy.foodl.org/simplesamlphp/';
 
 $path_extra = $SIMPLESAMLPATH . 'lib';
 $path = ini_get('include_path');
