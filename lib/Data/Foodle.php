@@ -83,7 +83,7 @@ class Data_Foodle {
 	
 	public function debug() {
 		$text = '<dl>' .
-			self::debugfield('Identifier', $this->userid) . 
+#			self::debugfield('Identifier', $this->userid) . 
 			self::debugfield('Name', $this->name) . 
 			self::debugfield('Description', $this->descr) . 
 			self::debugfield('Columns', $this->columns) . 
