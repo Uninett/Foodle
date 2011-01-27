@@ -145,8 +145,13 @@ if (!empty($this->data['expire'])) {
 
 
 
+
+
+
 if (!$this->data['authenticated']) {
-	if ($this->data['registerEmail']) {
+
+	if (array_key_exists('registerEmail', $this->data)) {
+	
 		echo('<div class="infobox registeremail">');
 		echo '<form method="post" action="' . $this->data['foodlepath'] . '">';
 		echo '<p>' . $this->t('register_email') . '</p>';
