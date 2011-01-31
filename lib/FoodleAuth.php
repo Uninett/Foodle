@@ -65,9 +65,13 @@ class FoodleAuth {
 				$dbUser = $this->db->readUser($this->user->userid);
 				$modified = $dbUser->updateData($this->user);
 				$this->user = $dbUser;
-				if ($modified) $this->db->saveUser($this->user);
+				if ($modified) { 
+					$this->db->saveUser($this->user);
+					error_log('Saving user: ' . var_export($attributes, TRUE));
+				}
 			} else {
 				$this->db->saveUser($this->user);
+				error_log('Saving user: ' . var_export($attributes, TRUE));
 			}
 			
 			/*
