@@ -157,6 +157,11 @@ echo '</p>';
 	} elseif(isset($this->data['logouturl'])) {
 		echo '<a class="button" style="float: right" href="' . htmlentities($this->data['logouturl']) . '"><span>' . $this->t('logout') . '</span></a>';
 	}
+
+	if (isset($this->data['showprofile'])) {
+		echo '<a class="button" style="float: right" href="' . htmlentities('/profile') . '"><span>' . $this->t('myprofile') . '</span></a>';
+	}
+
 	
 	if (isset($this->data['showsupport'])) {
 		echo '<a class="button" style="float: right" href="' . htmlentities('/support') . '"><span>' . $this->t('support') . '</span></a>';

@@ -34,6 +34,8 @@ class Data_FoodleResponse {
 	public $created;
 	public $updated;
 
+	public $user;
+
 	public $loadedFromDB = FALSE;
 	
 	// this is set to TRUE if the number of columns does not match...
@@ -46,12 +48,40 @@ class Data_FoodleResponse {
 		$this->foodle = $foodle;
 	}
 	
+	public function statusline() {	
+		
+		return date('H:i', $this->updated) . ' ' . $this->username . ' added a response';
+	
+	}
+	
+	public function getUsernameHTML() {
+		$userid = $this->userid;
+		$username = $this->username;
+		
+		if (isset($this->user)) {
+			$userid = $this->user->userid;
+			$username = $this->user->username;			
+		}
+		
+		$str = htmlspecialchars($username);
+		if (isset($userid)) {
+			$str = '<abbr title="' . htmlspecialchars($userid) . '">' . $str  . '</abbr>';
+		}
+		if (preg_match('|^@(.*)$|', $userid, $matches)) 
+			$str .= ' (<a href="http://twitter.com/' . $matches[1] . '">' . $userid . '</a>)';
+		
+		return $str;
+	}
+	
 	public function updateFromical(Data_User $user, $cache = TRUE) {
 
 		if (!$user->hasCalendar()) throw new Exception('User has no calendar information');
-				
+		
+		
+		$this->user = $user;
+		
 		$this->userid = $user->userid;
-		$this->username = $user->name;
+		$this->username = $user->username;
 		$this->email = $user->email;
 		$this->notes = $_REQUEST['comment'];
 		#$this->updated = 'now';
@@ -59,7 +89,7 @@ class Data_FoodleResponse {
 			'type' => 'ical',
 			'data' => $responseData,
 #			'crash' => $crashingEvents,
-			'calendarURL' => $user->calendarURL,
+			'calendarURL' => $user->calendar,
 		);
 		
 		$this->icalfill($cache);
@@ -100,7 +130,6 @@ class Data_FoodleResponse {
 	
 	public function asJSON() {
 		$data = $this->response;
-		#unset($data['data']);
 		unset($data['crash']);
 		return json_encode($data);
 	}
@@ -116,6 +145,8 @@ class Data_FoodleResponse {
 	public function updateFromPost(Data_User $user) {
 		$responseData = array_fill(0, $this->foodle->getNofColumns(), '0');
 		
+		$this->user = $user;
+		
 		if (!empty($_REQUEST['myresponse'])) {
 			foreach ($_REQUEST['myresponse'] AS $yes) {
 				$pn = self::parsePostN($yes);
@@ -123,11 +154,11 @@ class Data_FoodleResponse {
 			}
 		}		
 		$this->userid = $user->userid;
-		$this->username = $user->name;
+		$this->username = $user->username;
 		if (empty($this->username) && isset($_REQUEST['username']) ) {
 			$this->username = FoodleUtils::cleanUsername($_REQUEST['username']);
 		}
-		
+
 		$this->email = $user->email;
 		$this->notes = $_REQUEST['comment'];
 		#$this->updated = 'now';
@@ -149,5 +180,3 @@ class Data_FoodleResponse {
 	}
 	
 }
-
-?>

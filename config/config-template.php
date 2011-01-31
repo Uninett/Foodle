@@ -11,14 +11,17 @@ $config = array (
 	'simplesamlphpdir'   => NULL,
 	'basedir'            => '/www/foodle.feide.no/',
 	'baseurlpath'        => '',
+	'secret' => 'sdf9sdf765sdf765sdfytux657',
 	
 	'templatedir'        => 'templates/',
 	'dictionarydir'      => 'dictionaries/',
 	
+	'photodir'      => 'photos/',
+	
 	/*
 	 * Languages available and what language is default
 	 */
-	'language.available'	=> array('en', 'no', 'nn', 'da', 'sv', 'fi', 'fr', 'nl', 'de', 'es', 'sl', 'cs', 'hr'),
+	'language.available'	=> array('en', 'no', 'nn', 'da', 'sv', 'fi', 'nl', 'fr', 'de', 'es', 'sl', 'cs', 'hr'),
 	'language.default'	  => 'en',
 	
 	'auth' => 'default-sp',

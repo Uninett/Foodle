@@ -20,6 +20,71 @@ class FoodleDBConnector {
 		mysql_select_db($config->getValue('db.name','feidefoodle'));
 	}
 	
+	public function q($sql, $field = null) {
+		$rows = array();
+		$result = mysql_query($sql, $this->db);
+		if(!$result)
+			throw new Exception ("Could not successfully run query ($sql) fromDB:" . mysql_error());
+		while($row = mysql_fetch_assoc($result)){
+			if ($field === null) {
+				$rows[] = $row;
+			} else {
+				if (isset($row[$field])) $rows[] = $row[$field];
+			}
+		}
+		return $rows;
+	}
+	
+	
+	public function getChangesOwners($ago = 86400) {
+		
+		$owners = array();
+		$owners1 = $this->q('
+			SELECT distinct def.owner, entries.foodleid
+			from entries, def 
+			where UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(entries.updated) < ' . $ago . ' AND
+			entries.foodleid = def.id
+			order by entries.updated desc ');
+		
+		$owners2 = $this->q('
+			SELECT distinct def.owner, discussion.foodleid
+			from discussion, def 
+			where UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(discussion.created) < ' . $ago . ' AND
+			discussion.foodleid = def.id');
+	
+		foreach($owners1 AS $o) $owners[$o['owner']][$o['foodleid']] = 1;
+		foreach($owners2 AS $o) $owners[$o['owner']][$o['foodleid']] = 1;
+
+#		print_r($owners);
+
+		$po = array();
+		foreach($owners AS $ow => $v) {
+			$n = array();
+			foreach($v AS $f => $d) {
+				$n[] = $this->readFoodle($f);
+			}
+			$po[$ow] = $n;
+		}
+
+		
+#		print_r($po);
+	
+		return $po;
+	}
+	
+	public function getChangesFoodle($foodle, $ago = 86400) {
+	
+		$updates = array(
+			'responses' => array(),
+			'discussion' => array(),
+		);
+		
+		$updates['responses'] = $this->readResponses($foodle, $ago);
+		$updates['discussion'] = $this->readDiscussion($foodle, $ago);
+		
+#		print_r($updates);
+		return $updates;
+	}
 
 	/*
 	 * Loads a foodle with a given $id from database, as a Foodle object.
@@ -50,6 +115,7 @@ class FoodleDBConnector {
 			$foodle->allowanonymous = (boolean) ($row['anon'] == '1');
 			$foodle->columntype = isset($row['columntype']) ? $row['columntype'] : null;
 			$foodle->responsetype = isset($row['responsetype']) ? $row['responsetype'] : 'default';
+			$foodle->extrafields = Data_Foodle::decode($row['extrafields']);
 			
 			if (!empty($row['timezone'])) $foodle->timezone = $row['timezone'];
 			
@@ -85,10 +151,190 @@ class FoodleDBConnector {
 		throw new Exception('Could not find foodle in database with id ' . $id);
 	}
 	
-	public function saveFoodle(Data_Foodle $foodle) {
+
+	public static function sqlParameter($name, $value, $default = null, $includeName = TRUE, $addcomma = TRUE) {
+		$comma = '';
+		if($addcomma) $comma = ',';
 		
+		$namest = '';
+		if ($includeName) $namest =  $name . " = ";
+		
+		if (!empty($value)) {
+			return $namest . "'" . mysql_real_escape_string($value) . "'" . $comma . " \n";
+		} 
+		if (empty($default)) {
+			throw new Exception('Cannot create SQL statement for attribute [' . $name . '] where the value is empty and there is no default value');
+		}
+		return $namest . $default . $comma . " \n";
+	}
+	
+
+	public function readUser($userid) {
 		/*
+			| userid        | varchar(100) | NO   | PRI |         |       |
+			| username      | tinytext     | YES  |     | NULL    |       |
+			| email         | tinytext     | YES  |     | NULL    |       |
+			| org           | tinytext     | YES  |     | NULL    |       |
+			| orgunit       | tinytext     | YES  |     | NULL    |       |
+			| photol        | text         | YES  |     | NULL    |       |
+			| photom        | text         | YES  |     | NULL    |       |
+			| photos        | text         | YES  |     | NULL    |       |
+			| notifications | text         | YES  |     | NULL    |       |
+			| features      | text         | YES  |     | NULL    |       |
+			| calendar      | text         | YES  |     | NULL    |       |
+			| timezone      | tinytext     | YES  |     | NULL    |       |
+			| location      | tinytext     | YES  |     | NULL    |       |
+			| realm         | tinytext     | YES  |     | NULL    |       |
+				language
+			
+			userid, username, email, org, orgunit, photol, photom, photos, notifications, features, calendar, timezone, location, realm, language
+		*/
+		Data_User::requireValidUserid($userid);
+		$sql ="
+			SELECT * 
+			FROM user WHERE userid = '" . mysql_real_escape_string($userid) . "'";
 		
+		$result = mysql_query($sql, $this->db);
+		
+		if(!$result)
+			throw new Exception ("Could not successfully run query ($sql) fromDB:" . mysql_error());
+
+		if(mysql_num_rows($result) > 0) {
+			$row = mysql_fetch_assoc($result);
+			
+			// echo '<pre>'; print_r($row); echo '</pre>'; exit;
+			
+			$user = new Data_User($this);
+			$user->userid = $row['userid'];
+			$user->username = $row['username'];
+			$user->email = $row['email'];
+			$user->org = $row['org'];
+			$user->orgunit = $row['orgunit'];
+			$user->photol = $row['photol'];
+			$user->photom = $row['photom'];
+			$user->photos = $row['photos'];
+			$user->notifications = Data_User::decode($row['notifications']);
+			$user->features = Data_User::decode($row['features']);
+			$user->calendar = $row['calendar'];
+			$user->timezone = $row['timezone'];
+			$user->location = $row['location'];
+			$user->realm = $row['realm'];
+			$user->language = $row['language'];
+
+			$user->loadedFromDB = TRUE;
+			mysql_free_result($result);
+			
+			#echo '<pre>'; print_r($row); exit;
+			
+			return $user;
+		} 
+		return false;
+		//throw new Exception('Could not find user in database with username ' . $userid);
+	}
+	
+	public function userExists($userid) {
+		Data_User::requireValidUserid($userid);
+		$sql ="
+			SELECT userid
+			FROM user WHERE userid = '" . mysql_real_escape_string($userid) . "'";
+		
+		$result = mysql_query($sql, $this->db);
+		
+		if(!$result)
+			throw new Exception ("Could not successfully run query ($sql) fromDB:" . mysql_error());
+
+		if(mysql_num_rows($result) > 0) {
+			return TRUE;
+		}
+		
+		return FALSE;
+	
+	}
+
+	public function saveUser(Data_User $user) {
+		/*
+			| userid      | varchar(100) | NO   | PRI |         |       |
+			| username          | tinytext     | YES  |     | NULL    |       |
+			| email         | tinytext     | YES  |     | NULL    |       |
+			| org           | tinytext     | YES  |     | NULL    |       |
+			| orgunit       | tinytext     | YES  |     | NULL    |       |
+			| photol        | text         | YES  |     | NULL    |       |
+			| photom        | text         | YES  |     | NULL    |       |
+			| photos        | text         | YES  |     | NULL    |       |
+			| notifications | text         | YES  |     | NULL    |       |
+			| features      | text         | YES  |     | NULL    |       |
+			| calendar      | text         | YES  |     | NULL    |       |
+			| timezone      | tinytext     | YES  |     | NULL    |       |
+			| location      | tinytext     | YES  |     | NULL    |       |
+			| realm         | tinytext     | YES  |     | NULL    |       |
+				language
+			
+			userid, , username, email, org, orgunit, photol, photom, photos, notifications, features, calendar, timezone, location, realm, language
+		*/
+		
+		
+#		print_r($user->notifications); exit;
+		
+		if ($user->loadedFromDB) {
+			error_log('FoodleDB: Updating user data');
+			$sql = "
+				UPDATE user SET " .
+#					self::sqlParameter('userid', $user->username) . 
+					self::sqlParameter('username', $user->username, 'null') . 
+					self::sqlParameter('email', $user->email, 'null') . 
+					self::sqlParameter('org', $user->org, 'null') . 
+					self::sqlParameter('orgunit', $user->orgunit, 'null') .
+					self::sqlParameter('photol', $user->photol, 'null') . 
+					self::sqlParameter('photom', $user->photom, 'null') . 
+					self::sqlParameter('photos', $user->photos, 'null') . 
+					self::sqlParameter('notifications', Data_User::encode($user->notifications), 'null') . 
+					self::sqlParameter('features', Data_User::encode($user->features), 'null') . 
+					self::sqlParameter('calendar', $user->calendar, 'null') . 
+					self::sqlParameter('timezone', $user->timezone, 'null') . 
+					self::sqlParameter('location', $user->location, 'null') . 
+
+					self::sqlParameter('realm', $user->realm, 'realm') . 
+					self::sqlParameter('language', $user->language, 'null') . "
+					updated = NOW()	
+				WHERE userid = '" . $user->userid. "' 
+			";
+			
+		} else {
+			error_log('FoodleDB: Adding a new user');
+			$sql = "
+				INSERT INTO user (userid, username, email, org, orgunit, photol, photom, photos, notifications, features, calendar, timezone, location, realm, language) values (" . 
+					self::sqlParameter('userid', $user->userid, null, FALSE) . 
+					self::sqlParameter('username', $user->username, 'null', FALSE) . 
+					self::sqlParameter('email', $user->email, 'null', FALSE) . 
+					self::sqlParameter('org', $user->org, 'null', FALSE) . 
+					self::sqlParameter('orgunit', $user->orgunit, 'null', FALSE) .
+					self::sqlParameter('photol', $user->photol, 'null', FALSE) . 
+					self::sqlParameter('photom', $user->photom, 'null', FALSE) . 
+					self::sqlParameter('photos', $user->photos, 'null', FALSE) . 
+					self::sqlParameter('notifications', Data_User::encode($user->notifications), 'null', FALSE) . 
+					self::sqlParameter('features', Data_User::encode($user->features), 'null', FALSE) . 
+					self::sqlParameter('calendar', $user->calendar, 'null', FALSE) . 
+					self::sqlParameter('timezone', $user->timezone, 'null', FALSE) . 
+					self::sqlParameter('location', $user->location, 'null', FALSE) . 
+					self::sqlParameter('realm', $user->realm, 'realm', FALSE) . 
+					self::sqlParameter('language', $user->language, 'null', FALSE, FALSE) . ")
+			";
+			
+		}
+		
+		#echo '<pre>'; echo $sql; exit;
+		$res = mysql_query($sql, $this->db);
+		
+		if(mysql_error()){
+			throw new Exception('Invalid query: <pre>' . $sql . '</pre>' . mysql_error());
+		}
+	}
+
+
+
+	
+	public function saveFoodle(Data_Foodle $foodle) {
+		/*
 			| id      | varchar(100) | NO   | PRI |                   |       | 
 			| name    | tinytext     | YES  |     | NULL              |       | 
 			| descr   | text         | YES  |     | NULL              |       | 
@@ -99,24 +345,6 @@ class FoodleDBConnector {
 			| expire  | datetime     | YES  |     | NULL              |       | 
 			| maxdef  | text         | YES  |     | NULL              |       | 
 			| anon    | tinytext     | YES  |     | NULL              |       |
-		
-					name ='" . addslashes($this->getName()) . "', 
-					descr ='" . addslashes($this->getDescr()) . "', 
-					columns = '" . addslashes($this->encodeColumn($this->getColumns())) . "',
-					expire = " . $expire . ",
-					maxdef = '" . addslashes($this->getMaxDef()) . "',
-					anon = '" . addslashes($this->allowanonymous) . "',
-					updated = now(),
-					owner = '" . addslashes($this->getOwner()) . "' WHERE id = '" . addslashes($this->getIdentifier()) . "'";
-
-				$res = mysql_query("INSERT INTO def (id, name, descr, maxdef, columns, expire, owner, anon) values ('" . 
-					addslashes($this->getIdentifier()) . "','" . addslashes($this->getName()) . "', '" . 
-					addslashes($this->getDescr()) . "', '" . 
-					addslashes($this->getMaxDef()) . "', '" .
-					addslashes($this->encodeColumn($this->getColumns())) . "', " . $expire . ", '" . 
-					addslashes($this->currentuser) . "', '" . 
-					addslashes($this->allowanonymous) . "')", $this->db);
-			
 		*/
 		
 		
@@ -133,13 +361,14 @@ class FoodleDBConnector {
 					columntype = " . (isset($foodle->columntype) ? "'" . mysql_real_escape_string($foodle->columntype) . "'" : 'null') . ",
 					responsetype = " . (isset($foodle->responsetype) ? "'" . mysql_real_escape_string($foodle->responsetype) . "'" : "'default'") . ",
 					timezone = '" . mysql_real_escape_string($foodle->getTimeZone()) . "',
+					extrafields = '" . mysql_real_escape_string(Data_Foodle::encode($foodle->extrafields)) . "',
 					updated = NOW()	
 				WHERE id = '" . $foodle->identifier. "' 
 			";
 			
 		} else {
 			$sql = "
-				INSERT INTO def (id, name, descr, columns, expire, maxdef,  owner, anon, timezone, columntype, responsetype) values (" . 
+				INSERT INTO def (id, name, descr, columns, expire, maxdef,  owner, anon, timezone, columntype, responsetype, extrafields) values (" . 
 					"'" . mysql_real_escape_string($foodle->identifier) . "'," . 
 					"'" . mysql_real_escape_string($foodle->name) . "', " . 
 					"'" . mysql_real_escape_string($foodle->descr) . "', " . 
@@ -151,15 +380,14 @@ class FoodleDBConnector {
 					"'" . mysql_real_escape_string($foodle->getTimeZone()) . "', " . 
 					(isset($foodle->columntype) ? "'" . mysql_real_escape_string($foodle->columntype) . "'" : 'null') . ", " .
 					(isset($foodle->responsetype) ? "'" . mysql_real_escape_string($foodle->responsetype) . "'" : "'default'") .
+					"'" . mysql_real_escape_string(Data_Foodle::encode($foodle->extrafields)) . "'" . 
 					")
 			";
 			
 		}
 		
 		#echo '<pre>'; echo $sql; exit;
-		
 		$res = mysql_query($sql, $this->db);
-		
 		
 		if(mysql_error()){
 			throw new Exception('Invalid query: <pre>' . $sql . '</pre>' . mysql_error());
@@ -264,14 +492,26 @@ class FoodleDBConnector {
 	/*
 	 * Collect all responses from a Foodle
 	 */
-	public function readResponses(Data_Foodle $foodle) {
+	public function readResponses(Data_Foodle $foodle, $maxago = NULL) {
+		
+// SELECT entries.*, user.username, user.email, user.org, user.orgunit, user.photol, user.location, user.realm,
+// UNIX_TIMESTAMP(created) AS createdu,
+// UNIX_TIMESTAMP(updated) AS updatedu
+// FROM entries
+// WHERE foodleid='Tester-kalender-i-fremtid-4ca1d' order by updated desc, created desc;
+		
+		$maxclause = '';
+		if ($maxago !== null) {
+			$maxclause = ' AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(updated) < ' . mysql_real_escape_string($maxago) ;
+		}
 		
 		$sql ="
 			SELECT *, 
 				UNIX_TIMESTAMP(created) AS createdu,
 				UNIX_TIMESTAMP(updated) AS updatedu
 			FROM entries
-			WHERE foodleid='" . $foodle->identifier . "' order by updated desc, created desc";
+			WHERE foodleid='" . $foodle->identifier . "' " . $maxclause . "
+			ORDER BY updated desc, created desc";
 
 		$result = mysql_query($sql, $this->db);
 		
@@ -292,6 +532,11 @@ class FoodleDBConnector {
 				$newResponse->notes = $row['notes'];
 				$newResponse->updated = $row['updatedu'];
 				$newResponse->created = $row['createdu'];
+				
+				$ruser = $this->readUser($row['userid']);
+				if ($ruser !== false) {
+					$newResponse->user = $ruser;
+				}
 				
 				#echo '<pre>'; print_r($row); #exit;
 				
@@ -343,13 +588,18 @@ class FoodleDBConnector {
 	/*
 	 * Collect all 
 	 */
-	public function readDiscussion(Data_Foodle $foodle) {
+	public function readDiscussion(Data_Foodle $foodle, $maxago = null) {
 		
-		
+		$maxclause = '';
+		if ($maxago !== null) {
+			$maxclause = ' AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(created) < ' . mysql_real_escape_string($maxago) ;
+		}
+
+
 		$sql ="
 			SELECT *, UNIX_TIMESTAMP(created) AS createdu
 			FROM discussion 
-			WHERE foodleid = '" . $foodle->identifier . "'
+			WHERE foodleid = '" . $foodle->identifier . "' " . $maxclause . "
 			ORDER BY discussion.created DESC 
 			";
 
@@ -364,7 +614,18 @@ class FoodleDBConnector {
 		
 		if(mysql_num_rows($result) > 0){		
 			while($row = mysql_fetch_assoc($result)){
-			
+				
+				
+				try {
+					if (!empty($row['userid'])) {
+						$ruser = $this->readUser($row['userid']);
+						if ($ruser !== false) {
+							$row['user'] = $ruser;
+						}
+					}
+				} catch(Exception $e) {}
+
+				
 				$row['agotext'] = FoodleUtils::date_diff(time() - $row['createdu']);
 				$discussion[] = $row;
 				
@@ -378,9 +639,10 @@ class FoodleDBConnector {
 	public function addDiscussionEntry(Data_Foodle $foodle, Data_User $user, $message) {
 		
 		$sql = "
-			INSERT INTO discussion (foodleid,username,message) values (
+			INSERT INTO discussion (foodleid,userid, username,message) values (
 				'" . $foodle->identifier . "'," . 
-				"'" . mysql_real_escape_string($user->name) . "', " . 
+				"'" . mysql_real_escape_string($user->userid) . "', " . 
+				"'" . mysql_real_escape_string($user->username) . "', " . 
 				"'" . mysql_real_escape_string(utf8_decode($message)) . "')";
 		
 		$res = mysql_query($sql, $this->db);
@@ -690,4 +952,3 @@ class FoodleDBConnector {
 
 }
 
-?>

@@ -23,6 +23,9 @@
 	"calendarenabled" : {
 		"en" : "This Foodle is calendar enabled, which means that you can synchronize your response from your calendar."
 	},
+	"issyncedwithcalendar": {
+		"en": "This response is automatically synchronized with the calendar of the user"
+	},
 	"manualentry" : {
 		"en" : "Manual entry"
 	},
@@ -73,6 +76,9 @@
 	},
 	"expire": {
 		"en": "Expire (optional)"
+	},
+	"expireinfo": {
+		"en": "Adding an expiration timestamp will close the Foodle at the specified time. After the Foodle is expired, noone may edit their response or add new responses."
 	},
 	"format": {
 		"en": "Format"
@@ -415,8 +421,41 @@
 	},
 	"yes" : { "en": "Yes" },
 	"no" : { "en": "No" },
-	"maybe" : { "en": "Maybe" }
+	"maybe" : { "en": "Maybe" },
 
-
-
+	"myprofile": { "en" : "Preferences" },
+	
+	"notifcations": {
+		"en": "Email notifications"
+	},
+	"notify_newresponse": {
+		"en": "Notify me when I have successfully responded to a Foodle"
+	},
+	"notify_newfoodle": {
+		"en": "Notify me when I have created a new Foodle"
+	},	
+	"notify_otherstatus": {
+		"en": "Notify me when others respond to a Foodle I have created (only once a day)"
+	},
+	"notify_news": {
+		"en": "Send me news about new features in Foodle (never more often than once a week)"
+	},
+	"profile_save": {
+		"en": "Save changes to my user profile"
+	},
+	"extrafields": {
+		"en": "Extra user fields"
+	},
+	"extrafields_info": {
+		"en": "You may choose to collect additional data about each responder to the Foodle. These data will be presented in separate columns in the Foodle."
+	},
+	"extrafields_photo": {
+		"en": "Photo"
+	},
+	"extrafields_org": {
+		"en": "Organization"
+	},
+	"extrafields_location": {
+		"en": "Location"
+	}
 }

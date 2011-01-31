@@ -333,7 +333,9 @@ p {
 
 
 
-
+tr.hasnotes td {
+	height: 17px;
+}
 
 div.extbox:hover {
 		border: 1px solid #aa5; 
@@ -378,6 +380,7 @@ table {
 td {
 	border: 1px solid #ccc;
 	padding: 0px;
+	
 }
 td,th {
 	border: 1px solid #aaa;
@@ -501,7 +504,7 @@ dd p {
 	margin: 0px 1em .1em 0px;
 }
 
-html {
+body {
 	font-size: 90% ! important;
 }
 

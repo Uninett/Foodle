@@ -7,8 +7,10 @@ class XHTMLResponseEntry {
 	}
 	
 	public static function showEditable(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response, $editable = TRUE, Data_FoodleResponse $responsecal = NULL, $authenticated = TRUE) { 
+
+
 		
-#		echo '<tr id="responserowmanual" class="you"><pre>'; print_r($response); exit;
+		$extrafields = $response->foodle->getExtraFields();
 		
 		echo '<tr id="responserowmanual" class="you">';
 		echo '<td> </td>';
@@ -22,7 +24,7 @@ class XHTMLResponseEntry {
 		}
 		
 		if ($authenticated) {
-			echo '<abbr title="' . htmlspecialchars($response->userid) . '">' . htmlspecialchars($response->username) . '</abbr>' . $extra;	
+			echo $response->getUsernameHTML();
 		} else {
 			echo '<p style="margin: 2px">' . $t->t('name') . ': <input type="text" name="username" value="'  . htmlspecialchars($response->username). '" placeholder="' . $t->t('displayname'). '..." /></p>';
 #			echo '<form method="post" action="' . $this->data['foodlepath'] . '">';
@@ -38,12 +40,60 @@ class XHTMLResponseEntry {
 #			echo '</form>';
 		}
 		
-		
-		
+#		echo '<pre>f'; print_r($extrafields);
 		
 #		echo htmlspecialchars($response->username);
 		# echo ' <input type="text" name="username" value="' . htmlspecialchars($response->username) . '" /> (<tt>' . htmlspecialchars($response->userid). '</tt>)';
 		echo '</td>';
+
+
+
+	
+		foreach($extrafields AS $extrafield) {
+		
+			switch($extrafield) {
+				case 'photo':
+					$photourl = false;
+					if(isset($response->user)) {
+						$photourl = $response->user->getPhotoURL('s');
+					}
+					
+					if ($photourl !== false) {
+						echo '<td style="padding: 0px; width: 32px">';
+						echo ' <img src="' . htmlspecialchars($photourl) . '" alt="Photo of user" style="margin: 0px; padding: 0px" />';
+						echo '</td>';
+					} else {
+						echo '<td  style="text-align: center; vertical-align: top; padding-top: 6px"></td>';
+					}
+					break;
+					
+				case 'org':
+					$orgtext = '';
+					if(isset($response->user)) {
+						$orgtext = $response->user->getOrgHTML();
+					}
+					echo '<td style="text-align: center; vertical-align: top;">' . $orgtext . '</td>';
+					break;
+
+				case 'location':
+					$loc = '';
+					if(isset($response->user)) {
+						if (!empty($response->user->location)) $loc = $response->user->location;
+					}
+					echo '<td style="text-align: center; vertical-align: top;">' . $loc . '</td>';
+					break;
+
+					
+				default:
+					echo '<td></td>';
+					
+			}
+		
+		}
+		
+		
+
+
 	
 		#echo '<pre>'; print_r($response); exit;
 	
@@ -122,6 +172,53 @@ class XHTMLResponseEntry {
 			# echo ' <input type="text" name="username" value="' . htmlspecialchars($response->username) . '" /> (<tt>' . htmlspecialchars($response->userid). '</tt>)';
 			echo '</td>';
 
+	
+	
+		
+			foreach($extrafields AS $extrafield) {
+			
+				switch($extrafield) {
+					case 'photo':
+						$photourl = false;
+						if(isset($response->user)) {
+							$photourl = $response->user->getPhotoURL('s');
+						}
+						
+						if ($photourl !== false) {
+							echo '<td style="padding: 0px; width: 32px">';
+							echo ' <img src="' . htmlspecialchars($photourl) . '" alt="Photo of user" style="margin: 0px; padding: 0px" />';
+							echo '</td>';
+						} else {
+							echo '<td  style="text-align: center; vertical-align: top; padding-top: 6px"></td>';
+						}
+						break;
+							
+					case 'org':
+						$orgtext = '';
+						if(isset($response->user)) {
+							$orgtext = $response->user->getOrgHTML();
+						}
+						echo '<td style="text-align: center; vertical-align: top;">' . $orgtext . '</td>';
+						break;
+	
+					case 'location':
+						$loc = '';
+						if(isset($response->user)) {
+							if (!empty($response->user->location)) $loc = $response->user->location;
+						}
+						echo '<td style="text-align: center; vertical-align: top;">' . $loc . '</td>';
+						break;
+
+
+						
+					default:
+						echo '<td></td>';
+						
+				}
+			
+			}
+			
+			
 
 
 			if ($responsecal->response['type'] === 'ical') {
@@ -179,11 +276,11 @@ class XHTMLResponseEntry {
 		}
 		
 		
-		
+		$colspan = (count($response->response['data']) + 3) + count($extrafields);
 	
 		$shide = '';	
 		if (empty($response->notes)) $shide = 'display: none';
-		echo '<tr style="' . $shide . '" id="commentfield" class="you"><td colspan="' . (count($response->response['data']) + 3) . '">
+		echo '<tr style="' . $shide . '" id="commentfield" class="you"><td colspan="' . $colspan . '">
 			<input type="text" id="comment" class="comment" name="comment" value="' . htmlspecialchars($response->notes) . '" /></td></tr>';
 	
 
@@ -193,7 +290,14 @@ class XHTMLResponseEntry {
 	
 	public static function show(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response) { 
 		
-		echo '<tr>';
+		$extrafields = $response->foodle->getExtraFields();
+		
+		
+		$class = '';
+		if (!empty($response->notes)) {
+			$class = 'hasnotes';
+		}
+		echo '<tr class="' . $class . '">';
 
 		/*
 		 * Notes field
@@ -208,10 +312,14 @@ class XHTMLResponseEntry {
 
 #			echo '<pre>'; print_r($response); echo '</pre>';
 		
+		
 		/*
 		 * Name field
 		 */
 		echo '<td style="text-align: left">';
+			
+			
+
 		
 		if ($response->response['type'] === 'ical') {
 			echo '<img style="float: right" alt="' . $t->t('issyncedwithcalendar') . '" title="' . $t->t('issyncedwithcalendar') . '" class="" src="/res/calendar-export.png" />';
@@ -224,16 +332,53 @@ class XHTMLResponseEntry {
 				alt="Entry was made with a different number of columns. This might happen when the Foodle was edited after this user responded."
 				title="Entry was made with a different number of columns. This might happen when the Foodle was edited after this user responded." class="" src="/res/error.png" />';
 		}
-
-		$userid = htmlspecialchars($response->userid);
-		$username = preg_replace('/ /', ' ', $response->username);
-		
-		$extra = '';
-		if (preg_match('|^@(.*)$|', $userid, $matches))
-			$extra = ' (<a href="http://twitter.com/' . $matches[1] . '">' . $userid . '</a>)';
-
-		echo '<abbr title="' . htmlspecialchars($userid) . '">' . htmlspecialchars($username) . '</abbr>' . $extra;
+		echo $response->getUsernameHTML();
 		echo '</td>';
+		
+		
+		
+
+		foreach($extrafields AS $extrafield) {
+		
+			switch($extrafield) {
+				case 'photo':
+					$photourl = false;
+					if(isset($response->user)) {
+						$photourl = $response->user->getPhotoURL('s');
+					}
+					
+					if ($photourl !== false) {
+						echo '<td style="padding: 0px; width: 32px">';
+						echo ' <img src="' . htmlspecialchars($photourl) . '" alt="Photo of user" style="margin: 0px; padding: 0px" />';
+						echo '</td>';
+					} else {
+						echo '<td  style="text-align: center; vertical-align: top; padding-top: 6px"></td>';
+					}
+					break;
+				
+				case 'org':
+					$orgtext = '';
+					if(isset($response->user)) {
+						$orgtext = $response->user->getOrgHTML();
+					}
+					echo '<td style="text-align: center; vertical-align: top;">' . $orgtext . '</td>';
+					break;
+
+				case 'location':
+					$loc = '';
+					if(isset($response->user)) {
+						if (!empty($response->user->location)) $loc = $response->user->location;
+					}
+					echo '<td style="text-align: center; vertical-align: top;">' . $loc . '</td>';
+					break;
+				
+				default:
+					echo '<td></td>';
+					
+			}
+		
+		}
+		
 		
 		
 

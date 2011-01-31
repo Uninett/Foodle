@@ -16,13 +16,10 @@ class Pages_PageCreate extends Pages_Page {
 	
 	// Authenticate the user
 	private function auth() {
-		$this->auth = new FoodleAuth();
+		$this->auth = new FoodleAuth($this->fdb);
 		$this->auth->requireAuth(FALSE);
 
-		$this->user = new Data_User($this->fdb);
-		$this->user->email = $this->auth->getMail();
-		$this->user->userid = $this->auth->getUserID();
-		$this->user->name = $this->auth->getDisplayName();
+		$this->user = $this->auth->getUser();
 	}
 	
 	
@@ -44,6 +41,15 @@ class Pages_PageCreate extends Pages_Page {
 	}
 	
 	protected function sendMail($foodle) {
+	
+		if (!$this->user->notification('newfoodle', FALSE)) {
+			error_log('Foodle was updated, but mail notification was not sent because of users preferences');
+			return;
+		}
+		error_log('Foodle was updated, sending notification!');
+		
+		
+		$profileurl = FoodleUtils::getUrl() . 'profile/';
 		$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier;
 		$name = $foodle->name;
 		$to = $this->user->email;
@@ -60,6 +66,12 @@ class Pages_PageCreate extends Pages_Page {
 		<p>If you want so invite others to respond to this Foodle, you should share the link below:</p>
 		
 		<pre><code>' . htmlspecialchars($url) . '</code></pre>
+		
+		<p>You can turn of this e-mail notification, and configure other notification messages <a href="' . 
+			htmlspecialchars($profileurl) . '">from your Foodle preference page</a>:</p>
+		
+		<pre><code>' . htmlspecialchars($profileurl) . '</code></pre>
+
 		
 		';
 		$mailer = new Foodle_EMail($to, 'New foodle: ' . htmlspecialchars($name), 'Foodl.org <no-reply@foodl.org>');

@@ -12,6 +12,8 @@ class XHTMLCol {
 		$foodle->getColumnHeaders(&$coldef);
 		$coldepth = $foodle->getColumnDepth();
 		
+		$extrafields = $foodle->getExtraFields();
+		
 		echo '<thead>';
 
 
@@ -23,6 +25,28 @@ class XHTMLCol {
 				<img alt="notes" src="/res/notes.png" />
 			</th>
 			<th rowspan="' . $coldepth . '">'.  $t->t('name') . '</th>';
+			
+		
+		foreach($extrafields AS $extrafield) {
+		
+			switch($extrafield) {
+				case 'photo':
+						echo '<th rowspan="2" style="max-width: 32px; font-size: x-small">' . $t->t('extrafields_photo') . '</th>';
+					break;
+					
+				case 'org':
+						echo '<th rowspan="2" style="">' . $t->t('extrafields_org') . '</th>';
+					break;
+					
+				case 'location':
+						echo '<th rowspan="2" style="">' . $t->t('extrafields_location') . '</th>';
+					break;
+					
+				default:
+					echo '<th rowspan="2"></th>';
+			}
+		
+		}
 		
 		foreach($coldef[0] AS $colcell) {
 			$colspan = (isset($colcell['colspan']) ? 'colspan="' . $colcell['colspan'] . '" ' : '');

@@ -51,6 +51,8 @@ class Data_Foodle {
 	public $expire;
 	public $owner;
 	public $allowanonymous = FALSE;
+	
+	public $extrafields;
 
 	public $timezone = NULL;
 	
@@ -79,6 +81,11 @@ class Data_Foodle {
 		$input = Markdown($input);
 		$input = strip_tags($input, '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
 		return $input;
+	}
+	
+	public function getExtraFields() {
+		if (empty($this->extrafields)) return array();
+		return $this->extrafields;
 	}
 	
 	public function debug() {
@@ -265,9 +272,9 @@ class Data_Foodle {
 		} else {
 
 		}
-
+		$newresponse->user = $user;
 		$newresponse->userid = $user->userid;
-		$newresponse->username = $user->name;
+		$newresponse->username = $user->username;
 		$newresponse->email = $user->email;
 		$nofc = $this->getNofColumns(); 
 		
@@ -293,7 +300,7 @@ class Data_Foodle {
 				$newresponse = clone $responses[$user->userid];
 			}
 		} 
-		
+		$newresponse->user = $user;
 		$newresponse->userid = $user->userid;
 		$newresponse->username = $user->name;
 		$newresponse->email = $user->email;
@@ -636,6 +643,16 @@ class Data_Foodle {
 		return $calc;		
 	}
 	
+	public static function decode($s) {
+		if (empty($s)) return null;
+		return json_decode($s, TRUE);
+	}
+	
+	public static function encode($s) {
+		if (empty($s)) return '';
+		return json_encode($s);
+	}
+	
 	public function updateFromPost(Data_User $user) {
 
 		if (empty($_REQUEST['name'])) throw new Exception('You did not type in a name for the foodle.');
@@ -663,6 +680,13 @@ class Data_Foodle {
 		if (!empty($_REQUEST['responsetype'])) {
 			$this->responsetype = $_REQUEST['responsetype'];
 		}
+		
+		$this->extrafields = array();
+		if (!empty($_REQUEST['extrafields_photo'])) $this->extrafields[] = 'photo';
+		if (!empty($_REQUEST['extrafields_org'])) $this->extrafields[] = 'org';
+		if (!empty($_REQUEST['extrafields_location'])) $this->extrafields[] = 'location';
+		
+#				echo '<pre>'; print_r($_REQUEST);  print_r($this); exit;
 		
 		$this->expire = strip_tags($_REQUEST['expire']);
 		

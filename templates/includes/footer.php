@@ -9,16 +9,19 @@
 		if (isset($this->data['user']->userid)) {
 			echo $this->t('authtext', 
 				array(
-					'%DISPLAYNAME%' => $this->data['user']->name, 
+					'%DISPLAYNAME%' => $this->data['user']->username, 
 					'%USERID%' => $this->data['user']->userid
 				) 
 			); 
+			
+			if ($this->data['user']->hasCalendar()) {
+				echo  '. <img style="" alt="Calendar" title="Calendar" class="" src="/res/calendar-export.png" /> ' .
+					$this->t('youhavecalendar');
+			}
+
+			
 		}
 		
-		if ($this->data['user']->hasCalendar()) {
-			echo  '. <img style="" alt="Calendar" title="Calendar" class="" src="/res/calendar-export.png" /> ' .
-				$this->t('youhavecalendar');
-		}
 		
 	} else {
 		echo($this->t('is_anonymous'));

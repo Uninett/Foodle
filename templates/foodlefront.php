@@ -21,19 +21,29 @@
 
 		<p><?php 
 
+
+
 		if ($this->data['authenticated']) {
-			echo $this->t('authtext', 
-			array(
-				'%DISPLAYNAME%' => $this->data['displayname'], 
-				'%USERID%' => $this->data['userid']
-			) ); 
+		
+			if (isset($this->data['user']->userid)) {
+				echo $this->t('authtext', 
+					array(
+						'%DISPLAYNAME%' => $this->data['user']->username, 
+						'%USERID%' => $this->data['user']->userid
+					) 
+				); 
+			}
+			
+			if ($this->data['user']->hasCalendar()) {
+				echo  '.</p><p><img style="" alt="Calendar" title="Calendar" class="" src="/res/calendar-export.png" /> ' .
+					$this->t('youhavecalendar') . '';
+			}
+			
 		} else {
 			echo($this->t('is_anonymous'));
-			echo '<a class="button" style="" href="' . htmlentities($this->data['loginurl']) . '"><span>' . $this->t('login') . '</span></a>';
-			if ($this->data['enableFacebookAuth']) {
-				echo '<a class="button" style="" href="?auth=facebook"><span>' . $this->t('facebooklogin') . '</span></a>';
-			}
 		}
+
+
 		?>
 		</p>
 

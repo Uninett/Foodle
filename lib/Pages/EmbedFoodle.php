@@ -27,21 +27,8 @@ class Pages_EmbedFoodle extends Pages_PageFoodle {
 		$this->auth = new FoodleAuth();
 		$this->auth->requireAuth(TRUE);
 
-		$this->user = new Data_User($this->fdb);
-		
-		if ($this->auth->isAuth()) {
-			$this->user = new Data_User($this->fdb);
-			$this->user->email = $this->auth->getMail();
-			$this->user->userid = $this->auth->getUserID();
-			$this->user->name = $this->auth->getDisplayName();
-			$this->user->calendarURL = $this->auth->getCalendarURL();
-		} else {
-			$this->user = new Data_User($this->fdb);
-			$this->user->email = $this->auth->getMail();
-			$this->user->userid = $this->auth->getUserID();
-			$this->user->name = $this->auth->getDisplayName();			
-	
-		}
+		$this->user = $this->auth->getUser();
+
 	}
 
 	

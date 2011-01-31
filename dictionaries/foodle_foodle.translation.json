@@ -1549,58 +1549,132 @@
 		"no": "Inkluder denne Foodle-n p\u00e5 din egen webside",
 		"de": "F\u00fcgen sie diesen Foodle in ihre Seite ein",
 		"sv": "Inkludera denna Foodle i din webbplats",
-		"sl": "Vklju\u010di ta foodle v svojo spletno stran"
+		"sl": "Vklju\u010di ta foodle v svojo spletno stran",
+		"cs": "Vlo\u017ete Foodle do sv\u00e9ho webu"
 	},
 	"embed_text1": {
 		"no": "Foodle lar deg inkludere et automatisk oppdatert sammendrag av denne Foodle-n, inkludert en lenke, ved \u00e5 klippe og lime ut koden nedenunder til din webside (dersom den tillater HTML kode).",
 		"sv": "Foodle till\u00e5ter att du inkluderar en uppdaterad sammanfattning, inklusive l\u00e4nk, av denna Foodle i webbplats. Kopiera och klistra in kodsnutten nedan d\u00e4r du vill visa sammanfattningen. Observera att du m\u00e5ste ha r\u00e4tt att infoga HTML-kod i webbsidan f\u00f6r att det ska fungera.",
-		"sl": "Foodle lahko vklju\u010dite v svojo spletno stran tako, da spodnji URL vklju\u010dite v HTML va\u0161e spletne strani."
+		"sl": "Foodle lahko vklju\u010dite v svojo spletno stran tako, da spodnji URL vklju\u010dite v HTML va\u0161e spletne strani.",
+		"cs": "Foodle umo\u017enuje vlo\u017een\u00ed automaticky aktualizovan\u00e9ho shrnut\u00ed Foodle prost\u00fdm zkop\u00edrov\u00e1n\u00edm a vlo\u017een\u00edm HTML k\u00f3du do va\u0161eho webu (pokud v\u00e1\u0161 web umo\u017enuje vlo\u017een\u00ed HTML)."
 	},
 	"embed_api": {
 		"no": "Foodle tilbyr ogs\u00e5 et REST API for utviklere som vil inkludere st\u00f8tte for Foodle i tredjeparts applikasjoner. Kontakt UNINETT for mer informasjon om dette.",
 		"sv": "Foodle tillhandah\u00e5ller \u00e4ven ett REST-baserat API f\u00f6r utvecklare som vill inkludera st\u00f6d f\u00f6r Foodle i andra program. Ta kontakt med UNINETT f\u00f6r mer infromation.",
-		"sl": "Foodle ima vgrajen REST API, ki spletnim programerjem omogo\u010da vklju\u010devanje foodlov v druge spletne strani. "
+		"sl": "Foodle ima vgrajen REST API, ki spletnim programerjem omogo\u010da vklju\u010devanje foodlov v druge spletne strani. ",
+		"cs": "Foodle nab\u00edz\u00ed REST API pro v\u00fdvoj\u00e1\u0159e, kte\u0159\u00ed by cht\u011bli za\u010dlenit Foodle do dal\u0161\u00edch aplikac\u00ed. Kontaktujte UNINETT se \u017e\u00e1dost\u00ed o dal\u0161\u00ed informace."
 	},
 	"qcolumntypetimezone": {
-		"no": "Tidssoneplanlegger"
+		"no": "Tidssoneplanlegger",
+		"sv": "Tidszonsplanerare",
+		"cs": "Pl\u00e1nova\u010d \u010dasov\u00e9 z\u00f3ny"
 	},
 	"delete": {
-		"no": "Slett"
+		"no": "Slett",
+		"sv": "Ta bort",
+		"cs": "Smazat"
 	},
 	"delete_this": {
-		"no": "Slett denne Foodlen"
+		"no": "Slett denne Foodlen",
+		"sv": "Ta bort denna Foodle",
+		"cs": "Smazat Foodle"
 	},
 	"delete_confirm": {
-		"no": "Ja, jeg vil slette denne Foodlen og alle tilknyttede svar. Foodlen selv og alle svar og diskusjonsinnlegg som er tilknyttet vil bli slettet. Det er ikke mulig \u00e5 angre etter at man har slettet en Foodle."
+		"no": "Ja, jeg vil slette denne Foodlen og alle tilknyttede svar. Foodlen selv og alle svar og diskusjonsinnlegg som er tilknyttet vil bli slettet. Det er ikke mulig \u00e5 angre etter at man har slettet en Foodle.",
+		"sv": "Ja, jag vill ta bort denna Foodle. Denna Foodle inkl. inkomna svar och diskussionsmeddelanden kommer att tas bort. Det \u00e4r inte m\u00f6jligt att \u00e5terst\u00e4lla borttagen information.",
+		"cs": "Ano, chci smazat tento Foodle a p\u0159\u00ed\u0161lu\u0161n\u00e9 reakce. Beru na v\u011bdom\u00ed, \u017ee smazan\u00fd Foodle nen\u00ed mo\u017eno obnovit."
 	},
 	"timezonedateinfo": {
-		"no": "Du m\u00e5 spesifisere en dato (i dag er forh\u00e5ndsutfylt). Selv om datoen ikke er relevant, og heller ikke vises for brukere, s\u00e5 er det n\u00f8vendig for at utregningen av sommertid skal bli korrekt."
+		"no": "Du m\u00e5 spesifisere en dato (i dag er forh\u00e5ndsutfylt). Selv om datoen ikke er relevant, og heller ikke vises for brukere, s\u00e5 er det n\u00f8vendig for at utregningen av sommertid skal bli korrekt.",
+		"sv": "Du m\u00e5ste ange ett datum, dagensdatum \u00e4r f\u00f6rvalt. \u00c4ven fast datumet inte \u00e4r s\u00e4rskilt relevant, och aldrig visas, beh\u00f6vs det f\u00f6r att korrekt hantera sommartid i vissa tidszoner.",
+		"cs": "Mus\u00edte zadat datum (dne\u0161n\u00ed je p\u0159edvoleno), a to i v p\u0159\u00edpad\u011b, \u017ee datum nen\u00ed odpov\u011bdi relevantn\u00ed a \u017ee nen\u00ed zobrazov\u00e1no. Datum je nutn\u00e9 pro korektn\u00ed pr\u00e1ci s letn\u00edm \u010dasem v r\u016fzn\u00fdch \u010dasov\u00fdch z\u00f3n\u00e1ch."
 	},
 	"timezonetimeinfo": {
-		"no": "Dagen er delt inn i 24 perioder. Du kan ikke endre disse in tidssoneplanleggeren."
+		"no": "Dagen er delt inn i 24 perioder. Du kan ikke endre disse in tidssoneplanleggeren.",
+		"sv": "Dynget \u00e4r delat i 24 tidsperioder. Du f\u00e5r inte \u00e4ndra dessa i tidszonsplaneraren.",
+		"cs": "Den je rozd\u011blen do 24 hodinov\u00fdch \u00fasek\u016f. M\u016f\u017eete je upravit v pl\u00e1nova\u010di \u010dasov\u00fdch z\u00f3n."
 	},
 	"responsetype": {
-		"no": "Svartype"
+		"no": "Svartype",
+		"sv": "Typ av svar",
+		"cs": "Typ odpov\u011bdi"
 	},
 	"responsetypeinfo": {
-		"no": "Hvilken type valg vil du at brukeren skal ha for hver kolonne?"
+		"no": "Hvilken type valg vil du at brukeren skal ha for hver kolonne?",
+		"sv": "Vilka alternativ vill du ge anv\u00e4ndarna i varje kolumn?",
+		"cs": "Jak\u00e9 mo\u017enosti chcete u\u017eivatel\u016fm nab\u00eddnout ve sloupc\u00edch?"
 	},
 	"responsetype_default": {
-		"no": "Standard: Bruk standard svartype basert p\u00e5 hvilken type Foodle du har opprettet. Generell tekst blir Ja\/Nei, og dato og tidssoneplanleggeren bruker Ja\/Nei\/Kanskje."
+		"no": "Standard: Bruk standard svartype basert p\u00e5 hvilken type Foodle du har opprettet. Generell tekst blir Ja\/Nei, og dato og tidssoneplanleggeren bruker Ja\/Nei\/Kanskje.",
+		"sv": "Stadard: Anv\u00e4nd standardsvaren f\u00f6r den typ av Foodle du skapat. Generisk text anv\u00e4nder Ja\/Nej medans Foodle med datum och tidzoner anv\u00e4nder Ja\/Nej\/Kanske.",
+		"cs": "P\u0159edvolen\u00e1 odpov\u011b\u010f je r\u016fzn\u00e1 podle typu Foodle, kter\u00fd vytvo\u0159\u00edte. Foodle s obecn\u00fdm textem pou\u017e\u00edv\u00e1 Ano\/Ne a Foodle s daty a \u010dasov\u00fdmi z\u00f3nami pou\u017e\u00edv\u00e1 Yes\/No\/Mo\u017en\u00e1."
 	},
 	"responsetype_yesno": {
-		"no": "Ja\/Nei: Brukerene vil f\u00e5 en sjekkboks i hver kolonne. En avkrysset boks betyr Ja, eller at brukeren er tilgjengelig."
+		"no": "Ja\/Nei: Brukerene vil f\u00e5 en sjekkboks i hver kolonne. En avkrysset boks betyr Ja, eller at brukeren er tilgjengelig.",
+		"sv": "Ja\/Nej: Anv\u00e4ndaren f\u00e5r en kryssruta i varje kolumn. En kryssad ruta betyder Ja eller att anv\u00e4ndaren \u00e4r tillg\u00e4nglig.",
+		"cs": "Ano\/Ne: U\u017eivatel bude m\u00edt k dispozici za\u0161krt\u00e1v\u00e1tko pro ka\u017ed\u00fd sloupec. Za\u0161krtnut\u00ed znamen\u00e1 Ano, respektive dostupnost u\u017eivatele."
 	},
 	"responsetype_yesnomaybe": {
-		"no": "Ja\/Nei\/Kanskje: For hver kolonne vil brukeren f\u00e5 tre valg: Ja, Nei og Kanskje. Kanskje indikerer usikkerhet, eller et mulig men mindre passende valg."
+		"no": "Ja\/Nei\/Kanskje: For hver kolonne vil brukeren f\u00e5 tre valg: Ja, Nei og Kanskje. Kanskje indikerer usikkerhet, eller et mulig men mindre passende valg.",
+		"sv": "Ja\/Nej\/Kanske: F\u00f6r varje kolumn f\u00e5r anv\u00e4ndarna tre alternativt; Ja, Nej och Kanske. Kanske betyder ett os\u00e4kert eller ett mindre bra alterntiv.",
+		"cs": "Ano\/Ne\/Mo\u017en\u00e1: U\u017eivatel bude m\u00edt k dispozici t\u0159i volby: Ano, Ne, Mo\u017en\u00e1. Mo\u017en\u00e1 slou\u017e\u00ed pro vyj\u00e1d\u0159en\u00ed mo\u017en\u00e9, ale m\u00e9n\u011b vhodn\u00e9 volby."
 	},
 	"yes": {
-		"no": "Ja"
+		"no": "Ja",
+		"sv": "Ja",
+		"cs": "Ano"
 	},
 	"no": {
-		"no": "Nei"
+		"no": "Nei",
+		"sv": "Nej",
+		"cs": "Ne"
 	},
 	"maybe": {
-		"no": "Kanskje"
+		"no": "Kanskje",
+		"sv": "Kanske",
+		"cs": "Mo\u017en\u00e1"
+	},
+	"issyncedwithcalendar": {
+		"cs": "Odpov\u011b\u010f je automaticky sychronizov\u00e1na s kalend\u00e1\u0159em u\u017eivatele",
+		"no": "Dette svaret er automatisk synkronisert med brukerens kalender"
+	},
+	"expireinfo": {
+		"no": "Dersom man legger til en utl\u00f8psdato vil Foodlen stenge p\u00e5 det oppgitte tidspunktet. Ingen kan legge till eller endre sitt svar p\u00e5 en utl\u00f8pt Foodle."
+	},
+	"myprofile": {
+		"no": "Brukerinstillinger"
+	},
+	"notifcations": {
+		"no": "E-post varsel"
+	},
+	"notify_newresponse": {
+		"no": "Varsle meg n\u00e5r jeg har svart p\u00e5 en Foodle"
+	},
+	"notify_newfoodle": {
+		"no": "Varsle meg n\u00e5r jeg har opprettet en ny Foodle"
+	},
+	"notify_otherstatus": {
+		"no": "Varsle meg n\u00e5r andre har svart p\u00e5 en Foodle jeg har opprettet (daglig oppsummering)"
+	},
+	"notify_news": {
+		"no": "Send meg nyheter om ny funksjonalitet (aldri oftere enn en gang i uken)"
+	},
+	"profile_save": {
+		"no": "Lagre endringer til min brukerprofil"
+	},
+	"extrafields": {
+		"no": "Ekstra felter med brukerdata"
+	},
+	"extrafields_info": {
+		"no": "Du kan velge \u00e5 legge til flere kolonner med mer informasjon om brukeren."
+	},
+	"extrafields_photo": {
+		"no": "Bilde"
+	},
+	"extrafields_org": {
+		"no": "Organisasjon"
+	},
+	"extrafields_location": {
+		"no": "Lokasjon"
 	}
 }

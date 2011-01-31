@@ -17,6 +17,23 @@ class TimeZone {
 	 */
 	public $store;
 	public $ip;
+	public $user;
+	
+	public function TimeZone($ip = NULL, $user = null) {
+		if (is_null($ip)) $ip = $_SERVER['REMOTE_ADDR'];
+		
+		if (isset($user)) $this->user = $user;
+		
+		if (empty($ip))
+			throw new Exception('Trying to use the TimeZone class without specifying an IP address');
+		$this->ip = $ip;
+		
+		$this->store = new sspmod_core_Storage_SQLPermanentStorage('iptimezone');
+
+	}
+	
+	
+	
 
 	public function lookupRegion($region) {
 		
@@ -70,6 +87,12 @@ class TimeZone {
 	public function getTimeZone() {
 		$tz = 'Europe/Amsterdam';
 		
+		if (isset($this->user)) {
+			if (isset($this->user->timezone)) {
+				return $this->user->timezone;
+			}
+		}
+		
 		try {
 			$tz = $this->lookupRegion($this->lookupIP($this->ip));
 		} catch(Exception $e) {
@@ -77,31 +100,19 @@ class TimeZone {
 		}
 		
 		return $tz;
-	
-#		try {
-#			$tz = $this->lookupRegion($this->lookupIP($this->ip))
-#		} catch(Exception $e) {
-#			$tz = 'Europe/Amsterdam';
-#		}
-		
-#		return $tz;
 	}
 	
-	public function TimeZone($ip = NULL) {
-		if (is_null($ip)) $ip = $_SERVER['REMOTE_ADDR'];
-		
-		if (empty($ip))
-			throw new Exception('Trying to use the TimeZone class without specifying an IP address');
-		$this->ip = $ip;
-		
-#		$this->ip = '2.107.80.62';
-	
-		$this->store = new sspmod_core_Storage_SQLPermanentStorage('iptimezone');
 
-	}
 	
 	public function getSelectedTimeZone() {
+	
+	
 		if (isset($_REQUEST['timezone'])) {
+		
+			if (isset($this->user) && isset($this->user->timezone)) {
+				$this->user->timezone = $_REQUEST['timezone'];
+				$this->user->db->saveUser($this->user);
+			}
 			return $_REQUEST['timezone'];
 		}
 		return $this->getTimeZone();

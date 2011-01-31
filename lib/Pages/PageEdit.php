@@ -13,6 +13,15 @@ class Pages_PageEdit extends Pages_PageFoodle {
 	
 	
 	protected function sendMail() {
+	
+		if (!$this->user->notification('newfoodle', FALSE)) {
+			error_log('Foodle was updated, but mail notification was not sent because of users preferences');
+			return;
+		}
+		error_log('Foodle was updated, sending notification!');
+	
+	
+		$profileurl = FoodleUtils::getUrl() . 'profile/';
 		$url = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier;
 		$name = $this->foodle->name;
 		$to = $this->user->email;
@@ -29,6 +38,11 @@ class Pages_PageEdit extends Pages_PageFoodle {
 		<p>If you want so invite others to respond to this Foodle, you should share the link below:</p>
 		
 		<pre><code>' . htmlspecialchars($url) . '</code></pre>
+		
+		<p>You can turn of this e-mail notification, and configure other notification messages <a href="' . 
+			htmlspecialchars($profileurl) . '">from your Foodle preference page</a>:</p>
+		
+		<pre><code>' . htmlspecialchars($profileurl) . '</code></pre>
 		
 		';
 		$mailer = new Foodle_EMail($to, 'Updated foodle: ' . htmlspecialchars($name), 'Foodl.org <no-reply@foodl.org>');
@@ -87,7 +101,7 @@ class Pages_PageEdit extends Pages_PageFoodle {
 		$t->data['columntype'] = $this->foodle->columntype;
 		$t->data['responsetype'] = $this->foodle->responsetype;
 		
-
+		$t->data['extrafields'] = $this->foodle->getExtraFields();
 		
 		$t->data['columns'] = $this->foodle->columns;
 		

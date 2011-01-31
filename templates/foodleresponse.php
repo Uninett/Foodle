@@ -332,7 +332,8 @@ if (isset($_REQUEST['timezone'])) {
 		$calculated = $this->data['foodle']->calculateColumns();
 		$emailaddrs = $this->data['foodle']->getEmail();
 
-		echo '<tr><td style="text-align: right; padding-right: 1em" colspan="2">Sum</td>';
+		$colspan = 2 + count($this->data['foodle']->getExtraFields());
+		echo '<tr><td style="text-align: right; padding-right: 1em" colspan="' . $colspan . '">Sum</td>';
 		foreach ($calculated AS $calc) {
 			echo '<td class="count '. (isset($calc['style']) ? $calc['style'] : '') . '">' . $calc['count'] . '</td>';
 		}
@@ -343,7 +344,7 @@ if (isset($_REQUEST['timezone'])) {
 	
 	
 		echo '<tr>';
-		echo '<td colspan="2"><span style="float: right"><img onclick="showemail(0)" class="email" src="/res/mail24.png" alt="' . $this->t('emailtoall'). '" title="' . $this->t('emailtoall'). '" /></span>
+		echo '<td colspan="' . $colspan . '"><span style="float: right"><img onclick="showemail(0)" class="email" src="/res/mail24.png" alt="' . $this->t('emailtoall'). '" title="' . $this->t('emailtoall'). '" /></span>
 			' . $this->t('emailaddresses'). '</td>';
 		foreach ($calculated AS $key => $calc) {
 			echo '<td style="text-align: center" class=""><img onclick="showemail(' . ($key+1) . ')" class="email" alt="' . $this->t('emailtoonecol'). '" title="' . $this->t('emailtoonecol'). '" src="/res/mail24.png" /></td>';
@@ -402,6 +403,7 @@ if (isset($_REQUEST['timezone'])) {
 <div id="discussion">
 <!-- BEGIN discussion -->
 
+<!-- 
 <form method="post" action="<?php echo $this->data['foodlepath']; ?>">
 	<input type="hidden" name="tab" value="1" />
 	<input type="hidden" name="discussionentry" value="1" />
@@ -409,23 +411,123 @@ if (isset($_REQUEST['timezone'])) {
 	<div style="margin: .2em 5em .2em 5em; ">
 		<textarea class="wmd-ignore" name="message" style="clear: both; border: 1px solid #ccc; width: 100%; height: 5em"></textarea>
 		<p><input type="submit" style="clear: both; " value="<?php echo $this->t('add'); ?>" /></p>
-	</div><!-- field -->
+	</div>
 </form>
+ -->
 	
 <?php
+
+
+
+
+
+echo '<form method="post" action="' .  $this->data['foodlepath'] . '">';
+echo '	<input type="hidden" name="tab" value="1" />
+	<input type="hidden" name="discussionentry" value="1" />';
+echo '<div id="discussionouterbox" style="margin: .2em 5em .2em 5em; ">';
+
+// A discussion entry
+echo '<div style="border: 1px solid #bbb; margin-bottom: .7em" >';
+
+// A discussion meta info box
+echo '  <div style="float: left; 
+	margin: 0px 0px 10px 0px; 
+	padding: 2px .5em; 
+	border-bottom: 1px solid #bbb; 
+	border-right: 1px solid #bbb; 
+	font-size: 90%; color: #777; background: #f6f6f6; width: 300px">';
+
+if(isset($this->data['user'])) {
+
+	echo '    <p style="margin: 0px; padding 0px; ">' . htmlspecialchars($this->data['user']->username) . '</p>';	
+
+	$photourl = $this->data['user']->getPhotoURL('m');
+	if ($photourl !== false) {
+		echo '<img src="' . htmlspecialchars($photourl) . '" alt="Photo of user" style="float: right; border: 1px solid #777" />';
+	}
+	echo '<p>' . $this->data['user']->getOrgHTML() . '</p>';
+}
+
+#	echo '<br style="height: 0px; clear: both" />';
+echo '  </div>';
+
+
+// The discussion entry content (the text)
+echo '  <div style="margin: 0px 0px 0px 350px; padding: 2px .5em;" >';
+
+echo '<textarea class="wmd-ignore" name="message" style="clear: both; border: 1px solid #ccc; width: 100%; height: 5em"></textarea>';
+echo '<p><input type="submit" style="clear: both; " value="' . $this->t('add') . '" /></p>';
+
+
+echo   '</div>';	
+
+
+echo '<br style="height: 0px; clear: both" />';	
+
+echo '</div>';
+
+
+echo '</div><!-- end #discussionouterbox -->';
+echo '</form>';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 echo '<div id="discussionouterbox" style="margin: .2em 5em .2em 5em; ">';
 foreach($discussion AS $d) {
 	
+	// A discussion entry
 	echo '<div style="border: 1px solid #bbb; margin-bottom: .7em" >';
-	echo '  <div style="margin: 0px; padding: 2px .5em; border-bottom: 1px solid #bbb; font-size: 90%; color: #777; background: #f6f6f6">';
-	echo '    <p style="margin: 0px; padding 0px; float: right">' .$d['agotext'] . '</p>';
-	echo '    <p style="margin: 0px; padding 0px; float: left">' . htmlspecialchars($d['username']) . '</p>';
-	echo '<br style="height: 0px; clear: both" />';
+	
+	
+
+	
+	
+	// A discussion meta info box
+	echo '  <div style="float: left; 
+		margin: 0px 0px 10px 0px; 
+		padding: 2px .5em; 
+		border-bottom: 1px solid #bbb; 
+		border-right: 1px solid #bbb; 
+		font-size: 90%; color: #777; background: #f6f6f6; width: 300px">';
+
+	echo '    <p style="margin: 0px; padding 0px; ">' . htmlspecialchars($d['username']) . '</p>';	
+
+	
+	if(isset($d['user'])) {
+		$photourl = $d['user']->getPhotoURL('m');
+		if ($photourl !== false) {
+			echo '<img src="' . htmlspecialchars($photourl) . '" alt="Photo of user" style="float: right; border: 1px solid #777" />';
+		}
+		echo '<p>' . $d['user']->getOrgHTML() . '</p>';
+	}
+
+
+	echo '    <p style="margin: 0px; padding 0px; ">' .$d['agotext'] . '</p>';
+	
+#	echo '<br style="height: 0px; clear: both" />';
 	echo '  </div>';
-	echo '  <div style="margin: 0px; padding: 2px .5em;" >';
+	
+	
+	// The discussion entry content (the text)
+	echo '  <div style="margin: 0px 0px 0px 350px; padding: 2px .5em;" >';
 	echo htmlentities(strip_tags($d['message']));
-	echo   '</div>';
+	echo   '</div>';	
+	
+
+	echo '<br style="height: 0px; clear: both" />';	
+	
 	echo '</div>';
 	
 }

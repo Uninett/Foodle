@@ -33,9 +33,8 @@ class Pages_CSVFoodle extends Pages_Page {
 
 		$s = ';';
 		foreach ($responses AS $response) {
-			echo $response->username . $s .  $response->userid . $s . join($s, $response->response['data']) . $s . date("Y-m-d H:i", $entry->created) . "\r\n";
+			echo $response->username . $s .  $response->userid . $s . join($s, $response->response['data']) . $s . date("Y-m-d H:i", $response->created) . "\r\n";
 		}
-
 
 	}
 	

@@ -15,14 +15,15 @@ class Pages_PageFront extends Pages_Page {
 	
 	// Authenticate the user
 	private function auth() {
-		$this->auth = new FoodleAuth();
+		$this->auth = new FoodleAuth($this->fdb);
 		$this->auth->requireAuth(TRUE);
 
-		$this->user = new Data_User($this->fdb);
-		$this->user->email = $this->auth->getMail();
-		$this->user->userid = $this->auth->getUserID();
-		$this->user->name = $this->auth->getDisplayName();
-		$this->user->calendarURL = $this->auth->getCalendarURL();
+		$this->user = $this->auth->getUser();
+		
+		if ($_REQUEST['debuguser']) {
+			header('Content-type: text/plain; char-set: utf8');
+			print_r($this->user); exit;
+		}
 
 	}
 	
@@ -56,6 +57,7 @@ class Pages_PageFront extends Pages_Page {
 		$statusupdate = $this->fdb->getActivityStream($this->user, $foodleids, 100);
 		
 		$stats = $this->fdb->getStats($this->user->userid);
+
 		// ---- o ----- o ---- o ----- o ---- o ----- o
 
 
@@ -67,8 +69,10 @@ class Pages_PageFront extends Pages_Page {
 		);
 
 		$t->data['user'] = $this->user;
-		$t->data['userid'] = $this->user->userid;
-		$t->data['displayname'] = $this->user->name;
+// 		$t->data['userid'] = $this->user->userid;
+// 		$t->data['displayname'] = $this->user->username;
+
+		$t->data['showprofile'] = $this->user->loadedFromDB;
 
 		$t->data['authenticated'] = $this->auth->isAuth();
 		

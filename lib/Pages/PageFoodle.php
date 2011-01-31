@@ -32,9 +32,6 @@ class Pages_PageFoodle extends Pages_Page {
 		$this->foodleid = $parameters[0];
 		$this->foodlepath = '/foodle/' . $this->foodleid;
 
-
-		$this->timezone = new TimeZone();
-		
 		#Timer::tick('Preparation started');
 				
 		$this->foodle = $this->fdb->readFoodle($this->foodleid);
@@ -51,6 +48,7 @@ class Pages_PageFoodle extends Pages_Page {
 		#Timer::tick('Timezone preparations');
 		
 		$this->auth();
+		$this->timezone = new TimeZone(null, $this->user);
 	}
 	
 	protected function setLocale() {
@@ -84,30 +82,40 @@ class Pages_PageFoodle extends Pages_Page {
 	
 	// Authenticate the user
 	protected function auth() {
-		$this->auth = new FoodleAuth();
+		$this->auth = new FoodleAuth($this->fdb);
 		$this->auth->requireAuth($this->foodle->allowanonymous);
 
-		$this->user = new Data_User($this->fdb);
+		$this->user = $this->auth->getUser();
 		
-		if ($this->auth->isAuth()) {
-			$this->user = new Data_User($this->fdb);
-			$this->user->email = $this->auth->getMail();
-			$this->user->userid = $this->auth->getUserID();
-			$this->user->name = $this->auth->getDisplayName();
-			$this->user->calendarURL = $this->auth->getCalendarURL();
-		} else {
-			$this->user = new Data_User($this->fdb);
-			$this->user->email = $this->auth->getMail();
-			$this->user->userid = $this->auth->getUserID();
-			$this->user->name = $this->auth->getDisplayName();			
-	
-		}
+// 		if ($this->auth->isAuth()) {
+// 			$this->user = new Data_User($this->fdb);
+// 			$this->user->email = $this->auth->getMail();
+// 			$this->user->userid = $this->auth->getUserID();
+// 			$this->user->name = $this->auth->getDisplayName();
+// 			$this->user->calendarURL = $this->auth->getCalendarURL();
+// 		} else {
+// 			$this->user = new Data_User($this->fdb);
+// 			$this->user->email = $this->auth->getMail();
+// 			$this->user->userid = $this->auth->getUserID();
+// 			$this->user->name = $this->auth->getDisplayName();			
+// 	
+// 		}
 
 
 	}
 
 	
 	protected function sendMail() {
+	
+		if (!$this->user->notification('newresponse', FALSE)) {
+			error_log('Foodle response was added, but mail notification was not sent because of users preferences');
+			return;
+		}
+		error_log('Foodle response was added, sending notification!');
+		
+		
+	
+		$profileurl = FoodleUtils::getUrl() . 'profile/';
 		$url = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier;
 		$name = $this->foodle->name;
 		$to = $this->user->email;
@@ -127,6 +135,12 @@ class Pages_PageFoodle extends Pages_Page {
 			<li><a href="http://foodl.org">Go to Foodl.org to create a new Foodle.</a></li>
 		</ul></p>
 		
+		<p>You can turn of this e-mail notification, and configure other notification messages <a href="' . 
+			htmlspecialchars($profileurl) . '">from your Foodle preference page</a>:</p>
+		
+		<pre><code>' . htmlspecialchars($profileurl) . '</code></pre>
+
+		
 		';
 		$mailer = new Foodle_EMail($to, 'Foodle: ' . htmlspecialchars($name), 'Foodl.org <no-reply@foodl.org>');
 		$mailer->setBody($mail);
@@ -145,10 +159,7 @@ class Pages_PageFoodle extends Pages_Page {
 		$myresponse->save();
 		
 		if (isset($this->user->email)) {
-			/* 
-				Disabled until we get a user profile where people can unset the preference for email notifications.
-			*/
-		//	$this->sendMail();
+			$this->sendMail();
 		}
 		
 		$newurl = SimpleSAML_Utilities::selfURLNoQuery() ;
@@ -237,13 +248,13 @@ class Pages_PageFoodle extends Pages_Page {
 		$this->template->data['loginurl'] = $this->auth->getLoginURL();
 		$this->template->data['logouturl'] = $this->auth->getLogoutURL('/');
 		
-		$isAdmin = ($this->user->userid == $this->foodle->owner) || ($this->user->isAdmin());
+		$isAdmin = ($this->user->username == $this->foodle->owner) || ($this->user->isAdmin());
 		
 		$this->template->data['owner'] = $isAdmin;
 		$this->template->data['ownerid'] = $this->foodle->owner;
 		$this->template->data['showsharing'] = $isAdmin;
 				
-		$this->template->data['showdebug'] = ($this->user->userid == 'andreas@uninett.no') || ($this->user->userid == 'andreas@rnd.feide.no');
+		$this->template->data['showdebug'] = ($this->user->username == 'andreas@uninett.no') || ($this->user->username == 'andreas@rnd.feide.no');
 		if (isset($_REQUEST['debug'])) {
 			$this->template->data['showdebug'] = TRUE;
 		}
@@ -254,11 +265,11 @@ class Pages_PageFoodle extends Pages_Page {
 
 		$this->template->data['customDistribute'] = array();
 		$this->template->data['customDistribute'][] = new EmbedDistribute($this->foodle, $this->template);
-		if (preg_match('/^.*?@uninett\.no$/', $this->user->userid)) {
+		if (preg_match('/^.*?@uninett\.no$/', $this->user->username)) {
 			$this->template->data['customDistribute'][] = new UNINETTDistribute($this->foodle, $this->template);			
 		}
 
-
+		$this->template->data['showprofile'] = $this->user->loadedFromDB;
 		
 		$this->template->data['debugUser'] = $this->user->debug();
 		$this->template->data['debugFoodle'] = $this->foodle->debug();

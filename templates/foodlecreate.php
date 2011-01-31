@@ -363,8 +363,7 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 		
 		?>
 
-		<!-- <h1 id="previewheader"></h1>
-		<div class="wmd-preview"></div> -->
+
     	<div id="previewpane"></div>		    
 		    
 		    
@@ -374,14 +373,15 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 	<div id="advanced">
 
 		<h2><?php echo $this->t('expire'); ?></h2>
-		<p></p>
+		<p><?php echo $this->t('expireinfo'); ?></p>
 		<input id="deadline" type="text" name="expire" value="<?php
 		if (isset($this->data['expire'])) echo $this->data['expire'];
 		?>"/><br />
 		<?php echo $this->t('format'); ?>: YYYY-MM-DD HH:MM
 		
 		
-		<h2 style="margin-top: 2em"><?php echo $this->t('anonheader'); ?></h2>
+		<h2><?php echo $this->t('anonheader'); ?></h2>
+		
 		<?php
 			$checked = '';
 			if (array_key_exists('anon', $this->data)) {
@@ -424,6 +424,35 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 				<label for="responsetype_yesnomaybe">' . $this->t('responsetype_yesnomaybe') . '</label></p>');
 				
 
+
+
+
+			echo('<h2>' . $this->t('extrafields') . '</h2>');
+			echo('<p>' . $this->t('extrafields_info') . '</p>');
+			
+			$efChecked = array(
+				'photo' => '',
+				'org' => '',
+				'location' => '',
+			);
+			
+			if (!empty($this->data['extrafields'])) {
+				foreach($this->data['extrafields'] AS $ef) {
+					$efChecked[$ef] = ' checked="checked" ';
+				}
+			}
+
+			echo('<p style="margin: 2px">
+				<input type="checkbox" name="extrafields_photo" id="extrafields_photo" ' . $efChecked['photo'] . '>
+				<label for="extrafields_photo">' . $this->t('extrafields_photo') . '</label></p>');
+
+			echo('<p style="margin: 2px">
+				<input type="checkbox" name="extrafields_org" id="extrafields_org" ' . $efChecked['org'] . '>
+				<label for="extrafields_org">' . $this->t('extrafields_org') . '</label></p>');
+				
+			echo('<p style="margin: 2px">
+				<input type="checkbox" name="extrafields_location" id="extrafields_location" ' . $efChecked['org'] . '>
+				<label for="extrafields_location">' . $this->t('extrafields_location') . '</label></p>');
 		
 		?>
 		
@@ -446,7 +475,7 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 			$maxcoldef[$maxcol] = ' selected="selected" ';
 
 		?>
-		<h2 style="margin-top: 2em"><?php echo $this->t('maxheader'); ?></h2>
+		<h2><?php echo $this->t('maxheader'); ?></h2>
 		<p><?php echo $this->t('maxdescr'); ?><br />
 		<input id="maxentries" type="text" name="maxentries" size="3" value="<?php echo $maxnum; ?>" /></p>
 		<p><?php echo $this->t('maxcolinfo'); ?><br />

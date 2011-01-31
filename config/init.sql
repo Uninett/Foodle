@@ -10,6 +10,8 @@ CREATE TABLE `def` (
   `maxdef` text,
   `anon` tinytext,
   `timezone` text,
+  `columntype` text,
+  `responsetype` text,
   PRIMARY KEY  (`id`)
 );
 
@@ -33,4 +35,32 @@ CREATE TABLE `discussion` (
   `message` text,
   `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)
+);
+
+CREATE TABLE user (
+	userid varchar(100),
+	username tinytext,
+	email tinytext,
+
+	org tinytext,
+	orgunit tinytext,
+	realm tinytext,
+
+	photol text,
+	photom text,
+	photos text,
+	
+	notifications text,
+	features text,
+	
+	calendar text,
+	
+	timezone tinytext,
+	location tinytext,
+	language tinytext,
+	
+	`created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+	`updated` timestamp NULL default NULL,
+	
+	PRIMARY KEY (`userid`)
 );

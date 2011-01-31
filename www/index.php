@@ -48,6 +48,15 @@ try {
 			require('mail.php');
 			break;
 
+		case 'profile':
+			$page = new Pages_PageProfile($config, $parameters);
+			$page->show();
+			break;
+
+		case 'photo':
+			$page = new Pages_Photo($config, $parameters);
+			$page->show();
+			break;
 	
 		case 'foodle':
 		
@@ -136,17 +145,21 @@ try {
 
 } catch(Exception $e) {
 
+	$isAuth = FALSE;
 
 	try {
 	
 		$db = new FoodleDBConnector($config);
-	$auth = new FoodleAuth($db);
-	$auth->requireAuth(TRUE);
+		$auth = new FoodleAuth($db);
+		$auth->requireAuth(TRUE);
 
-	
-		$email = $auth->getMail();
-		$userid = $auth->getUserID();
-		$name = $auth->getDisplayName();
+		$user = $auth->getUser();
+
+		$email = $user->email;
+		$userid = $user->userid;
+		$name = $user->name;
+		
+		$isAuth = $auth->isAuth();
 		
 	} catch (Exception $e) {
 		
@@ -155,7 +168,7 @@ try {
 	$t = new SimpleSAML_XHTML_Template($config, 'foodleerror.php', 'foodle_foodle');
 	$t->data['bread'] = array(array('href' => '/' . $config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), array('title' => 'bc_errorpage'));
 	$t->data['message'] = $e->getMessage() . '<pre>' . $e->getTraceAsString() . '</pre>';
-	$t->data['authenticated'] = $auth->isAuth();
+	$t->data['authenticated'] = $isAuth;
 	$t->data['showsupport'] = TRUE;
 	
 	FastPass::$domain = "tjenester.ecampus.no";

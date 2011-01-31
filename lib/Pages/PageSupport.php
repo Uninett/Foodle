@@ -16,14 +16,10 @@ class Pages_PageSupport extends Pages_Page {
 	
 	// Authenticate the user
 	private function auth() {
-		$this->auth = new FoodleAuth();
+		$this->auth = new FoodleAuth($this->fdb);
 		$this->auth->requireAuth(TRUE);
 
-		$this->user = new Data_User($this->fdb);
-		$this->user->email = $this->auth->getMail();
-		$this->user->userid = $this->auth->getUserID();
-		$this->user->name = $this->auth->getDisplayName();
-		$this->user->calendarURL = $this->auth->getCalendarURL();
+		$this->user = $this->auth->getUser();
 
 	}
 	
