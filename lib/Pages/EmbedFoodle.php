@@ -21,10 +21,16 @@ class Pages_EmbedFoodle extends Pages_PageFoodle {
 	// 
 	
 	
+// 	function __construct($config, $parameters) {
+// 		parent::__construct($config, $parameters);
+// 	}
+	
 	
 	// Authenticate the user
 	protected function auth() {
-		$this->auth = new FoodleAuth();
+
+	
+		$this->auth = new FoodleAuth($this->fdb);
 		$this->auth->requireAuth(TRUE);
 
 		$this->user = $this->auth->getUser();
