@@ -2,7 +2,7 @@
 <?php
 
 
-$SIMPLESAMLPHP_DIR = '/www/deploy.foodl.org/simplesamlphp';
+$SIMPLESAMLPHP_DIR = '/var/simplesamlphp-foodle/';
 
 /* This is the base directory of the simpleSAMLphp installation. */
 $baseDir = dirname(dirname(__FILE__));
