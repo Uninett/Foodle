@@ -64,8 +64,8 @@ class SNM {
 
 			<pre><code>' . htmlspecialchars($profileurl) . '</code></pre>';
 
-#		$to = $this->user->email;
-		$to = 'andreassolberg@gmail.com';
+		$to = $this->user->email;
+#		$to = 'andreassolberg@gmail.com';
 		$mailer = new Foodle_EMail($to, 'Daily Foodle status update', 'Foodl.org <no-reply@foodl.org>');
 		$mailer->setBody($text);
 		$mailer->send();
