@@ -451,7 +451,7 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 				<label for="extrafields_org">' . $this->t('extrafields_org') . '</label></p>');
 				
 			echo('<p style="margin: 2px">
-				<input type="checkbox" name="extrafields_location" id="extrafields_location" ' . $efChecked['org'] . '>
+				<input type="checkbox" name="extrafields_location" id="extrafields_location" ' . $efChecked['location'] . '>
 				<label for="extrafields_location">' . $this->t('extrafields_location') . '</label></p>');
 		
 		?>
