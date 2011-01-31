@@ -400,7 +400,8 @@ class FoodleDBConnector {
 		$result = mysql_query($sql, $this->db);
 		if(!$result)
 			throw new Exception ("Could not successfully run query ($sql) fromDB:" . mysql_error());
-		return mysql_num_rows($result);
+		
+//		return mysql_num_rows($result);
 	}
 	
 	public function deleteFoodle(Data_Foodle $foodle) {
