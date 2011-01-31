@@ -34,6 +34,7 @@ class FoodleDBConnector {
 		}
 		return $rows;
 	}
+
 	
 	
 	public function getChangesOwners($ago = 86400) {
@@ -379,7 +380,7 @@ class FoodleDBConnector {
 					"'" . ($foodle->allowanonymous ? '1' : '0') . "', " . 
 					"'" . mysql_real_escape_string($foodle->getTimeZone()) . "', " . 
 					(isset($foodle->columntype) ? "'" . mysql_real_escape_string($foodle->columntype) . "'" : 'null') . ", " .
-					(isset($foodle->responsetype) ? "'" . mysql_real_escape_string($foodle->responsetype) . "'" : "'default'") .
+					(isset($foodle->responsetype) ? "'" . mysql_real_escape_string($foodle->responsetype) . "'" : "'default'") . ", " .
 					"'" . mysql_real_escape_string(Data_Foodle::encode($foodle->extrafields)) . "'" . 
 					")
 			";
@@ -763,6 +764,13 @@ class FoodleDBConnector {
 		
 		return $stream->compact();
 	}
+	
+	
+	
+	
+	
+	
+	
 
 	protected function getStatusUpdate(Data_User $user, $foodleids, $no = 100) {
 		
