@@ -263,29 +263,34 @@ class FoodleAuth {
 		}
 		return null;
 	}
+	
+	
 	protected static function getOrg($attributes) {
-		if (array_key_exists('eduPersonOrgDN:o', $attributes)) return $attributes['eduPersonOrgDN:o'][0];
-		if (array_key_exists('ou', $attributes)) return $attributes['ou'][0];
-		if (array_key_exists('eduPersonOrgDN:cn', $attributes)) return $attributes['eduPersonOrgDN:cn'][0];
-		if (array_key_exists('eduPersonOrgDN:eduOrgLegalName', $attributes)) return $attributes['eduPersonOrgDN:eduOrgLegalName'][0];
+		if (!empty($attributes['eduPersonOrgDN:eduOrgLegalName'][0])) return $attributes['eduPersonOrgDN:eduOrgLegalName'][0];
+		if (!empty($attributes['eduPersonOrgDN:o'][0])) return $attributes['eduPersonOrgDN:o'][0];
+		if (!empty($attributes['eduPersonOrgDN:cn'][0])) return $attributes['eduPersonOrgDN:cn'][0];
 		return null;
 	}
+	
+	
 	protected static function getOrgunit($attributes) {
+		// find the index of the primary orgunit.
+		$index = 0;
+		if (!empty($attributes['eduPersonPrimaryOrgUnitDN'][0]) && !empty($attributes['eduPersonOrgUnitDN'])) {
+			$index = array_search($attributes['eduPersonPrimaryOrgUnitDN'][0], $attributes['eduPersonOrgUnitDN']);
+			if ($index === FALSE) $index = 0;
+		}
 		
-		if (!array_key_exists('eduPersonOrgUnitDN:cn', $attributes)) return null;
+		// Try to get ou and cn with the correct index...
+		if (!empty($attributes['eduPersonOrgUnitDN:ou'][$index])) return $attributes['eduPersonOrgUnitDN:ou'][$index];
+		if (!empty($attributes['eduPersonOrgUnitDN:cn'][$index])) return $attributes['eduPersonOrgUnitDN:cn'][$index];
 		
-		// Return CN if only one entry...
-		if (count($attributes['eduPersonOrgUnitDN:cn']) == 1) return $attributes['eduPersonOrgUnitDN:cn'][0];
+		// If this fails, try the first entry.
+		$index = 0;
+		if (!empty($attributes['eduPersonOrgUnitDN:ou'][$index])) return $attributes['eduPersonOrgUnitDN:ou'][$index];
+		if (!empty($attributes['eduPersonOrgUnitDN:cn'][$index])) return $attributes['eduPersonOrgUnitDN:cn'][$index];
 		
-		if (!array_key_exists('eduPersonPrimaryOrgUnitDN', $attributes)) return $attributes['eduPersonOrgUnitDN:cn'][0];
-		if (!array_key_exists('eduPersonOrgUnitDN', $attributes)) return $attributes['eduPersonOrgUnitDN:cn'][0];
-		
-		$indexes = array_flip($attributes['eduPersonOrgUnitDN']);
-		if (!isset($indexes[$attributes['eduPersonPrimaryOrgUnitDN'][0]])) return $attributes['eduPersonOrgUnitDN:cn'][0];
-		$index = $indexes[$attributes['eduPersonPrimaryOrgUnitDN'][0]];
-		if (isset($attributes['eduPersonOrgDN:cn'][$index])) return $attributes['eduPersonOrgUnitDN:cn'][0];
-		
-		return $attributes['eduPersonOrgUnitDN:cn'][$index];		
+		return null;
 	}
 	
 	protected static function getLocation($attributes) {
