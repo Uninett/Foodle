@@ -57,6 +57,7 @@ class SNM {
 			
 		}
 
+		$profileurl = FoodleUtils::getUrl() . 'profile';
 		$text .= '
 			<h2>Setup your e-mail notification preferences</h2>
 			<p>You can turn of this e-mail notification, and configure other notification messages <a href="' . 
@@ -64,8 +65,9 @@ class SNM {
 
 			<pre><code>' . htmlspecialchars($profileurl) . '</code></pre>';
 
+
 		$to = $this->user->email;
-#		$to = 'andreassolberg@gmail.com';
+	//	$to = 'andreassolberg@gmail.com';
 		$mailer = new Foodle_EMail($to, 'Daily Foodle status update', 'Foodl.org <no-reply@foodl.org>');
 		$mailer->setBody($text);
 		$mailer->send();

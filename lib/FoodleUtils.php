@@ -5,7 +5,8 @@ class FoodleUtils {
 	
 	public static function getURL() {
 		$config = SimpleSAML_Configuration::getInstance('foodle');
-		return SimpleSAML_Utilities::selfURLhost() . '/' . $config->getValue('baseurlpath', '');
+		$url = $config->getString('url', SimpleSAML_Utilities::selfURLhost());
+		return $url . '/' . $config->getValue('baseurlpath', '');
 	}
 	
 	public static function cleanUsername($username) {
