@@ -282,13 +282,13 @@ class FoodleAuth {
 		}
 		
 		// Try to get ou and cn with the correct index...
-		if (!empty($attributes['eduPersonOrgUnitDN:ou'][$index])) return $attributes['eduPersonOrgUnitDN:ou'][$index];
 		if (!empty($attributes['eduPersonOrgUnitDN:cn'][$index])) return $attributes['eduPersonOrgUnitDN:cn'][$index];
+		if (!empty($attributes['eduPersonOrgUnitDN:ou'][$index])) return $attributes['eduPersonOrgUnitDN:ou'][$index];
 		
 		// If this fails, try the first entry.
 		$index = 0;
-		if (!empty($attributes['eduPersonOrgUnitDN:ou'][$index])) return $attributes['eduPersonOrgUnitDN:ou'][$index];
 		if (!empty($attributes['eduPersonOrgUnitDN:cn'][$index])) return $attributes['eduPersonOrgUnitDN:cn'][$index];
+		if (!empty($attributes['eduPersonOrgUnitDN:ou'][$index])) return $attributes['eduPersonOrgUnitDN:ou'][$index];
 		
 		return null;
 	}
