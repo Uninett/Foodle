@@ -25,10 +25,10 @@ class Pages_PageProfile extends Pages_Page {
 		error_log('Language: ' . $lang);
 		
 		$localeMap = array(
-			'no' => 'no_NO',
-			'nn' => 'no_NO',
-			'de' => 'de_DE',
-			'fr' => 'fr_FR',
+			'no' => 'nb_NO.utf8',
+			'nn' => 'nn_NO.utf8',
+// 			'de' => 'de_DE',
+// 			'fr' => 'fr_FR',
 		);
 		
 		if (isset($localeMap[$lang])) {	
