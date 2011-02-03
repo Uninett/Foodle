@@ -10,8 +10,10 @@ CREATE TABLE `def` (
   `maxdef` text,
   `anon` tinytext,
   `timezone` text,
-  `columntype` text,
-  `responsetype` text,
+  `columntype` tinytext,
+  `responsetype` tinytext,
+  `extrafields` text,
+  `datetime` text,
   PRIMARY KEY  (`id`)
 );
 
@@ -25,7 +27,7 @@ CREATE TABLE `entries` (
   `updated` timestamp NULL default NULL,
   `notes` text,
   `email` text,
-  PRIMARY KEY  (`id`)
+	PRIMARY KEY  (`id`)
 );
 
 CREATE TABLE `discussion` (
@@ -37,30 +39,23 @@ CREATE TABLE `discussion` (
   PRIMARY KEY  (`id`)
 );
 
-CREATE TABLE user (
-	userid varchar(100),
-	username tinytext,
-	email tinytext,
-
-	org tinytext,
-	orgunit tinytext,
-	realm tinytext,
-
-	photol text,
-	photom text,
-	photos text,
-	
-	notifications text,
-	features text,
-	
-	calendar text,
-	
-	timezone tinytext,
-	location tinytext,
-	language tinytext,
-	
-	`created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-	`updated` timestamp NULL default NULL,
-	
-	PRIMARY KEY (`userid`)
+CREATE TABLE `user` (
+  `userid` varchar(100) NOT NULL default '',
+  `username` tinytext,
+  `email` tinytext,
+  `org` tinytext,
+  `orgunit` tinytext,
+  `realm` tinytext,
+  `photol` text,
+  `photom` text,
+  `photos` text,
+  `notifications` text,
+  `features` text,
+  `calendar` text,
+  `timezone` tinytext,
+  `location` tinytext,
+  `language` tinytext,
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `updated` timestamp NULL default NULL,
+  PRIMARY KEY  (`userid`)
 );
