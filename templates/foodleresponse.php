@@ -41,20 +41,6 @@ if (isset($this->data['timezone'])) {
 }
 
 
-echo '<h1>' . htmlspecialchars($this->data['foodle']->name) . '</h1>';
-
-echo $this->data['foodle']->getDescription();
-
-	
-	
-if (array_key_exists('facebookshare', $this->data) && $this->data['facebookshare']) {
-	echo '<div style="" id="facebookshare" title="' . $this->t('facebookshareheader'). '">';
-	echo '<p>' . $this->t('facebooklinkabout') . '<br /><input type="text" style="width: 90%" name="furl" value="' . htmlentities($this->data['url']) . '&amp;auth=facebook" /></p>';
-	echo '<p><a class="button" style="display: block" href="http://www.facebook.com/sharer.php?u=' . urlencode($this->data['url'] . '&amp;auth=facebook') . '&amp;t=' . urlencode('Foodle: ' . $this->data['header']) . '">' . 
-			'<span>' . $this->t('linkonfacebook') . '</span></a></p>';
-	echo '</div>';
-}
-
 
 
 
@@ -88,58 +74,123 @@ if ($this->data['maxnum'] > 0) {
 
 
 
-if (isset($this->data['foodle']->maxentries)) { 
-	echo '<div class="infobox maxnum">';
-#				echo '<img style="float: left" src="resources/closed.png" />';
 
-	if ($maxreached) {
-		echo '<img style="float: left" src="/res/closed.png" alt="Closed" />';
-	} else {
-		echo '<img style="float: left" src="/res/system-users.png" alt="Open" />';
+
+if (!empty($this->data['datetimetext']) ||
+	isset($this->data['foodle']->maxentries) ||
+	!empty($this->data['expire'])) {
+
+
+	echo ('<div class="datetimebox">');
+		
+	// ----- Event datetime ------ 
+	if (!empty($this->data['datetimetext'])) {
+
+		echo ('<img src="/res/datetime.png" style="margin-top: 5px; float: right" />');
+		echo (' <p>' . $this->data['datetimetext'] . '</p>');
+		
+		echo(' <p style="font-size: small">[ <a href="/foodle/' . $this->data['foodle']->identifier . '?output=ical">Download iCalendar file</a> ]</p>');
+
 	}
-
-
-	echo '<p><strong>' . $this->t('maxlimit') . '</strong></p>'; 
-	#echo '<p style="clear: none; margin: 2px"><strong>There is a maximum limit of number of users on this Foodle.</strong></p>';
 	
-	$used = ' 0 ';
-	if (!empty($this->data['used'])) $used = $this->data['used'];#  echo '<pre>Used:  ' . $this->data['used']; exit;
-	echo '<p>' . $this->t('maxlimittext', 
-		array(
-			'%NUM%' => $used, 
-			'%OF%' => $this->data['maxnum']
-		) 
-	) . '</p>'; 
-	#echo '<p>Currently ' . $this->data['used'] . ' out of ' . $this->data['maxnum'] . ' is reached.</p>';
+	// ----- Max entries ------ 
+	if (isset($this->data['foodle']->maxentries)) { 
+		echo '<div class="infobox maxnum">';
+	#				echo '<img style="float: left" src="resources/closed.png" />';
+	
+		if (isset($maxreached) && $maxreached) {
+			echo '<img style="float: left" src="/res/closed.png" alt="Closed" />';
+		} else {
+			echo '<img style="float: left" src="/res/system-users.png" alt="Open" />';
+		}
+	
+	
+		echo '<p><strong>' . $this->t('maxlimit') . '</strong></p>'; 
+		#echo '<p style="clear: none; margin: 2px"><strong>There is a maximum limit of number of users on this Foodle.</strong></p>';
+		
+		$used = ' 0 ';
+		if (!empty($this->data['used'])) $used = $this->data['used'];#  echo '<pre>Used:  ' . $this->data['used']; exit;
+		echo '<p>' . $this->t('maxlimittext', 
+			array(
+				'%NUM%' => $used, 
+				'%OF%' => $this->data['maxnum']
+			) 
+		) . '</p>'; 
+		#echo '<p>Currently ' . $this->data['used'] . ' out of ' . $this->data['maxnum'] . ' is reached.</p>';
+	
+		echo '<div style="clear: both; height: 0px" ></div>';
+		echo '</div>';
+	}
+	
+		
+	// ----- Expiration date time ------ 
+	if (!empty($this->data['expire'])) { 
+	
+		echo '<div class="infobox expire">';
+		
+		#echo '<pre>Expire [' . $this->data['expire'] . ']  now[' . time() . ']</pre>';
+		
+		if ($this->data['expired']) {
+			echo '<img style="float: left" src="/res/closed.png" alt="Closed" />';
+			echo '<p style="clear: none; margin: 2px"><strong>' . $this->t('isclosed') . '</strong></p>';
+			echo '<p>' . $this->t('closed') . '</p>';
+			
+		} else {
+			echo '<img style="float: left" src="/res/time.png" alt="Open" />';
+			echo '<p style="clear: none; margin: 2px"><strong>' . $this->t('hasexpire') . '</strong></p>';
+			echo '<p>' . $this->data['expiretext']  . '</p>';
+		}
+	
+		echo '<br style="clear: both; height: 0px" />';
+		echo '</div>';
+	} 
+	
+	echo ('</div>');
 
-	echo '<div style="clear: both; height: 0px" ></div>';
-	echo '</div>';
 }
 
 
 
 
-	
-if (!empty($this->data['expire'])) { 
 
-	echo '<div class="infobox expire">';
-	
-	#echo '<pre>Expire [' . $this->data['expire'] . ']  now[' . time() . ']</pre>';
-	
-	if ($this->data['expired']) {
-		echo '<img style="float: left" src="/res/closed.png" alt="Closed" />';
-		echo '<p style="clear: none; margin: 2px"><strong>' . $this->t('isclosed') . '</strong></p>';
-		echo '<p>' . $this->t('closed') . '</p>';
-		
-	} else {
-		echo '<img style="float: left" src="/res/time.png" alt="Open" />';
-		echo '<p style="clear: none; margin: 2px"><strong>' . $this->t('hasexpire') . '</strong></p>';
-		echo '<p>' . $this->data['expiretext']  . '</p>';
-	}
 
-	echo '<br style="clear: both; height: 0px" />';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+echo '<h1>' . htmlspecialchars($this->data['foodle']->name) . '</h1>';
+
+echo $this->data['foodle']->getDescription();
+
+	
+	
+if (array_key_exists('facebookshare', $this->data) && $this->data['facebookshare']) {
+	echo '<div style="" id="facebookshare" title="' . $this->t('facebookshareheader'). '">';
+	echo '<p>' . $this->t('facebooklinkabout') . '<br /><input type="text" style="width: 90%" name="furl" value="' . htmlentities($this->data['url']) . '&amp;auth=facebook" /></p>';
+	echo '<p><a class="button" style="display: block" href="http://www.facebook.com/sharer.php?u=' . urlencode($this->data['url'] . '&amp;auth=facebook') . '&amp;t=' . urlencode('Foodle: ' . $this->data['header']) . '">' . 
+			'<span>' . $this->t('linkonfacebook') . '</span></a></p>';
 	echo '</div>';
-} 
+}
+
+
+
 
 
 
@@ -211,7 +262,7 @@ if (isset($_REQUEST['timezone'])) {
 		<table class="list" style="width: 100%">
 			
 		<?php
-			XHTMLCol::show($this, $this->data['foodle']);
+			XHTMLCol::show($this, $this->data['foodle'], $this->data['showconfirmcolumn']);
 		?>
 			
 						
@@ -235,8 +286,10 @@ if (isset($_REQUEST['timezone'])) {
 				$editable = FALSE; 
 			}
 		}
-
-		if ($this->data['calenabled']) {
+		
+		if ($this->data['showconfirmcolumn']) {
+			XHTMLResponseEntry::showEditableConfirm($this, $this->data['myresponse'], $editable, NULL, $this->data['authenticated']);
+		} else if ($this->data['calenabled']) {
 			XHTMLResponseEntry::showEditable($this, $this->data['myresponse'], $editable, $this->data['myresponsecal'], $this->data['authenticated']);
 		} else {
 			XHTMLResponseEntry::showEditable($this, $this->data['myresponse'], $editable, NULL, $this->data['authenticated']);
@@ -248,7 +301,7 @@ if (isset($_REQUEST['timezone'])) {
 		</table>';
 
 
-		
+		if (!$this->data['showconfirmcolumn']) {
 		if (isset($this->data['responsetype']) && $this->data['responsetype'] === 'yesnomaybe') {
 		
 			echo('
@@ -287,7 +340,7 @@ if (isset($_REQUEST['timezone'])) {
 			echo '</div>';
 
 		}
-		
+		}
 		echo '<br style="height: 0px; clear: both;"/>';		
 ?>
 
@@ -313,7 +366,9 @@ if (isset($_REQUEST['timezone'])) {
 		<table class="list" style="width: 100%">
 			
 		<?php
-		XHTMLCol::show($this, $this->data['foodle']);
+		
+		
+		XHTMLCol::show($this, $this->data['foodle'], $this->data['showconfirmcolumn']);
 		?>
 			
 						
@@ -326,13 +381,19 @@ if (isset($_REQUEST['timezone'])) {
 		 */
 		$responses = $this->data['foodle']->getResponses();	
 		foreach($responses AS $response) {
-			XHTMLResponseEntry::show($this, $response);
+			if ($this->data['showconfirmcolumn']) {
+				XHTMLResponseEntry::showConfirm($this, $response);
+			} else {
+				XHTMLResponseEntry::show($this, $response);
+			}
+
 		}
 
 		$calculated = $this->data['foodle']->calculateColumns();
 		$emailaddrs = $this->data['foodle']->getEmail();
 
 		$colspan = 2 + count($this->data['foodle']->getExtraFields());
+		
 		echo '<tr><td style="text-align: right; padding-right: 1em" colspan="' . $colspan . '">Sum</td>';
 		foreach ($calculated AS $calc) {
 			echo '<td class="count '. (isset($calc['style']) ? $calc['style'] : '') . '">' . $calc['count'] . '</td>';
@@ -340,17 +401,44 @@ if (isset($_REQUEST['timezone'])) {
 		echo '<td> </td>';
 		echo '</tr>';
 	
+		echo '</form>';
 	
+		if ($this->data['showfixtimeslow']) {
+		
+
 	
+			$colspan = 2 + count($this->data['foodle']->getExtraFields());
+			echo '<tr class="fixdaterow">
+				<td style="text-align: right; padding-right: 1em" colspan="' . $colspan . '">' . $this->t('select_time') . '</td>';
+			$i = 0;
+			foreach ($calculated AS $calc) {
+				echo '<td style="text-align: center">
+					<form action="/fixdate/' . $this->data['foodle']->identifier . '" method="post">
+						<input type="submit" name="fixdate" value="' . $this->t('select') . '" />
+						<input type="hidden" name="col" value="' . $i . '">
+					</form>
+					</td>';
+				$i++;
+			}
+			echo '<td> </td>';
+			echo '</tr>';
+		
+		}	
+		
+			
+		if (!$this->data['showconfirmcolumn']) {
+
 	
-		echo '<tr>';
-		echo '<td colspan="' . $colspan . '"><span style="float: right"><img onclick="showemail(0)" class="email" src="/res/mail24.png" alt="' . $this->t('emailtoall'). '" title="' . $this->t('emailtoall'). '" /></span>
-			' . $this->t('emailaddresses'). '</td>';
-		foreach ($calculated AS $key => $calc) {
-			echo '<td style="text-align: center" class=""><img onclick="showemail(' . ($key+1) . ')" class="email" alt="' . $this->t('emailtoonecol'). '" title="' . $this->t('emailtoonecol'). '" src="/res/mail24.png" /></td>';
+			echo '<tr>';
+			echo '<td colspan="' . $colspan . '"><span style="float: right"><img onclick="showemail(0)" class="email" src="/res/mail24.png" alt="' . $this->t('emailtoall'). '" title="' . $this->t('emailtoall'). '" /></span>
+				' . $this->t('emailaddresses'). '</td>';
+			foreach ($calculated AS $key => $calc) {
+				echo '<td style="text-align: center" class=""><img onclick="showemail(' . ($key+1) . ')" class="email" alt="' . $this->t('emailtoonecol'). '" title="' . $this->t('emailtoonecol'). '" src="/res/mail24.png" /></td>';
+			}
+			echo '<td> </td>';
+			echo '</tr>';
+			
 		}
-		echo '<td> </td>';
-		echo '</tr>';
 	
 	
 		?>
@@ -366,6 +454,12 @@ if (isset($_REQUEST['timezone'])) {
 		?>
 
 
+	
+	<?php
+	
+		if (!$this->data['showconfirmcolumn']) {
+	
+	?>
 	
 	<div id="emailbox">
 		
@@ -385,9 +479,13 @@ if (isset($_REQUEST['timezone'])) {
 		<p><?php echo $this->t('emailinfo'); ?></p>
 	</div><!-- end #emailbox -->
 
+	<?php
+	
+	}
+	?>
 
 
-	</form>
+
 
 
 	</div> <!-- end #responses tab -->

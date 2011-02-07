@@ -26,7 +26,16 @@ if(array_key_exists('edit', $this->data)) {
 }
 echo('<form method="post" action="' . $action . '">');
 echo(' <input type="hidden" id="coldef" name="coldef" value="" />');
+echo(' <input type="hidden" id="settimezone" name="settimezone" value="" />');
 echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset($this->data['columntype']) ? htmlspecialchars($this->data['columntype']) : '') . '" />');
+
+
+			
+if (!empty($this->data['foodle']->datetime)) {
+	echo '<input type="hidden" id="includedatefield" name="includedatefield" value="enabled" />';
+} else {
+	echo '<input type="hidden" id="includedatefield" name="includedatefield" value="disabled" />';
+}
 
 ?>
 
@@ -75,11 +84,16 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 			$columntypestimezoneChecked = '';
 			$columntypestextChecked = ' checked="checked"';
 			
-			if ($this->data['columntype'] === 'timezone') {
+			$columntypedisabled = '';
+			if (!$this->data['allowChangeColumn']) {
+				$columntypedisabled = ' disabled="disabled" ';
+			}
+			
+			if (isset($this->data['columntype']) && $this->data['columntype'] === 'timezone') {
 				$columntypesdatesChecked = '';
 				$columntypestimezoneChecked = ' checked="checked"';
 				$columntypestextChecked = '';
-				
+
 			} else if (isset($this->data['isDates']) && $this->data['isDates']) {
 				$columntypesdatesChecked = ' checked="checked"';
 				$columntypestimezoneChecked = '';
@@ -88,23 +102,119 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 		?>
 
 		
-		<div style="border: 1px solid #ccc; background: #f5f5f5; margin: .5em; padding: 3px 1em">
+		<div class="coltypeselector">
 
-			<p style="margin: 5px 2px" ><?php echo $this->t('qcolumntype'); ?></p>
-			
-			<p style="margin: 2px"><input type="radio" name="columntypes" id="columntypesdates" value="dates" <?php echo $columntypesdatesChecked; ?> />
-				<label for="columntypesdates"><?php echo $this->t('qcolumntypedates'); ?></label></p>
-			
-			<p style="margin: 2px"><input type="radio" name="columntypes" id="columntypestext" value="text" <?php echo $columntypestextChecked; ?> />
-				<label for="columntypestext"><?php echo $this->t('qcolumntypetext'); ?></label></p>
+		<?php
+		
+			echo '<p style="margin: 5px 2px" >' . $this->t('qcolumntype') . '</p>';
+		
+			echo '<p style="margin: 2px"><input type="radio" name="columntypes" id="columntypestext" value="text" '.
+				$columntypestextChecked . $columntypedisabled . ' />' . 
+				'<label for="columntypestext">' . $this->t('qcolumntypetext') . '</label></p>';
 
-			<p style="margin: 2px"><input type="radio" name="columntypes" id="columntypestimezone" value="timezone" <?php echo $columntypestimezoneChecked; ?> />
-				<label for="columntypestimezone"><?php echo $this->t('qcolumntypetimezone'); ?></label></p>
+
+			echo '<p style="margin: 2px"><input type="radio" name="columntypes" id="columntypesdates" value="dates" ' .
+				$columntypesdatesChecked . $columntypedisabled .  ' />' .
+				'<label for="columntypesdates">' . $this->t('qcolumntypedates') . '</label></p>';
+				
+			echo '<p style="margin: 2px"><input type="radio" name="columntypes" id="columntypestimezone" value="timezone" ' .
+				$columntypestimezoneChecked . $columntypedisabled . ' />' . 
+				'<label for="columntypestimezone">' . $this->t('qcolumntypetimezone') . '</label></p>';
+
+		?>
 
 		</div>
 		
 		
+		
+
+
+		<?php
+			
+			$datefrom = $this->data['tomorrow'];
+			$dateto   = $this->data['tomorrow'];
+			$timefrom = '08:00';
+			$timeto   = '16:00';
+			
+			if (!empty($this->data['foodle']->datetime['datefrom'])) {
+				$datefrom = $this->data['foodle']->datetime['datefrom'];
+			}
+			if (!empty($this->data['foodle']->datetime['dateto'])) {
+				$dateto = $this->data['foodle']->datetime['dateto'];
+			}
+			if (!empty($this->data['foodle']->datetime['timefrom'])) {
+				$timefrom = $this->data['foodle']->datetime['timefrom'];
+			}
+			if (!empty($this->data['foodle']->datetime['timeto'])) {
+				$timeto = $this->data['foodle']->datetime['timeto'];
+			}
+
+			$checkbox_eventtimeopt = '';
+			$checkbox_eventallday = '';
+			$checkbox_eventmultipledays = '';
+			
+			if (!empty($this->data['foodle'])) {
+				$checkbox_eventtimeopt = $this->data['foodle']->datetimeCheckbox('eventtimeopt');
+				$checkbox_eventallday = $this->data['foodle']->datetimeCheckbox('eventallday');
+				$checkbox_eventmultipledays = $this->data['foodle']->datetimeCheckbox('eventmultipledays');
+			}
+		
+		?>
+		<div id="eventdatetime" class="eventdatetime">
+			<p>
+				<?php
+					echo '<input type="checkbox" id="eventtimeopt" name="eventtimeopt" value="enabled" ' . $checkbox_eventtimeopt . '/>';
+				?>
+				<label for="eventtimeopt"><?php echo $this->t('associate_time'); ?></label></p>
+			
+			<div id="eventdatetimecontent" style="margin 0px; padding: 0px; display: none">
+				
+			<?php 
+			
+				echo('<p>' . $this->t('timezone'). ': ');
+				
+				if (isset($this->data['ftimezone'])) {
+					echo($this->data['timezone']->getHTMLList($this->data['ftimezone']) . '');
+				} else {
+					echo($this->data['timezone']->getHTMLList() . '');
+				}
+				echo('</p>');
+				
+			?>
+
+				
+			<p>
+				<?php
+					echo '<input type="input" id="eventdatefrom" name="eventdatefrom" value="' . $datefrom . '" />';
+					echo '<input type="input" id="eventtimefrom" name="eventtimefrom" value="' .  $timefrom . '" />';
+					echo ' <span id="todelimiter">&mdash;</span>';
+					echo '<input type="input" id="eventtimeto" name="eventtimeto" value="' . $timeto . '" /> ';
+					echo '<input type="input" id="eventdateto" name="eventdateto" value="' . $dateto . '" />';
+				?>
+			</p>
+
+			<p>
+				<?php
+					echo '<input type="checkbox" id="eventallday" name="eventallday" value="enabled" ' . $checkbox_eventallday . '/>';
+					echo '<label style="margin-right: 2em" for="eventallday">' . $this->t('allday'). '</label>';
+					
+					echo '<input type="checkbox" id="eventmultipledays" name="eventmultipledays" value="enabled" ' .  $checkbox_eventmultipledays . '/>';
+					echo '<label for="eventmultipledays">' . $this->t('multipledays'). '</label>';					
+				?>
+			</p>
+			</div>
+
+		</div>	
+
+
+		
+		
+		
+		
+		
+		
 		<div class="fcols">
+
 
 
 
@@ -113,7 +223,7 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 				
 				<?php 
 				
-					echo('<p>' . $this->t('selecttimezone') . '<br />');
+					echo('<div class="timezoneselector"><p>' . $this->t('selecttimezone') . '<br />');
 				
 					if (isset($this->data['ftimezone'])) {
 						echo($this->data['timezone']->getHTMLList($this->data['ftimezone']) . '');
@@ -121,13 +231,13 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 						echo($this->data['timezone']->getHTMLList() . '');
 					}
 
-					echo('</p>');
+					echo('</p></div>');
 					
 					echo('<p style="color: #888">' . $this->t('timeslotinfo') . '</p>');
-					
+#					echo '</div>';
 				?>
 				
-			<div></div>
+<!-- 			<div></div> -->
 
 				<?php
 			
@@ -164,30 +274,26 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 				} else {
 			
 				?>
-
-
-
-				<div class="fcol"  style="" >
-					<input class="fcoli wmd-ignore" type="text" value="" name="timeslot[]" placeholder="<?php echo $this->t('date'); ?>" />
-					<div style="display: inline" class="subcolcontainer">
-						<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" />
-
-						<a style="float: right" class="minibutton onemoreoption"><span><?php echo $this->t('addtimeslot'); ?></span></a>
-						<a style="float: right" class="minibutton duplicate"><span><?php echo $this->t('duplicate'); ?></span></a>
-					</div>
-				</div>
+					<div class="fcol"  style="" >
+						<input class="fcoli wmd-ignore" type="text" value="" name="timeslot[]" placeholder="<?php echo $this->t('date'); ?>" />
+						<div style="display: inline" class="subcolcontainer">
+							<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" />
 	
-				<div class="fcol"  style="" >
-					<input class="fcoli wmd-ignore" type="text" value="" name="timeslot[]" placeholder="<?php echo $this->t('date'); ?>" />
-					<div style="display: inline" class="subcolcontainer">
-						<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" />
-
-						<a style="float: right" class="minibutton onemoreoption"><span><?php echo $this->t('addtimeslot'); ?></span></a>
+							<a style="float: right" class="minibutton onemoreoption"><span><?php echo $this->t('addtimeslot'); ?></span></a>
+							<a style="float: right" class="minibutton duplicate"><span><?php echo $this->t('duplicate'); ?></span></a>
+						</div>
 					</div>
-				</div>
+		
+					<div class="fcol"  style="" >
+						<input class="fcoli wmd-ignore" type="text" value="" name="timeslot[]" placeholder="<?php echo $this->t('date'); ?>" />
+						<div style="display: inline" class="subcolcontainer">
+							<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('time'); ?>" />
+	
+							<a style="float: right" class="minibutton onemoreoption"><span><?php echo $this->t('addtimeslot'); ?></span></a>
+						</div>
+					</div>
 				<?php } ?>
 
-			
 			
 				<div><a style="float: left" class="minibutton onemorecolumn"><span><?php echo $this->t('onemoredate'); ?></span></a></div>
 			
@@ -200,10 +306,20 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 			
 			
 			
+			
+			
+			
+			
+			
+
+		
+		
+			
+			
 			<!--     ==============  GENERIC  =============== -->
 			<div class="columnsetupgeneric" style="clear: both">
 			
-			
+
 				<?php
 				
 				if (isset($this->data['isDates']) && !$this->data['isDates'] && isset($this->data['columns'])) {
@@ -234,7 +350,7 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 				
 				?>
 				<div class="fcol" style="" >
-					<input class="fcoli wmd-ignore" style="" type="text" value="" name="timeslot[]" placeholder="<?php echo $this->t('columnheader'); ?>" style="width: 100%" />
+					<input class="fcoli wmd-ignore" style="" type="text" value="<?php echo $this->t('attend'); ?>" name="timeslot[]" placeholder="<?php echo $this->t('columnheader'); ?>" style="width: 100%" />
 					<div style="display: inline" class="subcolcontainer">
 						<input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('option'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('option'); ?>" /><input class="fscoli wmd-ignore" type="text" value="" name="timeslots[]" placeholder="<?php echo $this->t('option'); ?>" />
 						<a style="float: right" class="minibutton onemoreoption"><span><?php echo $this->t('addoption'); ?></span></a>
@@ -264,21 +380,24 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 			<!--     ==============  TIMEZONE PLANNER =============== -->
 			<div class="columnsetuptimezone">
 				
-				<?php 
 				
-					echo('<p>' . $this->t('selecttimezone') . '<br />');
-				
-					if (isset($this->data['ftimezone'])) {
-						echo($this->data['timezone']->getHTMLList($this->data['ftimezone']) . '');
-					} else {
-						echo($this->data['timezone']->getHTMLList() . '');
-					}
+		
+			<?php 
+			
+				echo('<div class="timezoneselector"><p>' . $this->t('selecttimezone') . '<br />');
+			
+				if (isset($this->data['ftimezone'])) {
+					echo($this->data['timezone']->getHTMLList($this->data['ftimezone']) . '');
+				} else {
+					echo($this->data['timezone']->getHTMLList() . '');
+				}
 
-					echo('</p>');
-				?>
+				echo('</p></div>');
+			?>
+			
+
 				
-				
-				<div></div>
+<!-- 				<div></div> -->
 				
 				
 				<div class="fcol"  style="" >
@@ -346,23 +465,27 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 
 
 
-		<h2 style="clear:both; padding-top: 4em"><?php echo $this->t('preview'); ?></h2>
-
-
-
+		<br style="height: 0px; clear: both;" />
+		<div class="ready">
 		
-		<p><?php echo $this->t('previewinfo3'); ?></p>
-    
-		<?php
-		
+			<p id="readytextname" style="display: none; float: right; margin: 0px">Your Foodle is missing a name!</p>
+			<p id="readytextcol" style="display: none; float: right; margin: 0px">You need to enter text for at least one column...</p>
+		<?php		
 		if(array_key_exists('edit', $this->data)) {
-			echo('<input id="save" style="display: block; margin: 2em" type="submit" name="save" value="' . $this->t('updatefoodle') . '" />');
+			echo('<input id="save" type="submit" name="save" value="' . $this->t('updatefoodle') . '" />');
 		} else {
-			echo('<input id="save" style="display: block; margin: 2em" type="submit" name="save" value="' . $this->t('completefoodle') . '" />');
+			echo('<input id="save" type="submit" name="save" value="' . $this->t('completefoodle') . '" />');
 		}
 		
 		?>
 
+		</div>
+
+
+
+		<h2 style="clear:both; margin-top: 1.5em"><?php echo $this->t('preview'); ?></h2>
+		
+		<p><?php echo $this->t('previewinfo3'); ?></p>
 
     	<div id="previewpane"></div>		    
 		    
@@ -465,8 +588,8 @@ echo(' <input type="hidden" id="columntype" name="columntype" value="' . (isset(
 		
 		
 		<?php
-			$maxcol = $this->data['maxcol'];
-			$maxnum = $this->data['maxnum'];
+			$maxcol = !empty($this->data['maxcol']) ? $this->data['maxcol'] : '';
+			$maxnum = !empty($this->data['maxnum']) ? $this->data['maxnum'] : '';
 			
 			// echo 'maxcol [' . $maxcol . ']'; 
 			// echo 'maxnum [' . $maxnum . ']';

@@ -14,6 +14,16 @@ class FoodleUtils {
 		return $username;
 	}
 	
+	public static function checkboxChecked($state) {
+		if ($state) return ' checked="checked" ';
+		return '';
+	}
+	
+	public static function checkbox($name) {
+		if (!empty($_REQUEST[$name]) && $_REQUEST[$name] == 'enabled') return TRUE;
+		return FALSE;
+	}
+	
 	// The parameters of this function are the dates to be compared.
 	// The first should be prior to the second. The dates are in
 	// the form of: 1978-04-26 02:00:00.

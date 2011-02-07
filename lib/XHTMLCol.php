@@ -6,16 +6,24 @@ class XHTMLCol {
 		
 	}
 	
-	public static function show(SimpleSAML_XHTML_Template $t, Data_Foodle $foodle) { 
+	public static function show(SimpleSAML_XHTML_Template $t, Data_Foodle $foodle, $confirm = FALSE) { 
 		
 		$coldef = array();
 		$foodle->getColumnHeaders(&$coldef);
 		$coldepth = $foodle->getColumnDepth();
 		
+		if($confirm === TRUE) {
+			$coldef = array(array(array('title' => $t->t('attend'))));
+			$coldepth = 1;
+		}
+		
+		
 		$extrafields = $foodle->getExtraFields();
 		
+		
+#		echo '<pre>'; print_r($coldef); exit;
+		
 		echo '<thead>';
-
 
 		/*
 		 * Special handling of the first row
@@ -70,12 +78,13 @@ class XHTMLCol {
 			echo '</tr>';
 		}
 
+
+
 		echo '</thead>';
 		
 	}
 	
 	
 }
-
 
 

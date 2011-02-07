@@ -94,7 +94,9 @@ class FoodleDBConnector {
 		Data_Foodle::requireValidIdentifier($id);
 		$sql ="
 			SELECT *,
-			IF(expire=0,null,UNIX_TIMESTAMP(expire)) AS expire_unix 
+			IF(expire=0,null,UNIX_TIMESTAMP(expire)) AS expire_unix, 
+			IF(created=0,null,UNIX_TIMESTAMP(created)) AS createdu, 
+			IF(updated=0,null,UNIX_TIMESTAMP(updated)) AS updatedu 
 			FROM def WHERE id = '" . mysql_real_escape_string($id) . "'";
 		
 		$result = mysql_query($sql, $this->db);
@@ -117,6 +119,11 @@ class FoodleDBConnector {
 			$foodle->columntype = isset($row['columntype']) ? $row['columntype'] : null;
 			$foodle->responsetype = isset($row['responsetype']) ? $row['responsetype'] : 'default';
 			$foodle->extrafields = Data_Foodle::decode($row['extrafields']);
+			
+			$foodle->created = $row['createdu'];
+			$foodle->updated = $row['updatedu'];
+			
+			$foodle->datetime = Data_Foodle::decode($row['datetime']);
 			
 			if (!empty($row['timezone'])) $foodle->timezone = $row['timezone'];
 			
@@ -225,7 +232,7 @@ class FoodleDBConnector {
 			$user->loadedFromDB = TRUE;
 			mysql_free_result($result);
 			
-			#echo '<pre>'; print_r($row); exit;
+			#echo '<pre>'; print_r($user); exit;
 			
 			return $user;
 		} 
@@ -293,7 +300,6 @@ class FoodleDBConnector {
 					self::sqlParameter('calendar', $user->calendar, 'null') . 
 					self::sqlParameter('timezone', $user->timezone, 'null') . 
 					self::sqlParameter('location', $user->location, 'null') . 
-
 					self::sqlParameter('realm', $user->realm, 'realm') . 
 					self::sqlParameter('language', $user->language, 'null') . "
 					updated = NOW()	
@@ -363,13 +369,14 @@ class FoodleDBConnector {
 					responsetype = " . (isset($foodle->responsetype) ? "'" . mysql_real_escape_string($foodle->responsetype) . "'" : "'default'") . ",
 					timezone = '" . mysql_real_escape_string($foodle->getTimeZone()) . "',
 					extrafields = '" . mysql_real_escape_string(Data_Foodle::encode($foodle->extrafields)) . "',
+					datetime = '" . mysql_real_escape_string(Data_Foodle::encode($foodle->datetime)) . "',
 					updated = NOW()	
 				WHERE id = '" . $foodle->identifier. "' 
 			";
 			
 		} else {
 			$sql = "
-				INSERT INTO def (id, name, descr, columns, expire, maxdef,  owner, anon, timezone, columntype, responsetype, extrafields) values (" . 
+				INSERT INTO def (id, name, descr, columns, expire, maxdef,  owner, anon, timezone, columntype, responsetype, extrafields, datetime) values (" . 
 					"'" . mysql_real_escape_string($foodle->identifier) . "'," . 
 					"'" . mysql_real_escape_string($foodle->name) . "', " . 
 					"'" . mysql_real_escape_string($foodle->descr) . "', " . 
@@ -381,7 +388,8 @@ class FoodleDBConnector {
 					"'" . mysql_real_escape_string($foodle->getTimeZone()) . "', " . 
 					(isset($foodle->columntype) ? "'" . mysql_real_escape_string($foodle->columntype) . "'" : 'null') . ", " .
 					(isset($foodle->responsetype) ? "'" . mysql_real_escape_string($foodle->responsetype) . "'" : "'default'") . ", " .
-					"'" . mysql_real_escape_string(Data_Foodle::encode($foodle->extrafields)) . "'" . 
+					"'" . mysql_real_escape_string(Data_Foodle::encode($foodle->extrafields)) . "', " . 
+					"'" . mysql_real_escape_string(Data_Foodle::encode($foodle->datetime)) . "'" . 
 					")
 			";
 			
@@ -704,7 +712,7 @@ class FoodleDBConnector {
 			
 		}
 		
-		#echo '<pre>'; echo $sql; exit;
+#		echo '<pre>'; echo $sql; exit;
 		
 		$res = mysql_query($sql, $this->db);
 		
@@ -764,7 +772,6 @@ class FoodleDBConnector {
 		
 		return $stream->compact();
 	}
-	
 	
 	
 	

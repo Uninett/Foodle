@@ -52,11 +52,15 @@ class Data_Foodle {
 	public $owner;
 	public $allowanonymous = FALSE;
 	
+	public $datetime = NULL;
+	
 	public $extrafields;
 
 	public $timezone = NULL;
 	
 	public $loadedFromDB = FALSE;
+	
+	public $created, $updated;
 	
 	protected $datecache = NULL;
 	
@@ -73,6 +77,17 @@ class Data_Foodle {
 		return $text;
 	}
 	
+	public function getCreatedStamp() {
+		return gmdate('Ymd\THis\Z', $this->getCreatedStampEpoch());
+	}
+	
+	public function getCreatedStampEpoch() {
+		$st = $this->created;
+		if (!empty($this->updated)) $st = $this->updated;
+		return $st;
+	}
+	
+	
 	public function getDescription() {
 		return self::cleanMarkdownInput($this->descr);
 	}
@@ -82,6 +97,7 @@ class Data_Foodle {
 		$input = strip_tags($input, '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
 		return $input;
 	}
+	
 	
 	public function getExtraFields() {
 		if (empty($this->extrafields)) return array();
@@ -141,11 +157,31 @@ class Data_Foodle {
 	public function timezoneEnabled() {
 		if (empty($this->timezone)) return FALSE;
 		if ($this->getColumnDepth() < 2) return FALSE;
+		if (!empty($this->datetime)) return FALSE;
 		if (!$this->onlyDateColumns()) return FALSE;
 		return TRUE;
 	}
 	
+	public function toEpoch($str) {
+		if (empty($str)) return FALSE;
+		if (!strtotime($str)) return FALSE;
+		$tdz = null;
+		if (!empty($this->timezone)) {
+			$tdz = new DateTimeZone($this->timezone);
+			$d =  new DateTime($str, $tdz);
+#			error_log('String [' . $str . '] to timezone ' . $this->timezone);
+		} else {
+			$d =  new DateTime($str);
+#			error_log('String [' . $str . '] ');
+		}
+
+#		$d =  new DateTime($str, $tdz);
+		return $d->format('U');
+	}
+	
 	public function toTimezone($time, $timezone) {
+	
+#		error_log('Converting timeztamp ' . date('r', $time) . ' from ' . $this->timezone . ' to ' . $timezone);
 		$d =  new DateTime('@' . $time, new DateTimeZone($this->timezone));
 		$d->setTimeZone(new DateTimeZone($timezone));
 		return $d;
@@ -177,6 +213,47 @@ class Data_Foodle {
 			$this->columns[] = $newDate;
 		}
 		
+	}
+	
+	public function datetimeText($timezone) {
+	
+		if (!empty($this->datetime['timefrom'])) {
+			
+			$dateto = $this->datetime['datefrom'];
+			if (!empty($this->datetime['dateto'])) $dateto = $this->datetime['dateto'];
+			
+			$from = $this->toEpoch($this->datetime['datefrom'] . ' ' . $this->datetime['timefrom']);
+			$to = $this->toEpoch($dateto . ' ' . $this->datetime['timeto']);
+			
+			return $this->toTimeZone($from, $timezone)->format('D j. M H:i') . ' &mdash; ' . 
+				$this->toTimeZone($to, $timezone)->format('D j. M H:i') . '<br /><span style="font-size: x-small">' .  $timezone . '</span>';
+#				'<br />was ' . $this->timezone;
+				
+		} else {
+
+			if (!empty($this->datetime['dateto'])) {
+				return $this->datetime['datefrom'] . ' &mdash; ' . $this->datetime['dateto'];
+			}
+			
+			return $this->datetime['datefrom'];
+		}
+	
+	}
+	
+	public function showFixTimeslot() {
+		if (isset($this->columntype) && $this->columntype === 'dates' && empty($this->datetime)) return TRUE;
+		return FALSE;
+	}
+	
+	// Allow edit of the Foodle and change column type?
+	public function allowChangeColumn() {
+		if (!empty($this->datetime)) return FALSE;
+		return TRUE;
+	}
+	
+	public function showConfirmColumn() {
+		if (isset($this->columntype) && $this->columntype === 'dates' && !empty($this->datetime)) return TRUE;
+		return FALSE;
 	}
 	
 	public function presentInTimeZone($timezone) {
@@ -302,7 +379,7 @@ class Data_Foodle {
 		} 
 		$newresponse->user = $user;
 		$newresponse->userid = $user->userid;
-		$newresponse->username = $user->name;
+		$newresponse->username = $user->username;
 		$newresponse->email = $user->email;
 
 		$nofc = $this->getNofColumns(); 
@@ -430,7 +507,7 @@ class Data_Foodle {
 	 *   Nov 23rd 15:00,
 	 *   Oct 13th 16:00
 	 */
-	public function getColumnList($columns, $col = NULL, $strings = array()) {
+	public function getColumnList(&$columns, $col = NULL, $strings = array()) {
 		if ($col === NULL) $col = $this->columns;
 		foreach($col AS $c) {
 			if (isset($c['children'])) {
@@ -467,6 +544,36 @@ class Data_Foodle {
 	}
 	
 	
+	public function fixDate($col) {
+		$coldates = $this->getColumnDates();
+		
+		if(empty($coldates[$col])) throw new Exception('Could not determine the date value of column [' . $col . '] ');
+		
+		$collist = array();
+		$this->getColumnList($collist);
+		
+		$scol = trim($collist[$col]);
+		
+		if (preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $scol)) {	
+			$this->datetime = array('datefrom' => $scol);
+			return;
+		}
+		
+//		print_r($collist); exit;
+				
+		$this->datetime = array(
+			'datefrom' => $this->toTimezone($coldates[$col][0], $this->timezone)->format('Y-m-d'),
+			'timefrom' => $this->toTimezone($coldates[$col][0], $this->timezone)->format('H:i'),
+			'timeto' => $this->toTimezone($coldates[$col][1], $this->timezone)->format('H:i')
+		);
+		
+// 		echo '<pre>';
+// 		print_r($this->datetime);
+// 		print_r($coldates[$col]);
+// 		exit;
+	}
+	
+	
 	public function getColumnDates() {
 		
 		if (!is_null($this->datecache)) return $this->datecache;
@@ -477,20 +584,18 @@ class Data_Foodle {
 		$anyDate = FALSE;
 		
 		foreach($cols AS $col) {
-			
 			if (is_array($col)) {
-				$from = strtotime($col[0]);
-				$to = strtotime($col[1]);
+				$from = $this->toEpoch($col[0]);
+				$to = $this->toEpoch($col[1]);
 				$dates[] = array($from, $to );
 			} else {
-				$from = strtotime($col);
+				$from = $this->toEpoch($col);
 				if (!empty($from)) {
-					$to = strtotime($col)+3600;
+					$to = $this->toEpoch($col)+3600;
 					$dates[] = array($from, $to );
 				} else {
 					$dates[] = NULL;
 				}
-
 			}
 		}
 		// echo '<pre>collected Dates'; print_r($dates); echo '</pre>';
@@ -538,7 +643,7 @@ class Data_Foodle {
 	 * were checked.
 	 */
 	public function getEmail() {
-
+		
 		$nofc = $this->getNofColumns();
 		$responses = $this->getResponses();
 		
@@ -614,10 +719,25 @@ class Data_Foodle {
 	 * Calculate how many that replied to each column...
 	 */
 	public function calculateColumns() {
+	
+		$responses = $this->getResponses();
+	
+	
+		if ($this->showConfirmColumn()) {
+			$c = 0;
+			foreach($responses AS $response) {
+				if (!empty($response->response['confirm'])) {
+					if ($response->response['confirm'] == 1) $c++;
+				}
+			}
+			return array(array('count' => $c));			
+		}
+	
+	
 		$nofc = $this->getNofColumns();
 		$calc = array_fill(0, $nofc, array('count' => 0));
 		
-		$responses = $this->getResponses();
+		
 		
 		foreach($responses AS $response) {# echo '<pre>'; print_r($calc);
 			foreach($response->response['data'] AS $key => $value) {
@@ -653,6 +773,83 @@ class Data_Foodle {
 		return json_encode($s);
 	}
 	
+	
+	/*
+	 * Helper function for the checkboxes in the event datetime box when editing a foodle
+	 */
+	public function datetimeCheckbox($type) {
+		switch($type) {	
+			case 'eventtimeopt';
+				return FoodleUtils::checkboxChecked(!empty($this->datetime));
+
+			case 'eventallday';
+				return FoodleUtils::checkboxChecked(empty($this->datetime['timefrom']));
+
+			case 'eventmultipledays';
+				return FoodleUtils::checkboxChecked(!empty($this->datetime['dateto']));
+		}
+		return FoodleUtils::checkboxChecked(FALSE);
+	}
+	
+	
+	// Section for datetime.
+	private function getDateTimeFromPost() {
+		
+		// If user have checked the box for associating the foodle with a time.
+		if (FoodleUtils::checkbox('eventtimeopt')) {
+			//error_log('DateTime: Checkbox [eventtimeopt] set');
+			$date = array();
+			
+			// The datefrom should always be present
+			if (!empty($_REQUEST['eventdatefrom']) && preg_match('/([0-9]{4}-[0-9]{2}-[0-9]{2})/', $_REQUEST['eventdatefrom'], $matches)) {
+				$date['datefrom'] = $matches[1];
+			} else return NULL;
+			//error_log('DateTime: Found [eventdatefrom]');
+
+			// If [all day] is checked, pick the time from.
+			if (!FoodleUtils::checkbox('eventallday')) {
+
+				//error_log('DateTime: Checkbox [eventallday] not set');
+				if (!empty($_REQUEST['eventtimefrom']) && preg_match('/([0-9]{2}:[0-9]{2})/', $_REQUEST['eventtimefrom'], $matches)) {
+					$date['timefrom'] = $matches[1];
+				} else return NULL;
+				//error_log('DateTime: Found [eventtimefrom]');
+				
+				if (!empty($_REQUEST['eventtimeto']) && preg_match('/([0-9]{2}:[0-9]{2})/', $_REQUEST['eventtimeto'], $matches)) {
+					$date['timeto'] = $matches[1];
+				} else return NULL;
+				//error_log('DateTime: Found [eventtimeto]');
+			}
+
+			// If [multiple days] is checked, pick the date and time to.
+			if (FoodleUtils::checkbox('eventmultipledays')) {
+				//error_log('DateTime: Checkbox [eventmultipledays] set');
+				if (!empty($_REQUEST['eventdateto']) && preg_match('/([0-9]{4}-[0-9]{2}-[0-9]{2})/', $_REQUEST['eventdateto'], $matches)) {
+					$date['dateto'] = $matches[1];
+				} else return NULL;
+				//error_log('DateTime: Found [eventdateto]');
+			}
+		
+			return $date;
+		}
+		//error_log('DateTime: Checkbox [eventtimeopt] not set');
+		return NULL;
+	}
+	
+	
+	public function updateFromPostFixDate(Data_User $user) {
+
+		if (!empty($_REQUEST['descr'])) {
+			$this->descr = strip_tags($_REQUEST['descr'],
+				'<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>'
+			);
+		}
+		if (!empty($_REQUEST['timezone'])) {
+			$this->timezone = $_REQUEST['timezone'];			
+		}
+		$this->datetime = $this->getDateTimeFromPost();
+	}
+	
 	public function updateFromPost(Data_User $user) {
 
 		if (empty($_REQUEST['name'])) throw new Exception('You did not type in a name for the foodle.');
@@ -666,12 +863,20 @@ class Data_Foodle {
 		if(!empty($_REQUEST['maxentries']) && is_numeric($_REQUEST['maxentries'])) {
 			$this->maxentries = strip_tags($_REQUEST['maxentries']);
 			$this->maxcolumn = strip_tags($_REQUEST['maxentriescol']);
+		} else {
+			$this->maxentries = NULL;
+			$this->maxcolumn = NULL;
 		}
-		if (array_key_exists('anon', $_REQUEST) && !empty($_REQUEST['anon']))
+		
+		
+		if (array_key_exists('anon', $_REQUEST) && !empty($_REQUEST['anon'])) {
 			$this->allowanonymous = TRUE;
+		} else {
+			$this->allowanonymous = FALSE;
+		}
 			
-		if (!empty($_REQUEST['timezone'])) {
-			$this->timezone = $_REQUEST['timezone'];			
+		if (!empty($_REQUEST['settimezone'])) {
+			$this->timezone = $_REQUEST['settimezone'];			
 		}
 
 		if (!empty($_REQUEST['columntype'])) {
@@ -689,6 +894,9 @@ class Data_Foodle {
 #				echo '<pre>'; print_r($_REQUEST);  print_r($this); exit;
 		
 		$this->expire = strip_tags($_REQUEST['expire']);
+	
+		$this->datetime = $this->getDateTimeFromPost();
+		
 		
 		$this->owner = $user->userid;
 		
@@ -696,7 +904,7 @@ class Data_Foodle {
 		
 		if (empty($this->identifier)) $this->setIdentifier(TRUE);
 		
-		#echo '<pre>'; print_r($this); echo '</pre>'; exit;
+		#echo '<pre>'; print_r($this); print_r($_REQUEST); echo '</pre>'; exit;
 
 	}
 	

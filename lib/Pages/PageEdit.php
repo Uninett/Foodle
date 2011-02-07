@@ -103,9 +103,16 @@ class Pages_PageEdit extends Pages_PageFoodle {
 		
 		$t->data['extrafields'] = $this->foodle->getExtraFields();
 		
+		$t->data['allowChangeColumn'] = $this->foodle->allowChangeColumn();
+		
 		$t->data['columns'] = $this->foodle->columns;
 		
 		$t->data['isDates'] = $this->foodle->onlyDateColumns();
+		
+		$t->data['foodle'] = $this->foodle;
+
+		$t->data['today'] = date('Y-m-d');
+		$t->data['tomorrow'] = date('Y-m-d', time() + 60*60*24 );
 
 		$t->data['expire'] = $this->foodle->getExpireTextField();
 

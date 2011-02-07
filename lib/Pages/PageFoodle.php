@@ -48,7 +48,7 @@ class Pages_PageFoodle extends Pages_Page {
 		#Timer::tick('Timezone preparations');
 		
 		$this->auth();
-		$this->timezone = new TimeZone(null, $this->user);
+		$this->timezone = new TimeZone(NULL, $this->user);
 	}
 	
 	protected function setLocale() {
@@ -271,6 +271,15 @@ class Pages_PageFoodle extends Pages_Page {
 
 		$this->template->data['showprofile'] = $this->user->loadedFromDB;
 		
+		if (!empty($this->foodle->datetime)) {
+			$this->template->data['datetimetext'] = $this->foodle->datetimeText($this->timezone->getTimeZone());
+		}
+		
+		$this->template->data['showconfirmcolumn'] = $this->foodle->showConfirmColumn();
+		$this->template->data['showfixtimeslow'] = $this->foodle->showFixTimeslot();
+		$this->template->data['allowChangeColumn'] = $this->foodle->allowChangeColumn();
+		
+		
 		$this->template->data['debugUser'] = $this->user->debug();
 		$this->template->data['debugFoodle'] = $this->foodle->debug();
 		$this->template->data['debugCalendar'] = $this->user->debugCalendar();
@@ -285,9 +294,10 @@ class Pages_PageFoodle extends Pages_Page {
 		Timer::tick('Presenting page');
 		$this->template->data['timer'] = Timer::getList();
 
-		# echo '<pre>'; print_r($this->template->data); exit;
+		//echo '<pre>'; print_r($this->template->data); exit;
 
 		$this->template->show();
+
 
 
 	}

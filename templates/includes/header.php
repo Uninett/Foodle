@@ -38,7 +38,7 @@
 			
 			$("div#responsetyperadio").buttonset({ icons: {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'} });
 			<?php
-			if ($this->data['calenabled']) {
+			if (!empty($this->data['calenabled'])) {
 				if ($this->data['defaulttype'] === 'ical') {
 					echo '$(\'#responserowmanual\').hide();';
 				} else {

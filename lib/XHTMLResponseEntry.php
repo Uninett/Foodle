@@ -109,6 +109,10 @@ class XHTMLResponseEntry {
 						
 			foreach ($response->response['data'] AS $no => $entry) {
 			
+// 				echo '<pre>';
+// 				print_r($entry);
+// 			exit;
+			
 				$checked = array('', '', '');
 				if (isset($entry)) $checked[$entry] = ' checked="checked" ';
 				echo '<td class="center">
@@ -167,7 +171,7 @@ class XHTMLResponseEntry {
 			if (empty($responsecal->notes)) {
 				echo '<a style="float: right" class="ac" >' . $t->t('addcomment') . '</a>';
 			}
-			echo '<abbr title="' . htmlspecialchars($responsecal->userid) . '">' . htmlspecialchars($responsecal->username) . '</abbr>' . $extra;
+			echo '<abbr title="' . htmlspecialchars($responsecal->userid) . '">' . htmlspecialchars($responsecal->username) . '</abbr>';
 	#		echo htmlspecialchars($response->username);
 			# echo ' <input type="text" name="username" value="' . htmlspecialchars($response->username) . '" /> (<tt>' . htmlspecialchars($response->userid). '</tt>)';
 			echo '</td>';
@@ -288,6 +292,154 @@ class XHTMLResponseEntry {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static function showEditableConfirm(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response, $editable = TRUE, Data_FoodleResponse $responsecal = NULL, $authenticated = TRUE) { 
+
+		$extrafields = $response->foodle->getExtraFields();
+		
+		echo '<tr id="responserowmanual" class="you">';
+		echo '<td> </td>';
+		
+		// Field with user name (and link to add comment)
+		echo '<td>';
+		echo ' <input type="hidden" name="setresponse" value="1" />';
+		// Only show add a comment entry if comment is not already added.
+		if (empty($response->notes)) {
+			echo '<a style="float: right" class="ac" >' . $t->t('addcomment') . '</a>';
+		}
+		
+		if ($authenticated) {
+			echo $response->getUsernameHTML();
+		} else {
+			echo '<p style="margin: 2px">' . $t->t('name') . ': <input type="text" name="username" value="'  . htmlspecialchars($response->username). '" placeholder="' . $t->t('displayname'). '..." /></p>';
+
+			if (empty($response->email)) {
+				echo '<p  style="margin: 2px">' . $t->t('email') . ': <input type="text" name="setEmail"  placeholder="' . $t->t('email'). '..."/></p>';						
+			}
+
+		}		
+		echo '</td>';
+
+
+
+	
+		foreach($extrafields AS $extrafield) {
+		
+			switch($extrafield) {
+				case 'photo':
+					$photourl = false;
+					if(isset($response->user)) {
+						$photourl = $response->user->getPhotoURL('s');
+					}
+					
+					if ($photourl !== false) {
+						echo '<td style="padding: 0px; width: 32px">';
+						echo ' <img src="' . htmlspecialchars($photourl) . '" alt="Photo of user" style="margin: 0px; padding: 0px" />';
+						echo '</td>';
+					} else {
+						echo '<td  style="text-align: center; vertical-align: top; padding-top: 6px"></td>';
+					}
+					break;
+					
+				case 'org':
+					$orgtext = '';
+					if(isset($response->user)) {
+						$orgtext = $response->user->getOrgHTML();
+					}
+					echo '<td style="text-align: center; vertical-align: top;">' . $orgtext . '</td>';
+					break;
+
+				case 'location':
+					$loc = '';
+					if(isset($response->user)) {
+						if (!empty($response->user->location)) $loc = $response->user->location;
+					}
+					echo '<td style="text-align: center; vertical-align: top;">' . $loc . '</td>';
+					break;
+
+					
+				default:
+					echo '<td></td>';
+					
+			}
+		
+		}
+		
+
+		$entry = null;
+		if(isset($response->response['confirm'])) {
+			$entry = $response->response['confirm'];
+		}
+		$checked = array('', '', '');
+		if (isset($entry)) $checked[$entry] = ' checked="checked" ';
+		echo '<td class="center">
+			<div class="ryes"><input type="radio" id="setconfirm1" name="setconfirm" value="1" ' . $checked[1] . '/>
+			<label for="setconfirm1" >' . $t->t('yes') . '</label>
+			</div>
+			<div class="rmaybe"><input type="radio" id="setconfirm2" name="setconfirm" value="2" ' . $checked[2] . '/>
+			<label for="setconfirm2" >' . $t->t('maybe') . '</label>
+			</div>
+			<div class="rno"><input type="radio" id="setconfirm0" name="setconfirm" value="0" ' . $checked[0] . '/>
+			<label for="setconfirm0" >' . $t->t('no') . '</label>
+			</div>
+		</td>';
+				
+
+
+		if (isset($response->response['confirm'])) {
+			if ($editable) {
+				echo '<td style="text-align: center"><input type="submit" name="save" value="' .  $t->t('update') . '" /></td>';	
+			} else {
+				echo '<td style="text-align: center"><input type="submit" name="save"  disabled="disabled" value="' .  $t->t('update') . '" /></td>';	
+			}
+		} else {
+			if ($editable) {
+				echo '<td style="text-align: center"><input type="submit" name="save" value="' . $t->t('submit') . '" /></td>';	
+			} else {
+				echo '<td style="text-align: center"><input type="submit" name="save" disabled="disabled" value="' . $t->t('submit') . '" /></td>';	
+			}
+		}
+	
+
+		echo '</tr>	';
+		
+		
+		$colspan = (1 + 3) + count($extrafields);
+	
+		$shide = '';	
+		if (empty($response->notes)) $shide = 'display: none';
+		echo '<tr style="' . $shide . '" id="commentfield" class="you"><td colspan="' . $colspan . '">
+			<input type="text" id="comment" class="comment" name="comment" value="' . htmlspecialchars($response->notes) . '" /></td></tr>';
+	
+
+
+
+
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static function show(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response) { 
 		
 		$extrafields = $response->foodle->getExtraFields();
@@ -379,24 +531,11 @@ class XHTMLResponseEntry {
 		
 		}
 		
-		
-		
 
-		// foreach ($response->response['data'] AS $no => $entry) {
-		// 
-		// 	if ($entry == '1') {
-		// 		echo '<td class="yes center"><img class="yesimg" alt="No" src="/res/yes.png" /></td>';
-		// 	} else {
-		// 		echo '<td class="no center"><img class="yesimg" alt="Yes" src="/res/no2trans.png" /></td>';
-		// 	}
-		// 
-		// }
-		// 
-		// 
 		if ($response->response['type'] === 'ical') {
 			foreach ($response->response['data'] AS $no => $entry) {
 				if ($entry == '1') {
-					echo '<td class="yes center"><img class="yesimg" alt="No" src="/res/yes.png" /></td>';
+					echo '<td class="yes center"><img class="yesimg" alt="Yes" src="/res/yes.png" /></td>';
 				} else {
 					echo '<td class="no center"><img class="yesimg" alt="Yes" title="' . $t->t('calendarcollision') . ': '. $response->response['crash'][$no] . '" src="/res/busy.png" /></td>';
 				}
@@ -405,9 +544,9 @@ class XHTMLResponseEntry {
 		
 			foreach ($response->response['data'] AS $no => $entry) {
 				if ($entry == '1') {
-					echo '<td class="yes center"><img class="yesimg" alt="No" src="/res/yes.png" /></td>';
+					echo '<td class="yes center"><img class="yesimg" alt="Yes" src="/res/yes.png" /></td>';
 				} elseif ($entry == '0') {
-					echo '<td class="no center"><img class="yesimg" alt="Yes" src="/res/no2trans.png" /></td>';
+					echo '<td class="no center"><img class="yesimg" alt="No" src="/res/no2trans.png" /></td>';
 				} elseif ($entry == '2') {
 					echo '<td class="maybe center"><img class="maybeimg" alt="Maybe" src="/res/maybe.png" /></td>';
 				} else {
@@ -417,19 +556,128 @@ class XHTMLResponseEntry {
 
 		}
 		
-		
-		
 		echo '<td>' . htmlspecialchars($response->getAgo()) . '</td>';
 		echo '</tr>';
 
+		$colspan = (count($response->response['data']) + 2) + count($extrafields);
 		if (!empty($response->notes)) {
 			echo '<tr><td id="' . sha1($response->userid) . '" class="commentline" style="display: none" colspan="' . 
-				(count($response->response['data']) + 2) . '">';
+				$colspan . '">';
 			echo htmlspecialchars($response->notes);
 			echo '</td></tr>';
 		}
 		
 	}
+	
+	
+	
+	
+	
+	
+	public static function showConfirm(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response) { 
+		
+		$extrafields = $response->foodle->getExtraFields();
+		
+		$class = '';
+		if (!empty($response->notes)) {
+			$class = 'hasnotes';
+		}
+		echo '<tr class="' . $class . '">';
+
+		/*
+		 * Notes field
+		 */
+		if (!empty($response->notes)) {
+			echo '<td rowspan="2" style="text-align: center; vertical-align: top; padding-top: 6px">';
+			echo ' <img style="margin: 0px" onclick="toggle(\'' . sha1($response->userid) . '\')" src="/res/notes.png" />';
+			echo '</td>';
+		} else {
+			echo '<td> </td>';
+		}
+		
+		/*
+		 * Name field
+		 */
+		echo '<td style="text-align: left">';
+		
+		if (!empty($response->email)) {
+			echo '<img style="float: right" alt="' . htmlspecialchars($response->email) . '" title="' . htmlspecialchars($response->email) . '" class="" src="/res/mail16.png" />';
+		}
+		echo $response->getUsernameHTML();
+		echo '</td>';
+
+		foreach($extrafields AS $extrafield) {
+		
+			switch($extrafield) {
+				case 'photo':
+					$photourl = false;
+					if(isset($response->user)) {
+						$photourl = $response->user->getPhotoURL('s');
+					}
+					
+					if ($photourl !== false) {
+						echo '<td style="padding: 0px; width: 32px">';
+						echo ' <img src="' . htmlspecialchars($photourl) . '" alt="Photo of user" style="margin: 0px; padding: 0px" />';
+						echo '</td>';
+					} else {
+						echo '<td  style="text-align: center; vertical-align: top; padding-top: 6px"></td>';
+					}
+					break;
+				
+				case 'org':
+					$orgtext = '';
+					if(isset($response->user)) {
+						$orgtext = $response->user->getOrgHTML();
+					}
+					echo '<td style="text-align: center; vertical-align: top;">' . $orgtext . '</td>';
+					break;
+
+				case 'location':
+					$loc = '';
+					if(isset($response->user)) {
+						if (!empty($response->user->location)) $loc = $response->user->location;
+					}
+					echo '<td style="text-align: center; vertical-align: top;">' . $loc . '</td>';
+					break;
+				
+				default:
+					echo '<td></td>';
+					
+			}
+		
+		}
+		
+		#echo '<pre>'; print_r($response); exit;
+		$entry = NULL;
+		if(isset($response->response['confirm'])) {
+			$entry = $response->response['confirm'];
+		}
+		if ($entry == '1') {
+			echo '<td class="yes center"><img class="yesimg" alt="Yes" src="/res/yes.png" /></td>';
+		} elseif ($entry == '0') {
+			echo '<td class="no center"><img class="yesimg" alt="No" src="/res/no2trans.png" /></td>';
+		} elseif ($entry == '2') {
+			echo '<td class="maybe center"><img class="maybeimg" alt="Maybe" src="/res/maybe.png" /></td>';
+		} else {
+			echo '<td class="center"><img class="maybeimg" alt="Awaiting response" src="/res/hourglass.png" /></td>';
+		}		
+		
+		echo '<td>' . htmlspecialchars($response->getAgo()) . '</td>';
+		echo '</tr>';
+
+
+		$colspan = 3 + count($extrafields);
+		
+		if (!empty($response->notes)) {
+			echo '<tr><td id="' . sha1($response->userid) . '" class="commentline" style="display: none" colspan="' . 
+				$colspan . '">';
+			echo htmlspecialchars($response->notes);
+			echo '</td></tr>';
+		}
+		
+	}
+	
+	
 	
 	
 }

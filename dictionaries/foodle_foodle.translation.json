@@ -1529,28 +1529,32 @@
 		"cs": "Foodle Software",
 		"de": "Die Foodle Software",
 		"sv": "Information om programmet Foodle",
-		"sl": "Programska oprema Foodle"
+		"sl": "Programska oprema Foodle",
+		"da": "Foodle Software"
 	},
 	"privacypolicy": {
 		"no": "Personvern i Foodle",
 		"cs": "Ochrana soukrom\u00ed na Foodle",
 		"de": "Foodle Datenschutz",
 		"sv": "Integritetspolicy f\u00f6r Foodle",
-		"sl": "Foodle politika zasebnosti"
+		"sl": "Foodle politika zasebnosti",
+		"da": "Foodles privatlivspolitik"
 	},
 	"support": {
 		"no": "Hjelp",
 		"cs": "Podpora",
 		"de": "Unterst\u00fctzung",
 		"sv": "Support",
-		"sl": "Podpora"
+		"sl": "Podpora",
+		"da": "Support"
 	},
 	"embed_header": {
 		"no": "Inkluder denne Foodle-n p\u00e5 din egen webside",
 		"de": "F\u00fcgen sie diesen Foodle in ihre Seite ein",
 		"sv": "Inkludera denna Foodle i din webbplats",
 		"sl": "Vklju\u010di ta foodle v svojo spletno stran",
-		"cs": "Vlo\u017ete Foodle do sv\u00e9ho webu"
+		"cs": "Vlo\u017ete Foodle do sv\u00e9ho webu",
+		"da": "Tilf\u00f8j denne Foodle til din hjemmeside"
 	},
 	"embed_text1": {
 		"no": "Foodle lar deg inkludere et automatisk oppdatert sammendrag av denne Foodle-n, inkludert en lenke, ved \u00e5 klippe og lime ut koden nedenunder til din webside (dersom den tillater HTML kode).",
@@ -1567,17 +1571,20 @@
 	"qcolumntypetimezone": {
 		"no": "Tidssoneplanlegger",
 		"sv": "Tidszonsplanerare",
-		"cs": "Pl\u00e1nova\u010d \u010dasov\u00e9 z\u00f3ny"
+		"cs": "Pl\u00e1nova\u010d \u010dasov\u00e9 z\u00f3ny",
+		"da": "Tidszone planl\u00e6gger"
 	},
 	"delete": {
 		"no": "Slett",
 		"sv": "Ta bort",
-		"cs": "Smazat"
+		"cs": "Smazat",
+		"da": "Slet"
 	},
 	"delete_this": {
 		"no": "Slett denne Foodlen",
 		"sv": "Ta bort denna Foodle",
-		"cs": "Smazat Foodle"
+		"cs": "Smazat Foodle",
+		"da": "Slet denne Foodle"
 	},
 	"delete_confirm": {
 		"no": "Ja, jeg vil slette denne Foodlen og alle tilknyttede svar. Foodlen selv og alle svar og diskusjonsinnlegg som er tilknyttet vil bli slettet. Det er ikke mulig \u00e5 angre etter at man har slettet en Foodle.",
@@ -1597,7 +1604,8 @@
 	"responsetype": {
 		"no": "Svartype",
 		"sv": "Typ av svar",
-		"cs": "Typ odpov\u011bdi"
+		"cs": "Typ odpov\u011bdi",
+		"da": "Svartype"
 	},
 	"responsetypeinfo": {
 		"no": "Hvilken type valg vil du at brukeren skal ha for hver kolonne?",
@@ -1606,7 +1614,7 @@
 	},
 	"responsetype_default": {
 		"no": "Standard: Bruk standard svartype basert p\u00e5 hvilken type Foodle du har opprettet. Generell tekst blir Ja\/Nei, og dato og tidssoneplanleggeren bruker Ja\/Nei\/Kanskje.",
-		"sv": "Stadard: Anv\u00e4nd standardsvaren f\u00f6r den typ av Foodle du skapat. Generisk text anv\u00e4nder Ja\/Nej medans Foodle med datum och tidzoner anv\u00e4nder Ja\/Nej\/Kanske.",
+		"sv": "Standard: Anv\u00e4nd standardsvaren f\u00f6r den typ av Foodle du skapat. Generisk text anv\u00e4nder Ja\/Nej medans Foodle med datum och tidzoner anv\u00e4nder Ja\/Nej\/Kanske.",
 		"cs": "P\u0159edvolen\u00e1 odpov\u011b\u010f je r\u016fzn\u00e1 podle typu Foodle, kter\u00fd vytvo\u0159\u00edte. Foodle s obecn\u00fdm textem pou\u017e\u00edv\u00e1 Ano\/Ne a Foodle s daty a \u010dasov\u00fdmi z\u00f3nami pou\u017e\u00edv\u00e1 Yes\/No\/Mo\u017en\u00e1."
 	},
 	"responsetype_yesno": {
@@ -1622,59 +1630,115 @@
 	"yes": {
 		"no": "Ja",
 		"sv": "Ja",
-		"cs": "Ano"
+		"cs": "Ano",
+		"da": "Ja"
 	},
 	"no": {
 		"no": "Nei",
 		"sv": "Nej",
-		"cs": "Ne"
+		"cs": "Ne",
+		"da": "Nej"
 	},
 	"maybe": {
 		"no": "Kanskje",
 		"sv": "Kanske",
-		"cs": "Mo\u017en\u00e1"
+		"cs": "Mo\u017en\u00e1",
+		"da": "M\u00e5ske"
 	},
 	"issyncedwithcalendar": {
 		"cs": "Odpov\u011b\u010f je automaticky sychronizov\u00e1na s kalend\u00e1\u0159em u\u017eivatele",
-		"no": "Dette svaret er automatisk synkronisert med brukerens kalender"
+		"no": "Dette svaret er automatisk synkronisert med brukerens kalender",
+		"da": "Svaret er automatisk synkroniseret med brugerens kalender.",
+		"sv": "Detta svar kommer automatiskt att synkroniseras med kalendern f\u00f6r anv\u00e4ndaren"
 	},
 	"expireinfo": {
-		"no": "Dersom man legger til en utl\u00f8psdato vil Foodlen stenge p\u00e5 det oppgitte tidspunktet. Ingen kan legge till eller endre sitt svar p\u00e5 en utl\u00f8pt Foodle."
+		"no": "Dersom man legger til en utl\u00f8psdato vil Foodlen stenge p\u00e5 det oppgitte tidspunktet. Ingen kan legge till eller endre sitt svar p\u00e5 en utl\u00f8pt Foodle.",
+		"da": "Ved at tilf\u00f8je et udl\u00f8bs tidspunkt, lukkes Foodlen p\u00e5 det angivne tidspunkt. Efter at Foodlen er udl\u00f8bet, kan ingen rette eller afgive nye svar.",
+		"sv": "Att l\u00e4gga till en st\u00e4ngningstidpunkt inneb\u00e4r att denna Foodle st\u00e4nger vid detta tillf\u00e4lle. Efter att denna Foodle har st\u00e4ngt kan ingen \u00e4ndra sina svar eller l\u00e4gga till nya svar."
 	},
 	"myprofile": {
-		"no": "Brukerinstillinger"
+		"no": "Brukerinstillinger",
+		"da": "Profil",
+		"sv": "Profil"
 	},
 	"notifcations": {
-		"no": "E-post varsel"
+		"no": "E-post varsel",
+		"da": "Email notifikation",
+		"sv": "E-postnotifiering"
 	},
 	"notify_newresponse": {
-		"no": "Varsle meg n\u00e5r jeg har svart p\u00e5 en Foodle"
+		"no": "Varsle meg n\u00e5r jeg har svart p\u00e5 en Foodle",
+		"sv": "Meddela mig n\u00e4r jag lyckats svar p\u00e5 en Foodle"
 	},
 	"notify_newfoodle": {
-		"no": "Varsle meg n\u00e5r jeg har opprettet en ny Foodle"
+		"no": "Varsle meg n\u00e5r jeg har opprettet en ny Foodle",
+		"sv": "Meddela mig n\u00e4r jag skapat en ny Foodle"
 	},
 	"notify_otherstatus": {
-		"no": "Varsle meg n\u00e5r andre har svart p\u00e5 en Foodle jeg har opprettet (daglig oppsummering)"
+		"no": "Varsle meg n\u00e5r andre har svart p\u00e5 en Foodle jeg har opprettet (daglig oppsummering)",
+		"da": "Adviser mig n\u00e5r andre svare p\u00e5 en Foodle jeg har lavet (kun en gang om dagen)",
+		"sv": "Meddela mig n\u00e4r andra har svarat p\u00e5 en Foodle jag har skapat (endast en g\u00e5ng per dag)"
 	},
 	"notify_news": {
-		"no": "Send meg nyheter om ny funksjonalitet (aldri oftere enn en gang i uken)"
+		"no": "Send meg nyheter om ny funksjonalitet (aldri oftere enn en gang i uken)",
+		"da": "Send my nyheder om nye funktioner i Foodle (aldrig mere end en gang om ugen)",
+		"sv": "Skicka mig information om nyheter i Foodle (aldrig mer \u00e4n en g\u00e5ng i veckan)"
 	},
 	"profile_save": {
-		"no": "Lagre endringer til min brukerprofil"
+		"no": "Lagre endringer til min brukerprofil",
+		"da": "Gem \u00e6ndringer til min profil",
+		"sv": "Spara \u00e4ndringar i min anv\u00e4ndarprofil"
 	},
 	"extrafields": {
-		"no": "Ekstra felter med brukerdata"
+		"no": "Ekstra felter med brukerdata",
+		"da": "Ekstra brugerfelter",
+		"sv": "Extra anv\u00e4ndarf\u00e4lt"
 	},
 	"extrafields_info": {
-		"no": "Du kan velge \u00e5 legge til flere kolonner med mer informasjon om brukeren."
+		"no": "Du kan velge \u00e5 legge til flere kolonner med mer informasjon om brukeren.",
+		"da": "Du kan v\u00e6lge at indsamle yderliget data om hvert svar til denne Foodle. Disse data vil blive pr\u00e6senteret i separate kolonner i denne Foodle.",
+		"sv": "Du kan v\u00e4lja att registrera extra information om varje svarande till denna Foodle. Denna information kommer att visas i egna kolumner i svaren p\u00e5 denna Foodle."
 	},
 	"extrafields_photo": {
-		"no": "Bilde"
+		"no": "Bilde",
+		"da": "Foto",
+		"sv": "Foto"
 	},
 	"extrafields_org": {
-		"no": "Organisasjon"
+		"no": "Organisasjon",
+		"da": "Organisation",
+		"sv": "Organisation"
 	},
 	"extrafields_location": {
-		"no": "Lokasjon"
+		"no": "Lokasjon",
+		"da": "Lokation",
+		"sv": "Plats"
+	},
+	"timezone": {
+		"no": "Tidssone"
+	},
+	"attend": {
+		"no": "Jeg deltar"
+	},
+	"select_time": {
+		"no": "Bestem tidspunkt"
+	},
+	"select": {
+		"no": "Velg"
+	},
+	"save_fixdate": {
+		"no": "Lagre, og l\u00e5s tidspunkt for denne Foodlen"
+	},
+	"fixdate_descr": {
+		"no": "Dersom du \u00f8nsker, kan du endre eller legge til tekst i beskrivelsen, for eksempel inkludere en m\u00f8teinnkallelse med agenda."
+	},
+	"associate_time": {
+		"no": "Det er allerede avklart en dato og tidspunkt for denne Foodlen"
+	},
+	"allday": {
+		"no": "Hele dagen"
+	},
+	"multipledays": {
+		"no": "Flere dager"
 	}
 }

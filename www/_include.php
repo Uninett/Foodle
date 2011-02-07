@@ -31,6 +31,7 @@ require_once($THISPATH . 'lib/FoodleAuth.php');
 require_once($THISPATH . 'lib/FoodleUtils.php');
 require_once($THISPATH . 'lib/RSS.class.php');
 
+
 require_once($THISPATH . 'lib/UNINETTDistribute.php');
 require_once($THISPATH . 'lib/EmbedDistribute.php');
 
@@ -61,10 +62,12 @@ require_once($THISPATH . 'lib/Pages/FDebug.php');
 require_once($THISPATH . 'lib/Pages/PageFront.php');
 require_once($THISPATH . 'lib/Pages/PageProfile.php');
 require_once($THISPATH . 'lib/Pages/PageSupport.php');
+require_once($THISPATH . 'lib/Pages/FixDate.php');
 
 require_once($THISPATH . 'lib/Pages/EmbedFoodle.php');
 require_once($THISPATH . 'lib/Pages/RSSFoodle.php');
 require_once($THISPATH . 'lib/Pages/CSVFoodle.php');
+require_once($THISPATH . 'lib/Pages/CalFoodle.php');
 
 require_once($THISPATH . 'lib/Pages/PageCreate.php');
 require_once($THISPATH . 'lib/Pages/PageEdit.php');

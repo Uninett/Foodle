@@ -83,7 +83,15 @@ class Data_FoodleResponse {
 		$this->userid = $user->userid;
 		$this->username = $user->username;
 		$this->email = $user->email;
-		$this->notes = $_REQUEST['comment'];
+		
+		if (!empty($_REQUEST['comment'])) {
+			$this->notes = $_REQUEST['comment'];
+		} else {
+			$this->notes = NULL;
+		}
+
+		
+		
 		#$this->updated = 'now';
 		$this->response = array(
 			'type' => 'ical',
@@ -152,7 +160,8 @@ class Data_FoodleResponse {
 				$pn = self::parsePostN($yes);
 				$responseData[$pn['key']] = $pn['value'];
 			}
-		}		
+		}
+		
 		$this->userid = $user->userid;
 		$this->username = $user->username;
 		if (empty($this->username) && isset($_REQUEST['username']) ) {
@@ -166,6 +175,11 @@ class Data_FoodleResponse {
 			'type' => 'manual',
 			'data' => $responseData,
 		);
+
+		if (isset($_REQUEST['setconfirm'])) {
+			$this->response['confirm'] = strip_tags($_REQUEST['setconfirm']);
+		}
+#		print_r($this->response); exit;
 
 	}
 	

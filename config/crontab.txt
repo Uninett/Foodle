@@ -1,0 +1,6 @@
+# Retrieve calendar URLs and cache them...
+*/10 * * * * /www/foodl.org/bin/calendarcache.php 2> /dev/null > /dev/null
+
+# Send out daily status emails.
+50 6 * * *   /www/foodl.org/bin/statusnotify.php 2> /dev/null > /dev/null
+

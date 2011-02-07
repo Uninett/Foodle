@@ -375,7 +375,10 @@
 		"en": "Debug"
 	},
 	"selecttimezone": {
-		"en": "Select your time zone"
+		"en": "Select your timezone"
+	},
+	"timezone": {
+		"en": "Timezone"
 	},
 	"support": {
 		"en": "Support"
@@ -457,5 +460,32 @@
 	},
 	"extrafields_location": {
 		"en": "Location"
+	},
+	"attend": {
+		"en": "I will attend"
+	},
+	"select_time": {
+		"en": "Fix timeslot"
+	},
+	"select": {
+		"en": "Select"
+	},
+	"save_fixdate": {
+		"en": "Save and fix timeslot for this Foodle"
+	},
+	"fixdate_descr": {
+		"en": "You may want to add additional information to the description, in example the agenda for a planned meeting."
+	},
+	"associate_time": {
+		"en": "This is an event with an already determined date and time"
+	},
+	"allday": {
+		"en": "All day"
+	},
+	"multipledays": {
+		"en": "Multiple days"
+	},
+	"allday": {
+		"en": "All day"
 	}
 }

@@ -57,6 +57,13 @@ try {
 			$page = new Pages_Photo($config, $parameters);
 			$page->show();
 			break;
+
+		case 'fixdate':
+			$page = new Pages_FixDate($config, $parameters);
+			#Timer::tick('before foodle show');
+			$page->show();
+			break;
+			
 	
 		case 'foodle':
 		
@@ -66,6 +73,10 @@ try {
 				break;				
 			} elseif(isset($_REQUEST['output']) && $_REQUEST['output'] == 'csv') {
 				$csv = new Pages_CSVFoodle($config, $parameters);
+				$csv->show();
+				break;								
+			} elseif(isset($_REQUEST['output']) && $_REQUEST['output'] == 'ical') {
+				$csv = new Pages_CalFoodle($config, $parameters);
 				$csv->show();
 				break;								
 			}
@@ -157,7 +168,7 @@ try {
 
 		$email = $user->email;
 		$userid = $user->userid;
-		$name = $user->name;
+		$name = $user->username;
 		
 		$isAuth = $auth->isAuth();
 		

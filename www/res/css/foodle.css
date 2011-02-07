@@ -32,7 +32,81 @@ abbr {
 	border: none;
 }
 
+
+
+
+div.datetimebox p {
+	margin: 6px;
+	text-align: center;
+}
+div.datetimebox {
+	border: 1px solid #ccc; 
+	background: #f5f5f5; 
+	margin: .5em; padding: 3px 1em;
+	float: right;
+	width: 350px;
+	clear: right;
+	
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+
+}
+
+
 /* ------ Column Setup ------- */
+
+div.coltypeselector {
+	border: 1px solid #ccc; 
+	background: #f5f5f5; 
+	margin: .5em; padding: 3px 1em
+}
+
+div.ready {
+	border: 1px solid #996; 
+	background: #ee9; 
+	margin: 2em .5em; padding: 1em 2em;
+	clear: both;
+	color: #996;
+}
+
+
+div.timezoneselector {
+	border: 1px solid #ccc; 
+	background: #f5f5f5; 
+	margin: .5em; padding: 3px 1em
+}
+div.eventdatetime {
+	border: 1px solid #ccc; 
+	background: #f5f5f5; 
+	margin: .5em; padding: 3px 1em;
+}
+div.eventdatetime p {
+	margin: 2px 0px;
+}
+input#eventdatefrom, input#eventdateto {
+	background-image: url(../calendar.png); 
+	background-repeat: no-repeat;
+	background-position: center right;
+	width: 9em;
+}
+input#eventtimefrom, input#eventtimeto {
+	background-image: url(../clock.png); 
+	background-repeat: no-repeat;
+	background-position: center right;
+	width: 6em;
+}
+
+
+input#deadline {
+	background-image: url(../calendar.png); 
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+
+
+/* more */
 
 div.fcol {
 	
@@ -278,6 +352,7 @@ div.statusupdates div.statusupdate p {
 
 #foodletabs {
 	font-size: 90%;
+	clear: both;
 }
 
 
@@ -401,12 +476,14 @@ div.ryes {
 }
 div.rmaybe {
 	background: #FFEF00;
+
 /*
 	border-left: 1px solid #555500;
 	border-right: 1px solid #555500;
 */
 }
 div.rno {
+	color: white;
 	background: #CE1620	;
 	border-top: 1px solid #660000;
 }
@@ -463,6 +540,7 @@ tr.you td {
 }
 tr.you td.yes {
 	background: #bea;
+	color: white;
 }
 td.count {
 	text-align: center;
@@ -530,7 +608,8 @@ table.list td.odd {
 
 
 
-
-
+tr.fixdaterow td{
+	background: #d4d4d4;
+}
 
 

@@ -170,6 +170,15 @@ class Data_User {
 			$this->realm = $from->realm;
 		}
 		
+		if (empty($from->timezone)) {
+			$timezone = new TimeZone(NULL, $this->user);
+			$this->timezone = $timezone->getTimezone();
+			error_log('User had no timezone set..');
+			$modified = TRUE;
+		}
+#		echo '<pre>'; print_r($from); exit;
+#		error_log('User set..');
+		
 		// TODO: photos
 		// TODO: Calendar check...
 		// Timezone not updated.
@@ -198,7 +207,7 @@ class Data_User {
 	public function debug() {
 		$text = '<dl>' .
 			self::debugfield('User ID', $this->userid) . 
-			self::debugfield('Name', $this->name) . 
+			self::debugfield('Name', $this->username) . 
 			self::debugfield('E-mail', $this->email) . 
 			self::debugfield('Calendar URL', $this->calendar) . '</dl>'
 			;

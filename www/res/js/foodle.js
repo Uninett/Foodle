@@ -165,11 +165,32 @@ function updatePreview() {
 	// $("*[id='previewheader']").text($("input[name='name']").attr('value'));
 	$("input[id='coldef']").attr('value', defstr);
 	$("input[id='columntype']").attr('value', columntype);
-	if ($("input#foodlename").val() == '' || defstr == '') {
+	
+	
+	var timezone = $("div.eventdatetime select[name='timezone'] option:selected").val();
+	if (columntype == 'dates' && $("input#includedatefield").val() !== 'enabled') {
+		timezone = $("div.columnsetupdates select[name='timezone'] option:selected").val();
+	} else if (columntype == 'timezone') {
+		timezone = $("div.columnsetuptimezone select[name='timezone'] option:selected").val();
+	}
+	// console.log('Timezone detected: ' + timezone);
+	if (timezone) $("input[id='settimezone']").attr('value', timezone);
+	
+	
+	if ($("input#foodlename").val() == '') {
+		$("p#readytextname").show();						
+		$("p#readytextcol").hide();	
+		$("input#save").attr("disabled", "disabled");
+	} else if ( defstr == '') {
+		$("p#readytextname").hide();						
+		$("p#readytextcol").show();	
 		$("input#save").attr("disabled", "disabled");
 	} else {
+		$("p#readytextname").hide();						
+		$("p#readytextcol").hide();	
 		$("input#save").removeAttr("disabled", "false");
 	}
+	
 }
 
 
@@ -204,26 +225,46 @@ function showFacebookShare() {
 }
 
 function selectColumnTypes() {
+
+	if ($("input#includedatefield").val() == 'enabled') {
+		$("div#eventdatetime").show();
+		$("div.timezoneselector").hide();
+	} else {
+		switch($('input:radio[name="columntypes"]:checked').val()) {
+			case 'text':
+				$("div#eventdatetime").show();
+				break;
+				
+			case 'dates':
+				$("div#eventdatetime").hide();
+				break;
+				
+			case 'timezone':
+				$("div#eventdatetime").hide();
+				break;
+		}	
+	}
+
 	switch($('input:radio[name="columntypes"]:checked').val()) {
+	
+		case 'text':
+			$("div.columnsetupdates").hide();
+			$("div.columnsetupgeneric").show();
+			$("div.columnsetuptimezone").hide();
+			break;
+	
 		case 'dates':
 			$("div.columnsetupdates").show();
 			$("div.columnsetupgeneric").hide();
 			$("div.columnsetuptimezone").hide();
 			break;
 			
-		case 'text':
-			$("div.columnsetupdates").hide();
-			$("div.columnsetupgeneric").show();
-			$("div.columnsetuptimezone").hide();
-			break;
-
 		case 'timezone':
 			$("div.columnsetupdates").hide();
 			$("div.columnsetupgeneric").hide();
 			$("div.columnsetuptimezone").show();
 			break;
 
-			
 		default: 
 	}
 	updatePreview();
@@ -263,10 +304,44 @@ function prepareDateColumns() {
 }
 
 
+// Section for the box associating a foodle with a specific date or time...
+function onoffEventDateTimeSelector() {
+	if ($("input#eventtimeopt").attr('checked')) {
+		$("div#eventdatetimecontent").show('slow');
+	} else {
+		$("div#eventdatetimecontent").hide();
+	}
+}
+
+function prepareEventDateTimeSelector() {
+	if ($("input#eventallday").attr('checked') && !$("input#eventmultipledays").attr('checked')) {
+		$("span#todelimiter").hide();
+	} else {
+		$("span#todelimiter").show();
+	}
+
+	if ($("input#eventallday").attr('checked')) {
+		$("input#eventtimefrom").hide();
+		$("input#eventtimeto").hide();
+	} else {
+		$("input#eventtimefrom").show();
+		$("input#eventtimeto").show();
+	}
+	if ($("input#eventmultipledays").attr('checked')) {
+		$("input#eventdateto").show();
+	} else {
+		$("input#eventdateto").hide();
+	}
+}
+
+
+
 $(document).ready(function() {
 	
 	selectColumnTypes();
 	prepareDateColumns();
+	
+
 	
 	/* --- Register button clicks --- */
 	$('input:radio[name="columntypes"]').change(selectColumnTypes);
@@ -277,6 +352,18 @@ $(document).ready(function() {
 	$("a.buttonUpdatePreview").click(updatePreview);
 	$("a.onemorecolumn").click(addOneNewColumn);
 	$("a.onemoreoption").click(addOneMoreOption);
+	
+	$("select[name='timezone']").change(updatePreview);
+	
+	
+	// Section for the box associating a foodle with a specific date or time...
+	$("input#eventtimeopt").change(onoffEventDateTimeSelector);
+	$("input#eventallday").change(prepareEventDateTimeSelector);
+	$("input#eventmultipledays").change(prepareEventDateTimeSelector);
+	
+	
+	prepareEventDateTimeSelector();
+	onoffEventDateTimeSelector();
 	
 // 	$("div.columnsetupgeneric input.fscoli").placeholder({'className': 'placeholdertemp'});
 // 	$("div.columnsetupgeneric input.fcoli").placeholder({'className': 'placeholdertemp'});
@@ -307,6 +394,17 @@ $(document).ready(function() {
 		yearRange: '2009:2015'
 	});
 	
+	// Datepicker for expiration date
+	$("#eventdatefrom").datepicker({  
+		dateFormat: "yy-mm-dd",
+		firstDay: 1,
+		yearRange: '2009:2015'
+	});
+	$("#eventdateto").datepicker({  
+		dateFormat: "yy-mm-dd",
+		firstDay: 1,
+		yearRange: '2009:2015'
+	});	
 });
 
 

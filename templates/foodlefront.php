@@ -6,12 +6,13 @@
 
 
 
+
+
+
+
 <div class="columned">
 	<div class="gutter"></div>
 	<div class="col1">
-
-
-
 
 
 

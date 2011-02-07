@@ -63,7 +63,7 @@ class FoodleAuth {
 			
 			if ($this->db->userExists($this->user->userid)) {
 				$dbUser = $this->db->readUser($this->user->userid);
-				$modified = $dbUser->updateData($this->user);
+				$modified = $dbUser->updateData($dbUser);
 				$this->user = $dbUser;
 				if ($modified) { 
 					$this->db->saveUser($this->user);

@@ -11,7 +11,7 @@ class Pages_PageCreate extends Pages_Page {
 		parent::__construct($config, $parameters);
 		$this->auth();
 		
-		$this->timezone = new TimeZone();
+		$this->timezone = new TimeZone(NULL, $this->user);
 	}
 	
 	// Authenticate the user
@@ -95,6 +95,9 @@ class Pages_PageCreate extends Pages_Page {
 		$t->data['loginurl'] = $this->auth->getLoginURL();
 		$t->data['logouturl'] = $this->auth->getLogoutURL('/');
 		$t->data['today'] = date('Y-m-d');
+		$t->data['tomorrow'] = date('Y-m-d', time() + 60*60*24 );
+		
+		$t->data['allowChangeColumn'] = TRUE;
 		
 		$t->data['timezone'] = $this->timezone;
 

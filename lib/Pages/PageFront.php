@@ -19,11 +19,6 @@ class Pages_PageFront extends Pages_Page {
 		$this->auth->requireAuth(TRUE);
 
 		$this->user = $this->auth->getUser();
-		
-		if ($_REQUEST['debuguser']) {
-			header('Content-type: text/plain; char-set: utf8');
-			print_r($this->user); exit;
-		}
 
 	}
 	
@@ -34,8 +29,6 @@ class Pages_PageFront extends Pages_Page {
 
 		if (isset($_REQUEST['setresponse'])) $this->setResponse();
 		if (isset($_REQUEST['discussionentry'])) $this->addDiscussionEntry();
-
-
 		
 		// ---- o ----- o ---- o ----- o ---- o ----- o
 		// This part needs to be updated.
