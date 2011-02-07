@@ -36,6 +36,7 @@ CREATE TABLE `discussion` (
   `username` tinytext,
   `message` text,
   `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `userid` tinytext,
   PRIMARY KEY  (`id`)
 );
 
