@@ -304,7 +304,9 @@ class XHTMLResponseEntry {
 
 		$extrafields = $response->foodle->getExtraFields();
 		
-		echo '<tr id="responserowmanual" class="you">';
+#		error_log(' ======= showEditableConfirm()');
+		
+		echo '<tr id="responseconfirm" class="you">';
 		echo '<td> </td>';
 		
 		// Field with user name (and link to add comment)

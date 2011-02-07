@@ -286,9 +286,16 @@ if (isset($_REQUEST['timezone'])) {
 				$editable = FALSE; 
 			}
 		}
+// 		echo '<pre>';		
+// 		print_r($this->data); exit;
+		
 		
 		if ($this->data['showconfirmcolumn']) {
-			XHTMLResponseEntry::showEditableConfirm($this, $this->data['myresponse'], $editable, NULL, $this->data['authenticated']);
+#			if ($this->data['calenabled']) {
+#				XHTMLResponseEntry::showEditableConfirm($this, $this->data['myresponsecal'], $editable, NULL, $this->data['authenticated']);
+#			} else {
+				XHTMLResponseEntry::showEditableConfirm($this, $this->data['myresponse'], $editable, NULL, $this->data['authenticated']);
+#			}
 		} else if ($this->data['calenabled']) {
 			XHTMLResponseEntry::showEditable($this, $this->data['myresponse'], $editable, $this->data['myresponsecal'], $this->data['authenticated']);
 		} else {
