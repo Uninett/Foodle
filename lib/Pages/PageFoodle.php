@@ -265,7 +265,7 @@ class Pages_PageFoodle extends Pages_Page {
 
 		$this->template->data['customDistribute'] = array();
 		$this->template->data['customDistribute'][] = new EmbedDistribute($this->foodle, $this->template);
-		if (preg_match('/^.*?@uninett\.no$/', $this->user->username)) {
+		if ($this->user->realm === 'uninett.no') {
 			$this->template->data['customDistribute'][] = new UNINETTDistribute($this->foodle, $this->template);			
 		}
 
