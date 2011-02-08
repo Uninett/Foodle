@@ -62,6 +62,7 @@ require_once($THISPATH . 'lib/Pages/FDebug.php');
 require_once($THISPATH . 'lib/Pages/PageFront.php');
 require_once($THISPATH . 'lib/Pages/PageProfile.php');
 require_once($THISPATH . 'lib/Pages/PageSupport.php');
+require_once($THISPATH . 'lib/Pages/PageStats.php');
 require_once($THISPATH . 'lib/Pages/FixDate.php');
 
 require_once($THISPATH . 'lib/Pages/EmbedFoodle.php');

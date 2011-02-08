@@ -57,6 +57,11 @@ try {
 			$page = new Pages_Photo($config, $parameters);
 			$page->show();
 			break;
+			
+		case 'stats':
+			$page = new Pages_PageStats($config, $parameters);
+			$page->show();
+			break;
 
 		case 'fixdate':
 			$page = new Pages_FixDate($config, $parameters);

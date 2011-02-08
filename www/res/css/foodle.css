@@ -613,3 +613,17 @@ tr.fixdaterow td{
 }
 
 
+
+table.statstable tr.totals td {
+	background: #fec;
+	font-weight: bold;
+}
+table.statstable tr td.realm {
+	text-align: right;
+}
+table.statstable tr td {
+	padding: 1px 1em;
+}
+table.statstable tr:nth-child(even) td {
+	background: #eee;
+}

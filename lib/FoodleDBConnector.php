@@ -737,6 +737,17 @@ class FoodleDBConnector {
 		mysql_free_result($result);
 		return $resarray;
 	}
+	
+	public function getStatsRealm($recent = NULL) {
+	
+		$wh = '';
+		if (!empty($recent)) {
+			$wh = ' WHERE created > (NOW() - INTERVAL ' . (int) $recent . ' SECOND) ';
+		}
+		$sql = 'SELECT realm, count(*) c FROM user ' . $wh . ' GROUP BY realm ORDER BY c DESC';
+		return $this->q($sql);
+	}
+	
 
 	public function getAllEntries($no = 20) {
 				
