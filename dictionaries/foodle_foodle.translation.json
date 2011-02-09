@@ -284,7 +284,7 @@
 		"da": "Du kan oprette tider som tilf\u00f8jes disse dage: ",
 		"nl": "Je kunt tijdssloten toevoegen welke worden toegevoegd aan deze dagen:",
 		"de": "Sie k\u00f6nnen optional einige Zeitfenster hinzuf\u00fcgen, die zu diesen Tagen hinzugef\u00fcgt werden:",
-		"sv": "Du kan om du vill l\u00e4gga till n\u00e5gra tidsperioder till dessa dagar:",
+		"sv": "Om du vill kan du l\u00e4gga till n\u00e5gra tidsperioder f\u00f6r dessa dagar:",
 		"es": "Opcionalmente puede a\u00f1adir algunas franjas temporales que se a\u00f1adir\u00e1n a estos d\u00edas:",
 		"sl": "Obstoje\u010dim \u010dasovnim terminom lahko dodate nove (za izbrane dni):",
 		"nn": "Du kan (valfritt) velja \u00e5 leggja til alternative tidsluker for kvar av datoane du har vald (f.eks. f\u00f8r og etter lunsj):",
@@ -1489,7 +1489,7 @@
 		"no": "Tidsluker kan v\u00e6re enkle tidspunkt (slik som 10:00 eller 15:00) eller det kan representere en tidsperiode (slik som 12:00-14:00).",
 		"sl": "\u010casovni termin je lahko ura (npr. 10:00 ali 15:00) ali \u010dasovno obdobje (npr. 12:00-14:00).",
 		"da": "Tidsrum kan v\u00e6re pr\u00e6cise tider (f.eks. 10:00) eller tidsintervaller (f.eks. 10:00-12:00)",
-		"sv": "Tidsperioder kan antingen vara en tidsangivelse, t.ex. 10:00 eller 15:00, eller vara en tidsperiod, t.ex. 12:00-14:00.",
+		"sv": "Tidsperioder kan antingen vara en tidsangivelse, t.ex. 10:00 eller 15:00, eller en tidsperiod, t.ex. 12:00-14:00.",
 		"es": "Las franjas horarias pueden ser una \u00fanica hora (como las 10:00 o las 15:00) o un margen de tiempo (como 12:00-14:00)",
 		"nn": "Tidsluker kan vera enten eit enkelt tidspunkt (som 10:00 eller 15:00) eller det kan vera ei tidsluke (som 12-00-14:00)",
 		"cs": "\u010casov\u00e9 \u00faseky mohou p\u0159edstavovat konkr\u00e9tn\u00ed \u010das (jako 10:00 nebo 15:00) nebo mohou p\u0159edstavovat \u010dasov\u00fd interval (nap\u0159. 12:00-14:00).",
@@ -1692,7 +1692,7 @@
 	},
 	"notify_newresponse": {
 		"no": "Varsle meg n\u00e5r jeg har svart p\u00e5 en Foodle",
-		"sv": "Meddela mig n\u00e4r jag lyckats svar p\u00e5 en Foodle",
+		"sv": "Meddela mig n\u00e4r jag lyckats svara p\u00e5 en Foodle",
 		"nn": "Send meg varsel n\u00e5r eg har svart p\u00e5 ein Foodle"
 	},
 	"notify_newfoodle": {
@@ -1761,7 +1761,7 @@
 	"select_time": {
 		"no": "Bestem tidspunkt",
 		"nn": "Sett tidspunkt",
-		"sv": "V\u00e4lj tidsutrymme"
+		"sv": "Best\u00e4m tillf\u00e4lle"
 	},
 	"select": {
 		"no": "Velg",
@@ -1771,7 +1771,7 @@
 	"save_fixdate": {
 		"no": "Lagre, og l\u00e5s tidspunkt for denne Foodlen",
 		"nn": "Lagra og l\u00e5s tid for denne Foodlen",
-		"sv": "Spara valt tidsutrymme f\u00f6r denna Foodle"
+		"sv": "Spara best\u00e4mt tillf\u00e4lle f\u00f6r denna Foodle"
 	},
 	"fixdate_descr": {
 		"no": "Dersom du \u00f8nsker, kan du endre eller legge til tekst i beskrivelsen, for eksempel inkludere en m\u00f8teinnkallelse med agenda.",
@@ -1781,7 +1781,7 @@
 	"associate_time": {
 		"no": "Det er allerede avklart en dato og tidspunkt for denne Foodlen",
 		"nn": "Dato og tidspunkt er allereie avklart for denne Foodlen",
-		"sv": "Detta \u00e4r en h\u00e4ndelse med en redan best\u00e4md tidpunkt."
+		"sv": "Detta \u00e4r en h\u00e4ndelse med en redan best\u00e4md tidsperiod."
 	},
 	"allday": {
 		"no": "Hele dagen",
