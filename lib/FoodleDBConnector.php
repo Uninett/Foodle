@@ -749,6 +749,18 @@ class FoodleDBConnector {
 	}
 	
 
+	
+	public function getRecentUsers($realm = NULL) {
+	
+		$wh = '';
+		if (!empty($realm)) {
+			$wh = ' WHERE realm = \'' . mysql_real_escape_string($realm, $this->db) . '\' ';
+		}
+		$sql = 'SELECT * FROM user ' . $wh . ' ORDER BY created DESC LIMIT 60';
+		return $this->q($sql);
+	}
+	
+
 	public function getAllEntries($no = 20) {
 				
 		$sql ="

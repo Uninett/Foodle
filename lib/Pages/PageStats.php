@@ -49,6 +49,12 @@ class Pages_PageStats extends Pages_Page {
 			$totals['day'] += $s['c'];
 		}
 		
+		
+		$realm = NULL;
+		if (!empty($_REQUEST['realm']) && array_key_exists($_REQUEST['realm'], $stats)) {
+			$realm = $_REQUEST['realm'];
+		}
+		$users = $this->fdb->getRecentUsers($realm);
 
 		// ---- o ----- o ---- o ----- o ---- o ----- o
 
@@ -57,9 +63,11 @@ class Pages_PageStats extends Pages_Page {
 		$t = new SimpleSAML_XHTML_Template($this->config, 'stats.php', 'foodle_foodle');
 
 		$t->data['bread'] = array(
-			array('title' => 'bc_frontpage'), 
+			array('href' => '/' . $this->config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), 
+			array('href' => '/stats', 'title' => 'Statistics'), 
 		);
 		$t->data['user'] = $this->user;
+		$t->data['users'] = $users;
 		$t->data['statsrealm'] = $stats;
 		$t->data['totalsrealm'] = $totals;
 		$t->show();

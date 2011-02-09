@@ -34,7 +34,7 @@ echo '<tr class="totals"><td class="realm">Total</td><td>' . $this->data['totals
 foreach($this->data['statsrealm'] AS $realm =>  $sr) {
 	
 	echo '<tr>
-			<td class="realm">' . $realm . '</td>
+			<td class="realm"><a href="?realm=' . htmlspecialchars($realm) . '">' . htmlspecialchars($realm) . '</td>
 			<td class="counttotal">' . 
 				(!empty($sr['total']['c']) ? $sr['total']['c'] : '<span style="color: #ccc">NA</a>') . 
 			'</td>
@@ -62,17 +62,34 @@ foreach($this->data['statsrealm'] AS $realm =>  $sr) {
 
 	</div>
 	<div class="col2">
-			
-....
+	
+	
+<div class="userlist">
+<?php
 
+foreach($this->data['users'] AS $user) {
 
+	echo '<div class="user">';
+	echo '<div class="name">' . htmlspecialchars($user['username']) . '</div>';
+	if (!empty($user['org'])) {
+		echo '<div class="org">' . htmlspecialchars($user['org']) . '</div>';
+	}
+	if (!empty($user['orgunit'])) {
+		echo '<div class="orgunit">' . htmlspecialchars($user['orgunit']) . '</div>';
+	}
+
+	echo '</div>';
+}
+
+?>
+</div>
 
 			
 	</div>
 	<div class="col3">
 
 
-...
+<p><a href="?">show all</a></p>
 
 
 	</div><!-- /#col3 -->

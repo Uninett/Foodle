@@ -627,3 +627,21 @@ table.statstable tr td {
 table.statstable tr:nth-child(even) td {
 	background: #eee;
 }
+
+
+
+div.userlist div.user {
+	border-bottom: 1px solid #eee;
+	margin: 1em 3px 3px 3px;
+}
+div.userlist div.user div {
+	margin: 0px;
+}
+div.userlist div.user div.org {
+	color: #999;
+}
+div.userlist div.user div.orgunit {
+	color: #777;
+	font-size: x-small;
+}
+
