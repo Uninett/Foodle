@@ -16,6 +16,49 @@
 	<link rel="stylesheet" media="screen" type="text/css" href="/res/js/uitheme/jquery-ui-themeroller.css" />
 	
 	
+	<!-- DiscoJuice -->
+	<!-- DiscoJuice -->
+	<script type="text/javascript" language="javascript" src="/res/discojuice/discojuice.misc.js"></script>
+	<script type="text/javascript" language="javascript" src="/res/discojuice/discojuice.ui.js"></script>
+	<script type="text/javascript" language="javascript" src="/res/discojuice/discojuice.control.js"></script>
+	<link rel="stylesheet" type="text/css" href="/res/discojuice/css/discojuice.css" />
+	
+
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+	
+			$("a.signin").DiscoJuice({
+				"title": 'Sign in to <strong>Foodle</strong>',
+				"subtitle": "Select your Provider",
+				"always": false,
+				"overlay": true,
+				"cookie": true,
+				"type": false,
+				"country": true,
+				"countryAPI": "/simplesaml/module.php/ulxmeta/country.php",
+				"metadata": "/simplesaml/module.php/ulxmeta/index.php",
+				"discoPath": "/res/discojuice/",
+				"location": false,
+				"disco": {
+					"spentityid": "https://foodl.org/simplesaml/module.php/saml/sp/metadata.php/saml",
+					"url": "https://foodl.org/res/discojuice/discojuiceDiscoveryResponse.html?",
+					"stores": [
+						'https://disco.uninett.no/',
+						'https://foodle.feide.no/simplesaml/module.php/discopower/disco.php',
+						'https://kalmar2.org/simplesaml/module.php/discopower/disco.php'
+					],
+					'writableStore': 'https://disco.uninett.no/'
+				},
+				"callback": function(e) {
+					window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=saml&ReturnTo=https%3A%2F%2Ffoodle.feide.no%2F&saml:idp=' + escape(e);
+				}
+			});
+		});
+	</script>
+	
+	
+	
 	<!-- WMD -->
 	<!-- <script type="text/javascript" src="/res/js/wmd.js"></script> -->
 
@@ -101,8 +144,6 @@ if (isset($this->data['head']))
 </head>
 <body>
 
-
-
 <!-- Red logo header -->
 <div id="header">	
 	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 3.1</span> 
@@ -153,7 +194,7 @@ echo '</p>';
 
 
 	if (isset($this->data['loginurl'])) {
-		echo '<a class="button" style="float: right" href="' . htmlentities($this->data['loginurl']) . '"><span>' . $this->t('login') . '</span></a>';
+		echo '<a class="button signin" style="float: right" href="' . htmlentities($this->data['loginurl']) . '"><span>' . $this->t('login') . '</span></a>';
 	} elseif(isset($this->data['logouturl'])) {
 		echo '<a class="button" style="float: right" href="' . htmlentities($this->data['logouturl']) . '"><span>' . $this->t('logout') . '</span></a>';
 	}
@@ -262,10 +303,6 @@ if (empty($_POST) ) {
 }
 echo '</span></div><!-- end #langbar -->';
 ?>
-
-
-
-
 
 
 
