@@ -56,17 +56,7 @@ class Data_FoodleResponse {
 	
 	}
 	
-	public function getUsernameHTML($includeToken = TRUE) {
-		$userid = $this->userid;
-		$username = $this->username;
-		
-		if (isset($this->user)) {
-			$userid = $this->user->userid;
-			$username = $this->user->username;			
-		}
-		
-		return Data_User::getUsernameHTMLstatic($userid, $username, $this->hasprofile, $includeToken);
-	}
+
 	
 	public function updateFromical(Data_User $user, $cache = TRUE) {
 

@@ -6,7 +6,7 @@ class XHTMLResponseEntry {
 		
 	}
 	
-	public static function showEditable(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response, $editable = TRUE, Data_FoodleResponse $responsecal = NULL, $authenticated = TRUE) { 
+	public static function showEditable(Data_User $user, SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response, $editable = TRUE, Data_FoodleResponse $responsecal = NULL, $authenticated = TRUE) { 
 
 
 		
@@ -24,7 +24,7 @@ class XHTMLResponseEntry {
 		}
 		
 		if ($authenticated) {
-			echo $response->getUsernameHTML();
+			echo $user->getResponseUsernameHTML($response);
 		} else {
 			echo '<p style="margin: 2px">' . $t->t('name') . ': <input type="text" name="username" value="'  . htmlspecialchars($response->username). '" placeholder="' . $t->t('displayname'). '..." /></p>';
 #			echo '<form method="post" action="' . $this->data['foodlepath'] . '">';
@@ -171,7 +171,8 @@ class XHTMLResponseEntry {
 			if (empty($responsecal->notes)) {
 				echo '<a style="float: right" class="ac" >' . $t->t('addcomment') . '</a>';
 			}
-			echo '<abbr title="' . htmlspecialchars($responsecal->userid) . '">' . htmlspecialchars($responsecal->username) . '</abbr>';
+			echo $user->getResponseUsernameHTML($response);
+			
 	#		echo htmlspecialchars($response->username);
 			# echo ' <input type="text" name="username" value="' . htmlspecialchars($response->username) . '" /> (<tt>' . htmlspecialchars($response->userid). '</tt>)';
 			echo '</td>';
@@ -300,7 +301,7 @@ class XHTMLResponseEntry {
 	
 	
 	
-	public static function showEditableConfirm(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response, $editable = TRUE, Data_FoodleResponse $responsecal = NULL, $authenticated = TRUE) { 
+	public static function showEditableConfirm(Data_User $user, SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response, $editable = TRUE, Data_FoodleResponse $responsecal = NULL, $authenticated = TRUE) { 
 
 		$extrafields = $response->foodle->getExtraFields();
 		
@@ -318,7 +319,7 @@ class XHTMLResponseEntry {
 		}
 		
 		if ($authenticated) {
-			echo $response->getUsernameHTML();
+			echo $user->getResponseUsernameHTML($response);
 		} else {
 			echo '<p style="margin: 2px">' . $t->t('name') . ': <input type="text" name="username" value="'  . htmlspecialchars($response->username). '" placeholder="' . $t->t('displayname'). '..." /></p>';
 
@@ -442,7 +443,7 @@ class XHTMLResponseEntry {
 	
 	
 	
-	public static function show(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response, $isAdmin= FALSE) { 
+	public static function show(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response, $user) { 
 		
 		$extrafields = $response->foodle->getExtraFields();
 		
@@ -488,8 +489,8 @@ class XHTMLResponseEntry {
 		}
 		
 		
-
-		echo $response->getUsernameHTML(!$isAdmin);
+		echo $user->getResponseUsernameHTML($response);
+//		echo $response->getUsernameHTML(!$user->isAdmin());
 		echo '</td>';
 		
 		
@@ -579,7 +580,7 @@ class XHTMLResponseEntry {
 	
 	
 	
-	public static function showConfirm(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response) { 
+	public static function showConfirm(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response, $user) { 
 		
 		$extrafields = $response->foodle->getExtraFields();
 		
@@ -608,7 +609,8 @@ class XHTMLResponseEntry {
 		if (!empty($response->email)) {
 			echo '<img style="float: right" alt="' . htmlspecialchars($response->email) . '" title="' . htmlspecialchars($response->email) . '" class="" src="/res/mail16.png" />';
 		}
-		echo $response->getUsernameHTML();
+#		echo $response->getUsernameHTML();
+		echo $user->getResponseUsernameHTML($response);
 		echo '</td>';
 
 		foreach($extrafields AS $extrafield) {

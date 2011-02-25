@@ -265,6 +265,8 @@ class Data_Foodle {
 	
 		$dates = $this->getColumnDates();
 		
+#		echo '<pre>'; print_r($dates);
+		
 		$sortedByDate = array();
 		foreach($dates AS $date) {
 			$sortedByDate[$this->toTimezone($date[0], $timezone)->format('Y-m-d')][] = $date;

@@ -293,12 +293,12 @@ if (isset($_REQUEST['timezone'])) {
 #			if ($this->data['calenabled']) {
 #				XHTMLResponseEntry::showEditableConfirm($this, $this->data['myresponsecal'], $editable, NULL, $this->data['authenticated']);
 #			} else {
-				XHTMLResponseEntry::showEditableConfirm($this, $this->data['myresponse'], $editable, NULL, $this->data['authenticated']);
+				XHTMLResponseEntry::showEditableConfirm($this->data['user'], $this, $this->data['myresponse'], $editable, NULL, $this->data['authenticated']);
 #			}
 		} else if ($this->data['calenabled']) {
-			XHTMLResponseEntry::showEditable($this, $this->data['myresponse'], $editable, $this->data['myresponsecal'], $this->data['authenticated']);
+			XHTMLResponseEntry::showEditable($this->data['user'], $this, $this->data['myresponse'], $editable, $this->data['myresponsecal'], $this->data['authenticated']);
 		} else {
-			XHTMLResponseEntry::showEditable($this, $this->data['myresponse'], $editable, NULL, $this->data['authenticated']);
+			XHTMLResponseEntry::showEditable($this->data['user'], $this, $this->data['myresponse'], $editable, NULL, $this->data['authenticated']);
 		}
 	
 	
@@ -388,9 +388,9 @@ if (isset($_REQUEST['timezone'])) {
 		$responses = $this->data['foodle']->getResponses();	
 		foreach($responses AS $response) {
 			if ($this->data['showconfirmcolumn']) {
-				XHTMLResponseEntry::showConfirm($this, $response);
+				XHTMLResponseEntry::showConfirm($this, $response,$this->data['user']);
 			} else {
-				XHTMLResponseEntry::show($this, $response ,$this->data['user']->isAdmin());
+				XHTMLResponseEntry::show($this, $response ,$this->data['user']);
 			}
 
 		}

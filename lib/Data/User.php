@@ -31,7 +31,23 @@ class Data_User {
 		return FALSE;	
 	}
 	
-	public static function getUsernameHTMLstatic($userid, $username, $hasprofile = FALSE, $includeToken = TRUE) {
+	
+	public function getResponseUsernameHTML($response) {
+		$userid = $response->userid;
+		$username = $response->username;
+		
+		if (isset($response->user)) {
+			$userid = $response->user->userid;
+			$username = $response->user->username;			
+		}
+		
+		$includetoken = !$this->isAdmin();
+		$nolink = !$this->loadedFromDB;
+		
+		return Data_User::getUsernameHTMLstatic($userid, $username, isset($response->user), $includetoken, $nolink);
+	}
+	
+	public static function getUsernameHTMLstatic($userid, $username, $hasprofile = FALSE, $includeToken = TRUE, $nolink = FALSE) {
 
 		$userpage = '/user/' . $userid;
 		if ($includeToken) {
@@ -40,7 +56,7 @@ class Data_User {
 		
 		$str = ''; 
 		
-		if ($hasprofile) {
+		if ($hasprofile && !$nolink) {
 			$str .= '<a href="' . htmlspecialchars($userpage)  . '"><img src="/res/user_grey.png" alt="User profile" />';
 		}
 
@@ -49,7 +65,7 @@ class Data_User {
 			$str = '<abbr title="' . htmlspecialchars($userid) . '">' . $str  . '</abbr>';
 		}
 		
-		if ($hasprofile) {
+		if ($hasprofile && !$nolink) {
 			$str .= '</a>';
 		}
 
