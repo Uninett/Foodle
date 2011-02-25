@@ -231,13 +231,13 @@ $discussion = $this->data['foodle']->getDiscussion();
 			echo $this->t('discussion') . ' (' . count($discussion). ' ' . $this->t('entries') . ')'; 
 		?></span></a></li> 
 		<?php
-		if ($this->data['showsharing']) {
+		if (!empty($this->data['showsharing'])) {
 			echo '<li><a href="#distribute"><span>' . $this->t('distribute') . '</span></a></li>';
 		}
-		if ($this->data['showdebug']) {
+		if (!empty($this->data['showdebug'])) {
 			echo '<li><a href="#showdebug"><span>' . $this->t('debug') . '</span></a></li>';
 		}
-		if ($this->data['showdelete']) {
+		if (!empty($this->data['showdelete'])) {
 			echo '<li><a href="#delete"><span>' . $this->t('delete') . '</span></a></li>';
 		}
 		
@@ -664,7 +664,7 @@ if ($this->data['showsharing']) {
 	echo '</div>';
 }
 
-if ($this->data['showdebug']) {
+if (!empty($this->data['showdebug'])) {
 	echo '<div id="showdebug" style="margin: .2em 5em .2em 5em; ">';
 
 	echo( '<h2>Page loading time</h2>');	
