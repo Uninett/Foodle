@@ -35,6 +35,8 @@ class Data_FoodleResponse {
 	public $updated;
 
 	public $user;
+	
+	public $hasprofile = FALSE;
 
 	public $loadedFromDB = FALSE;
 	
@@ -54,7 +56,7 @@ class Data_FoodleResponse {
 	
 	}
 	
-	public function getUsernameHTML() {
+	public function getUsernameHTML($includeToken = TRUE) {
 		$userid = $this->userid;
 		$username = $this->username;
 		
@@ -63,14 +65,7 @@ class Data_FoodleResponse {
 			$username = $this->user->username;			
 		}
 		
-		$str = htmlspecialchars($username);
-		if (isset($userid)) {
-			$str = '<abbr title="' . htmlspecialchars($userid) . '">' . $str  . '</abbr>';
-		}
-		if (preg_match('|^@(.*)$|', $userid, $matches)) 
-			$str .= ' (<a href="http://twitter.com/' . $matches[1] . '">' . $userid . '</a>)';
-		
-		return $str;
+		return Data_User::getUsernameHTMLstatic($userid, $username, $this->hasprofile, $includeToken);
 	}
 	
 	public function updateFromical(Data_User $user, $cache = TRUE) {

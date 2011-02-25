@@ -36,8 +36,9 @@ class Pages_PageFront extends Pages_Page {
  		$entries = $this->fdb->getYourEntries($this->user);
 
 		$allentries = null;
-		$adminusers = $this->config->getValue('adminUsers');
-		if (in_array($this->user->userid, $adminusers))
+
+
+		if ($this->user->isAdmin())
 			$allentries = $this->fdb->getAllEntries(25);
 
  		$ownerentries = $this->fdb->getOwnerEntries($this->user, 10);

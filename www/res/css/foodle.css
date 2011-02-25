@@ -328,6 +328,10 @@ div.lentry div.lheader {
 div.lentry div.lbody {
 	color: #555;
 }
+div.lentry div.lowner a {
+	color: #888;
+
+}
 div.lentry div.lowner {
 	color: #888;
 	font-size: 80%;

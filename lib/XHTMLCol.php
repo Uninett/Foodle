@@ -32,7 +32,7 @@ class XHTMLCol {
 			<th rowspan="' . $coldepth . '" style="width: 20px; padding: 3px 1px 1px 1px">
 				<img alt="notes" src="/res/notes.png" />
 			</th>
-			<th rowspan="' . $coldepth . '">'.  $t->t('name') . '</th>';
+			<th rowspan="' . $coldepth . '" style="min-width: 140px">'.  $t->t('name') . '</th>';
 			
 		
 		foreach($extrafields AS $extrafield) {

@@ -228,6 +228,7 @@ class FoodleDBConnector {
 			$user->location = $row['location'];
 			$user->realm = $row['realm'];
 			$user->language = $row['language'];
+			$user->role = $row['role'];
 
 			$user->loadedFromDB = TRUE;
 			mysql_free_result($result);
@@ -504,11 +505,12 @@ class FoodleDBConnector {
 	 */
 	public function readResponses(Data_Foodle $foodle, $maxago = NULL) {
 		
-// SELECT entries.*, user.username, user.email, user.org, user.orgunit, user.photol, user.location, user.realm,
-// UNIX_TIMESTAMP(created) AS createdu,
-// UNIX_TIMESTAMP(updated) AS updatedu
-// FROM entries
-// WHERE foodleid='Tester-kalender-i-fremtid-4ca1d' order by updated desc, created desc;
+// SELECT entries.*, 
+// UNIX_TIMESTAMP(entries.created) AS createdu,
+// UNIX_TIMESTAMP(entries.updated) AS updatedu,
+// user.userid AS profile
+// FROM entries LEFT JOIN user ON (entries.userid = user.userid)
+// WHERE foodleid='Tester-kalender-i-fremtid-4ca1d' order by entries.updated desc, entries.created desc;
 		
 		$maxclause = '';
 		if ($maxago !== null) {
@@ -516,12 +518,13 @@ class FoodleDBConnector {
 		}
 		
 		$sql ="
-			SELECT *, 
-				UNIX_TIMESTAMP(created) AS createdu,
-				UNIX_TIMESTAMP(updated) AS updatedu
-			FROM entries
+			SELECT entries.*, 
+				UNIX_TIMESTAMP(entries.created) AS createdu,
+				UNIX_TIMESTAMP(entries.updated) AS updatedu,
+				user.userid AS profile
+				FROM entries LEFT JOIN user ON (entries.userid = user.userid)
 			WHERE foodleid='" . $foodle->identifier . "' " . $maxclause . "
-			ORDER BY updated desc, created desc";
+			ORDER BY entries.updated desc, entries.created desc";
 
 		$result = mysql_query($sql, $this->db);
 		
@@ -542,6 +545,8 @@ class FoodleDBConnector {
 				$newResponse->notes = $row['notes'];
 				$newResponse->updated = $row['updatedu'];
 				$newResponse->created = $row['createdu'];
+				
+				$newResponse->hasprofile = (!empty($row['profile']));
 				
 				$ruser = $this->readUser($row['userid']);
 				if ($ruser !== false) {
@@ -763,10 +768,16 @@ class FoodleDBConnector {
 
 	public function getAllEntries($no = 20) {
 				
+				
+// 		$sql ="
+// 			SELECT entries.*, def.*, user.username ownername 
+// 			FROM entries, def LEFT JOIN user ON (def.owner = user.userid)
+// 			WHERE entries.userid = '" . $user->userid . "' and entries.foodleid = def.id
+// 			ORDER BY def.created DESC";
 		$sql ="
-			SELECT * 
-			FROM def 
-			ORDER BY created DESC 
+			SELECT def.*, user.username ownername
+			FROM def LEFT JOIN user ON (def.owner = user.userid)
+			ORDER BY def.created DESC 
 			LIMIT " . $no;
 			
 		$result = mysql_query($sql, $this->db);
@@ -857,9 +868,9 @@ class FoodleDBConnector {
 	public function getYourEntries(Data_User $user) {
 
 		$sql ="
-			SELECT * 
-			FROM entries,def 
-			WHERE userid = '" . $user->userid . "' and entries.foodleid = def.id
+			SELECT entries.*, def.*, user.username ownername 
+			FROM entries, def LEFT JOIN user ON (def.owner = user.userid)
+			WHERE entries.userid = '" . $user->userid . "' and entries.foodleid = def.id
 			ORDER BY def.created DESC";
 
 		$result = mysql_query($sql, $this->db);
@@ -907,7 +918,43 @@ class FoodleDBConnector {
 		return $resarray;
 	}
 
-	
+
+
+	public function getSharedEntries(Data_User $user1, Data_User $user2, $no = 20) {
+
+
+
+;
+				
+		$sql ="
+			SELECT def.id, def.name
+FROM entries e1 JOIN entries e2 ON (e1.foodleid = e2.foodleid)
+JOIN def ON (def.id = e1.foodleid)
+WHERE 
+e1.userid = '" . addslashes($user1->userid) . "' AND
+e2.userid = '" . addslashes($user2->userid) . "'
+ORDER BY e1.created DESC LIMIT " . $no;
+
+
+		//echo '<pre>'; echo $sql; exit;
+
+		$result = mysql_query($sql, $this->db);
+		
+		if(!$result){
+			throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
+		}
+		
+		$resarray = array();
+		
+		if(mysql_num_rows($result) > 0){		
+			while($row = mysql_fetch_assoc($result)){
+				$resarray[] = $row;
+			}
+		}		
+		mysql_free_result($result);
+		
+		return $resarray;
+	}
 	
 	
 	

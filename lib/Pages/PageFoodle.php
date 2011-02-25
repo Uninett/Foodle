@@ -250,12 +250,12 @@ class Pages_PageFoodle extends Pages_Page {
 		
 		$isAdmin = ($this->user->userid == $this->foodle->owner) || ($this->user->isAdmin());
 		
-		$this->template->data['owner'] = $isAdmin;
+
 		$this->template->data['ownerid'] = $this->foodle->owner;
 		$this->template->data['showsharing'] = $isAdmin;
 				
 		$this->template->data['showdebug'] = ($this->user->username == 'andreas@uninett.no') || ($this->user->username == 'andreas@rnd.feide.no');
-		if (isset($_REQUEST['debug'])) {
+		if (isset($_REQUEST['debug']) ) {
 			$this->template->data['showdebug'] = TRUE;
 		}
 		$this->template->data['showsupport'] = TRUE;

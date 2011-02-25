@@ -35,8 +35,6 @@ try {
 			break;
 	
 		case 'embed':
-
-
 			$embed = new Pages_EmbedFoodle($config, $parameters);
 			$embed->getContent($_REQUEST['output']);
 			break;
@@ -50,6 +48,11 @@ try {
 
 		case 'profile':
 			$page = new Pages_PageProfile($config, $parameters);
+			$page->show();
+			break;
+
+		case 'user':
+			$page = new Pages_PageUser($config, $parameters);
 			$page->show();
 			break;
 

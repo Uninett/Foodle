@@ -5,7 +5,7 @@
  */
 class Data_User {
 
-	public $userid, $username, $email, $org, $orgunit, $photol, $photom, $photos, $notifications, $features, $calendar, $timezone, $location, $realm, $language;
+	public $userid, $username, $email, $org, $orgunit, $photol, $photom, $photos, $notifications, $features, $calendar, $timezone, $location, $realm, $language, $role;
 
 
 	public $anonymous = TRUE;
@@ -23,11 +23,64 @@ class Data_User {
 		$this->config = SimpleSAML_Configuration::getInstance('foodle');
 	}
 	
+	public function isAdmin() {
+		
+		if (empty($this->role)) return FALSE;
+		if ($this->role === 'admin') return TRUE;
+		
+		return FALSE;	
+	}
+	
+	public static function getUsernameHTMLstatic($userid, $username, $hasprofile = FALSE, $includeToken = TRUE) {
+
+		$userpage = '/user/' . $userid;
+		if ($includeToken) {
+			$userpage .= '?token=' . Data_User::getUserToken($userid, 'profile');
+		}
+		
+		$str = ''; 
+		
+		if ($hasprofile) {
+			$str .= '<a href="' . htmlspecialchars($userpage)  . '"><img src="/res/user_grey.png" alt="User profile" />';
+		}
+
+		$str .= htmlspecialchars($username);
+		if (isset($userid)) {
+			$str = '<abbr title="' . htmlspecialchars($userid) . '">' . $str  . '</abbr>';
+		}
+		
+		if ($hasprofile) {
+			$str .= '</a>';
+		}
+
+		
+		if (preg_match('|^@(.*)$|', $userid, $matches)) 
+			$str .= ' (<a href="http://twitter.com/' . $matches[1] . '">' . $userid . '</a>)';
+		
+		return $str;
+	}
+	
+	
+	
+	public function getToken($usage = NULL) {
+		return self::getUserToken($this->userid, $usage);
+	}
+	
+	public static function getUserToken($userid, $usage = NULL) {
+		$config = SimpleSAML_Configuration::getInstance('foodle');
+		
+		$str = $config->getString('secret') . '|' . $userid;
+		if (!empty($usage)) $str .= '|' . $usage;
+		return sha1($str);
+	}
+	
 	public function getPhotoURL($size = 'm') {
 		$basepath = $this->config->getPathValue('photodir');
-		$basefilename = sha1($this->config->getString('secret') . '|' . $this->userid);
+		$basefilename = $this->getToken();
 		
 		$file  = $basepath . $basefilename . '-' . $size . '.jpeg';
+		
+		error_log('Looking for file : ' . $file);
 		
 		if (!file_exists($file)) return FALSE;
 		
@@ -213,13 +266,7 @@ class Data_User {
 			;
 		return $text;
 	}
-	
-	public function isAdmin() {
-		if ($this->userid == 'andreas@uninett.no') return TRUE;
-		if ($this->userid == 'andreas@rnd.feide.no') return TRUE;
-		return FALSE;
-	}
-	
+		
 	public function debugCalendar() {
 		$text = '';
 		if ($this->hasCalendar() ) {

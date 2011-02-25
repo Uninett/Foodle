@@ -390,7 +390,7 @@ if (isset($_REQUEST['timezone'])) {
 			if ($this->data['showconfirmcolumn']) {
 				XHTMLResponseEntry::showConfirm($this, $response);
 			} else {
-				XHTMLResponseEntry::show($this, $response);
+				XHTMLResponseEntry::show($this, $response ,$this->data['user']->isAdmin());
 			}
 
 		}

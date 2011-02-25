@@ -16,9 +16,11 @@ class Pages_PageStats extends Pages_Page {
 	// Authenticate the user
 	private function auth() {
 		$this->auth = new FoodleAuth($this->fdb);
-		$this->auth->requireAuth(TRUE);
-
+		$this->auth->requireAuth();
+		
 		$this->user = $this->auth->getUser();
+
+		if (!$this->user->isAdmin()) throw new Exception('You do not have access to this page.');
 
 	}
 	
@@ -61,6 +63,12 @@ class Pages_PageStats extends Pages_Page {
 
 
 		$t = new SimpleSAML_XHTML_Template($this->config, 'stats.php', 'foodle_foodle');
+
+		
+		$t->data['showsupport'] = TRUE;
+		
+		$t->data['loginurl'] = $this->auth->getLoginURL();
+		$t->data['logouturl'] = $this->auth->getLogoutURL();
 
 		$t->data['bread'] = array(
 			array('href' => '/' . $this->config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), 

@@ -20,6 +20,9 @@
 	"youhavecalendar" : {
 		"en" : "Foodle is connected to your calendar. "
 	},
+	"userhascalendar": {
+		"en": "This user has connected his/her calendar to Foodle."
+	},
 	"calendarenabled" : {
 		"en" : "This Foodle is calendar enabled, which means that you can synchronize your response from your calendar."
 	},
@@ -487,5 +490,8 @@
 	},
 	"allday": {
 		"en": "All day"
+	},
+	"shared_entries": {
+		"en": "Foodles both of you have responded to"
 	}
 }

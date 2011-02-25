@@ -132,7 +132,17 @@
 				echo ' <div class="lheader"><a href="/foodle/' . $entry['id'] . '#responses">' . 
 					htmlspecialchars($entry['name']) . '</a></div>';
 #				echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8') . ' </div>';
-				echo ' <div class="lowner">' . $entry['owner'] . '</div>';
+
+					if (!empty($entry['ownername'])) {
+					
+						echo ' <div class="lowner">' . 
+							Data_User::getUsernameHTMLstatic($entry['owner'], $entry['ownername'], !empty($entry['ownername']), !$this->data['user']->isAdmin() ) . 
+							'</div>';
+					} else {
+						echo ' <div class="lowner">' . $entry['owner'] . '</div>';
+					}
+
+
 #				echo '<pre>'; print_r($entry); echo '</pre>';
 				echo '</div>';
 				}
@@ -168,7 +178,17 @@
 					echo ' <div class="lheader"><a href="/foodle/' . $entry['id'] . '">' . 
 						htmlspecialchars($entry['name']) . '</a></div>';
 #					echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8').  ' </div>';
-					echo ' <div class="lowner">' . $entry['owner'] . '</div>';
+
+					if (!empty($entry['ownername'])) {
+					
+						echo ' <div class="lowner">' . 
+							Data_User::getUsernameHTMLstatic($entry['owner'], $entry['ownername'], !empty($entry['ownername']), !$this->data['user']->isAdmin() ) . 
+							'</div>';
+					} else {
+						echo ' <div class="lowner">' . $entry['owner'] . '</div>';
+					}
+
+
 					
 					
 #				echo '<pre>'; print_r($entry); echo '</pre>';

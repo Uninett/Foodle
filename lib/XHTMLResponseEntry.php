@@ -442,7 +442,7 @@ class XHTMLResponseEntry {
 	
 	
 	
-	public static function show(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response) { 
+	public static function show(SimpleSAML_XHTML_Template $t, Data_FoodleResponse $response, $isAdmin= FALSE) { 
 		
 		$extrafields = $response->foodle->getExtraFields();
 		
@@ -486,7 +486,10 @@ class XHTMLResponseEntry {
 				alt="Entry was made with a different number of columns. This might happen when the Foodle was edited after this user responded."
 				title="Entry was made with a different number of columns. This might happen when the Foodle was edited after this user responded." class="" src="/res/error.png" />';
 		}
-		echo $response->getUsernameHTML();
+		
+		
+
+		echo $response->getUsernameHTML(!$isAdmin);
 		echo '</td>';
 		
 		
