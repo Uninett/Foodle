@@ -195,26 +195,41 @@ class Data_User {
 		$modified = FALSE;
 		
 		if (!empty($from->username)) {
-			if ($this->username !== $from->username) $modified = TRUE;
+			if ($this->username !== $from->username) {
+				error_log('username from [' . $this->username. '] to [' . $from->username . ']');
+				$modified = TRUE;
+			}
 			$this->username = $from->username;
 		}
 		if (!empty($from->email)) {
-			if ($this->email !== $from->email) $modified = TRUE;
+			if ($this->email !== $from->email) {
+				error_log('email from [' . $this->email. '] to [' . $from->email . ']');
+				$modified = TRUE;
+			}
 			$this->email = $from->email;
 		}
 		
 		if (!empty($from->org)) {
-			if ($this->org !== $from->org) $modified = TRUE;
+			if ($this->org !== $from->org) {
+				error_log('org from [' . $this->org. '] to [' . $from->org . ']');
+				$modified = TRUE;
+			}
 			$this->org = $from->org;
 		}
 		
 		if (!empty($from->orgunit)) {
-			if ($this->orgunit !== $from->orgunit) $modified = TRUE;
+			if ($this->orgunit !== $from->orgunit) {
+				error_log('orgunit from [' . $this->orgunit. '] to [' . $from->orgunit . ']');
+				$modified = TRUE;
+			}
 			$this->orgunit = $from->orgunit;
 		}
 		
 		if (!empty($from->location)) {
-			if ($this->location !== $from->location) $modified = TRUE;
+			if ($this->location !== $from->location) {
+				error_log('location from [' . $this->location. '] to [' . $from->location . ']');
+				$modified = TRUE;
+			}
 			$this->location = $from->location;
 		}
 		
@@ -228,11 +243,16 @@ class Data_User {
 
 		}
 		
-		if (empty($from->timezone)) {
-			$timezone = new TimeZone(NULL, $this->user);
-			$this->timezone = $timezone->getTimezone();
-			error_log('User had no timezone set..');
-			$modified = TRUE;
+		if (empty($this->timezone)) {
+			$timezone = new TimeZone(NULL, $this);
+			
+			$newtimezone = $timezone->getTimezone();
+			
+			if (!empty($newtimezone)) {
+				$this->timezone = $newtimezone;
+				error_log('User had no timezone set. Setting to [' . $newtimezone. ']');
+				$modified = TRUE;
+			}
 		}
 #		echo '<pre>'; print_r($from); exit;
 #		error_log('User set..');

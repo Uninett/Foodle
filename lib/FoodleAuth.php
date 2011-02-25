@@ -56,7 +56,7 @@ class FoodleAuth {
 // 			$this->user->photom = self::getPhoto($attributes, 'm');
 // 			$this->user->photos = self::getPhoto($attributes, 's');
 
-			error_log('User realm is [' .$this->user->realm . ']');
+//			error_log('User realm is [' .$this->user->realm . ']');
 			
 // 			echo '<pre>'; print_r($this->user); 
 // 			print_r($attributes);
@@ -64,6 +64,9 @@ class FoodleAuth {
 			
 			if ($this->db->userExists($this->user->userid)) {
 				$dbUser = $this->db->readUser($this->user->userid);
+				
+				// echo '<pre>dbUser'; print_r($dbUser); exit;
+				
 				$modified = $dbUser->updateData($this->user);
 				$this->user = $dbUser;
 				if ($modified) { 
