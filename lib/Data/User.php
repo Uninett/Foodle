@@ -219,8 +219,13 @@ class Data_User {
 		}
 		
 		if (!empty($from->realm)) {
-			if ($this->realm !== $from->realm) $modified = TRUE;
+			if ($this->realm !== $from->realm) {
+				error_log('Realm from [' . $this->realm. '] to [' . $from->realm . ']');
+				$modified = TRUE;
+			}
 			$this->realm = $from->realm;
+			
+
 		}
 		
 		if (empty($from->timezone)) {
