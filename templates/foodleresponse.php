@@ -17,7 +17,6 @@ $this->includeAtTemplateBase('includes/header.php');
 if (isset($this->data['timezone'])) {
 	echo('<div id="timezone">');
 	
-	
 	echo('<form onchange="this.submit()" style="display: inline; margin: 0px; padding; 0px" action="?" method="get"');
 	echo('<span>' . $this->t('selecttimezone') . ': ');
 	
@@ -28,10 +27,10 @@ if (isset($this->data['timezone'])) {
 	echo($this->data['timezone']->getHTMLList($current, TRUE) . '');
 	
 	if ($current !== $this->data['foodle']->timezone) {
-		echo('<br />This Foodle was created in the <a href="?timezone=' . htmlspecialchars($this->data['foodle']->timezone) . '"><strong>' . htmlspecialchars($this->data['foodle']->timezone) . '</strong></a> timezone.');
+		echo('<br />This Foodle was created in the <a href="?timezone=' . urlencode($this->data['foodle']->timezone) . '"><strong>' . htmlspecialchars($this->data['foodle']->timezone) . '</strong></a> timezone.');
 	}
 	if ($current !== $this->data['timezone']->getTimeZone()) {
-		echo('<br />Foodle detects your local timezone to be <a href="?timezone=' . htmlspecialchars($this->data['timezone']->getTimeZone()) . '"><strong>' . htmlspecialchars($this->data['timezone']->getTimeZone()) . '</strong></a>.');
+		echo('<br />Foodle detects your local timezone to be <a href="?timezone=' . urlencode($this->data['timezone']->getTimeZone()) . '"><strong>' . htmlspecialchars($this->data['timezone']->getTimeZone()) . '</strong></a>.');
 	}
 	
 	
