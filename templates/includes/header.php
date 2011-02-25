@@ -227,7 +227,7 @@ echo '</p>';
 
 
 
-	if (array_key_exists('owner', $this->data)) {
+	if (array_key_exists('showedit', $this->data)) {
 		echo('<a class="button" href="/edit/' .$this->data['foodle']->identifier . '" style="float: right"><span>' . $this->t('editfoodle') . '</span></a>');
 	}
 

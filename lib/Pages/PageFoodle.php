@@ -254,7 +254,6 @@ class Pages_PageFoodle extends Pages_Page {
 		$this->template->data['ownerid'] = $this->foodle->owner;
 		$this->template->data['showsharing'] = $isAdmin;
 				
-		$this->template->data['showdebug'] = ($this->user->username == 'andreas@uninett.no') || ($this->user->username == 'andreas@rnd.feide.no');
 		if (isset($_REQUEST['debug']) ) {
 			$this->template->data['showdebug'] = TRUE;
 		}
@@ -269,6 +268,8 @@ class Pages_PageFoodle extends Pages_Page {
 			$this->template->data['customDistribute'][] = new UNINETTDistribute($this->foodle, $this->template);			
 		}
 
+			
+		$this->template->data['showedit'] = $isAdmin;
 		$this->template->data['showprofile'] = $this->user->loadedFromDB;
 		
 		if (!empty($this->foodle->datetime)) {
