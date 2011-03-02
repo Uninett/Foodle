@@ -94,7 +94,7 @@ class Data_Foodle {
 	
 	public static function cleanMarkdownInput($input) {
 		$input = Markdown($input);
-		$input = strip_tags($input, '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
+		$input = strip_tags($input, '<h1><h2><h3><h4><h5><h6><p><a><strong><span><br><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
 		return $input;
 	}
 	
