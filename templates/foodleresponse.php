@@ -233,6 +233,7 @@ $discussion = $this->data['foodle']->getDiscussion();
 		<?php
 		if (!empty($this->data['showsharing'])) {
 			echo '<li><a href="#distribute"><span>' . $this->t('distribute') . '</span></a></li>';
+			echo '<li><a href="#invite"><span>' . $this->t('invite') . '</span></a></li>';
 		}
 		if (!empty($this->data['showdebug'])) {
 			echo '<li><a href="#showdebug"><span>' . $this->t('debug') . '</span></a></li>';
@@ -648,20 +649,93 @@ echo '</div><!-- end #discussionouterbox -->';
 if ($this->data['showsharing']) {
 	echo '<div id="distribute" style="margin: .2em 5em .2em 5em; ">';
 
+	
+
+
+	echo('<div id="share_accordion">');
+
+
+	// Share a link
+	echo('<h3><a href="#">' . $this->t('invitation') . '</a></h3>');
+	echo('<div>');
+	echo( '<input type="submit" id="start_invite" class="start_invite" value="' . $this->t('invite_button') . '" />');
+	echo('</div>');
+
+	// Share a link
+	echo('<h3><a href="#">' . $this->t('sharelink') . '</a></h3>');
+	echo('<div>');
 	echo( '<p>' . $this->t('sharing') . '</p>');
 	echo( '<p>' . $this->t('sharinglink') . '</p>');
 	echo('<div class="sharinglink">' . 
 		htmlentities($this->data['url']) . 
 		'</div>');
 	echo( '<p>' . $this->t('sharing2') . '</p>');
+	echo('</div>');
 	
+	// Custom distribute..
 	if (isset($this->data['customDistribute']) && count($this->data['customDistribute']) > 0) {	
 		foreach($this->data['customDistribute'] AS $cd) {
 			$cd->show();
 		}
 	}
 
+	echo '</div>'; // end accordion
+	echo '</div>'; // end tab
+	
+	
+	echo '<div id="invite" style="margin: .2em 5em .2em 5em; ">';
+
+	echo( '<p>' . $this->t('invitation_intro') . '</p>');
+
+	echo('	<form id="form_invite_search">
+				<div><input style="width: 100%" type="search" name="invite_search" id="invite_search" /></div>
+			</form>
+			
+<!--
+			<div class="invite_groups" style="border: 1px solid #ccc; background: #ffc; padding: .4em; margin: .5em 0px; ">
+				Alternatively, pick contacts from your Foodle groups: 
+					<a href=""><img style="position:relative; top:3px" src="/res/group.png" alt="group" /> Feide (8)</a>, 
+					<a href=""><img style="position:relative; top:3px" src="/res/group.png" alt="group" /> GN3 Identity Federations (24)</a>, 
+					<a href=""><img style="position:relative; top:3px" src="/res/group.png" alt="group" /> UNINETT (80)</a> 
+			</div>
+-->
+			
+			<div id="invite_results" class="invite_results"></div>
+');			
+	
+	echo('<h3>' . $this->t('invited_users') . '</h3>');
+	echo('<div id="invited_list">');
+	
+	
+	
+	// Show list of already invited users..
+	$responses = $this->data['foodle']->getResponses();	
+	foreach($responses AS $response) {
+	#	echo '<div>' . $response->userid . '</div>';
+		if (!$response->invitation) continue;
+		$displayname = $response->getUsername();
+		echo '<div id="user_' . urlencode(sha1($response->userid)) . '" class="invite_result_entry">' .
+			'<img style="position: relative; top: 2px"  src="/res/user_grey.png" alt="User icon" /> ' .
+			$displayname .
+			'</div>';
+	}
+	echo ('</div>');
+
+
+	echo('<h3>' . $this->t('users_responded') . '</h3>');
+	echo('<div id="users_responded">');
+	foreach($responses AS $response) {
+	#	echo '<div>' . $response->userid . '</div>';
+		if ($response->invitation) continue;
+		$displayname = $response->getUsername();
+		echo '<div id="user_' . urlencode(sha1($response->userid)) . '" class="invite_result_entry">' .
+			'<img style="position: relative; top: 2px"  src="/res/user_grey.png" alt="User icon" /> ' .
+			$displayname .
+			'</div>';
+	}
+	echo ('</div>');
 	echo '</div>';
+	
 }
 
 if (!empty($this->data['showdebug'])) {

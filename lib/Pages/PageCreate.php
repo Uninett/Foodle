@@ -54,25 +54,32 @@ class Pages_PageCreate extends Pages_Page {
 		$name = $foodle->name;
 		$to = $this->user->email;
 		$mail = '
-		
-		<p>Hi, your new Foodle named <i>' . htmlspecialchars($name) . '</i> was successfully created.</p>
-		
-		<p>You may visit the Foodle link below to respond to the foodle or to view other responses:
-		<ul>
-			<li><a href="' . $url . '">Response to this Foodle</a></li>
-			<li><a href="' . $url . '#responses">View responses of other participants</a></li>
-		</ul></p>
-		
-		<p>If you want so invite others to respond to this Foodle, you should share the link below:</p>
-		
-		<pre><code>' . htmlspecialchars($url) . '</code></pre>
-		
-		<p>You can turn of this e-mail notification, and configure other notification messages <a href="' . 
-			htmlspecialchars($profileurl) . '">from your Foodle preference page</a>:</p>
-		
-		<pre><code>' . htmlspecialchars($profileurl) . '</code></pre>
+Hi, your new Foodle named <i>' . htmlspecialchars($name) . '</i> was successfully created.
 
-		
+You may visit your Foodle link below to update your response, and view other responses:
+
+* [Edit your Foodle response](' . $url . ')
+* [View responses of other participants](' . $url . '#responses)
+
+If you want so invite others to respond to this Foodle, you should share the link below:
+
+	' . htmlspecialchars($url) . '
+
+
+### Notifications
+
+You can turn of this e-mail notification, and configure other notification messages <a href="' . 
+	htmlspecialchars($profileurl) . '">from your Foodle preference page</a>:
+
+	' . htmlspecialchars($profileurl) . '
+
+
+### Did you know
+
+You may also create new Foodles on your own, and invite others to respond.
+
+* [Go to Foodl.org to create a new Foodle.](http://foodl.org)
+
 		';
 		$mailer = new Foodle_EMail($to, 'New foodle: ' . htmlspecialchars($name), 'Foodl.org <no-reply@foodl.org>');
 		$mailer->setBody($mail);

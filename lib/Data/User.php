@@ -47,6 +47,14 @@ class Data_User {
 		return Data_User::getUsernameHTMLstatic($userid, $username, isset($response->user), $includetoken, $nolink);
 	}
 	
+	public function getUsernameHTML($userid, $username, $hasprofile = FALSE) {
+		
+		$includetoken = !$this->isAdmin();
+		$nolink = !$this->loadedFromDB;
+
+		return self::getUsernameHTMLstatic($userid, $username, $hasprofile, $includetoken, $nolink);
+	}
+	
 	public static function getUsernameHTMLstatic($userid, $username, $hasprofile = FALSE, $includeToken = TRUE, $nolink = FALSE) {
 
 		$userpage = '/user/' . $userid;
@@ -59,15 +67,19 @@ class Data_User {
 		if ($hasprofile && !$nolink) {
 			$str .= '<a href="' . htmlspecialchars($userpage)  . '"><img src="/res/user_grey.png" alt="User profile" />';
 		}
+	
 
 		$str .= htmlspecialchars($username);
-		if (isset($userid)) {
-			$str = '<abbr title="' . htmlspecialchars($userid) . '">' . $str  . '</abbr>';
-		}
 		
 		if ($hasprofile && !$nolink) {
 			$str .= '</a>';
 		}
+		
+		if (isset($userid)) {
+			$str = '<abbr title="' . htmlspecialchars($userid) . '">' . $str  . '</abbr>';
+		}
+		
+
 
 		
 		if (preg_match('|^@(.*)$|', $userid, $matches)) 
@@ -96,7 +108,7 @@ class Data_User {
 		
 		$file  = $basepath . $basefilename . '-' . $size . '.jpeg';
 		
-		error_log('Looking for file : ' . $file);
+		// error_log('Looking for file : ' . $file);
 		
 		if (!file_exists($file)) return FALSE;
 		

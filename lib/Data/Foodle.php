@@ -137,6 +137,11 @@ class Data_Foodle {
 		$this->responses[$response->userid] = $response;
 	}
 	
+	public function responseExists($userid) {
+		$this->getResponses();
+		return (!empty($this->responses[$userid]));
+	}
+	
 	// Return all responses to this foodle. This function caches.
 	public function getResponses() {
 		if ($this->responses === NULL) $this->responses = $this->db->readResponses($this);
@@ -842,9 +847,11 @@ class Data_Foodle {
 	public function updateFromPostFixDate(Data_User $user) {
 
 		if (!empty($_REQUEST['descr'])) {
-			$this->descr = strip_tags($_REQUEST['descr'],
-				'<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>'
-			);
+		
+			$this->descr = isset($_REQUEST['descr']) ? $_REQUEST['descr'] : '...';		
+			$this->descr = preg_replace('/\s(http[^ ]*?)\s/', '[\1](\1)', $this->descr);
+			$this->descr = preg_replace('/<(http[^>]*)>/', '[\1](\1)', $this->descr);
+			$this->descr = strip_tags($this->descr, '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
 		}
 		if (!empty($_REQUEST['timezone'])) {
 			$this->timezone = $_REQUEST['timezone'];			
@@ -858,9 +865,10 @@ class Data_Foodle {
 		if (empty($_REQUEST['coldef'])) throw new Exception('Did not get column definition.');
 
 		$this->name = strip_tags($_REQUEST['name']);
-		$this->descr = isset($_REQUEST['descr']) ? 
-			strip_tags($_REQUEST['descr'], '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>') : 
-			'...';
+		$this->descr = isset($_REQUEST['descr']) ? $_REQUEST['descr'] : '...';		
+		$this->descr = preg_replace('/\s(http[^ ]*?)\s/', '[\1](\1)', $this->descr);
+		$this->descr = preg_replace('/<(http[^>]*)>/', '[\1](\1)', $this->descr);
+		$this->descr = strip_tags($this->descr, '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
 
 		if(!empty($_REQUEST['maxentries']) && is_numeric($_REQUEST['maxentries'])) {
 			$this->maxentries = strip_tags($_REQUEST['maxentries']);

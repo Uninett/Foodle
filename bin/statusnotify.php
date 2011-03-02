@@ -25,49 +25,53 @@ class SNM {
 	public function execute() {
 		
 		$text = '
-			<p>Below follows the latest updates on Foodles you have created.</p>
+Below follows the latest updates on Foodles you have created.
+
 		';
 		
 		foreach($this->updates AS $foodleid => $res) {
 			$url = FoodleUtils::getUrl() . 'foodle/' . $res['foodle']->identifier;
 			$text .= '
-				<h2>' . htmlspecialchars($res['foodle']->name) . '</h2>
-			';
+## ' . htmlspecialchars($res['foodle']->name) . '
+
+';
 			if (empty($res['updates']['responses'])) {
-				$text .= '<p>No new responses was registered for this Foodle.</p>';
+				$text .= "\n\nNo new responses was registered for this Foodle.\n";
 			} else {
-				$text .= '<ul>';
+				$text .= "\n";
 				foreach($res['updates']['responses'] AS $response) {
-					$text .= '<li>' . $response->statusline() . '</li>';
+					$text .= '* ' . $response->statusline() . "\n";
 				}
-				$text .= '</ul>';
+				$text .= "\n";
 			}
 			if (empty($res['updates']['discussion'])) {
-				$text .= '<p>No new discussion entries was registered for this Foodle.</p>';
+				$text .= "\nNo new discussion entries was registered for this Foodle.\n";
 			} else {
-				$text .= '<ul>';
+				$text .= "\n";
 				foreach($res['updates']['discussion'] AS $discussion) {
 					#print_r($discussion);
-					$text .= '<li>' . date('H:i', $discussion['createdu']) . ' ' . $discussion['username'] . ' added a discussion entry.</li>';
+					$text .= "* " . date('H:i', $discussion['createdu']) . ' ' . $discussion['username'] . " added a discussion entry.\n";
 				}
-				$text .= '</ul>';
+				$text .= "\n";
 			}
 			
-			$text .= '<p><a href="' . htmlspecialchars($url) . '">Go to this foodle to view all responses</a></p>';
+			$text .= "\n[Go to this foodle to view all responses](" . htmlspecialchars($url) . ")\n\n";
 			
 		}
 
 		$profileurl = FoodleUtils::getUrl() . 'profile';
 		$text .= '
-			<h2>Setup your e-mail notification preferences</h2>
-			<p>You can turn of this e-mail notification, and configure other notification messages <a href="' . 
-			htmlspecialchars($profileurl) . '">from your Foodle preference page</a>:</p>
 
-			<pre><code>' . htmlspecialchars($profileurl) . '</code></pre>';
+## Setup your e-mail notification preferences
+
+You can turn of this e-mail notification, and configure other notification messages <a href="' . 
+			htmlspecialchars($profileurl) . '">from your Foodle preference page</a>:
+
+	' . htmlspecialchars($profileurl);
 
 
 		$to = $this->user->email;
-	//	$to = 'andreassolberg@gmail.com';
+#		$to = 'andreassolberg@gmail.com';
 		$mailer = new Foodle_EMail($to, 'Daily Foodle status update', 'Foodl.org <no-reply@foodl.org>');
 		$mailer->setBody($text);
 		$mailer->send();

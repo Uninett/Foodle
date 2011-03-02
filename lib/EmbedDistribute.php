@@ -24,11 +24,12 @@ class EmbedDistribute {
 	
 	function show() {
 		
-		echo('<h2>' . $this->template->t('embed_header') . '</h2>');
+		echo('<h3><a href="#">' . $this->template->t('embed_header') . '</a></h3>');
+		echo('<div>');
 		echo('<p>' . $this->template->t('embed_text1') . '</p>');
 		echo($this->embedIframe());
 		echo('<p>' . $this->template->t('embed_api') . '</p>');
-
+		echo('</div>');
 	}
 	
 	

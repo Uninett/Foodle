@@ -1,9 +1,19 @@
 <?php
 
 class Pages_PagePreview extends Pages_Page {
+	protected $auth, $user;
 	
 	function __construct($config, $parameters) {
 		parent::__construct($config, $parameters);
+		$this->auth();
+	}
+	
+	
+	// Authenticate the user
+	protected function auth() {
+		$this->auth = new FoodleAuth($this->fdb);
+		$this->auth->requireAuth(FALSE);
+		$this->user = $this->auth->getUser();
 	}
 	
 	// Process the page.
@@ -13,10 +23,7 @@ class Pages_PagePreview extends Pages_Page {
 			$_REQUEST[$parameter] = strip_tags($_REQUEST[$parameter]);
 		}
 		$descr = Data_Foodle::cleanMarkdownInput($_REQUEST['descr']);
-		
-// echo '<pre>';
-// print_r($_REQUEST);
-// echo '</pre>'; exit;
+	
 		
 		echo '<h1>' . htmlspecialchars($_REQUEST['name']) . '</h1>';
 		echo '<p>' . $descr . '</p>';
@@ -42,65 +49,11 @@ class Pages_PagePreview extends Pages_Page {
 		$demoresponse->email = 'you@acme.org';
 		$demoresponse->response = array('type' => 'manual', 'data' => array_fill(0, $foodle->getNofColumns(), '0') );
 		
-		XHTMLResponseEntry::showEditable($t, $demoresponse, FALSE);
+		XHTMLResponseEntry::showEditable($this->user, $t, $demoresponse, FALSE);
 
 		echo '
 		</tbody>	
 		</table>';
-		#echo '</div>'; // END outline box...
-		
-// 		echo '<p style="margin-top: 2em"><strong>Calendar integration</strong></p>';
-// 	
-// 		$columns = array();
-// 		$foodle->getColumnList(&$columns);
-// 		$columnDates = $foodle->getColumnDates();
-// 		
-// 		$ce = $foodle->calendarEnabled();
-// 		
-// 		if ($ce) {
-// 			echo '<div><img src="/res/yes.png" alt="yes" /> ';
-// 			echo 'All columns are reckognized as dates, and this Foodle will then be calendar-enabled. This means that users may connect the foodle response to their calaendar, to keep the response automatically updated. [ <a id="datecoldetailsbutton" href="#" onclick="$(\'#datecoldetails\').show();">Show details</a> ]</div>';
-// 		} else {
-// 			echo '<div><img src="/res/no2trans.png" alt="no" /> ';
-// 			echo 'One or more of the columns are not reckognized as dates. This means that users may <strong>not</strong> connect the foodle response to their calaendar. [ <a id="datecoldetailsbutton" href="#" onclick="$(\'#datecoldetails\').show();">Show details</a> ]</div>';
-// 		}
-// 		
-// 
-// 		echo '<table id="datecoldetails" style="display: none"><tr><th>Column header</th><th>Reckognized as date</th></tr>';
-// 
-// 		foreach($columns AS $i => $column) {
-// 
-// 			echo '<tr>';
-// 			if (is_array($column)) {
-// 				echo '<td>'. htmlspecialchars($column[0]) . ' - ' . htmlspecialchars($column[1]) .  '</td>';				
-// 			} else {
-// 				echo '<td>'. htmlspecialchars($column) . '</td>';
-// 			}
-// 
-// 			
-// 			if (is_array($columnDates[$i]) && !empty($columnDates[$i][0]) && !empty($columnDates[$i][1])) {
-// 				echo '<td><img src="/res/yes.png" alt="yes" /> ';
-// 				echo date('j. M Y H:i', $columnDates[$i][0]) . ' - ' . date('j. M Y H:i', $columnDates[$i][1]);
-// 				echo '</td>';
-// 			} else {
-// 				echo '<td>' . 
-// 					'<img src="/res/no2trans.png" alt="no" /> ' .
-// 					'Not reckognized as a date'. '</td>';
-// 			}
-// 			
-// 			// if (!empty($columnDates[$i])) {
-// 			// 	echo '<td>' . 
-// 			// 		'<img src="/res/yes.png" alt="yes" /> ' .
-// 			// 		date('j. M Y H:i', $columnDates[$i]) . '</td>';				
-// 			// } else {
-// 			// 
-// 			// }
-// 
-// 			echo '</tr>';
-// 		}
-// 		// echo '<p>Columns: <pre>'; print_r($columns); echo '</pre>';
-// 		// echo '<p>Column dates: <pre>'; print_r($columnDates); echo '</pre>';
-// 		echo '</table>';
 
 
 	}

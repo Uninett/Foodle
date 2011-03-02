@@ -32,7 +32,11 @@ class Foodle_EMail {
 		$this->body = $body;
 	}
 	
-	private function getHTML($body) {
+	public function getHTML($body) {
+		if (empty($body)) $body = $this->body;
+		
+		$body = Data_Foodle::cleanMarkdownInput($body);
+		
 		return '<!DOCTYPE html>
 		<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 		<head xml:lang="en">
@@ -127,6 +131,10 @@ class Foodle_EMail {
 		div#content h1 {
 			margin-top: 0px;
 		}
+		
+		hr {
+			height: 0px; color: #ccc; 
+		}
 
 
 		/*  --- Header ---  */
@@ -212,13 +220,6 @@ class Foodle_EMail {
 
 
 
-		<!-- Red logo header -->
-		<div id="header">	
-			<div id="logo">Foodle <span id="version">mail</span> 
-
-			</div><!-- end #logo -->
-
-		</div><!-- end #header -->
 
 
 		<!-- Grey header bar below -->
@@ -237,7 +238,7 @@ class Foodle_EMail {
 		</div><!-- /#content -->
 
 		<div id="footer">
-			This mail was sent to you because you did use the Foodle service at foodl.org.
+			This mail was sent via <a href="https://foodl.org">foodl.org</a>. Please report misuse &mdash; <a href="https://foodl.org/support">Foodle Support</a>.
 		</div><!-- /#footer -->
 
 

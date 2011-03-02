@@ -30,9 +30,13 @@ class Data_FoodleResponse {
 	public $email;
 	public $response;
 	public $notes;
+
+	public $invitation = FALSE;
 	
 	public $created;
 	public $updated;
+	
+
 
 	public $user;
 	
@@ -57,11 +61,19 @@ class Data_FoodleResponse {
 	}
 	
 
+	public function getUsername() {
+		if (!empty($user)) {
+			if (!empty($user->username)) return $user->username;
+		}
+		if (!empty($this->username)) return $this->username;
+		return $this->userid;
+	}
 	
 	public function updateFromical(Data_User $user, $cache = TRUE) {
 
 		if (!$user->hasCalendar()) throw new Exception('User has no calendar information');
 		
+		$this->invitation = false;
 		
 		$this->user = $user;
 		
@@ -139,6 +151,8 @@ class Data_FoodleResponse {
 		$responseData = array_fill(0, $this->foodle->getNofColumns(), '0');
 		
 		$this->user = $user;
+		
+		$this->invitation = false;
 		
 		if (!empty($_REQUEST['myresponse'])) {
 			foreach ($_REQUEST['myresponse'] AS $yes) {

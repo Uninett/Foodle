@@ -33,6 +33,32 @@ try {
 			$page = new Pages_PageFront($config, $parameters);
 			$page->show();
 			break;
+			
+			
+		/*
+		 * API used by JS, and possibly others...
+		 */
+		case 'api': 
+			if (count($parameters) < 1) throw new Exception('Missing parameter');			
+			$action2 = array_shift($parameters);
+			
+			switch($action2) {
+				case 'contacts': 
+					$api = new API_Contacts($config, $parameters);
+					$api->show();
+					break;
+					
+				case 'invite': 
+					$api = new API_Invite($config, $parameters);
+					$api->show();
+					break;
+
+			}
+			break;
+			
+			
+			
+			
 	
 		case 'embed':
 			$embed = new Pages_EmbedFoodle($config, $parameters);
@@ -53,6 +79,11 @@ try {
 
 		case 'user':
 			$page = new Pages_PageUser($config, $parameters);
+			$page->show();
+			break;
+			
+		case 'contacts':
+			$page = new Pages_PageContacts($config, $parameters);
 			$page->show();
 			break;
 

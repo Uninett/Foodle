@@ -649,3 +649,16 @@ div.userlist div.user div.orgunit {
 	font-size: x-small;
 }
 
+
+
+
+div.invite_result_entry {
+	border: 1px solid #ccc;
+	background: #eee;
+	margin: 2px 0px;
+	padding: 2px 10px;
+}
+div.invite_result_entry:nth-child(2n) {
+	background: #fff;
+}
+

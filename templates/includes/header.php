@@ -26,6 +26,15 @@
 
 
 	<script type="text/javascript">
+<?php
+
+if (!empty($this->data['foodle'])) {
+	echo 'var foodle_id = "' . htmlspecialchars($this->data['foodle']->identifier) . '"; ' . "\n\n";
+}
+
+
+?>
+	
 		$(document).ready(function() {
 	
 			$("a.signin").DiscoJuice({
@@ -146,7 +155,7 @@ if (isset($this->data['head']))
 
 <!-- Red logo header -->
 <div id="header">	
-	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 3.1</span> 
+	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 3.2</span> 
 		<a id="news" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/category/foodle/">
 			∘ <?php echo $this->t('read_news'); ?></a>  
 		<a id="mailinglist" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/software/foodle/">

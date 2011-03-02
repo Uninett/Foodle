@@ -121,26 +121,19 @@ class Pages_PageFoodle extends Pages_Page {
 		$to = $this->user->email;
 		$mail = '
 		
-		<p>Hi, your response to the Foodle named <i>' . htmlspecialchars($name) . '</i> was successfully stored.</p>
-		
-		<p>You may re-enter the Foodle link below to update your response, and view other responses:
-		<ul>
-			<li><a href="' . $url . '">Edit your response for this Foodle</a></li>
-			<li><a href="' . $url . '#responses">View responses of other participants</a></li>
-		</ul></p>
+Hi, your response to the Foodle named <i>' . htmlspecialchars($name) . '</i> was successfully stored.</p>
 
-		<h2>Did you know?</h2>
-		<p>You may also create new Foodles on your own, and invite others to respond.
-		<ul>
-			<li><a href="http://foodl.org">Go to Foodl.org to create a new Foodle.</a></li>
-		</ul></p>
-		
-		<p>You can turn of this e-mail notification, and configure other notification messages <a href="' . 
-			htmlspecialchars($profileurl) . '">from your Foodle preference page</a>:</p>
-		
-		<pre><code>' . htmlspecialchars($profileurl) . '</code></pre>
+You may re-enter the Foodle link below to update your response, and view other responses:
 
-		
+* [Edit your Foodle response](' . $url . ')
+* [View responses of other participants](' . $url . '#responses)
+
+### Did you know
+
+You may also create new Foodles on your own, and invite others to respond.
+
+* [Go to Foodl.org to create a new Foodle.](http://foodl.org)
+
 		';
 		$mailer = new Foodle_EMail($to, 'Foodle: ' . htmlspecialchars($name), 'Foodl.org <no-reply@foodl.org>');
 		$mailer->setBody($mail);
@@ -265,6 +258,9 @@ class Pages_PageFoodle extends Pages_Page {
 		$this->template->data['customDistribute'] = array();
 		$this->template->data['customDistribute'][] = new EmbedDistribute($this->foodle, $this->template);
 		if ($this->user->realm === 'uninett.no') {
+			$this->template->data['customDistribute'][] = new UNINETTDistribute($this->foodle, $this->template);			
+		}
+		if ($this->user->userid === 'andreas@rnd.feide.no') {
 			$this->template->data['customDistribute'][] = new UNINETTDistribute($this->foodle, $this->template);			
 		}
 

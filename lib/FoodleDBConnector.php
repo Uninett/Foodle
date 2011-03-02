@@ -80,7 +80,7 @@ class FoodleDBConnector {
 			'discussion' => array(),
 		);
 		
-		$updates['responses'] = $this->readResponses($foodle, $ago);
+		$updates['responses'] = $this->readResponses($foodle, $ago, FALSE);
 		$updates['discussion'] = $this->readDiscussion($foodle, $ago);
 		
 #		print_r($updates);
@@ -174,6 +174,18 @@ class FoodleDBConnector {
 			throw new Exception('Cannot create SQL statement for attribute [' . $name . '] where the value is empty and there is no default value');
 		}
 		return $namest . $default . $comma . " \n";
+	}
+	
+	
+	public function lookupEmail($email) {
+	
+		$sql ="
+			SELECT userid 
+			FROM user WHERE email = '" . mysql_real_escape_string($email) . "'";
+		$users = $this->q($sql, 'userid');
+		
+		if (count($users) > 0) return $users[0];
+		return null;
 	}
 	
 
@@ -503,7 +515,7 @@ class FoodleDBConnector {
 	/*
 	 * Collect all responses from a Foodle
 	 */
-	public function readResponses(Data_Foodle $foodle, $maxago = NULL) {
+	public function readResponses(Data_Foodle $foodle, $maxago = NULL, $includeInvites = TRUE) {
 		
 // SELECT entries.*, 
 // UNIX_TIMESTAMP(entries.created) AS createdu,
@@ -514,7 +526,10 @@ class FoodleDBConnector {
 		
 		$maxclause = '';
 		if ($maxago !== null) {
-			$maxclause = ' AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(updated) < ' . mysql_real_escape_string($maxago) ;
+			$maxclause = ' AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(entries.updated) < ' . mysql_real_escape_string($maxago) ;
+		}
+		if (!$includeInvites) {
+			$maxclause = ' AND invitation = false ';
 		}
 		
 		$sql ="
@@ -524,7 +539,7 @@ class FoodleDBConnector {
 				user.userid AS profile
 				FROM entries LEFT JOIN user ON (entries.userid = user.userid)
 			WHERE foodleid='" . $foodle->identifier . "' " . $maxclause . "
-			ORDER BY entries.updated desc, entries.created desc";
+			ORDER BY entries.invitation, entries.updated desc, entries.created desc";
 
 		$result = mysql_query($sql, $this->db);
 		
@@ -553,10 +568,13 @@ class FoodleDBConnector {
 					$newResponse->user = $ruser;
 				}
 				
-				#echo '<pre>'; print_r($row); #exit;
+#				echo '<pre>'; print_r($row); #exit;
 				
+				$newResponse->invitation = (!empty($row['invitation']));
 				
-				if (self::isJSON($row['response'][0])) {
+				if (empty($row['response'])) {
+					$newResponse->response = NULL;
+				} else if (self::isJSON($row['response'][0])) {
 					#echo 'Decoded resposne as json: <pre>' . $row['response'] . '</pre>';
 
 					$newResponse->response = json_decode($row['response'], TRUE);
@@ -684,6 +702,16 @@ class FoodleDBConnector {
 	}
 
 
+	public function removeEmailInvites($foodleid, $email) {
+		
+		$sql = "DELETE FROM entries 
+			WHERE foodleid = '" . mysql_real_escape_string($foodleid, $this->db) . "' AND 
+				invitation = true AND
+				email = '" .mysql_real_escape_string($email, $this->db) . "'";
+		$this->execute($sql);
+	}
+
+
 	/*
 	 * Add or update response to a foodle
 	 */
@@ -694,6 +722,8 @@ class FoodleDBConnector {
 		// $sql = "DELETE FROM entries WHERE foodleid = '" . $response->foodle->identifier. "' AND userid = '" . addslashes($response->userid) . "'";
 		// mysql_query($sql, $this->db);
 		// 
+		
+		$invitation = ($response->invitation ? 'true' : 'false');
 
 		if ($response->loadedFromDB) {
 			$sql = "
@@ -702,17 +732,20 @@ class FoodleDBConnector {
 					email = '" . addslashes($response->email) . "', 
 					response = '" . $response->asJSON() . "', 
 					notes = '" . addslashes($response->notes)  . "',
+					invitation = " . $invitation . ",
 					updated = NOW()		
 				WHERE foodleid = '" . $response->foodle->identifier. "' AND userid = '" . addslashes($response->userid) . "'
 			";
 			
 		} else {
+			if (!empty($response->email)) $this->removeEmailInvites($response->foodle->identifier, $response->email);
 			$sql = "
-				INSERT INTO entries (foodleid, userid, username, email, response, updated) values (
+				INSERT INTO entries (foodleid, userid, username, email, invitation, response, updated) values (
 					'" . addslashes($response->foodle->identifier) . "',
 					'" . addslashes($response->userid) . "', 
 					'" . addslashes($response->username) . "', 
 					'" . addslashes($response->email) . "', 
+					" . $invitation . ", 
 					'" . $response->asJSON() . "', now())";
 			
 		}
@@ -730,7 +763,7 @@ class FoodleDBConnector {
 
 	public function getStats() {
 	
-		$sql = 'select count(*) as num from (select UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(created) as d from entries  having d < 7*60*60*24 ) as a';
+		$sql = 'select count(*) as num from (select UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(created) as d from entries WHERE invitation = false having d < 7*60*60*24 ) as a';
 		$result = mysql_query($sql, $this->db);		
 		if(!$result) throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
 		
@@ -826,6 +859,7 @@ class FoodleDBConnector {
 			WHERE foodleid IN " . $fidstr . "
 				and userid != '" . addslashes($userid) . "'
 				and def.id = entries.foodleid
+				and entries.invitation = false
 			ORDER BY entries.created DESC 
 			LIMIT " . $no;
 
@@ -870,7 +904,7 @@ class FoodleDBConnector {
 		$sql ="
 			SELECT entries.*, def.*, user.username ownername 
 			FROM entries, def LEFT JOIN user ON (def.owner = user.userid)
-			WHERE entries.userid = '" . $user->userid . "' and entries.foodleid = def.id
+			WHERE entries.userid = '" . $user->userid . "' and entries.foodleid = def.id 
 			ORDER BY def.created DESC";
 
 		$result = mysql_query($sql, $this->db);
@@ -921,11 +955,7 @@ class FoodleDBConnector {
 
 
 	public function getSharedEntries(Data_User $user1, Data_User $user2, $no = 20) {
-
-
-
-;
-				
+		
 		$sql ="
 			SELECT def.id, def.name
 FROM entries e1 JOIN entries e2 ON (e1.foodleid = e2.foodleid)
@@ -957,7 +987,26 @@ ORDER BY e1.created DESC LIMIT " . $no;
 	}
 	
 	
+
+// SELECT count(user.userid) c, user.username
+// FROM entries e1 INNER JOIN entries e2 ON (e1.foodleid = e2.foodleid) JOIN user ON (e2.userid = user.userid)
+// WHERE e1.userid = 'hatlen@hit.no' AND e2.userid != 'hatlen@hit.no'
+// GROUP BY user.userid 
+// ORDER BY c desc, user.username;
 	
+
+	public function getContacts(Data_User $user) {
+
+		$sql ="
+SELECT count(user.userid) c, user.userid, user.email, user.username
+FROM entries e1 INNER JOIN entries e2 ON (e1.foodleid = e2.foodleid) JOIN user ON (e2.userid = user.userid)
+WHERE e1.userid = '" . addslashes($user->userid) . "' AND e2.userid != '" . addslashes($user->userid) . "'
+GROUP BY user.userid
+ORDER BY c desc";
+
+		return $this->q($sql);
+		
+	}
 
 
 
@@ -1025,6 +1074,8 @@ ORDER BY e1.created DESC LIMIT " . $no;
 		
 	}
 	
+
+
 
 
 	

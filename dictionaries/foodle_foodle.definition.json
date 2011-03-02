@@ -131,6 +131,9 @@
 	"sharing2": {
 		"en": "You may choose to send the link with e-mail, on a mailinglist, on instant messager or some other communication path where you can reach the users."
 	},
+	"sharelink": {
+		"en": "Share a link"
+	},
 	"refresh": {
 		"en": "Refresh"
 	},
@@ -493,5 +496,23 @@
 	},
 	"shared_entries": {
 		"en": "Foodles both of you have responded to"
+	},
+	"invite": {
+		"en": "Invite"
+	},
+	"invitation": {
+		"en": "Share by invitation"
+	},
+	"invitation_intro": {
+		"en": "Search for contacts to invite to this Foodle, or invite by entering the e-mail address of the receipient."
+	},
+	"invite_button": {
+		"en": "Invite some contacts"
+	},
+	"invited_users": {
+		"en": "Invited contacts"
+	},
+	"users_responded": {
+		"en": "Users that already have responded to this Foodle"
 	}
 }

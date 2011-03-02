@@ -47,10 +47,20 @@ require_once($THISPATH . 'lib/Markdown/markdown.php');
 
 // Data objects
 require_once($THISPATH . 'lib/Data/User.php');
+require_once($THISPATH . 'lib/Data/Contacts.php');
 require_once($THISPATH . 'lib/Data/Foodle.php');
 require_once($THISPATH . 'lib/Data/FoodleResponse.php');
 require_once($THISPATH . 'lib/Data/FoodleListings.php');
 require_once($THISPATH . 'lib/Data/ActivityStream.php');
+
+
+// API
+require_once($THISPATH . 'lib/API/API.php');
+require_once($THISPATH . 'lib/API/Authenticated.php');
+require_once($THISPATH . 'lib/API/Contacts.php');
+require_once($THISPATH . 'lib/API/Invite.php');
+
+
 
 // Pages
 require_once($THISPATH . 'lib/Pages/Page.php');
@@ -70,6 +80,8 @@ require_once($THISPATH . 'lib/Pages/EmbedFoodle.php');
 require_once($THISPATH . 'lib/Pages/RSSFoodle.php');
 require_once($THISPATH . 'lib/Pages/CSVFoodle.php');
 require_once($THISPATH . 'lib/Pages/CalFoodle.php');
+
+require_once($THISPATH . 'lib/Pages/PageContacts.php');
 
 require_once($THISPATH . 'lib/Pages/PageCreate.php');
 require_once($THISPATH . 'lib/Pages/PageEdit.php');

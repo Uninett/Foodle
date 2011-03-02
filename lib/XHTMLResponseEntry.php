@@ -537,30 +537,43 @@ class XHTMLResponseEntry {
 		
 		}
 		
-
-		if ($response->response['type'] === 'ical') {
-			foreach ($response->response['data'] AS $no => $entry) {
-				if ($entry == '1') {
-					echo '<td class="yes center"><img class="yesimg" alt="Yes" src="/res/yes.png" /></td>';
-				} else {
-					echo '<td class="no center"><img class="yesimg" alt="Yes" title="' . $t->t('calendarcollision') . ': '. $response->response['crash'][$no] . '" src="/res/busy.png" /></td>';
-				}
-			}
+		if ($response->invitation) {
+			
+			echo '<td class="invitation" style="padding: 0px 2em; color: #777" colspan="' . $response->foodle->getNofColumns() . '">
+			Invited. Waiting for response...
+			</td>';
+			
 		} else {
-		
-			foreach ($response->response['data'] AS $no => $entry) {
-				if ($entry == '1') {
-					echo '<td class="yes center"><img class="yesimg" alt="Yes" src="/res/yes.png" /></td>';
-				} elseif ($entry == '0') {
-					echo '<td class="no center"><img class="yesimg" alt="No" src="/res/no2trans.png" /></td>';
-				} elseif ($entry == '2') {
-					echo '<td class="maybe center"><img class="maybeimg" alt="Maybe" src="/res/maybe.png" /></td>';
-				} else {
-					echo '<td class="no center grey"><img class="yesimg" alt="Invalid entry" src="/res/error.png" /></td>';
+			
+			
+			if ($response->response['type'] === 'ical') {
+				foreach ($response->response['data'] AS $no => $entry) {
+					if ($entry == '1') {
+						echo '<td class="yes center"><img class="yesimg" alt="Yes" src="/res/yes.png" /></td>';
+					} else {
+						echo '<td class="no center"><img class="yesimg" alt="Yes" title="' . $t->t('calendarcollision') . ': '. $response->response['crash'][$no] . '" src="/res/busy.png" /></td>';
+					}
 				}
+			} else {
+	
+				foreach ($response->response['data'] AS $no => $entry) {
+					if ($entry == '1') {
+						echo '<td class="yes center"><img class="yesimg" alt="Yes" src="/res/yes.png" /></td>';
+					} elseif ($entry == '0') {
+						echo '<td class="no center"><img class="yesimg" alt="No" src="/res/no2trans.png" /></td>';
+					} elseif ($entry == '2') {
+						echo '<td class="maybe center"><img class="maybeimg" alt="Maybe" src="/res/maybe.png" /></td>';
+					} else {
+						echo '<td class="no center grey"><img class="yesimg" alt="Invalid entry" src="/res/error.png" /></td>';
+					}
+				}
+	
 			}
-
+		
+		
 		}
+
+
 		
 		echo '<td>' . htmlspecialchars($response->getAgo()) . '</td>';
 		echo '</tr>';

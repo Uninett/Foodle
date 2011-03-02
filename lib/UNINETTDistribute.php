@@ -21,14 +21,15 @@ class UNINETTDistribute {
 	function show() {
 		
 		echo(
-			'<h2>' . 
+			'<h3><a href="#">' . 
 			$this->template->getTranslation(
 			array(
 				'en' => 'Publish to Eureka',
 				'no' => 'Publiser på Eureka',
-			)) . '</h2>'
+			)) . '</a></h3>'
 		);
 
+		echo '<div>';
 		echo('
 			<form action="https://eureka.uninett.no/addfoodle" method="get" >
 				<input type="hidden" name="id" value="' . htmlspecialchars($this->getId()) . '" />
@@ -52,7 +53,7 @@ class UNINETTDistribute {
 				'no' => 'Dersom du allerede har publisert denne Foodlen på Eureka, vil du få en kopi dersom du publiserer på nytt. Dersom du endrer denne Foodlen vil alle endringer automatisk bli oppdatert på Eureka (med unntak av tittelen).',
 			)) . '</p>'
 		);
-
+		echo '</div>';
 		
 		
 	}
