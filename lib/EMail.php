@@ -342,9 +342,9 @@ Content-Disposition: attachment
 		}
 		
 		
-		$transport = Swift_MailTransport::newInstance();
+		//$transport = Swift_MailTransport::newInstance();
 		//Sendmail
-		//$transport = Swift_SendmailTransport::newInstance('/usr/sbin/sendmail -bs');
+		$transport = Swift_SendmailTransport::newInstance('/usr/sbin/sendmail -bs');
 		
 		$mailer = Swift_Mailer::newInstance($transport);
 		$mailer->send($message);
