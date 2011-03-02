@@ -117,7 +117,7 @@ class Pages_FixDate extends Pages_PageFoodle {
 			$tz = new TimeZone(NULL, $user);
 			$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier . '?output=ical';
 			$datetimetext = "\n\n### Date and time\n\n" . $foodle->datetimeText($tz->getTimeZone());
-			$extralinks = "\n* [Import to your calendar with iCalendar](" . $url  . ")";
+			$extralinks = "\n* Import to your calendar using the attached calendar file";
 		}
 		
 		$mail = $foodle->descr . '
@@ -139,13 +139,13 @@ You may also create new Foodles on your own, and invite others to respond.
 		$mailer = new Foodle_EMail($to, htmlspecialchars($name), 'Foodl.org <no-reply@foodl.org>');
 		$mailer->setBody($mail);
 		
-// 		if (!empty($foodle->datetime)) {
-// 			$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier . '?output=ical';
-// 			$ics = file_get_contents($url);
-// 			$mailer->sendWithAttachment($ics);
-// 		} else {
+		if (!empty($foodle->datetime)) {
+			$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier . '?output=ical';
+			$ics = file_get_contents($url);
+			$mailer->send(array(array('data' => $ics, 'file' => 'foodl-invitation.ics', 'type' => 'calendar/text')));
+		} else {
 			$mailer->send();
-// 		}
+		}
 
 
 	}
