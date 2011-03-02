@@ -109,15 +109,26 @@ class API_Invite extends API_Authenticated {
 		$profileurl = FoodleUtils::getUrl() . 'profile/';
 		$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier;
 		$name = $foodle->name;
-		$to = 'andreassolberg@gmail.com'; // $user->email;
+		$to = $user->email;
+//		$to = 'andreassolberg@gmail.com'; 
+		
+		$datetimetext = '';
+		$extralinks = '';
+		if (!empty($foodle->datetime)) {
+			$tz = new TimeZone(NULL, $user);
+			$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier . '?output=ical';
+			$datetimetext = "\n\n### Date and time\n\n" . $foodle->datetimeText($tz->getTimeZone());
+			$extralinks = "\n* [Import to your calendar with iCalendar](" . $url  . ")";
+		}
+		
 		$mail = $foodle->descr . '
 
 ---
 
-You are invited to respond to a Foodle named *' . htmlspecialchars($name) . '*.
-
 * [Resond to this Foodle](' . $url . ')
-* [View responses of other participants](' . $url . '#responses)
+* [View responses of other participants](' . $url . '#responses)' . $extralinks . '
+
+' . $datetimetext . '
 
 ### Did you know
 
@@ -128,9 +139,15 @@ You may also create new Foodles on your own, and invite others to respond.
 		';
 		$mailer = new Foodle_EMail($to, htmlspecialchars($name), 'Foodl.org <no-reply@foodl.org>');
 		$mailer->setBody($mail);
-		$mailer->send();
 		
-		#echo '<pre>'; print_r($mail); exit;
+// 		if (!empty($foodle->datetime)) {
+// 			$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier . '?output=ical';
+// 			$ics = file_get_contents($url);
+// 			$mailer->sendWithAttachment($ics);
+// 		} else {
+			$mailer->send();
+// 		}
+
 
 	}
 
