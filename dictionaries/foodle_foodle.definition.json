@@ -514,5 +514,11 @@
 	},
 	"users_responded": {
 		"en": "Users that already have responded to this Foodle"
+	},
+	"notify_participants": {
+		"en": "Notify participants"
+	},
+	"send_fixdate_mail": {
+		"en": "Send a notification mail to the participants listed below about the date and time for this event."
 	}
 }

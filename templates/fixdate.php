@@ -124,7 +124,32 @@ if (!empty($this->data['foodle'])) {
 	</p>
 	</div>
 
-</div>	
+</div>
+
+
+<?php
+
+echo('<h3 style="margin-top: 2em">' . $this->t('notify_participants'). '</h3>');
+
+echo('<p>
+<input type="checkbox" checked="checked" name="send_fixdate_mail" id="send_fixdate_mail" value="1" />
+<label for="send_fixdate_mail">' . $this->t('send_fixdate_mail') . '</label></p>');
+
+echo('<div>');
+// Show list of already invited users..
+$responses = $this->data['foodle']->getResponses();	
+foreach($responses AS $response) {
+#	echo '<div>' . $response->userid . '</div>';
+#	if (!$response->invitation) continue;
+	$displayname = $response->getUsername();
+	echo '<div id="user_' . urlencode(sha1($response->userid)) . '" class="invite_result_entry">' .
+		'<img style="position: relative; top: 2px"  src="/res/user_grey.png" alt="User icon" /> ' .
+		$displayname .
+		'</div>';
+}
+echo ('</div>');
+
+?>
 
 			
 <div class="ready">

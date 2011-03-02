@@ -25,6 +25,28 @@ class Pages_FixDate extends Pages_PageFoodle {
 // 		if (isset($this->user->email)) {
 // 			$this->sendMail();
 // 		}
+
+		if (!empty($_REQUEST['send_fixdate_mail'])) {
+
+			$responses = $this->foodle->getResponses();
+			
+			foreach($responses AS $response) {
+				
+				$user = null;
+				if (!empty($response->user)) $user = $response->user;
+				
+				if (empty($user)) {
+					$user = new Data_User($this->fdb);
+					$user->userid = $response->userid;
+					$user->email = $response->email;
+					$user->username = $response->username;
+				}
+				
+				$this->sendFixDateMail($user, $this->foodle);
+				
+			}
+
+		}
 		
 		$newurl = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier . '#distribute';
 		SimpleSAML_Utilities::redirect($newurl);
@@ -70,6 +92,65 @@ class Pages_FixDate extends Pages_PageFoodle {
 
 
 	}
+	
+	
+	
+	protected function sendFixDateMail($user, $foodle) {
+	
+		if (!$this->user->notification('invite', TRUE)) {
+			error_log('Foodle response was added, but mail notification was not sent because of users preferences');
+			return;
+		}
+		error_log('Sending Foodle fixdate to ' . $user->email);
+		
+		
+	
+		$profileurl = FoodleUtils::getUrl() . 'profile/';
+		$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier;
+		$name = 'Date and time set for ' . $foodle->name;
+		$to = $user->email;
+//		$to = 'andreassolberg@gmail.com'; 
+		
+		$datetimetext = '';
+		$extralinks = '';
+		if (!empty($foodle->datetime)) {
+			$tz = new TimeZone(NULL, $user);
+			$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier . '?output=ical';
+			$datetimetext = "\n\n### Date and time\n\n" . $foodle->datetimeText($tz->getTimeZone());
+			$extralinks = "\n* [Import to your calendar with iCalendar](" . $url  . ")";
+		}
+		
+		$mail = $foodle->descr . '
+
+### Confirm your participation
+
+* [Please confirm your participation on this event](' . $url . ')
+* [View confirmation of other participants](' . $url . '#responses)' . $extralinks . '
+
+' . $datetimetext . '
+
+### Did you know
+
+You may also create new Foodles on your own, and invite others to respond.
+
+* [Go to Foodl.org to create a new Foodle.](http://foodl.org)
+
+		';
+		$mailer = new Foodle_EMail($to, htmlspecialchars($name), 'Foodl.org <no-reply@foodl.org>');
+		$mailer->setBody($mail);
+		
+// 		if (!empty($foodle->datetime)) {
+// 			$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier . '?output=ical';
+// 			$ics = file_get_contents($url);
+// 			$mailer->sendWithAttachment($ics);
+// 		} else {
+			$mailer->send();
+// 		}
+
+
+	}
+
+	
 	
 }
 

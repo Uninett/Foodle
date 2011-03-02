@@ -92,7 +92,7 @@ class Data_FoodleResponse {
 		#$this->updated = 'now';
 		$this->response = array(
 			'type' => 'ical',
-			'data' => $responseData,
+			'data' => NULL,
 #			'crash' => $crashingEvents,
 			'calendarURL' => $user->calendar,
 		);
