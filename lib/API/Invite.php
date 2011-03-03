@@ -113,7 +113,7 @@ class API_Invite extends API_Authenticated {
 		$extralinks = '';
 		if (!empty($foodle->datetime)) {
 			$tz = new TimeZone(NULL, $user);
-			$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier . '?output=ical';
+			$icalurl = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier . '?output=ical';
 			$datetimetext = "\n\n### Date and time\n\n" . $foodle->datetimeText($tz->getTimeZone());
 			$extralinks = "\n* Import to your calendar using the attached calendar file";
 		}
