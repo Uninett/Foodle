@@ -5,7 +5,7 @@
  */
 class Data_User {
 
-	public $userid, $username, $email, $org, $orgunit, $photol, $photom, $photos, $notifications, $features, $calendar, $timezone, $location, $realm, $language, $role;
+	public $userid, $username, $email, $org, $orgunit, $photol, $photom, $photos, $notifications, $features, $calendar, $timezone, $location, $realm, $language, $role, $idp;
 
 
 	public $anonymous = TRUE;
@@ -267,8 +267,15 @@ class Data_User {
 				$modified = TRUE;
 			}
 			$this->realm = $from->realm;
-			
+		}
 
+
+		if (!empty($from->idp)) {
+			if ($this->idp !== $from->idp) {
+				error_log('IdP entityid from [' . $this->idp. '] to [' . $from->idp . ']');
+				$modified = TRUE;
+			}
+			$this->idp = $from->idp;
 		}
 		
 		if (empty($this->timezone)) {

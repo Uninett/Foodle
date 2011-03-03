@@ -51,6 +51,11 @@ class FoodleAuth {
 
 			if (array_key_exists('jpegPhoto', $attributes))
 				$this->user->setPhoto($attributes['jpegPhoto'][0]);
+				
+				
+			$idp = $this->as->getAuthData('saml:sp:IdP');
+			$this->user->idp = $idp;
+			
 
 // 			$this->user->photol = self::getPhoto($attributes, 'l');
 // 			$this->user->photom = self::getPhoto($attributes, 'm');
