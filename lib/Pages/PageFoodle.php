@@ -273,7 +273,7 @@ You may also create new Foodles on your own, and invite others to respond.
 		}
 		
 		$this->template->data['showconfirmcolumn'] = $this->foodle->showConfirmColumn();
-		$this->template->data['showfixtimeslow'] = $this->foodle->showFixTimeslot();
+		$this->template->data['showfixtimeslow'] = $this->foodle->showFixTimeslot() && $isAdmin;
 		$this->template->data['allowChangeColumn'] = $this->foodle->allowChangeColumn();
 		
 		
