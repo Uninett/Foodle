@@ -404,20 +404,23 @@ class Data_Foodle {
 	
 		if ($this->getColumnDepth() < 2) return FALSE;
 		if (isset($this->columntype) && $this->columntype === 'timezone') return FALSE;
-	
-		$coldates = $this->getColumnDates();
 		
-#		echo '<pre>'; print_r($coldates); echo '</pre>';
-		foreach($coldates AS $cd) {
-			if (is_array($cd)) {
-				if (count($cd) != 2) return FALSE;
-				if (empty($cd[0])) return FALSE;
-				if (empty($cd[1])) return FALSE;
-			}
-			if (empty($cd)) return FALSE;
-		}
-
-		return TRUE;
+		if (isset($this->columntype) && $this->columntype === 'dates') return  TRUE;
+		return FALSE;
+		// 
+// 		$coldates = $this->getColumnDates();
+// 		
+// #		echo '<pre>'; print_r($coldates); echo '</pre>';
+// 		foreach($coldates AS $cd) {
+// 			if (is_array($cd)) {
+// 				if (count($cd) != 2) return FALSE;
+// 				if (empty($cd[0])) return FALSE;
+// 				if (empty($cd[1])) return FALSE;
+// 			}
+// 			if (empty($cd)) return FALSE;
+// 		}
+// 
+// 		return TRUE;
 	}
 	
 	public function isLocked() {
