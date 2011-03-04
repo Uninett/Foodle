@@ -362,7 +362,10 @@ class Data_Foodle {
 		$newresponse->email = $user->email;
 		$nofc = $this->getNofColumns(); 
 		
-		$newresponse->response = array('type' => 'manual', 'data' => array_fill(0, $nofc, 0));
+		$default = 0;
+		if (isset($this->columntype) && $this->columntype === 'dates') $default = 1;
+		
+		$newresponse->response = array('type' => 'manual', 'data' => array_fill(0, $nofc, $default));
 		
 		#echo '<pre>Returning my response:  '; print_r( $newresponse ) ; echo '</pre>'; exit;
 		

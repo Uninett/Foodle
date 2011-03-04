@@ -113,23 +113,18 @@ class XHTMLResponseEntry {
 // 				print_r($entry);
 // 			exit;
 			
-				$checked = array('', '', '');
-				if (isset($entry)) $checked[$entry] = ' checked="checked" ';
+				$checked = array('', ' checked="checked" ', '');
+				if (isset($entry)) {
+					$checked = array('', '', '');
+					$checked[$entry] = ' checked="checked" ';
+				}
 				echo '<td class="center">
 					<div class="ryes"><input type="radio" name="myresponse[' . $no . ']" value="' . $no . '-1" ' . $checked[1] . '/></div>
 					<div class="rmaybe"><input type="radio" name="myresponse[' . $no . ']" value="' . $no . '-2" ' . $checked[2] . '/></div>
 					<div class="rno"><input type="radio" name="myresponse[' . $no . ']" value="' . $no . '-0" ' . $checked[0] . '/></div>
 				</td>';
-				
-// 				if ($entry == '1') {
-// 					echo '<td class="yes center"><input type="checkbox" name="myresponse[]" checked="checked" value="' . $no . '" /></td>';
-// 				} elseif($entry == '0') {
-// 					echo '<td class="no center"><input type="checkbox" name="myresponse[]" value="' . $no . '"  /></td>';
-// 				} else {
-// 					echo '<td class="no center grey"><input type="checkbox" name="myresponse[]" value="' . $no . '"  /></td>';
-// 				}
 			}
-		
+			
 		} else {
 			foreach ($response->response['data'] AS $no => $entry) {
 				if ($entry == '1') {
@@ -238,7 +233,11 @@ class XHTMLResponseEntry {
 							
 				foreach ($responsecal->response['data'] AS $no => $entry) {
 				
-					$checked = array('', '', '');
+					$checked = array('', ' checked="checked" ', '');
+					if (isset($entry)) {
+						$checked = array('', '', '');
+						$checked[$entry] = ' checked="checked" ';
+					}
 					if (isset($entry)) $checked[$entry] = ' checked="checked" ';
 					echo '<td class="center">
 						<div class="ryes"><input type="radio" name="myresponse[' . $no . ']" value="' . $no . '-1" ' . $checked[1] . '/></div>
@@ -380,8 +379,13 @@ class XHTMLResponseEntry {
 		if(isset($response->response['confirm'])) {
 			$entry = $response->response['confirm'];
 		}
-		$checked = array('', '', '');
-		if (isset($entry)) $checked[$entry] = ' checked="checked" ';
+
+		$checked = array('', ' checked="checked" ', '');
+		if (isset($entry)) {
+			$checked = array('', '', '');
+			$checked[$entry] = ' checked="checked" ';
+		}
+
 		echo '<td class="center">
 			<div class="ryes"><input type="radio" id="setconfirm1" name="setconfirm" value="1" ' . $checked[1] . '/>
 			<label for="setconfirm1" >' . $t->t('yes') . '</label>

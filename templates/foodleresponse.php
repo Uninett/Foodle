@@ -309,44 +309,45 @@ if (isset($_REQUEST['timezone'])) {
 
 
 		if (!$this->data['showconfirmcolumn']) {
-		if (isset($this->data['responsetype']) && $this->data['responsetype'] === 'yesnomaybe') {
-		
-			echo('
-				<div style="float: left">
-					<table class="info"><tr>
-						<td class="center yes">' . $this->t('yes') . '</td>
-						<td class="center maybe">' . $this->t('maybe') . '</td>
-						<td class="center no">' . $this->t('no') . '</td>
-					</tr></table>
-				</div>
-			');
-		
-		}
-		
-		
-		
-		if ($this->data['calenabled']) {
-			echo '<div>';
-
-		
-			echo '<div style="float: right; width: 400px" id="responsetyperadio">';
-
-			echo '<p>' . $this->t('calendarenabled'). '</p>';
 			
-			if ($this->data['defaulttype'] == 'ical') {
-				echo '	<input type="radio" id="radio1" name="radio" /><label for="radio1">' . $this->t('manualentry') . '</label>';
-				echo '	<input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2">' . $this->t('calendarsync'). '</label>';				
-			} else {
-				echo '	<input type="radio" id="radio1" name="radio" checked="checked" /><label for="radio1">' . $this->t('manualentry') . '</label>';
-				echo '	<input type="radio" id="radio2" name="radio" /><label for="radio2">' . $this->t('calendarsync'). '</label>';				
+			if ($this->data['calenabled']) {
+				echo '<div>';
+	
+			
+				echo '<div style="float: right; width: 400px" id="responsetyperadio">';
+	
+
 				
+				if ($this->data['defaulttype'] == 'ical') {
+					echo '<p style="margin: 5px"><input type="radio" id="radio1" name="radio" /><label for="radio1">' . $this->t('manualentry') . '</label></p>';
+					echo '<p style="margin: 5px"><input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2">' . $this->t('calendarsync'). '</label></p>';				
+				} else {
+					echo '<p style="margin: 5px"><input type="radio" id="radio1" name="radio" checked="checked" /><label for="radio1">' . $this->t('manualentry') . '</label></p>';
+					echo '<p style="margin: 5px"><input type="radio" id="radio2" name="radio" /><label for="radio2">' . $this->t('calendarsync'). '</label></p>';				
+					
+				}
+				//echo '<p>' . $this->t('calendardescr'). '</p>';
+				echo '<p>' . $this->t('calendarenabled'). '</p>';
+				
+				if (isset($this->data['responsetype']) && $this->data['responsetype'] === 'yesnomaybe') {
+					$hide = '';
+					if ($this->data['defaulttype'] == 'ical') $hide = 'display: none';
+					echo('
+						<div class="maybe_help" style="' . $hide . '">
+							<table class="info"><tr>
+								<td class="center yes">' . $this->t('yes') . '</td>
+								<td class="center maybe">' . $this->t('maybe') . '</td>
+								<td class="center no">' . $this->t('no') . '</td>
+							</tr></table>
+						</div>
+					');
+				}
+				
+				echo ' </div>';
+	
+				echo '</div>';
+	
 			}
-			echo '<p>' . $this->t('calendardescr'). '</p>';
-			echo ' </div>';
-
-			echo '</div>';
-
-		}
 		}
 		echo '<br style="height: 0px; clear: both;"/>';		
 ?>

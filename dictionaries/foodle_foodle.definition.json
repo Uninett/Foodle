@@ -30,10 +30,10 @@
 		"en": "This response is automatically synchronized with the calendar of the user"
 	},
 	"manualentry" : {
-		"en" : "Manual entry"
+		"en" : "Fill out the response yourself"
 	},
 	"calendarsync" : {
-		"en" : "Calendar sync"
+		"en" : "Automatically update from calendar"
 	},
 	"calendardescr" : {
 		"en" : "Select above whether you would like to connect your response to your calendar, or if you would like to enter the dates manually"

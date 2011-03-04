@@ -88,7 +88,7 @@ if (!empty($this->data['foodle'])) {
 			}
 
 			
-			$("div#responsetyperadio").buttonset({ icons: {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'} });
+			// $("div#responsetyperadio").buttonset({ icons: {primary:'ui-icon-gear',secondary:'ui-icon-triangle-1-s'} });
 			<?php
 			if (!empty($this->data['calenabled'])) {
 				if ($this->data['defaulttype'] === 'ical') {
@@ -102,10 +102,12 @@ if (!empty($this->data['foodle'])) {
 			$('#radio1').click(function() {
 				$('#responserowmanual').show();
 				$('#responserowcal').hide();
+				$('.maybe_help').show();
 			});
 			$('#radio2').click(function() {
 				$('#responserowmanual').hide();
 				$('#responserowcal').show();
+				$('.maybe_help').hide();
 			});
 
 		});
