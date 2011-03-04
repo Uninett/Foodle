@@ -23,12 +23,8 @@ function addOneNewColumn() {
 	template.find("input.hasDatepicker").removeClass("hasDatepicker");
 
 	template.find("a.onemoreoption").click(addOneMoreOption);
-//	template.f("a.onemoreoption").click(addOneMoreOption);
 
 	template.insertBefore(container.find("a.onemorecolumn"));
-
-	
-	// $("div." + columntypeclass + " div.fcol").last().find("input").focus();
 	
 	if (columntypeclass == 'columnsetupgeneric') {
 		$("div." + columntypeclass + " div.fcol").last().find("input").first().focus();
@@ -70,9 +66,7 @@ function duplicateTimeSlots() {
 function fillfields() {
 
 	var col = 0;
-	// $("div.fcol > input.fcoli").css("background", "#f88");
-	// $("div.fcol > input.fcoli[value=]").css("background", "#977");
-	// 
+
 	$("div.fcol > input.fcoli[value=]").each(function(i){
 		col++;
 	});
@@ -96,9 +90,6 @@ function fillfields() {
 			});
 		}
 	});
-	
-	// $("div.fcol > input.fcoli[value = '']").parent().slice(1).addClass('notinuse');
-	// $("div.fcol > input.fcoli[value != '']").parent().removeClass('notinuse');
 	
 	updatePreview();
 }
