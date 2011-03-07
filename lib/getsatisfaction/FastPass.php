@@ -1,5 +1,5 @@
 <?php 
-  require_once("OAuth.php");
+//  require_once("OAuth.php");
   
   class FastPass {
     public static $domain = "tjenester.ecampus.no";

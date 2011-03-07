@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 
 $SIMPLESAMLPATH = '/var/simplesamlphp-foodle/';
 
@@ -12,9 +11,14 @@ ini_set('include_path', $path);
 require_once($SIMPLESAMLPATH . 'lib/_autoload.php');
 
 
+require_once($SIMPLESAMLPATH . 'modules/oauth/libextinc/OAuth.php');
+
 $THISPATH = dirname(dirname(__FILE__)) . '/';
 
 date_default_timezone_set('Europe/Berlin');
+
+
+
 
 /**
  * Loading simpleSAMLphp libraries
@@ -89,7 +93,7 @@ require_once($THISPATH . 'lib/Pages/PageDelete.php');
 require_once($THISPATH . 'lib/Pages/PagePreview.php');
 
 require_once($THISPATH . 'lib/getsatisfaction/FastPass.php');
-require_once($THISPATH . 'lib/getsatisfaction/OAuth.php');
+//require_once($THISPATH . 'lib/getsatisfaction/OAuth.php');
 
 // Loading icalendar scripts..
 require_once($THISPATH . 'lib/cal/Calendar.class.php');
@@ -110,4 +114,5 @@ SimpleSAML_Configuration::init(dirname(dirname(__FILE__)) . '/config', 'foodle')
 SimpleSAML_Configuration::init($SIMPLESAMLPATH . 'config');
 
 
+session_start();
 

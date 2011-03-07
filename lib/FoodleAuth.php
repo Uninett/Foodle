@@ -240,6 +240,8 @@ class FoodleAuth {
 			return $attributes['eduPersonPrincipalName'][0];
 		if (array_key_exists('eduPersonTargetedID', $attributes)) 
 			return $attributes['eduPersonTargetedID'][0];
+		if (array_key_exists('twitter_at_screen_name', $attributes))
+			return $attributes['twitter_at_screen_name'][0];
 		if (array_key_exists('mail', $attributes)) 
 			return $attributes['mail'][0];
 		
@@ -255,7 +257,7 @@ class FoodleAuth {
 		if (array_key_exists('smartname-fullname', $attributes)) return $attributes['smartname-fullname'][0];
 		if (array_key_exists('displayName', $attributes)) return $attributes['displayName'][0];
 		if (array_key_exists('cn', $attributes)) return $attributes['cn'][0];
-		
+		if (array_key_exists('twitter.name', $attributes)) return $attributes['twitter.name'][0];
 		return NULL;
 	}
 
@@ -305,10 +307,12 @@ class FoodleAuth {
 	protected static function getLocation($attributes) {
 		if (array_key_exists('l', $attributes)) return $attributes['l'][0];
 		if (array_key_exists('eduPersonOrgDN:l', $attributes)) return $attributes['eduPersonOrgDN:l'][0];
+		if (array_key_exists('twitter.location', $attributes)) return $attributes['twitter.location'][0];
 		return null;
 	}
 	protected static function getLanguage($attributes) {
 		if (array_key_exists('preferredLanguage', $attributes)) return $attributes['preferredLanguage'][0];
+		if (array_key_exists('twitter.lang', $attributes)) return $attributes['twitter.lang'][0];
 		return null;
 	}
 
