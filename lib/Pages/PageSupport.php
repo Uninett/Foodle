@@ -37,14 +37,14 @@ class Pages_PageSupport extends Pages_Page {
 
 		$t->data['user'] = $this->user;
 		$t->data['userid'] = $this->user->userid;
-		$t->data['displayname'] = $this->user->name;
+		$t->data['displayname'] = $this->user->username;
 
  		$t->data['authenticated'] = $this->auth->isAuth();
 		
 		FastPass::$domain = "tjenester.ecampus.no";
 		$t->data['getsatisfactionscript'] = FastPass::script(
 			$this->config->getValue('getsatisfaction.key'), $this->config->getValue('getsatisfaction.secret'), 	
-			$this->user->email, $this->user->name, $this->user->userid);
+			$this->user->email, $this->user->username, $this->user->userid);
 		
 // 		$t->data['loginurl'] = $this->auth->getLoginURL();
 // 		$t->data['url'] = $this->auth->getURL();
