@@ -327,6 +327,12 @@ class FoodleAuth {
 			$this->twitterAuth();
 		}
 		
+		if (!empty($_REQUEST['idp']) && !$this->as->isAuthenticated()) {
+			$this->as->login(array(
+				'saml:idp' => $_REQUEST['idp'],
+			));
+		}
+		
 		if (!$allowAnonymous) {
 			$this->as->requireAuth();
 			exit;

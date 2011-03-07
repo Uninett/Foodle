@@ -105,6 +105,13 @@ class API_Invite extends API_Authenticated {
 	
 		$profileurl = FoodleUtils::getUrl() . 'profile/';
 		$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier;
+		
+#		echo '<pre>'; print_r($user); exit;
+		
+		if(!empty($user->idp)) {
+			$url .= '?idp=' . urlencode($user->idp);
+		}
+		
 		$name = $foodle->name;
 		$to = $user->email;
 //		$to = 'andreassolberg@gmail.com'; 
