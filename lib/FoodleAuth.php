@@ -269,6 +269,9 @@ class FoodleAuth {
 	
 	protected static function getRealm($attributes) {
 		$userid = self::getUserid($attributes);
+		if (preg_match('/^@(.*?)$/', $userid, $matches)) {
+			return 'twitter.com';
+		}
 		if (preg_match('/^.*@(.*?)$/', $userid, $matches)) {
 			return $matches[1];
 		}
