@@ -168,22 +168,67 @@ function updatePreview() {
 	if (timezone) $("input[id='settimezone']").attr('value', timezone);
 	
 	
+	var enabled = true;
 	if ($("input#foodlename").val() == '') {
-		$("p#readytextname").show();						
-		$("p#readytextcol").hide();	
-		$("input#save").attr("disabled", "disabled");
-	} else if ( defstr == '') {
-		$("p#readytextname").hide();						
-		$("p#readytextcol").show();	
-		$("input#save").attr("disabled", "disabled");
+		$("p#readytextname").show();
+		enabled = false;
 	} else {
-		$("p#readytextname").hide();						
+		$("p#readytextname").hide();
+	}
+	if ( defstr == '') {
+		$("p#readytextcol").show();	
+		enabled = false;
+	} else {						
 		$("p#readytextcol").hide();	
-		$("input#save").removeAttr("disabled", "false");
 	}
 	
+	if (columntype == 'dates') {
+		var datesok = verifyDatefields();
+		if (!datesok) {
+			$("p#readytextdates").show();	
+			enabled = false;
+		} else {
+			$("p#readytextdates").hide();	
+		}
+	}
+	if (enabled) {
+		$("input#save").removeAttr("disabled", "false");
+	} else {
+		$("input#save").attr("disabled", "disabled");
+	}
 }
 
+function verifyDate(str) {
+	var regex = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
+	return regex.test(str)
+}
+function verifyTime(str) {
+	var regex = /^[0-9]{1,2}([:.][0-9]{2})?(-[0-9]{1,2}([:.][0-9]{2})?)?$/;
+	return regex.test(str)
+}
+
+function verifyDatefields() {
+	var enable = true;
+	$("div.columnsetupdates div.fcol input.fcoli[value != '']").each(function(i){
+
+		if (!verifyDate($(this).attr('value'))) {
+			$(this).addClass('invalid');
+			enable = false;
+		} else {
+			$(this).removeClass('invalid');
+		}
+	});
+	$("div.columnsetupdates div.fcol input.fscoli[value != '']").each(function(i) {
+		if (!verifyTime($(this).attr('value'))) {
+			$(this).addClass('invalid');
+			enable = false;
+		} else {
+			$(this).removeClass('invalid');
+		}		
+	});
+	return enable;
+	
+}
 
 
 function addBefore(text) {

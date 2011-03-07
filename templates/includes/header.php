@@ -6,7 +6,23 @@
 
 	<!-- Foodle: CSS -->	
 	<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle.css" /> 
-	<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle-layout.css" /> 
+	<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle-layout.css" />
+	
+<?php
+
+
+if (!empty($this->data['theme'])) {
+	$theme = $this->data['theme'];
+	echo '<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle-' . $theme . '.css" /> ';
+} else {
+	echo '<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle-default.css" /> ';	
+}
+echo '<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle-core.css" />';
+
+
+?>
+
+
 
 
 	<!-- JQuery -->
@@ -14,15 +30,17 @@
 	<script type="text/javascript" src="/res/js/jquery-ui.js"></script>
 	<script type="text/javascript" src="/res/js/jquery-placeholder.js"></script>
 	<link rel="stylesheet" media="screen" type="text/css" href="/res/js/uitheme/jquery-ui-themeroller.css" />
+	<!-- JQuery -->
 	
 	
-	<!-- DiscoJuice -->
+	
 	<!-- DiscoJuice -->
 	<script type="text/javascript" language="javascript" src="/res/discojuice/discojuice.misc.js"></script>
 	<script type="text/javascript" language="javascript" src="/res/discojuice/discojuice.ui.js"></script>
 	<script type="text/javascript" language="javascript" src="/res/discojuice/discojuice.control.js"></script>
 	<link rel="stylesheet" type="text/css" href="/res/discojuice/css/discojuice.css" />
-	
+	<!-- DiscoJuice -->
+
 
 
 	<script type="text/javascript">
@@ -68,10 +86,6 @@ if (!empty($this->data['foodle'])) {
 	
 	
 	
-	<!-- WMD -->
-	<!-- <script type="text/javascript" src="/res/js/wmd.js"></script> -->
-
-
 	<!-- Foodle: JS -->	
 	<script type="text/javascript" src="/res/js/foodle.js"></script>	
 
@@ -281,19 +295,6 @@ $langnames = array(
 echo '<div id="langbar" style="clear: both"><span>';
 if (empty($_POST) ) {
 	$textarray = array();
-
-/*
-	foreach ($languages AS $lang => $current) {
-
-		if ($current) {
-			$textarray[] = '<form class="button" method="get" action="' . htmlspecialchars(SimpleSAML_Utilities::addURLparameter(SimpleSAML_Utilities::selfURL(), 'language=' . $lang)) . '"><div class="no"><input type="submit" value="[' . 
-				$langnames[$lang] . ']" class="button" /></div></form>';
-		} else {
-			$textarray[] = '<form class="button" method="get" action="' . htmlspecialchars(SimpleSAML_Utilities::addURLparameter(SimpleSAML_Utilities::selfURL(), 'language=' . $lang)) . '"><div class="no"><input type="submit" value="' . 
-				$langnames[$lang] . '" class="button" /></div></form>';
-		}
-	}
-	*/
 
 	foreach ($languages AS $lang => $current) {
 		if ($current) {

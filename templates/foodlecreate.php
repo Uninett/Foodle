@@ -470,6 +470,7 @@ if (!empty($this->data['foodle']->datetime)) {
 		
 			<p id="readytextname" style="display: none; float: right; margin: 0px">Your Foodle is missing a name!</p>
 			<p id="readytextcol" style="display: none; float: right; margin: 0px">You need to enter text for at least one column...</p>
+			<p id="readytextdates" style="display: none; float: right; margin: 0px">One or more of the date or time fields above is an invalid format. Fix the fields with a red border.</p>
 		<?php		
 		if(array_key_exists('edit', $this->data)) {
 			echo('<input id="save" type="submit" name="save" value="' . $this->t('updatefoodle') . '" />');

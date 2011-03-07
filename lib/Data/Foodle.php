@@ -316,7 +316,7 @@ class Data_Foodle {
 			if (!preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $col['title'])) return FALSE;
 			if (isset($col['children'])) {
 				foreach($col['children'] AS $option) {
-					if (!preg_match('/^[0-9]{1,2}([:.]?[0-9]{2})?(-[0-9]{1,2}([:.]?[0-9]{2})?)?$/', $option['title'])) return FALSE;
+					if (!preg_match('/^[0-9]{1,2}([:.][0-9]{2})?(-[0-9]{1,2}([:.][0-9]{2})?)?$/', $option['title'])) return FALSE;
 				}
 			}
 		}

@@ -72,6 +72,8 @@ class Pages_PageFront extends Pages_Page {
 		
 		$t->data['showsupport'] = TRUE;
 		
+//		$t->data['theme'] = 'terena';
+		
 		$t->data['loginurl'] = $this->auth->getLoginURL();
 		$t->data['logouturl'] = $this->auth->getLogoutURL();
 		
