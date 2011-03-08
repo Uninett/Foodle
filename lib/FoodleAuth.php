@@ -17,6 +17,8 @@ class FoodleAuth {
 	
 	private $db;
 	
+	public $disco, $entityid;
+	
 
 	function __construct($db) {
 		$this->db = $db;
@@ -25,6 +27,9 @@ class FoodleAuth {
 		$this->sspconfig = SimpleSAML_Configuration::getInstance();
 		$this->config = SimpleSAML_Configuration::getInstance('foodle');
 		$session = SimpleSAML_Session::getInstance();
+		
+		$this->disco = $this->config->getString('disco', 'https://disco.uninett.no');
+		$this->entityid = $this->config->getString('entityid');
 		
 		$authsource = $this->config->getString('auth', 'default-sp');
 		if ($session->isValid('twitter')) $authsource = 'twitter';
@@ -51,7 +56,8 @@ class FoodleAuth {
 
 			if (array_key_exists('jpegPhoto', $attributes))
 				$this->user->setPhoto($attributes['jpegPhoto'][0]);
-				
+			
+			// TODO twitter photo.
 				
 			$idp = $this->as->getAuthData('saml:sp:IdP');
 			$this->user->idp = $idp;
@@ -176,7 +182,9 @@ class FoodleAuth {
 	// If not authenticated return a link to initiate login (with SAML)
 	// If authenticated return NULL.
 	public function getLoginURL() {
-		if (!$this->isAuth()) return $this->as->getLoginURL();
+		if (!$this->isAuth()) {
+			return FoodleUtils::getUrl() . 'login';
+		}
 		return NULL;
 	}
 	

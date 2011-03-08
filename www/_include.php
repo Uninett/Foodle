@@ -79,6 +79,7 @@ require_once($THISPATH . 'lib/Pages/PageUser.php');
 require_once($THISPATH . 'lib/Pages/PageSupport.php');
 require_once($THISPATH . 'lib/Pages/PageStats.php');
 require_once($THISPATH . 'lib/Pages/FixDate.php');
+require_once($THISPATH . 'lib/Pages/Login.php');
 
 require_once($THISPATH . 'lib/Pages/EmbedFoodle.php');
 require_once($THISPATH . 'lib/Pages/RSSFoodle.php');

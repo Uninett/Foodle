@@ -69,16 +69,30 @@ if (!empty($this->data['foodle'])) {
 				"location": false,
 				"disco": {
 					"spentityid": "https://foodl.org/simplesaml/module.php/saml/sp/metadata.php/saml",
-					"url": "https://foodl.org/res/discojuice/discojuiceDiscoveryResponse.html?",
+					"url": "http://ulx.foodl.org/res/discojuice/discojuiceDiscoveryResponse.html?",
 					"stores": [
 						'https://disco.uninett.no/',
 						'https://foodle.feide.no/simplesaml/module.php/discopower/disco.php',
-						'https://kalmar2.org/simplesaml/module.php/discopower/disco.php'
+						'https://kalmar2.org/simplesaml/module.php/discopower/disco.php',
+						'https://wayf-test.surfnet.nl/federate/saml20'
 					],
 					'writableStore': 'https://disco.uninett.no/'
 				},
 				"callback": function(e) {
-					window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=saml&ReturnTo=https%3A%2F%2Ffoodle.feide.no%2F&saml:idp=' + escape(e);
+					var auth = e.auth || null;
+					switch(auth) {
+						
+						case 'twitter':
+							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=twitter&ReturnTo=https%3A%2F%2Ffoodle.feide.no%2F';
+						break;
+					
+					
+						case 'saml':
+						default:
+							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=saml&ReturnTo=https%3A%2F%2Ffoodle.feide.no%2F&saml:idp=' + e.entityid;
+						break;							
+							
+					}
 				}
 			});
 		});
