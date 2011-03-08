@@ -349,8 +349,16 @@ class FoodleAuth {
 		}
 		
 		if (!$allowAnonymous) {
-			$this->as->requireAuth();
+		
+			SimpleSAML_Utilities::redirect($this->disco . '?entityID=' . 
+				urlencode($this->auth->entityid)  . 
+				'&returnIDParam=idp' .
+				'&return=' . urlencode(SimpleSAML_Utilities::selfURL() . '?')
+			);
 			exit;
+		
+// 			$this->as->requireAuth();
+// 			exit;
 		}
 		
 		$this->checkAnonymousSession();
