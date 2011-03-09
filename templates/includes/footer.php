@@ -4,7 +4,7 @@
 <div id="footer">
 	<?php
 	
-	if ($this->data['authenticated']) {
+	if (!empty($this->data['authenticated'])) {
 	
 		if (isset($this->data['user']->userid)) {
 			echo $this->t('authtext', 
