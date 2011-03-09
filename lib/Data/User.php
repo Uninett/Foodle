@@ -5,7 +5,7 @@
  */
 class Data_User {
 
-	public $userid, $username, $email, $org, $orgunit, $photol, $photom, $photos, $notifications, $features, $calendar, $timezone, $location, $realm, $language, $role, $idp;
+	public $userid, $username, $email, $org, $orgunit, $photol, $photom, $photos, $notifications, $features, $calendar, $timezone, $location, $realm, $language, $role, $idp, $auth;
 
 
 	public $anonymous = TRUE;
@@ -277,6 +277,25 @@ class Data_User {
 			}
 			$this->idp = $from->idp;
 		}
+
+		if (!empty($from->auth)) {
+			if ($this->auth !== $from->auth) {
+				error_log('auth from [' . $this->auth. '] to [' . $from->auth . ']');
+				$modified = TRUE;
+			}
+			$this->auth = $from->auth;
+		}
+		
+		
+		if (!empty($from->photol)) {
+			if ($this->photol !== $from->photol) {
+				error_log('auth from [' . $this->photol. '] to [' . $from->photol . ']');
+				$modified = TRUE;
+			}
+			$this->photol = $from->photol;
+		}
+
+		
 		
 		if (empty($this->timezone)) {
 			$timezone = new TimeZone(NULL, $this);

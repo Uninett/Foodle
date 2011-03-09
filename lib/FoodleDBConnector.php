@@ -242,6 +242,7 @@ class FoodleDBConnector {
 			$user->language = $row['language'];
 			$user->role = $row['role'];
 			$user->idp = $row['idp'];
+			$user->auth = $row['auth'];
 
 			$user->loadedFromDB = TRUE;
 			mysql_free_result($result);
@@ -316,6 +317,7 @@ class FoodleDBConnector {
 					self::sqlParameter('location', $user->location, 'null') . 
 					self::sqlParameter('realm', $user->realm, 'realm') . 
 					self::sqlParameter('language', $user->language, 'null') . 
+					self::sqlParameter('auth', $user->auth, 'null') . 
 					self::sqlParameter('idp', $user->idp, 'null') . "
 					updated = NOW()	
 				WHERE userid = '" . $user->userid. "' 
@@ -324,7 +326,7 @@ class FoodleDBConnector {
 		} else {
 			error_log('FoodleDB: Adding a new user');
 			$sql = "
-				INSERT INTO user (userid, username, email, org, orgunit, photol, photom, photos, notifications, features, calendar, timezone, location, realm, language, idp) values (" . 
+				INSERT INTO user (userid, username, email, org, orgunit, photol, photom, photos, notifications, features, calendar, timezone, location, realm, language, auth, idp) values (" . 
 					self::sqlParameter('userid', $user->userid, null, FALSE) . 
 					self::sqlParameter('username', $user->username, 'null', FALSE) . 
 					self::sqlParameter('email', $user->email, 'null', FALSE) . 
@@ -340,6 +342,7 @@ class FoodleDBConnector {
 					self::sqlParameter('location', $user->location, 'null', FALSE) . 
 					self::sqlParameter('realm', $user->realm, 'null', FALSE) . 
 					self::sqlParameter('language', $user->language, 'null', FALSE) . 
+					self::sqlParameter('auth', $user->auth, 'null', FALSE) . 
 					self::sqlParameter('idp', $user->idp, 'null', FALSE, FALSE) . 
 					")
 			";

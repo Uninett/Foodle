@@ -35,7 +35,8 @@ class Pages_Login extends Pages_Page {
 			case 'twitter':
 			
 				error_log('Foodle /login Proceed with twitter authentication ');
-				$this->auth->requireAuth(FALSE);
+				$this->auth->twitterAuth();
+				$this->complete();
 			
 				break;
 			
@@ -54,6 +55,7 @@ class Pages_Login extends Pages_Page {
 					);
 					
 				}
+				$this->complete();
 				break;
 		}
 

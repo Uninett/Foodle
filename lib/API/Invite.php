@@ -107,9 +107,18 @@ class API_Invite extends API_Authenticated {
 		$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier;
 		
 #		echo '<pre>'; print_r($user); exit;
+
+		$params = array();
 		
 		if(!empty($user->idp)) {
-			$url .= '?idp=' . urlencode($user->idp);
+			$params[] = 'idp=' . urlencode($user->idp);
+		}
+		if(!empty($user->auth)) {
+			$params[] = 'auth=' . urlencode($user->auth);
+		}
+		
+		if (!empty($params)) {
+			$url .= '?' . join('&', $params);
 		}
 		
 		$name = $foodle->name;

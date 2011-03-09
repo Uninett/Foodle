@@ -33,6 +33,7 @@ class FoodleAuth {
 		
 		$authsource = $this->config->getString('auth', 'default-sp');
 		if ($session->isValid('twitter')) $authsource = 'twitter';
+
 		if ($session->isValid('facebook')) $authsource = 'facebook';
 		
 		$this->as = new SimpleSAML_Auth_Simple($authsource);
@@ -54,8 +55,24 @@ class FoodleAuth {
 			$this->user->realm = self::getRealm($attributes);
 			$this->user->language = self::getLanguage($attributes);
 
+
+			if ($authsource === 'twitter') $this->user->auth = 'twitter';
+			if ($authsource === 'facebook') $this->user->auth = 'facebook';
+
 			if (array_key_exists('jpegPhoto', $attributes))
 				$this->user->setPhoto($attributes['jpegPhoto'][0]);
+
+			if (array_key_exists('twitter.profile_image_url', $attributes)) {
+				try {
+					$photo = base64_encode(file_get_contents($attributes['twitter.profile_image_url'][0]));
+					
+					$this->user->setPhoto($photo);
+				} catch(Exception $e) {
+				}
+
+			}
+
+				
 			
 			// TODO twitter photo.
 				
@@ -116,13 +133,16 @@ class FoodleAuth {
 	}
 	
 	private function facebookAuth() {
+
 		$this->as = new SimpleSAML_Auth_Simple('facebook');
 		$this->as->requireAuth();			
 	}
 	
-	private function twitterAuth() {
+	public function twitterAuth() {
+
 		$this->as = new SimpleSAML_Auth_Simple('twitter');
 		$this->as->requireAuth();
+
 	}
 	
 	private function checkAnonymousSession() {
