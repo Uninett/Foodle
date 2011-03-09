@@ -1814,36 +1814,47 @@
 		"da": "Felre dage"
 	},
 	"userhascalendar": {
-		"no": "Denne brukeren har koblet sin kalender til Foodle"
+		"no": "Denne brukeren har koblet sin kalender til Foodle",
+		"sv": "Denna anv\u00e4ndare har anslutet sin kalender till Foodle."
 	},
 	"sharelink": {
-		"no": "Del en lenke"
+		"no": "Del en lenke",
+		"sv": "Dela en l\u00e4nk"
 	},
 	"shared_entries": {
-		"no": "Foodler som dere begge har svart p\u00e5"
+		"no": "Foodler som dere begge har svart p\u00e5",
+		"sv": "Foodlar som ni b\u00e4gge har svarat p\u00e5"
 	},
 	"invite": {
-		"no": "Invit\u00e9r"
+		"no": "Invit\u00e9r",
+		"sv": "Bjud in"
 	},
 	"invitation": {
-		"no": "Send ut invitasjon"
+		"no": "Send ut invitasjon",
+		"sv": "Dela genom inbjudan"
 	},
 	"invitation_intro": {
-		"no": "S\u00f8k for kontakter du \u00f8nsker \u00e5 invitere til \u00e5 svare p\u00e5 denne Foodlen, eller skrive inn e-post-adressen."
+		"no": "S\u00f8k for kontakter du \u00f8nsker \u00e5 invitere til \u00e5 svare p\u00e5 denne Foodlen, eller skrive inn e-post-adressen.",
+		"sv": "S\u00f6k efter kontakter att bjuda in till denna Foodle eller bjud in genom att ange e-postadressen till mottagaren."
 	},
 	"invite_button": {
-		"no": "Invit\u00e9r kontakter"
+		"no": "Invit\u00e9r kontakter",
+		"sv": "Bjud in kontakter"
 	},
 	"invited_users": {
-		"no": "Inviterte kontakter"
+		"no": "Inviterte kontakter",
+		"sv": "Inbjudna kontakter"
 	},
 	"users_responded": {
-		"no": "Brukere som allerede har svart p\u00e5 denne Foodlen"
+		"no": "Brukere som allerede har svart p\u00e5 denne Foodlen",
+		"sv": "Anv\u00e4ndare som redan har svarat p\u00e5 denna Foodle"
 	},
 	"notify_participants": {
-		"no": "Varsle deltakere"
+		"no": "Varsle deltakere",
+		"sv": "Meddela deltagarna"
 	},
 	"send_fixdate_mail": {
-		"no": "Send en epostvarsling til alle deltakerene listet nedenunder om valgt dato og tidspunkt."
+		"no": "Send en epostvarsling til alle deltakerene listet nedenunder om valgt dato og tidspunkt.",
+		"sv": "Skicka e-post till deltagarna med information om datum och tid f\u00f6r denna h\u00e4ndelse."
 	}
 }
