@@ -89,7 +89,7 @@ if (!empty($this->data['foodle'])) {
 					
 						case 'saml':
 						default:
-							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=saml&ReturnTo=https%3A%2F%2Ffoodle.feide.no%2F&saml:idp=' + e.entityid;
+							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=saml&ReturnTo=https%3A%2F%2Ffoodle.feide.no%2F&saml:idp=' + escape(e.entityid);
 						break;							
 							
 					}
