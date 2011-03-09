@@ -21,6 +21,9 @@ class FoodleDBConnector {
 	}
 	
 	public function q($sql, $field = null) {
+	
+		$begin = microtime(TRUE);
+	
 		$rows = array();
 		$result = mysql_query($sql, $this->db);
 		if(!$result)
@@ -32,8 +35,42 @@ class FoodleDBConnector {
 				if (isset($row[$field])) $rows[] = $row[$field];
 			}
 		}
+		
+		$end = microtime(TRUE);
+		
+		$dur = $end - $begin;
+		if ((float)$dur > 0.05)
+			error_log(' :SQL: Query time : ' . number_format($dur, 6, '.', ' ') . '  ' . $sql);
+		
 		return $rows;
 	}
+	
+	public function q1($sql, $field = null) {
+		
+		$rows = $this->q($sql, $field);
+		if (count($rows) < 1) {
+			throw new Exception('SQL query did not return any result: ' . $sql);
+		}
+		return $rows[0];
+	}
+	
+	
+	private function execute($sql) {
+
+		$begin = microtime(TRUE);
+		
+		$result = mysql_query($sql, $this->db);
+		if(!$result)
+			throw new Exception ("Could not successfully run query ($sql) fromDB:" . mysql_error());
+		
+		$end = microtime(TRUE);
+		
+		$dur = $end - $begin;
+		if ((float)$dur > 0.05)
+			error_log(' :SQL: Execute Query time : ' . number_format($dur, 6, '.', ' ') . '  ' . $sql);
+		
+	}
+
 
 	
 	
@@ -98,65 +135,51 @@ class FoodleDBConnector {
 			IF(created=0,null,UNIX_TIMESTAMP(created)) AS createdu, 
 			IF(updated=0,null,UNIX_TIMESTAMP(updated)) AS updatedu 
 			FROM def WHERE id = '" . mysql_real_escape_string($id) . "'";
-		
-		$result = mysql_query($sql, $this->db);
-		
-		if(!$result)
-			throw new Exception ("Could not successfully run query ($sql) fromDB:" . mysql_error());
 
-		if(mysql_num_rows($result) > 0) {
-			$row = mysql_fetch_assoc($result);
-			
-			// echo '<pre>'; print_r($row); echo '</pre>'; exit;
-			
-			$foodle = new Data_Foodle($this);
-			$foodle->identifier = $id;
-			$foodle->name = $row['name'];
-			$foodle->descr = stripslashes($row['descr']);
-			$foodle->expire = $row['expire_unix'];
-			$foodle->owner = $row['owner'];
-			$foodle->allowanonymous = (boolean) ($row['anon'] == '1');
-			$foodle->columntype = isset($row['columntype']) ? $row['columntype'] : null;
-			$foodle->responsetype = isset($row['responsetype']) ? $row['responsetype'] : 'default';
-			$foodle->extrafields = Data_Foodle::decode($row['extrafields']);
-			
-			$foodle->created = $row['createdu'];
-			$foodle->updated = $row['updatedu'];
-			
-			$foodle->datetime = Data_Foodle::decode($row['datetime']);
-			
-			if (!empty($row['timezone'])) $foodle->timezone = $row['timezone'];
-			
-			
-			if(self::isJSON($row['columns'][0])) {
-				#echo 'Use new encoding format';
-				$foodle->columns = json_decode($row['columns'], TRUE);
-			} else {
-				#echo 'Using old decoding.';
-				$foodle->columns = FoodleUtils::parseOldColDef($row['columns']);
-			}
-			
-			#echo '<pre>'; print_r($foodle->columns); echo '</pre>'; exit;
-			
-
-			
-			$maxdef = self::parseMaxDef($row['maxdef']);
-			#echo '<pre>Maxdef: ' . $row['maxdef']; echo "\n"; print_r( $maxdef); exit;
-			
-			if ($maxdef[0]) {
-				$foodle->maxentries = $maxdef[0];
-				$foodle->maxcolumn = $maxdef[1];
-			}
-			
-			$foodle->loadedFromDB = TRUE;
-			mysql_free_result($result);
-			
-			#echo '<pre>'; print_r($row); exit;
-			
-			return $foodle;
-		} 
+		try {
+			$row = $this->q1($sql);
+		} catch(Exception $e) {
+			throw new Exception('Could not lookup Foodle with id [' . $id . ']. May be it was deleted?');
+		}
 		
-		throw new Exception('Could not find foodle in database with id ' . $id);
+		$foodle = new Data_Foodle($this);
+		$foodle->identifier = $id;
+		$foodle->name = $row['name'];
+		$foodle->descr = stripslashes($row['descr']);
+		$foodle->expire = $row['expire_unix'];
+		$foodle->owner = $row['owner'];
+		$foodle->allowanonymous = (boolean) ($row['anon'] == '1');
+		$foodle->columntype = isset($row['columntype']) ? $row['columntype'] : null;
+		$foodle->responsetype = isset($row['responsetype']) ? $row['responsetype'] : 'default';
+		$foodle->extrafields = Data_Foodle::decode($row['extrafields']);
+		
+		$foodle->created = $row['createdu'];
+		$foodle->updated = $row['updatedu'];
+		
+		$foodle->datetime = Data_Foodle::decode($row['datetime']);
+		
+		if (!empty($row['timezone'])) $foodle->timezone = $row['timezone'];
+		
+		
+		if(self::isJSON($row['columns'][0])) {
+			#echo 'Use new encoding format';
+			$foodle->columns = json_decode($row['columns'], TRUE);
+		} else {
+			#echo 'Using old decoding.';
+			$foodle->columns = FoodleUtils::parseOldColDef($row['columns']);
+		}
+		
+		
+		$maxdef = self::parseMaxDef($row['maxdef']);
+		
+		if ($maxdef[0]) {
+			$foodle->maxentries = $maxdef[0];
+			$foodle->maxcolumn = $maxdef[1];
+		}
+		
+		$foodle->loadedFromDB = TRUE;
+		
+		return $foodle;
 	}
 	
 
@@ -213,46 +236,37 @@ class FoodleDBConnector {
 		$sql ="
 			SELECT * 
 			FROM user WHERE userid = '" . mysql_real_escape_string($userid) . "'";
-		
-		$result = mysql_query($sql, $this->db);
-		
-		if(!$result)
-			throw new Exception ("Could not successfully run query ($sql) fromDB:" . mysql_error());
 
-		if(mysql_num_rows($result) > 0) {
-			$row = mysql_fetch_assoc($result);
-			
-			// echo '<pre>'; print_r($row); echo '</pre>'; exit;
-			
-			$user = new Data_User($this);
-			$user->userid = $row['userid'];
-			$user->username = $row['username'];
-			$user->email = $row['email'];
-			$user->org = $row['org'];
-			$user->orgunit = $row['orgunit'];
-			$user->photol = $row['photol'];
-			$user->photom = $row['photom'];
-			$user->photos = $row['photos'];
-			$user->notifications = Data_User::decode($row['notifications']);
-			$user->features = Data_User::decode($row['features']);
-			$user->calendar = $row['calendar'];
-			$user->timezone = $row['timezone'];
-			$user->location = $row['location'];
-			$user->realm = $row['realm'];
-			$user->language = $row['language'];
-			$user->role = $row['role'];
-			$user->idp = $row['idp'];
-			$user->auth = $row['auth'];
+		try {
+			$row = $this->q1($sql);
+		} catch(Exception $e) {	
+			return false;
+		}
 
-			$user->loadedFromDB = TRUE;
-			mysql_free_result($result);
-			
-			#echo '<pre>'; print_r($user); exit;
-			
-			return $user;
-		} 
-		return false;
-		//throw new Exception('Could not find user in database with username ' . $userid);
+		$user = new Data_User($this);
+		$user->userid = $row['userid'];
+		$user->username = $row['username'];
+		$user->email = $row['email'];
+		$user->org = $row['org'];
+		$user->orgunit = $row['orgunit'];
+		$user->photol = $row['photol'];
+		$user->photom = $row['photom'];
+		$user->photos = $row['photos'];
+		$user->notifications = Data_User::decode($row['notifications']);
+		$user->features = Data_User::decode($row['features']);
+		$user->calendar = $row['calendar'];
+		$user->timezone = $row['timezone'];
+		$user->location = $row['location'];
+		$user->realm = $row['realm'];
+		$user->language = $row['language'];
+		$user->role = $row['role'];
+		$user->idp = $row['idp'];
+		$user->auth = $row['auth'];
+
+		$user->loadedFromDB = TRUE;
+
+		return $user;
+
 	}
 	
 	public function userExists($userid) {
@@ -260,18 +274,13 @@ class FoodleDBConnector {
 		$sql ="
 			SELECT userid
 			FROM user WHERE userid = '" . mysql_real_escape_string($userid) . "'";
-		
-		$result = mysql_query($sql, $this->db);
-		
-		if(!$result)
-			throw new Exception ("Could not successfully run query ($sql) fromDB:" . mysql_error());
 
-		if(mysql_num_rows($result) > 0) {
+		$rows = $this->q($sql);
+
+		if(count($rows) > 0) {
 			return TRUE;
 		}
-		
 		return FALSE;
-	
 	}
 
 	public function saveUser(Data_User $user) {
@@ -295,14 +304,10 @@ class FoodleDBConnector {
 			userid, , username, email, org, orgunit, photol, photom, photos, notifications, features, calendar, timezone, location, realm, language
 		*/
 		
-		
-#		print_r($user->notifications); exit;
-		
 		if ($user->loadedFromDB) {
 			error_log('FoodleDB: Updating user data');
 			$sql = "
 				UPDATE user SET " .
-#					self::sqlParameter('userid', $user->username) . 
 					self::sqlParameter('username', $user->username, 'null') . 
 					self::sqlParameter('email', $user->email, 'null') . 
 					self::sqlParameter('org', $user->org, 'null') . 
@@ -349,12 +354,8 @@ class FoodleDBConnector {
 			
 		}
 		
-		#echo '<pre>'; echo $sql; exit;
-		$res = mysql_query($sql, $this->db);
-		
-		if(mysql_error()){
-			throw new Exception('Invalid query: <pre>' . $sql . '</pre>' . mysql_error());
-		}
+		$this->execute($sql);
+
 	}
 
 
@@ -414,24 +415,10 @@ class FoodleDBConnector {
 			";
 			
 		}
-		
-		#echo '<pre>'; echo $sql; exit;
-		$res = mysql_query($sql, $this->db);
-		
-		if(mysql_error()){
-			throw new Exception('Invalid query: <pre>' . $sql . '</pre>' . mysql_error());
-		}
+		$this->execute($sql);
+
 	}
 	
-	private function execute($sql) {
-	
-		# echo '<pRE>SQL: ' . $sql . "\n\n" ; return;
-		$result = mysql_query($sql, $this->db);
-		if(!$result)
-			throw new Exception ("Could not successfully run query ($sql) fromDB:" . mysql_error());
-		
-//		return mysql_num_rows($result);
-	}
 	
 	public function deleteFoodle(Data_Foodle $foodle) {
 	
@@ -450,12 +437,9 @@ class FoodleDBConnector {
 			SELECT *
 			FROM def WHERE id = '" . mysql_real_escape_string($id) . "'";
 		
-		$result = mysql_query($sql, $this->db);
+		$result = $this->q($sql);
 		
-		if(!$result)
-			throw new Exception ("Could not successfully run query ($sql) fromDB:" . mysql_error());
-
-		if(mysql_num_rows($result) > 0) return FALSE;
+		if(count($result) > 0) return FALSE;
 		return TRUE;
 	}
 
@@ -524,13 +508,6 @@ class FoodleDBConnector {
 	 */
 	public function readResponses(Data_Foodle $foodle, $maxago = NULL, $includeInvites = TRUE) {
 		
-// SELECT entries.*, 
-// UNIX_TIMESTAMP(entries.created) AS createdu,
-// UNIX_TIMESTAMP(entries.updated) AS updatedu,
-// user.userid AS profile
-// FROM entries LEFT JOIN user ON (entries.userid = user.userid)
-// WHERE foodleid='Tester-kalender-i-fremtid-4ca1d' order by entries.updated desc, entries.created desc;
-		
 		$maxclause = '';
 		if ($maxago !== null) {
 			$maxclause = ' AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(entries.updated) < ' . mysql_real_escape_string($maxago) ;
@@ -548,16 +525,11 @@ class FoodleDBConnector {
 			WHERE foodleid='" . $foodle->identifier . "' " . $maxclause . "
 			ORDER BY entries.invitation, entries.updated desc, entries.created desc";
 
-		$result = mysql_query($sql, $this->db);
-		
-		if(!$result){
-			throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
-		}
-		
+		$rows = $this->q($sql);
 		$responses = array();
 		
-		if(mysql_num_rows($result) > 0){		
-			while($row = mysql_fetch_assoc($result)){
+		if(!empty($rows)){		
+			foreach($rows AS $row) {
 
 				$newResponse = new Data_FoodleResponse($this, $foodle);
 				$newResponse->loadedFromDB = TRUE;
@@ -613,7 +585,6 @@ class FoodleDBConnector {
 				$responses[$row['userid']] = $newResponse;
 			}
 		}
-		mysql_free_result($result);
 		
 		return $responses;
 	}
@@ -643,19 +614,13 @@ class FoodleDBConnector {
 			ORDER BY discussion.created DESC 
 			";
 
-#		echo 'sql: ' . $sql; exit;
-		$result = mysql_query($sql, $this->db);
-		
-		if(!$result){
-			throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
-		}
-		
+		$result = $this->q($sql);
+
 		$discussion = array();
 		
-		if(mysql_num_rows($result) > 0){		
-			while($row = mysql_fetch_assoc($result)){
-				
-				
+		if(!empty($result)){		
+			foreach($result AS $row) {
+
 				try {
 					if (!empty($row['userid'])) {
 						$ruser = $this->readUser($row['userid']);
@@ -671,8 +636,6 @@ class FoodleDBConnector {
 				
 			}
 		}
-		mysql_free_result($result);
-		
 		return $discussion;
 	}
 	
@@ -685,11 +648,8 @@ class FoodleDBConnector {
 				"'" . mysql_real_escape_string($user->username) . "', " . 
 				"'" . mysql_real_escape_string(utf8_decode($message)) . "')";
 		
-		$res = mysql_query($sql, $this->db);
-		
-		if(mysql_error()){
-			throw new Exception('Invalid query: ' . mysql_error());
-		}	
+		$this->execute($sql);
+
 	}
 	
 	
@@ -756,31 +716,18 @@ class FoodleDBConnector {
 					'" . $response->asJSON() . "', now())";
 			
 		}
-		
-#		echo '<pre>'; echo $sql; exit;
-		
-		$res = mysql_query($sql, $this->db);
-		
-		
-		if(mysql_error()){
-			throw new Exception('Invalid query: ' . mysql_error());
-		}
+
+
+		$this->execute($sql);
+
 	}
 
 
 	public function getStats() {
 	
-		$sql = 'select count(*) as num from (select UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(created) as d from entries WHERE invitation = false having d < 7*60*60*24 ) as a';
-		$result = mysql_query($sql, $this->db);		
-		if(!$result) throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
+		$sql = 'select count(*) as total7days from (select UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(created) as d from entries WHERE invitation = false having d < 7*60*60*24 ) as a';
 		
-		$resarray = array();
-		if(mysql_num_rows($result) === 1){		
-			$row = mysql_fetch_assoc($result);
-			$resarray['total7days'] = $row['num'];
-		}		
-		mysql_free_result($result);
-		return $resarray;
+		return $this->q1($sql);
 	}
 	
 	public function getStatsRealm($recent = NULL) {
@@ -807,40 +754,19 @@ class FoodleDBConnector {
 	
 
 	public function getAllEntries($no = 20) {
-				
-				
-// 		$sql ="
-// 			SELECT entries.*, def.*, user.username ownername 
-// 			FROM entries, def LEFT JOIN user ON (def.owner = user.userid)
-// 			WHERE entries.userid = '" . $user->userid . "' and entries.foodleid = def.id
-// 			ORDER BY def.created DESC";
+
 		$sql ="
 			SELECT def.*, user.username ownername
 			FROM def LEFT JOIN user ON (def.owner = user.userid)
 			ORDER BY def.created DESC 
 			LIMIT " . $no;
-			
-		$result = mysql_query($sql, $this->db);
 		
-		if(!$result){
-			throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
-		}
-		
-		$resarray = array();
-		
-		if(mysql_num_rows($result) > 0){		
-			while($row = mysql_fetch_assoc($result)){
-				$resarray[] = $row;
-			}
-		}		
-		mysql_free_result($result);
-		
-		return $resarray;
+		return $this->q($sql);
 	}
 
 	public function getActivityStream(Data_User $user, $foodleids, $no = 20) {
 		$statusupdates = $this->getStatusUpdate($user, $foodleids, $no);
-#		print_r($statusupdates);
+
 		$stream = new Data_ActivityStream($this);
 		$stream->activity = $statusupdates;
 		
@@ -870,16 +796,13 @@ class FoodleDBConnector {
 			ORDER BY entries.created DESC 
 			LIMIT " . $no;
 
-		$result = mysql_query($sql, $this->db);		
-		if(!$result) throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
-
-		if(mysql_num_rows($result) > 0){		
-			while($row = mysql_fetch_assoc($result)){
+		$result = $this->q($sql);
+		if(!empty($result)){		
+			foreach($result AS $row) {
 				$row['type'] = 'response';
 				$resarray[$row['created']] = $row;
 			}
 		}		
-		mysql_free_result($result);
 
 
 		$sql ="
@@ -890,16 +813,14 @@ class FoodleDBConnector {
 			ORDER BY discussion.created DESC 
 			LIMIT " . $no;
 
-		$result = mysql_query($sql, $this->db);		
-		if(!$result) throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
+		$result = $this->q($sql);
+		if(!empty($result)){		
+			foreach($result AS $row) {
 
-		if(mysql_num_rows($result) > 0){		
-			while($row = mysql_fetch_assoc($result)){
 				$row['type'] = 'discussion';
 				$resarray[$row['created']] = $row;
 			}
 		}		
-		mysql_free_result($result);
 
 		krsort($resarray);
 		
@@ -914,20 +835,12 @@ class FoodleDBConnector {
 			WHERE entries.userid = '" . $user->userid . "' and entries.foodleid = def.id 
 			ORDER BY def.created DESC";
 
-		$result = mysql_query($sql, $this->db);
-		
-		if(!$result){
-			throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
-		}
-		
-		$resarray = array();
-		
-		if(mysql_num_rows($result) > 0){		
-			while($row = mysql_fetch_assoc($result)){
+		$result = $this->q($sql);
+		if(!empty($result)){		
+			foreach($result AS $row) {
 				$resarray[] = $row;
 			}
 		}		
-		mysql_free_result($result);
 		
 		return $resarray;
 	}
@@ -941,21 +854,13 @@ class FoodleDBConnector {
 			ORDER BY created DESC 
 			LIMIT " . $no;
 
-		$result = mysql_query($sql, $this->db);
-		
-		if(!$result){
-			throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
-		}
-		
-		$resarray = array();
-		
-		if(mysql_num_rows($result) > 0){		
-			while($row = mysql_fetch_assoc($result)){
+		$result = $this->q($sql);
+		if(!empty($result)){		
+			foreach($result AS $row) {
 				$resarray[] = $row;
 			}
 		}		
-		mysql_free_result($result);
-		
+
 		return $resarray;
 	}
 
@@ -972,25 +877,7 @@ e1.userid = '" . addslashes($user1->userid) . "' AND
 e2.userid = '" . addslashes($user2->userid) . "'
 ORDER BY e1.created DESC LIMIT " . $no;
 
-
-		//echo '<pre>'; echo $sql; exit;
-
-		$result = mysql_query($sql, $this->db);
-		
-		if(!$result){
-			throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
-		}
-		
-		$resarray = array();
-		
-		if(mysql_num_rows($result) > 0){		
-			while($row = mysql_fetch_assoc($result)){
-				$resarray[] = $row;
-			}
-		}		
-		mysql_free_result($result);
-		
-		return $resarray;
+		return $this->q($sql);
 	}
 	
 	
@@ -1039,59 +926,6 @@ ORDER BY c desc";
 
 
 
-// ---- o ---- o ---- o ---- o ---- o ---- o ---- o ---- o ---- o ---- o ---- o ---- o 
-
-
-
-
-	
-	/**
-	 * Here is the database schema:
-+----------+--------------+------+-----+---------+----------------+
-| Field    | Type         | Null | Key | Default | Extra          |
-+----------+--------------+------+-----+---------+----------------+
-| id       | int(11)      | NO   | PRI | NULL    | auto_increment | 
-| foodleid | varchar(100) | NO   |     |         |                | 
-| userid   | tinytext     | YES  |     | NULL    |                | 
-| username | tinytext     | YES  |     | NULL    |                | 
-| response | tinytext     | YES  |     | NULL    |                | 
-+----------+--------------+------+-----+---------+----------------+
-	*/
-	private function loadEntriesFromDB() {
-				
-		$link = $this->getDBhandle();
-		
-		$sql ="SELECT * 
-			FROM entries
-			WHERE foodleid='" . $this->getIdentifier() . "' order by id desc";
-
-		$result = mysql_query($sql, $this->db);
-		
-		if(!$result){
-			throw new Exception ("Could not successfully run query ($sql) from DB:" . mysql_error());
-		}
-		
-		if(mysql_num_rows($result) > 0){		
-			while($row = mysql_fetch_assoc($result)){
-				$this->addEntry($row['userid'], $row['username'],
-					$this->decodeResponse($row['response']));
-			}
-		}		
-		mysql_free_result($result);
-		
-	}
-	
-
-
-
-
-	
-	
-	
-
-	
-
-	
 
 
 }
