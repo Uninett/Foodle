@@ -73,8 +73,8 @@ if (!empty($this->data['foodle'])) {
 					"stores": [
 						'https://disco.uninett.no/',
 						'https://foodle.feide.no/simplesaml/module.php/discopower/disco.php',
-						'https://kalmar2.org/simplesaml/module.php/discopower/disco.php',
-						'https://wayf-test.surfnet.nl/federate/saml20'
+						'https://kalmar2.org/simplesaml/module.php/discopower/disco.php'
+//						'https://wayf-test.surfnet.nl/federate/saml20'
 					],
 					'writableStore': 'https://disco.uninett.no/'
 				},
