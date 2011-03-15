@@ -318,8 +318,8 @@ function prepareDateColumns() {
 		dateFormat: "yy-mm-dd",
 		numberOfMonths: 1,
 		firstDay: 1,
-		yearRange: '2009:2015'
-//		onSelect: updatePreview
+		yearRange: '2009:2015',
+		onSelect: updatePreview
 	});
 
 	var availableTags = ["08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", 

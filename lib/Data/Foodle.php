@@ -186,7 +186,7 @@ class Data_Foodle {
 	
 	public function toTimezone($time, $timezone) {
 	
-#		error_log('Converting timeztamp ' . date('r', $time) . ' from ' . $this->timezone . ' to ' . $timezone);
+//		error_log('Converting timeztamp ' . date('r', $time) . ' from ' . $this->timezone . ' to ' . $timezone);
 		$d =  new DateTime('@' . $time, new DateTimeZone($this->timezone));
 		$d->setTimeZone(new DateTimeZone($timezone));
 		return $d;
@@ -201,6 +201,8 @@ class Data_Foodle {
 		foreach($slots AS $slot) {
 			$newDate = array('title' => $this->toTimezone($slot[0], $timezone)->format('H:i') );			
 			$this->columns[] = $newDate;
+			
+//			error_log('Timezone planner convert to timezone from [' . var_export($slot, TRUE) . '] to [' . var_export($newDate, TRUE) . ']');
 		}
 		
 	}
