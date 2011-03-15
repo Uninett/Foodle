@@ -907,7 +907,9 @@ class Data_Foodle {
 		$this->extrafields = array();
 		if (!empty($_REQUEST['extrafields_photo'])) $this->extrafields[] = 'photo';
 		if (!empty($_REQUEST['extrafields_org'])) $this->extrafields[] = 'org';
+		if (!empty($_REQUEST['extrafields_timezone'])) $this->extrafields[] = 'timezone';
 		if (!empty($_REQUEST['extrafields_location'])) $this->extrafields[] = 'location';
+
 		
 #				echo '<pre>'; print_r($_REQUEST);  print_r($this); exit;
 		

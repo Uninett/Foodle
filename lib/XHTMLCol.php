@@ -49,6 +49,10 @@ class XHTMLCol {
 				case 'location':
 						echo '<th rowspan="2" style="">' . $t->t('extrafields_location') . '</th>';
 					break;
+
+				case 'timezone':
+						echo '<th rowspan="2" style="">' . $t->t('extrafields_timezone') . '</th>';
+					break;
 					
 				default:
 					echo '<th rowspan="2"></th>';

@@ -555,8 +555,10 @@ if (!empty($this->data['foodle']->datetime)) {
 			echo('<p>' . $this->t('extrafields_info') . '</p>');
 			
 			$efChecked = array(
+
 				'photo' => '',
 				'org' => '',
+				'timezone' => '',
 				'location' => '',
 			);
 			
@@ -577,6 +579,11 @@ if (!empty($this->data['foodle']->datetime)) {
 			echo('<p style="margin: 2px">
 				<input type="checkbox" name="extrafields_location" id="extrafields_location" ' . $efChecked['location'] . '>
 				<label for="extrafields_location">' . $this->t('extrafields_location') . '</label></p>');
+
+			echo('<p style="margin: 2px">
+				<input type="checkbox" name="extrafields_timezone" id="extrafields_timezone" ' . $efChecked['timezone'] . '>
+				<label for="extrafields_timezone">' . $this->t('extrafields_timezone') . '</label></p>');
+
 		
 		?>
 		

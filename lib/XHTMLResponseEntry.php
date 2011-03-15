@@ -82,6 +82,17 @@ class XHTMLResponseEntry {
 					}
 					echo '<td style="text-align: center; vertical-align: top;">' . $loc . '</td>';
 					break;
+					
+				case 'timezone':
+					$timezone = '';
+					if(isset($response->user)) {
+						if (!empty($response->user->timezone)) $timezone = $response->user->timezone;
+					}
+// 					if (isset($response->timezone)) {
+// 						$timezone = $response->timezone;
+// 					}
+					echo '<td style="text-align: center; vertical-align: top;">' . $timezone . '</td>';
+					break;
 
 					
 				default:
@@ -209,6 +220,16 @@ class XHTMLResponseEntry {
 						echo '<td style="text-align: center; vertical-align: top;">' . $loc . '</td>';
 						break;
 
+				case 'timezone':
+					$timezone = '';
+					if(isset($response->user)) {
+						if (!empty($response->user->timezone)) $timezone = $response->user->timezone;
+					}
+// 					if (isset($response->timezone)) {
+// 						$timezone = $response->timezone;
+// 					}
+					echo '<td style="text-align: center; vertical-align: top;">' . $timezone . '</td>';
+					break;
 
 						
 					default:
@@ -364,6 +385,17 @@ class XHTMLResponseEntry {
 						if (!empty($response->user->location)) $loc = $response->user->location;
 					}
 					echo '<td style="text-align: center; vertical-align: top;">' . $loc . '</td>';
+					break;
+					
+				case 'timezone':
+					$timezone = '';
+					if(isset($response->user)) {
+						if (!empty($response->user->timezone)) $timezone = $response->user->timezone;
+					}
+// 					if (isset($response->timezone)) {
+// 						$timezone = $response->timezone;
+// 					}
+					echo '<td style="text-align: center; vertical-align: top;">' . $timezone . '</td>';
 					break;
 
 					
@@ -532,6 +564,17 @@ class XHTMLResponseEntry {
 						if (!empty($response->user->location)) $loc = $response->user->location;
 					}
 					echo '<td style="text-align: center; vertical-align: top;">' . $loc . '</td>';
+					break;
+				
+				case 'timezone':
+					$timezone = '';
+					if(isset($response->user)) {
+						if (!empty($response->user->timezone)) $timezone = $response->user->timezone;
+					}
+// 					if (isset($response->timezone)) {
+// 						$timezone = $response->timezone;
+// 					}
+					echo '<td style="text-align: center; vertical-align: top;">' . $timezone . '</td>';
 					break;
 				
 				default:

@@ -467,6 +467,9 @@
 	"extrafields_location": {
 		"en": "Location"
 	},
+	"extrafields_timezone": {
+		"en": "Timezone"
+	},
 	"attend": {
 		"en": "I will attend"
 	},
