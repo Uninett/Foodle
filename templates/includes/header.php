@@ -69,7 +69,7 @@ if (!empty($this->data['foodle'])) {
 				"location": false,
 				"disco": {
 					"spentityid": "https://foodl.org/simplesaml/module.php/saml/sp/metadata.php/saml",
-					"url": "http://ulx.foodl.org/res/discojuice/discojuiceDiscoveryResponse.html?",
+					"url": "https://foodl.org/res/discojuice/discojuiceDiscoveryResponse.html?",
 					"stores": [
 						'https://disco.uninett.no/',
 						'https://foodle.feide.no/simplesaml/module.php/discopower/disco.php',
