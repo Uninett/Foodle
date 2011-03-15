@@ -80,16 +80,17 @@ if (!empty($this->data['foodle'])) {
 				},
 				"callback": function(e) {
 					var auth = e.auth || null;
+					var returnto = window.location.href || 'https://foodl.org';
 					switch(auth) {
 						
 						case 'twitter':
-							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=twitter&ReturnTo=https%3A%2F%2Ffoodle.feide.no%2F';
+							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=twitter&ReturnTo=' + escape(returnto);
 						break;
 					
 					
 						case 'saml':
 						default:
-							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=saml&ReturnTo=https%3A%2F%2Ffoodle.feide.no%2F&saml:idp=' + escape(e.entityid);
+							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=saml&ReturnTo=' + escape(returnto) + '&saml:idp=' + escape(e.entityid);
 						break;							
 							
 					}
