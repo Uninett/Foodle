@@ -115,20 +115,15 @@ echo('<p><input type="submit" name="submit_profile" value="' . $this->t('profile
 ?>
 
 
-
-			
 	</div>
 	<div class="col3">
 
 
 
-
-			<h2>
-				<?php echo $this->t('statistics'); ?>
-			</h2>
-			<p>
-				....
-			</p>
+			<h2><?php echo $this->t('bc_attribute_check'); ?></h2>
+		<ul>
+			<li><a href="/attributes"><?php echo $this->t('bc_attribute_check'); ?></a></li>
+		</ul>
 			
 
 

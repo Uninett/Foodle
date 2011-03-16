@@ -75,6 +75,7 @@ require_once($THISPATH . 'lib/Pages/Debug.php');
 require_once($THISPATH . 'lib/Pages/FDebug.php');
 require_once($THISPATH . 'lib/Pages/PageFront.php');
 require_once($THISPATH . 'lib/Pages/PageProfile.php');
+require_once($THISPATH . 'lib/Pages/PageAttributes.php');
 require_once($THISPATH . 'lib/Pages/PageUser.php');
 require_once($THISPATH . 'lib/Pages/PageSupport.php');
 require_once($THISPATH . 'lib/Pages/PageStats.php');

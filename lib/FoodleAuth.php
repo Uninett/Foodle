@@ -117,6 +117,28 @@ class FoodleAuth {
 		}
 	}
 	
+	public function getAttributes() {
+		
+		/* Load simpleSAMLphp, configuration and metadata */
+		$this->sspconfig = SimpleSAML_Configuration::getInstance();
+		$this->config = SimpleSAML_Configuration::getInstance('foodle');
+		$session = SimpleSAML_Session::getInstance();
+
+		
+		$authsource = $this->config->getString('auth', 'default-sp');
+		if ($session->isValid('twitter')) $authsource = 'twitter';
+		if ($session->isValid('facebook')) $authsource = 'facebook';
+		
+		$this->as = new SimpleSAML_Auth_Simple($authsource);
+
+		/* Check if valid local session exists.. */
+		if ($this->as->isAuthenticated() ) {
+			return $this->as->getAttributes();
+		}
+		return FALSE;
+	}
+	
+	
 // 	private function setUserID($userid) {
 // 		$this->attributes['eduPersonTargetedID'] = array($userid);
 // 	}
@@ -263,6 +285,83 @@ class FoodleAuth {
 		return $this->isAuth;
 	}
 	
+	
+	public function validateAttributes() {
+		
+		$attributes = $this->getAttributes();
+		$result = array();
+		
+		if (empty($attributes)) {
+			$result[] = array('fatal', 'No attributes');
+			return $result;
+		}
+	
+
+		self::checkAttribute(&$result, 'User ID', $this->getUserid($attributes), 'fatal', array(
+			array('pattern' => '^.*@(.+?)$')
+		));
+
+		self::checkAttribute(&$result, 'Email address', $this->getEmail($attributes), 'error', array(
+			array('pattern' => '^.*@(.+?)$', 'pri' => 'error')
+		));
+
+		self::checkAttribute(&$result, 'Name of user', $this->getUsername($attributes), 'error', array(
+			array('pattern' => '\s', 'pri' => 'warning', 'text' => 'Name shuold not be a single word. Both firstname and lastname should be included.')
+		));
+		
+		self::checkAttribute(&$result, 'User realm', $this->getRealm($attributes), 'error', array(
+		));
+
+		self::checkAttribute(&$result, 'Freebusy Calendar', $this->getCalendar($attributes), 'warning', array(
+		));
+		
+
+		self::checkAttribute(&$result, 'Name of Organisation', $this->getOrg($attributes), 'warning', array(
+		));		
+
+		self::checkAttribute(&$result, 'Name of Organisation Unit (Department)', $this->getOrgunit($attributes), 'warning', array(
+		));				
+		
+		self::checkAttribute(&$result, 'Location of user', $this->getLocation($attributes), 'warning', array(
+		));	
+		
+
+		self::checkAttribute(&$result, 'Preferred Language of user', $this->getLanguage($attributes), 'warning', array(
+		));			
+
+		return $result;
+	}
+	
+	private static function checkAttribute(&$results, $name, $value, $required = 'fatal', $patterns = array()) {
+	
+		$ok = TRUE;
+		if (empty($value)) {
+			$results[] = array($required, 'Attribute [' . $name . '] was empty');
+			$ok = FALSE;
+			return;
+		}
+		
+		foreach($patterns AS $pattern) {
+			if(!preg_match('/' . $pattern['pattern'] . '/', $value)) {
+				$pri = 'warning';
+				if (!empty($pattern['pri'])) $pri = $pattern['pri'];
+				
+				$text = 'Attribute [' . $name . '] did not match pattern [' . $pattern . ']';
+				if (!empty($pattern['text'])) $text = 'Attribute [' . $name . ']' . $pattern['text'];
+				
+				$results[] = array($pri, $text);
+
+				$ok = FALSE;
+			}			
+		}
+		
+		if ($ok) {
+			$results[] = array('ok', 'Attribute [' . $name . '] succeeded all tests');
+		}
+	}
+	
+	
+	
 	protected static function getUserid($attributes) {
 		if (array_key_exists('eduPersonPrincipalName', $attributes)) 
 			return $attributes['eduPersonPrincipalName'][0];
@@ -306,11 +405,11 @@ class FoodleAuth {
 		return null;
 	}
 	
-	
 	protected static function getOrg($attributes) {
 		if (!empty($attributes['eduPersonOrgDN:eduOrgLegalName'][0])) return $attributes['eduPersonOrgDN:eduOrgLegalName'][0];
 		if (!empty($attributes['eduPersonOrgDN:o'][0])) return $attributes['eduPersonOrgDN:o'][0];
 		if (!empty($attributes['eduPersonOrgDN:cn'][0])) return $attributes['eduPersonOrgDN:cn'][0];
+		if (!empty($attributes['o'][0])) return $attributes['o'][0];
 		return null;
 	}
 	
@@ -331,6 +430,8 @@ class FoodleAuth {
 		$index = 0;
 		if (!empty($attributes['eduPersonOrgUnitDN:cn'][$index])) return $attributes['eduPersonOrgUnitDN:cn'][$index];
 		if (!empty($attributes['eduPersonOrgUnitDN:ou'][$index])) return $attributes['eduPersonOrgUnitDN:ou'][$index];
+		
+		if (!empty($attributes['ou'][0])) return $attributes['ou'][0];
 		
 		return null;
 	}

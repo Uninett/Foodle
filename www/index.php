@@ -77,6 +77,12 @@ try {
 			$page = new Pages_PageProfile($config, $parameters);
 			$page->show();
 			break;
+
+		case 'attributes':
+			$page = new Pages_PageAttributes($config, $parameters);
+			$page->show();
+			break;
+
 			
 		case 'login':
 			$page = new Pages_Login($config, $parameters);

@@ -13,9 +13,8 @@ $user = $this->data['user'];
 <div class="columned">
 	<div class="gutter"></div>
 	<div class="col1">
-
-		<h1 style="margin-bottom: 0px"><?php echo htmlspecialchars($user->username); ?></h1>
-
+	
+		<h1 style="margin-bottom: 0px"><?php echo htmlspecialchars($this->t('bc_attribute_check')); ?></h1>
 
 <?php
 
@@ -58,33 +57,62 @@ if ($this->data['user']->hasCalendar()) {
 }
 
 
-echo '<h2>' . $this->t('shared_entries') . '</h2>';
+echo '<h2>' . $this->t('attribute_validation') . '</h2>';
 
-if (!empty($this->data['sharedentries'])) {
-	
-	echo '<ul>';
-	foreach($this->data['sharedentries'] AS $e) {
+
+if (!empty($this->data['validate'])) {
+foreach($this->data['validate'] AS $v) {
+	echo '<div>';
+	switch($v[0]) {
+		case 'fatal':
+			echo '<img src="/res/exclamation.png" alt="OK" /><strong>Fatal Error</strong> ';
+			break;
+
+		case 'error':
+			echo '<img src="/res/exclamation.png" alt="OK" />';
+			break;
+
+		case 'ok':
+			echo '<img src="/res/yes.png" alt="OK" />';
+			break;
+
+		case 'warning':
+		default:
+			echo '<img src="/res/error.png" alt="Warning" />';
+			break;
+
+	}
+	echo ' ' . htmlspecialchars($v[1]);
+	echo '</div>';
+}
+}
+
+echo '<h2>' . $this->t('attribute_dump') . '</h2>';
+
+if (empty($this->data['attributes'])) {
+	echo '<p>No attributes</p>';
+} else {
+
+	echo '<dl class="attributelist">';
+	foreach($this->data['attributes'] AS $key => $values) {
 		
-		echo '<li><a href="/foodle/' . htmlspecialchars($e['id']) . '">' . htmlspecialchars($e['name']) . '</a></li>';
+		echo '<dt><tt>' .  htmlspecialchars($key) . '</tt></dt>';
+		echo '<dd><ul>';
+		foreach($values AS $value) {
+			if (strlen($value) > 100) {
+				echo '<li><tt>' . htmlspecialchars(substr($value, 0, 100)) . ' <span style="color: #999">[trunctated]</span></tt></li>';
+			} else {
+				echo '<li><tt>' . htmlspecialchars($value) . '</tt></li>';
+			}
+
+		}
+		echo '</ul></dd>';
 		
 		
 	}
-	echo '</ul>';
-	
-} else {
-	echo '<p>None.</p>';
+	echo '</dl>';
 }
-
-
-
-
 ?>
-
-
-	
-	
-
-
 
 	</div>
 	<div class="col2">
@@ -103,8 +131,6 @@ if (!empty($this->data['sharedentries'])) {
 
 
 ?>
-
-
 
 
 

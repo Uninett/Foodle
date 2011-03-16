@@ -523,5 +523,15 @@
 	},
 	"send_fixdate_mail": {
 		"en": "Send a notification mail to the participants listed below about the date and time for this event."
+	},
+	"attribute_validation": {
+		"en": "Attribute Validation"
+	},
+	"attribute_dump": {
+		"en": "Attribute Dump"
+	},
+	"bc_attribute_check": {
+		"en": "Attribute check"
 	}
+
 }

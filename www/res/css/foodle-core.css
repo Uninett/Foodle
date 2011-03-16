@@ -858,3 +858,9 @@ div.invite_result_entry:nth-child(2n) {
 
 
 
+dl.attributelist dd {
+	margin: 0px;
+}
+dl.attributelist ul {
+	margin: 0px;
+}
