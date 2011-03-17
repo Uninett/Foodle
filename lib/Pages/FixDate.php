@@ -108,6 +108,12 @@ class Pages_FixDate extends Pages_PageFoodle {
 		$profileurl = FoodleUtils::getUrl() . 'profile/';
 		$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier;
 		$name = 'Date and time set for ' . $foodle->name;
+		
+		if (empty($user->email)) {
+			error_log('Was not able to send e-mail notification to ' . $user->userid . ' because email address was missing');
+			return;
+		}
+		
 		$to = $user->email;
 //		$to = 'andreassolberg@gmail.com'; 
 		
