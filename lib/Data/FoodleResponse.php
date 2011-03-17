@@ -118,7 +118,7 @@ class Data_FoodleResponse {
 		foreach($slots AS $i => $slot) {
 			$crash = $cal->available($slot[0], $slot[1]);
 			if ($crash !== NULL) {
-				if (is_a($crash, 'Event')) {
+				if ($crash instanceof Event) {
 					$responseData[(int)$i] = '0';
 					$crashingEvents[(int)$i] = $crash->showShort();					
 				} elseif(is_string($crash)) {
