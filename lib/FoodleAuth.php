@@ -406,10 +406,11 @@ class FoodleAuth {
 	}
 	
 	protected static function getOrg($attributes) {
-		if (!empty($attributes['eduPersonOrgDN:eduOrgLegalName'][0])) return $attributes['eduPersonOrgDN:eduOrgLegalName'][0];
 		if (!empty($attributes['eduPersonOrgDN:o'][0])) return $attributes['eduPersonOrgDN:o'][0];
-		if (!empty($attributes['eduPersonOrgDN:cn'][0])) return $attributes['eduPersonOrgDN:cn'][0];
 		if (!empty($attributes['o'][0])) return $attributes['o'][0];
+		if (!empty($attributes['eduPersonOrgDN:eduOrgLegalName'][0])) return $attributes['eduPersonOrgDN:eduOrgLegalName'][0];
+		if (!empty($attributes['eduPersonOrgDN:cn'][0])) return $attributes['eduPersonOrgDN:cn'][0];
+
 		return null;
 	}
 	
