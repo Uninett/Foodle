@@ -247,7 +247,7 @@ You may also create new Foodles on your own, and invite others to respond.
 		$this->template->data['ownerid'] = $this->foodle->owner;
 		$this->template->data['showsharing'] = $isAdmin;
 				
-		if (isset($_REQUEST['debug']) ) {
+		if (isset($_REQUEST['debugtab']) ) {
 			$this->template->data['showdebug'] = TRUE;
 		}
 		$this->template->data['showsupport'] = TRUE;
