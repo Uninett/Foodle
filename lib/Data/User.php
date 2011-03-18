@@ -289,12 +289,20 @@ class Data_User {
 		
 		if (!empty($from->photol)) {
 			if ($this->photol !== $from->photol) {
-				error_log('auth from [' . $this->photol. '] to [' . $from->photol . ']');
+				error_log('photo url from [' . $this->photol. '] to [' . $from->photol . ']');
 				$modified = TRUE;
 			}
 			$this->photol = $from->photol;
 		}
 
+
+		if (!empty($from->calendar)) {
+			if ($this->calendar!== $from->calendar) {
+				error_log('Calendar from [' . $this->calendar. '] to [' . $from->calendar . ']');
+				$modified = TRUE;
+			}
+			$this->calendar = $from->calendar;
+		}
 		
 		
 		if (empty($this->timezone)) {
