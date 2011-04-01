@@ -32,15 +32,14 @@ echo '<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodl
 	<link rel="stylesheet" media="screen" type="text/css" href="/res/js/uitheme/jquery-ui-themeroller.css" />
 	<!-- JQuery -->
 	
-	
-	
-	<!-- DiscoJuice -->
-	<script type="text/javascript" language="javascript" src="/res/discojuice/discojuice.misc.js"></script>
-	<script type="text/javascript" language="javascript" src="/res/discojuice/discojuice.ui.js"></script>
-	<script type="text/javascript" language="javascript" src="/res/discojuice/discojuice.control.js"></script>
-	<link rel="stylesheet" type="text/css" href="/res/discojuice/css/discojuice.css" />
-	<!-- DiscoJuice -->
 
+<?php
+
+
+sspmod_discojuice_EmbedHelper::head(false);
+
+
+?>
 
 
 	<script type="text/javascript">
@@ -53,50 +52,50 @@ if (!empty($this->data['foodle'])) {
 
 ?>
 	
-		$(document).ready(function() {
-	
-			$("a.signin").DiscoJuice({
-				"title": 'Sign in to <strong>Foodle</strong>',
-				"subtitle": "Select your Provider",
-				"always": false,
-				"overlay": true,
-				"cookie": true,
-				"type": false,
-				"country": true,
-				"countryAPI": "/simplesaml/module.php/ulxmeta/country.php",
-				"metadata": "/simplesaml/module.php/ulxmeta/index.php",
-				"discoPath": "/res/discojuice/",
-				"location": false,
-				"disco": {
-					"spentityid": "https://foodl.org/simplesaml/module.php/saml/sp/metadata.php/saml",
-					"url": "https://foodl.org/res/discojuice/discojuiceDiscoveryResponse.html?",
-					"stores": [
-						'https://disco.uninett.no/',
-						'https://foodle.feide.no/simplesaml/module.php/discopower/disco.php',
-						'https://kalmar2.org/simplesaml/module.php/discopower/disco.php'
-//						'https://wayf-test.surfnet.nl/federate/saml20'
-					],
-					'writableStore': 'https://disco.uninett.no/'
-				},
-				"callback": function(e) {
-					var auth = e.auth || null;
-					var returnto = window.location.href || 'https://foodl.org';
-					switch(auth) {
-						
-						case 'twitter':
-							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=twitter&ReturnTo=' + escape(returnto);
-						break;
-					
-					
-						case 'saml':
-						default:
-							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=saml&ReturnTo=' + escape(returnto) + '&saml:idp=' + escape(e.entityid);
-						break;							
-							
-					}
-				}
-			});
-		});
+// 		$(document).ready(function() {
+// 	
+// 			$("a.signin").DiscoJuice({
+// 				"title": 'Sign in to <strong>Foodle</strong>',
+// 				"subtitle": "Select your Provider",
+// 				"always": false,
+// 				"overlay": true,
+// 				"cookie": true,
+// 				"type": false,
+// 				"country": true,
+// 				"countryAPI": "/simplesaml/module.php/ulxmeta/country.php",
+// 				"metadata": "/simplesaml/module.php/ulxmeta/index.php",
+// 				"discoPath": "/res/discojuice/",
+// 				"location": false,
+// 				"disco": {
+// 					"spentityid": "https://foodl.org/simplesaml/module.php/saml/sp/metadata.php/saml",
+// 					"url": "https://foodl.org/res/discojuice/discojuiceDiscoveryResponse.html?",
+// 					"stores": [
+// 						'https://disco.uninett.no/',
+// 						'https://foodle.feide.no/simplesaml/module.php/discopower/disco.php',
+// 						'https://kalmar2.org/simplesaml/module.php/discopower/disco.php'
+// //						'https://wayf-test.surfnet.nl/federate/saml20'
+// 					],
+// 					'writableStore': 'https://disco.uninett.no/'
+// 				},
+// 				"callback": function(e) {
+// 					var auth = e.auth || null;
+// 					var returnto = window.location.href || 'https://foodl.org';
+// 					switch(auth) {
+// 						
+// 						case 'twitter':
+// 							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=twitter&ReturnTo=' + escape(returnto);
+// 						break;
+// 					
+// 					
+// 						case 'saml':
+// 						default:
+// 							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=saml&ReturnTo=' + escape(returnto) + '&saml:idp=' + escape(e.entityid);
+// 						break;							
+// 							
+// 					}
+// 				}
+// 			});
+// 		});
 	</script>
 	
 	
