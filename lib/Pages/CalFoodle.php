@@ -27,12 +27,16 @@ class Pages_CalFoodle extends Pages_Page {
 		// From stamp is date and time
 		if (!empty($foodle->datetime['timefrom'])) {
 			
-			$from = strtotime($foodle->datetime['datefrom'] . ' ' . $foodle->datetime['timefrom']);
-			
 			if (!empty($foodle->timezone)) {
-				// DTSTART;TZID=Europe/London:20110205T080000
-				return 'DTSTART;TZID=' . $foodle->timezone . ':' . date('Ymd\THis', $from);
+				$from = $foodle->toEpoch($foodle->datetime['datefrom'] . ' ' . $foodle->datetime['timefrom']);
+				
+				// Alternative return with local timezone reference...
+				// 		DTSTART;TZID=Europe/London:20110205T080000
+				// return 'DTSTART;TZID=' . $foodle->timezone . ':' . date('Ymd\THis', $from)  . '; from: ' . $from;
+				
+				return 'DTSTART:' . gmdate('Ymd\THis\Z', $from);
 			} 
+			$from = strtotime($foodle->datetime['datefrom'] . ' ' . $foodle->datetime['timefrom']);
 			return 'DTSTART:' . date('Ymd\THis', $from);
 		}
 		
@@ -49,12 +53,19 @@ class Pages_CalFoodle extends Pages_Page {
 		// to stamp is date and time
 		if (!empty($foodle->datetime['timeto'])) {
 			
-			$to = strtotime($dateto . ' ' . $foodle->datetime['timeto']);
+
 			
 			if (!empty($foodle->timezone)) {
+			
+				$to = $foodle->toEpoch($dateto . ' ' . $foodle->datetime['timeto']);
+				
 				// DTSTART;TZID=Europe/London:20110205T080000
-				return 'DTEND;TZID=' . $foodle->timezone . ':' . date('Ymd\THis', $to);
+				// return 'DTEND;TZID=' . $foodle->timezone . ':' . date('Ymd\THis', $to);
+				
+				return 'DTEND:' . gmdate('Ymd\THis\Z', $to);
 			} 
+
+			$to = strtotime($dateto . ' ' . $foodle->datetime['timeto']);
 			return 'DTEND:' . date('Ymd\THis', $to);
 			
 		}
@@ -73,16 +84,15 @@ class Pages_CalFoodle extends Pages_Page {
 		$str = 'BEGIN:VCALENDAR
 CALSCALE:GREGORIAN
 VERSION:2.0
-X-WR-CALNAME:' . $foodle->name . '
 METHOD:PUBLISH
 PRODID:-//UNINETT//Foodle//EN
 BEGIN:VEVENT
 CREATED:' . $foodle->getCreatedStamp() . '
 UID:' . strtoupper(sha1($foodle->identifier)) . '@foodl.org
+' . $this->dtstart($foodle) . '
 ' . $this->dtend($foodle) . '
 TRANSP:OPAQUE
 SUMMARY:' . $foodle->name . '
-' . $this->dtstart($foodle) . '
 DTSTAMP:' . $this->dtstamp() . '
 DESCRIPTION:' . trim(chunk_split(preg_replace('/[\n\r]+/', '\n\n', strip_tags($foodle->descr)), 76, "\n ")) . '
 URL;VALUE=URI:' . $url . '
