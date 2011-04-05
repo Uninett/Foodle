@@ -63,6 +63,7 @@ require_once($THISPATH . 'lib/API/API.php');
 require_once($THISPATH . 'lib/API/Authenticated.php');
 require_once($THISPATH . 'lib/API/Contacts.php');
 require_once($THISPATH . 'lib/API/Invite.php');
+require_once($THISPATH . 'lib/API/IdPList.php');
 
 
 

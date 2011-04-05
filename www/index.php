@@ -53,6 +53,11 @@ try {
 					$api->show();
 					break;
 
+				case 'idplist': 
+					$api = new API_IdPList($config, $parameters);
+					$api->show();
+					break;
+
 			}
 			break;
 			

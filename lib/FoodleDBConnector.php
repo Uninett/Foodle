@@ -721,6 +721,17 @@ class FoodleDBConnector {
 		$this->execute($sql);
 
 	}
+	
+	
+	
+	
+	public function getIdPList() {
+		$sql = "select distinct idp from user where idp is not null";
+		return $this->q($sql, 'idp');
+	}
+	
+	
+	
 
 
 	public function getStats() {
