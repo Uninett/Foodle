@@ -152,6 +152,40 @@ h3 {	font-size: 110%;}
 	margin-bottom: 1em;
 }
 
+
+
+.columned .col4
+{
+	float: left;
+	width: 21%;
+
+	margin-bottom: 1em;
+	border-right: 1px solid #ccc;
+	padding-right: 1%;
+}
+
+.columned .col5
+{
+	float: left;
+	width: 48%;
+
+	margin-left: 1%;
+	margin-bottom: 1em;
+	border-right: 1px solid #ccc;
+	padding-right: 1%;
+}
+
+.columned .col6
+{
+	float: left;
+	width: 23%;
+	margin-left: 1%;
+	margin-bottom: 1em;
+}
+
+
+
+
 #timezone {
 	font: 80% "arial", sans-serif;
 	text-align: right;
@@ -589,7 +623,7 @@ fieldset select {
 }
 
 fieldset legend{
-    display: none;
+/*      display: none;*/
 }
 
 p {
@@ -770,8 +804,12 @@ td.before {
 	color: black;
 }
 
-fieldset,img {
-	border:0;
+fieldset {
+
+	border: 1px solid #eee;
+	margin: 10px 0px;
+
+/*	border:0;*/
 }
 address,caption,cite,code,dfn,em,strong,th,var {
 }
@@ -872,4 +910,23 @@ dl.attributelist dd {
 }
 dl.attributelist ul {
 	margin: 0px;
+}
+
+
+
+
+div.foodle_contactlist {
+	cursor: pointer;
+}
+div.foodle_contactlist_selected {
+	font-weight: bold;
+}
+div.foodle_removecontactlist {
+	margin: 1em; padding: .3em 1em;
+	border: 1px solid #997;
+	background: #ffd;
+}
+p.foodle_contacts_meta {
+	font-size: 92%;
+	color: #666;
 }
