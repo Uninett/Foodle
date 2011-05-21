@@ -846,8 +846,10 @@ class FoodleDBConnector {
 			WHERE entries.userid = '" . $user->userid . "' and entries.foodleid = def.id 
 			ORDER BY def.created DESC";
 
+		$resarray = array();
 		$result = $this->q($sql);
-		if(!empty($result)){		
+		if(!empty($result)){
+
 			foreach($result AS $row) {
 				$resarray[] = $row;
 			}
@@ -865,6 +867,7 @@ class FoodleDBConnector {
 			ORDER BY created DESC 
 			LIMIT " . $no;
 
+		$resarray = array();
 		$result = $this->q($sql);
 		if(!empty($result)){		
 			foreach($result AS $row) {
