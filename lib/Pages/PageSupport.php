@@ -18,7 +18,6 @@ class Pages_PageSupport extends Pages_Page {
 	private function auth() {
 		$this->auth = new FoodleAuth($this->fdb);
 		$this->auth->requireAuth(TRUE);
-
 		$this->user = $this->auth->getUser();
 
 	}
@@ -35,16 +34,16 @@ class Pages_PageSupport extends Pages_Page {
 			array('title' => 'Support'), 
 		);
 
-		$t->data['user'] = $this->user;
-		$t->data['userid'] = $this->user->userid;
-		$t->data['displayname'] = $this->user->username;
+// 		$t->data['user'] = $this->user;
+// 		$t->data['userid'] = $this->user->userid;
+// 		$t->data['displayname'] = $this->user->username;
 
  		$t->data['authenticated'] = $this->auth->isAuth();
 		
-		FastPass::$domain = "tjenester.ecampus.no";
-		$t->data['getsatisfactionscript'] = FastPass::script(
-			$this->config->getValue('getsatisfaction.key'), $this->config->getValue('getsatisfaction.secret'), 	
-			$this->user->email, $this->user->username, $this->user->userid);
+// 		FastPass::$domain = "tjenester.ecampus.no";
+// 		$t->data['getsatisfactionscript'] = FastPass::script(
+// 			$this->config->getValue('getsatisfaction.key'), $this->config->getValue('getsatisfaction.secret'), 	
+// 			$this->user->email, $this->user->username, $this->user->userid);
 		
 // 		$t->data['loginurl'] = $this->auth->getLoginURL();
 // 		$t->data['url'] = $this->auth->getURL();

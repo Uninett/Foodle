@@ -8,43 +8,31 @@
 
 <div class="columned">
 
-<h1>Support</h1>
+<h1>Foodle Users' Mailinglist</h1>
 
-<?php
+<p>This mailinglist is for users of Foodle. If you have general questions about Foodle, have feature requests, or want do discuss something about Foodle, please join the list.</p>
 
-if ($this->data['authenticated']) {
-	echo $this->data['getsatisfactionscript'];
-} else {
-	echo '<p style="border: 1px solid #eee; margin: 1em; padding: 1em">Please <a href="' . $this->data['loginurl'] . '">login first</a>, to enable the Single Sign-On to our partner site for user feedback getsatisfaction.com.</p>';
-}
+<form action="http://groups.google.com/group/foodle-users/boxsubscribe">
+	<strong>Your e-mail address</strong> 
+	<input type="text" name="email" size="30" value="your@emailaddress.com" />
+	<input type=submit name="sub" value="Subscribe">
+</form>
 
-?>
+<ul>
+	<li><a href="http://groups.google.com/group/foodle-users">Mailinglist home page</a></li>
+	<li><a href="http://groups.google.com/group/foodle-users/topics">Mailinglist archive</a></li>
+</ul>
+
+<p>The Foodle Mailinglist is hosted using <a href="http://groups.google.com">Google Groups</a>. If you do not want to send a public request about Foodle, you may contact the Foodle team directly.</p>
 
 
-<script type="text/javascript" charset="utf-8">
-  var is_ssl = ("https:" == document.location.protocol);
-  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
+<h1>Contact the Foodle team</h1>
 
-<script type="text/javascript" charset="utf-8">
-  var feedback_widget_options = {};
-
-  feedback_widget_options.display = "inline";  
-  feedback_widget_options.company = "ecampus";
-  
-  
-  feedback_widget_options.style = "question";
-  feedback_widget_options.product = "ecampus_foodle";
-  
-  feedback_widget_options.limit = "5";
-  
-  GSFN.feedback_widget.prototype.local_base_url = "http://tjenester.ecampus.no";
-  GSFN.feedback_widget.prototype.local_ssl_base_url = "http://tjenester.ecampus.no";
-  
-
-  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-</script>
+<p>If you do not want to send an e-mail to the public mailinglist with other Foodle users, you may contact the Foodle team directly via: 
+<ul>
+<li><a href="mailto:andreas.solberg@uninett.no">andreas.solberg@uninett.no</a></li>
+</ul>
+</p>
 
 
 
