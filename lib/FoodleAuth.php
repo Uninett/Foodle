@@ -95,12 +95,19 @@ class FoodleAuth {
 				
 				// echo '<pre>dbUser'; print_r($dbUser); exit;
 				
-				$modified = $dbUser->updateData($this->user);
-				$this->user = $dbUser;
-				if ($modified) { 
-					$this->db->saveUser($this->user);
-					error_log('Saving user: ' . var_export($attributes, TRUE));
+				if (!$dbUser->shaddowed) {
+					$modified = $dbUser->updateData($this->user);
+					$this->user = $dbUser;
+					if ($modified) { 
+						$this->db->saveUser($this->user);
+						error_log('Saving user: ' . var_export($attributes, TRUE));
+					}
+
+				} else {
+					$this->user = $dbUser;
 				}
+				
+				
 			} else {
 				$this->db->saveUser($this->user);
 				error_log('Saving user: ' . var_export($attributes, TRUE));

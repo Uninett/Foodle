@@ -75,28 +75,47 @@ class Pages_CalFoodle extends Pages_Page {
 		return 'DTEND;VALUE=DATE:' . date('Ymd', $to + 86400);
 	}
 	
+	function rsvpSection() {
+		
+
+		
+		$str = 'ORGANIZER:MAILTO:' . $this->foodle->owner. "\n";
+		
+		
+// 'ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;CN=Andreas Åkre Solberg:MAILTO:andreassolberg@gmail.com
+// ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;CN=Test Person:MAILTO:test@example.org
+// ATTENDEE;ROLE=REQ-PARTICIPANT;DELEGATED-FROM="MAILTO:bob@host.com";PARTSTAT=ACCEPTED;CN=Jane Doe:MAILTO:jdoe@host1.com';
+
+		$responses = $this->foodle->getResponses();
+		foreach($responses AS $response) {
+			$str .= "ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;CN=" . $response->username . ":MAILTO:" . $response->email . "\n";
+		}
+
+		return $str;
+	}
 	
-	function createical(Data_Foodle $foodle) {
+	
+	function createical() {
 	
 		
 	
-		$url = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier;
+		$url = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier;
 		$str = 'BEGIN:VCALENDAR
 CALSCALE:GREGORIAN
 VERSION:2.0
 METHOD:PUBLISH
 PRODID:-//UNINETT//Foodle//EN
 BEGIN:VEVENT
-CREATED:' . $foodle->getCreatedStamp() . '
-UID:' . strtoupper(sha1($foodle->identifier)) . '@foodl.org
-' . $this->dtstart($foodle) . '
-' . $this->dtend($foodle) . '
+CREATED:' . $this->foodle->getCreatedStamp() . '
+UID:' . strtoupper(sha1($this->foodle->identifier)) . '@foodl.org
+' . $this->dtstart($this->foodle) . '
+' . $this->dtend($this->foodle) . '
 TRANSP:OPAQUE
-SUMMARY:' . $foodle->name . '
+SUMMARY:' . $this->foodle->name . '
 DTSTAMP:' . $this->dtstamp() . '
-DESCRIPTION:' . trim(chunk_split(preg_replace('/[\n\r]+/', '\n\n', strip_tags($foodle->descr)), 76, "\n ")) . '
+DESCRIPTION:' . trim(chunk_split(preg_replace('/[\n\r]+/', '\n\n', strip_tags($this->foodle->descr)), 76, "\n ")) . '
 URL;VALUE=URI:' . $url . '
-SEQUENCE:' . $foodle->getCreatedStampEpoch() . '
+' . $this->rsvpSection() . 'SEQUENCE:' . $this->foodle->getCreatedStampEpoch() . '
 END:VEVENT
 END:VCALENDAR';
 		
@@ -117,7 +136,7 @@ END:VCALENDAR';
 		header('Content-type: text/calendar; charset=utf-8');
 		header('Content-Disposition: inline; filename=calendar.ics');
 
-		echo $this->createical($this->foodle);		
+		echo $this->createical();		
 
 	}
 	

@@ -42,6 +42,8 @@ class Pages_PageFront extends Pages_Page {
 			$allentries = $this->fdb->getAllEntries(25);
 
  		$ownerentries = $this->fdb->getOwnerEntries($this->user, 10);
+ 		
+ 	
 
 		$foodleids = array();
  		if(!empty($entries)) foreach($entries AS $e) $foodleids[] = $e['foodleid'];
@@ -67,6 +69,7 @@ class Pages_PageFront extends Pages_Page {
 // 		$t->data['displayname'] = $this->user->username;
 
 		$t->data['showprofile'] = $this->user->loadedFromDB;
+		$t->data['showcontacts'] = $this->auth->isAuth();
 
 		$t->data['authenticated'] = $this->auth->isAuth();
 		

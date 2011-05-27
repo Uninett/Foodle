@@ -60,3 +60,18 @@ CREATE TABLE `user` (
   `updated` timestamp NULL default NULL,
   PRIMARY KEY  (`userid`)
 );
+
+CREATE TABLE `contactlist` (
+	`id` int(11) NOT NULL,
+	`userid` varchar(100) NOT NULL,
+	`name` text,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE `contactlistmembers` (
+	`id` int(11) NOT NULL,
+	`userid` varchar(100) NOT NULL,
+	PRIMARY KEY (id,userid)
+);
+
+

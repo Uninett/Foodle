@@ -10,7 +10,6 @@ ini_set('include_path', $path);
 
 require_once($SIMPLESAMLPATH . 'lib/_autoload.php');
 
-
 require_once($SIMPLESAMLPATH . 'modules/oauth/libextinc/OAuth.php');
 
 $THISPATH = dirname(dirname(__FILE__)) . '/';
@@ -63,7 +62,9 @@ require_once($THISPATH . 'lib/API/API.php');
 require_once($THISPATH . 'lib/API/Authenticated.php');
 require_once($THISPATH . 'lib/API/Contacts.php');
 require_once($THISPATH . 'lib/API/Invite.php');
+require_once($THISPATH . 'lib/API/Foodlelist.php');
 require_once($THISPATH . 'lib/API/IdPList.php');
+require_once($THISPATH . 'lib/API/Foodle.php');
 
 
 
@@ -71,10 +72,12 @@ require_once($THISPATH . 'lib/API/IdPList.php');
 require_once($THISPATH . 'lib/Pages/Page.php');
 require_once($THISPATH . 'lib/Pages/Photo.php');
 require_once($THISPATH . 'lib/Pages/PageGS.php');
+require_once($THISPATH . 'lib/Pages/PageAccountMapping.php');
 require_once($THISPATH . 'lib/Pages/PageFoodle.php');
 require_once($THISPATH . 'lib/Pages/Debug.php');
 require_once($THISPATH . 'lib/Pages/FDebug.php');
 require_once($THISPATH . 'lib/Pages/PageFront.php');
+require_once($THISPATH . 'lib/Pages/PageGroupInvite.php');
 require_once($THISPATH . 'lib/Pages/PageProfile.php');
 require_once($THISPATH . 'lib/Pages/PageAttributes.php');
 require_once($THISPATH . 'lib/Pages/PageUser.php');

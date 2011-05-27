@@ -892,15 +892,7 @@ div.userlist div.user div.orgunit {
 
 
 
-div.invite_result_entry {
-	border: 1px solid #ccc;
-	background: #eee;
-	margin: 2px 0px;
-	padding: 2px 10px;
-}
-div.invite_result_entry:nth-child(2n) {
-	background: #fff;
-}
+
 
 
 
@@ -915,11 +907,30 @@ dl.attributelist ul {
 
 
 
+
+div.foodle_contact {
+	border: 1px solid #ccc;
+	background: #eee;
+	margin: 2px 0px;
+	padding: 2px 10px;
+}
+div.foodle_contact:nth-child(2n) {
+	background: #fff;
+}
+
+
+
 div.foodle_contactlist {
 	cursor: pointer;
 }
 div.foodle_contactlist_selected {
 	font-weight: bold;
+}
+div.foodle_invitetoken pre {
+	border: 1px solid #666;
+	padding: 4px 15px;
+	margin: 5px 0px;
+	background: #ccc;
 }
 div.foodle_removecontactlist {
 	margin: 1em; padding: .3em 1em;
@@ -930,3 +941,28 @@ p.foodle_contacts_meta {
 	font-size: 92%;
 	color: #666;
 }
+
+.contactButton {
+	float: right;
+}
+div#invite .contactButton {
+	float: none;
+}
+
+div#invite div.foodle_contactlists {
+	margin: 0px; padding: 0px;
+}
+
+
+div#invite div.foodle_contactlists div.foodle_contactlist {
+	display: inline;
+	margin: 0px 1em 0px 0px;
+}
+
+div.foodle_invite_all {
+	border: 1px solid #ccc;
+	margin: 2px 0px;
+	padding: 2px 10px;
+	background: #ffd;
+}
+

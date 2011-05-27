@@ -252,6 +252,7 @@ You may also create new Foodles on your own, and invite others to respond.
 		}
 		$this->template->data['showsupport'] = TRUE;
 		$this->template->data['showdelete'] = $isAdmin;
+		$this->template->data['showcontacts'] = $this->auth->isAuth();
 		
 		$this->template->data['responsetype'] = $this->foodle->responseType();
 

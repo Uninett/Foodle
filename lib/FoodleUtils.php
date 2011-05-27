@@ -76,6 +76,21 @@ class FoodleUtils {
 		return $result;
 	}
 
+
+	public static function getInvitationToken($groupid) {		
+		$config = SimpleSAML_Configuration::getInstance('foodle');
+		$tlt = new SimpleSAML_Auth_TimeLimitedToken(604800, $config->getString('secret'));
+		$tlt->addVerificationData('group:' . $groupid);
+		return $tlt->generate_token();
+	}
+
+	public  static  function validateInvitationToken($groupid, $token) {
+		$config = SimpleSAML_Configuration::getInstance('foodle');
+		$tlt = new SimpleSAML_Auth_TimeLimitedToken(604800, $config->getString('secret'));
+		$tlt->addVerificationData('group:' . $groupid);
+		return $tlt->validate_token($token);
+	}
+
 	
 }
 

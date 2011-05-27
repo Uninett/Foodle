@@ -10,6 +10,9 @@ $headbar .= '<a class="button" style="float: right" href="/foodle/' . $this->dat
 
 $this->data['headbar'] = $headbar;
 
+$this->data['head'] = '<script type="text/javascript" src="/res/js/foodle-contacts-api.js"></script>';
+$this->data['head'] .= '<script type="text/javascript" src="/res/js/foodle-response.js"></script>';
+
 $this->includeAtTemplateBase('includes/header.php'); 
 
 
@@ -238,11 +241,15 @@ $discussion = $this->data['foodle']->getDiscussion();
 		if (!empty($this->data['showdebug'])) {
 			echo '<li><a href="#showdebug"><span>' . $this->t('debug') . '</span></a></li>';
 		}
+		
+        echo '<li><a href="#contactlist"><span>' .  $this->t('contactlist') . '</span></a></li>';
+		
 		if (!empty($this->data['showdelete'])) {
 			echo '<li><a href="#delete"><span>' . $this->t('delete') . '</span></a></li>';
 		}
 		
 		?>
+
     </ul> 
 
 
@@ -490,6 +497,10 @@ if (isset($_REQUEST['timezone'])) {
 	<?php
 	
 	}
+	
+	
+	
+	
 	?>
 
 
@@ -686,20 +697,32 @@ if ($this->data['showsharing']) {
 	
 	echo '<div id="invite" style="margin: .2em 5em .2em 5em; ">';
 
-	echo( '<p>' . $this->t('invitation_intro') . '</p>');
 
-	echo('	<form id="form_invite_search">
-				<div><input style="width: 100%" type="search" name="invite_search" id="invite_search" /></div>
-			</form>
+
+	echo('	
+	
+		<form id="foodle_form_search_contacts" action="/" method="get" style="margin-top: 1em">
+		
+		
+			<fieldset>
+				<legend>Contact list search</legend>
+				
+				<p>' . $this->t('invitation_intro') . '</p>
+				
+				<input type="search" id="foodle_contact_search" style="width: 100%" />
+				
+				<div class="foodle_contactlists" style="margin: 0em 0px; display: inline"></div>
+				[ <a href="/groups" target="_blank">Setup contact lists</a> ]
+			</fieldset>
 			
-<!--
-			<div class="invite_groups" style="border: 1px solid #ccc; background: #ffc; padding: .4em; margin: .5em 0px; ">
-				Alternatively, pick contacts from your Foodle groups: 
-					<a href=""><img style="position:relative; top:3px" src="/res/group.png" alt="group" /> Feide (8)</a>, 
-					<a href=""><img style="position:relative; top:3px" src="/res/group.png" alt="group" /> GN3 Identity Federations (24)</a>, 
-					<a href=""><img style="position:relative; top:3px" src="/res/group.png" alt="group" /> UNINETT (80)</a> 
-			</div>
--->
+	 
+
+		</form>
+
+		<div class="foodle_autolist">
+		</div>
+		
+	
 			
 			<div id="invite_results" class="invite_results"></div>
 ');			
@@ -715,7 +738,7 @@ if ($this->data['showsharing']) {
 	#	echo '<div>' . $response->userid . '</div>';
 		if (!$response->invitation) continue;
 		$displayname = $response->getUsername();
-		echo '<div id="user_' . urlencode(sha1($response->userid)) . '" class="invite_result_entry">' .
+		echo '<div id="user_' . urlencode(sha1($response->userid)) . '" class="foodle_contact">' .
 			'<img style="position: relative; top: 2px"  src="/res/user_grey.png" alt="User icon" /> ' .
 			$displayname .
 			'</div>';
@@ -729,7 +752,7 @@ if ($this->data['showsharing']) {
 	#	echo '<div>' . $response->userid . '</div>';
 		if ($response->invitation) continue;
 		$displayname = $response->getUsername();
-		echo '<div id="user_' . urlencode(sha1($response->userid)) . '" class="invite_result_entry">' .
+		echo '<div id="user_' . urlencode(sha1($response->userid)) . '" class="foodle_contact">' .
 			'<img style="position: relative; top: 2px"  src="/res/user_grey.png" alt="User icon" /> ' .
 			$displayname .
 			'</div>';
@@ -766,6 +789,26 @@ if (!empty($this->data['showdebug'])) {
 
 	echo '</div>';
 }
+
+echo '
+
+<div id="contactlist" style="margin: .2em 5em .2em 5em; padding: 3em 0px; ">
+
+	<p>You may build a contact list based upon the people that responded to this Foodle.</p>
+	
+	<p>A contact list will allow you to later easily send an invitation to a group of people.</p>
+
+	<form action="/groups" method="get">
+		<input type="submit" value="Build Contact list" />	
+		<input type="hidden" name="foodleid" value="' . $this->data['foodle']->identifier . '" />
+	</form>
+
+</div>
+
+
+
+';
+
 
 if ($this->data['showdelete']) {
 	echo '<div id="delete" style="margin: .2em 5em .2em 5em; ">';

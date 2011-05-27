@@ -532,6 +532,15 @@
 	},
 	"bc_attribute_check": {
 		"en": "Attribute check"
+	},
+	"contactlist": {
+		"en": "Contact list"
+	},
+	"contacts": {
+		"en": "Contacts"
+	},
+	"groups": {
+		"en": "Groups"
 	}
 
 }

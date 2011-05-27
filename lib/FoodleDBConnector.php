@@ -211,8 +211,12 @@ class FoodleDBConnector {
 		return null;
 	}
 	
+	public function getAllUsers($limit = FALSE) {
+		$limite = ($limit ? ' WHERE shaddow is NULL' : '');
+		return $this->q('SELECT * FROM user ' . $limite);
+	}
 
-	public function readUser($userid) {
+	public function readUser($userid, $shaddowed = FALSE) {
 		/*
 			| userid        | varchar(100) | NO   | PRI |         |       |
 			| username      | tinytext     | YES  |     | NULL    |       |
@@ -262,8 +266,14 @@ class FoodleDBConnector {
 		$user->role = $row['role'];
 		$user->idp = $row['idp'];
 		$user->auth = $row['auth'];
+		$user->shaddow = $row['shaddow'];
+		$user->shaddowed = $shaddowed;
 
 		$user->loadedFromDB = TRUE;
+		
+		if (!empty($user->shaddow)) {
+			return $this->readUser($user->shaddow, TRUE);
+		}
 
 		return $user;
 
@@ -503,6 +513,8 @@ class FoodleDBConnector {
 
 
 
+	
+
 	/*
 	 * Collect all responses from a Foodle
 	 */
@@ -588,6 +600,27 @@ class FoodleDBConnector {
 		
 		return $responses;
 	}
+	
+	
+	
+
+	/*
+	 * Collect all responses from a Foodle
+	 */
+	public function readResponders($foodleid) {
+		
+		$sql ="
+			SELECT user.userid, user.username as name, user.email 
+			FROM entries JOIN user ON (entries.userid = user.userid)
+			WHERE foodleid='" . $foodleid . "' 
+			ORDER BY entries.updated desc, entries.created desc";
+
+		$rows = $this->q($sql);
+		return $rows;
+	}
+	
+	
+	
 	
 	public static function isJSON($text) {
 		if ($text[0] == '[') return TRUE;
@@ -920,26 +953,178 @@ ORDER BY c desc";
 
 
 
+	public function getContactlists(Data_User $user) {
+	
+		$result = array();
+		
+		$sql ="
+SELECT *, 'owner' as role
+FROM contactlist
+WHERE userid = '" . addslashes($user->userid) . "'";
+
+		$ownerOf = $this->q($sql);
+		foreach($ownerOf AS $curr) {
+			$result[] = array(
+				'role' => 'owner',
+				'id' => $curr['id'],
+				'name' => $curr['name']
+			);
+		}
+		
+
+		$sql ="
+SELECT contactlist.id, contactlist.name, contactlistmembers.role
+FROM contactlist JOIN contactlistmembers ON (contactlist.id = contactlistmembers.id) 
+WHERE contactlistmembers.userid = '" . addslashes($user->userid) . "'";
+
+		$others = $this->q($sql);
+		foreach($others AS $curr) {
+			$result[] = array(
+				'role' => $curr['role'],
+				'id' => $curr['id'],
+				'name' => $curr['name']
+			);
+		}
+
+		
+
+		return $result;
+	
+	}
+	
+	
+
+	public function getContactlist(Data_User $user, $listidentifier) {
+	
+		$sql ="
+SELECT contactlist.userid as owner, contactlistmembers.userid as memberid, contactlistmembers.role as membership, user.*
+FROM contactlist JOIN contactlistmembers ON(contactlist.id = contactlistmembers.id), user
+WHERE contactlistmembers.userid = user.userid AND contactlist.id = " . addslashes($listidentifier) . "
+ORDER BY contactlistmembers.role, user.username
+";
+		$list = $this->q($sql);
+		
+		$sql ="
+SELECT contactlist.userid as owner, user.*
+FROM contactlist JOIN user ON (contactlist.userid = user.userid) 
+WHERE contactlist.id = " . addslashes($listidentifier) . "
+";
+		$owner = $this->q($sql);
+		$ownerentry = $owner[0];
+		$ownerentry['membership'] = 'owner';
+		if (count($owner)===1) {
+			array_unshift($list, $ownerentry);
+		}
+		
+		return $list;
+	
+	}
+	
+	
+	public function getOrgList($org) {
+		$sql ="
+SELECT 'member' AS role, user.*
+FROM user 
+WHERE org = '" .addslashes($org) . "'
+";
+		$list = array();
+		foreach($this->q($sql) AS $item) {
+			$list[] = array(
+				'userid' => $item['userid'],
+				'name' => $item['username'],
+				'email' => $item['email'],
+				'role' => 'member',
+			);
+		}
+		return $list;
+	}
+	
+	public function removeContactlist($listid) {
+		if (!is_numeric($listid)) throw new Exception('Invalid List ID to remove');
+		$this->execute("DELETE FROM contactlist WHERE id = " . addslashes($listid) . "");
+		$this->execute("DELETE FROM contactlistmembers WHERE id = " . addslashes($listid) . "");
+	}
+	
+	
+	public function addContactlist(Data_User $user, $name) {
+		$this->execute("INSERT INTO contactlist (userid, name) VALUES ('" . addslashes($user->userid). "', '" . addslashes($name) . "')");
+		
+	}
+	
+	public function addToContactlist($listidentifier, $userid) {
+		if (!is_numeric($listidentifier)) throw new Exception('Invalid List ID to remove');
+		$this->execute("INSERT INTO contactlistmembers (id, userid, role) VALUES (" . addslashes($listidentifier). ", '" . addslashes($userid) . "', 'member')");
+	}
+	
+	public function removeFromContactlist($listidentifier, $userid) {
+		if (!is_numeric($listidentifier)) throw new Exception('Invalid List ID to remove');
+		$this->execute("DELETE FROM contactlistmembers WHERE id = " . addslashes($listidentifier). " AND userid = '" . addslashes($userid) . "'");
+	}
+	
+	public function setContactlistMembershipRole($listidentifier, $userid, $role) {
+		if (!is_numeric($listidentifier)) throw new Exception('Invalid List ID to remove');
+		$this->execute("UPDATE contactlistmembers SET role = '" . addslashes($role) . "' WHERE id = " . addslashes($listidentifier). " AND userid = '" . addslashes($userid) . "'");
+		
+	}
+	
+	public function isMemberOfContactlist(Data_User $user, $listidentifier, $role = NULL) {
+		if ($this->isOwnerOfContactlist($user, $listidentifier)) return TRUE;
+		$sql ="
+SELECT contactlistmembers.*
+FROM contactlistmembers
+WHERE userid = '" . addslashes($user->userid) . "' AND id = " . addslashes($listidentifier) . "";
+
+		$data = $this->q($sql);
+		if (count($data) === 1) {
+			if ($role == NULL) return TRUE;
+			if ($role === 'member') return TRUE;
+			if ($role === 'admin') return ($data[0]['role'] === 'admin');
+		}
+		return FALSE;
+		
+	}
+
+	
+	public function isOwnerOfContactlist(Data_User $user, $listidentifier) {
+		$sql ="
+SELECT contactlist.*
+FROM contactlist
+WHERE userid = '" . addslashes($user->userid) . "' AND id = " . addslashes($listidentifier) . "";
+
+		return (count($this->q($sql)) === 1);	
+	}
+	
+	public function getGroupInfo($listidentifier) {
+		return $this->q1("SELECT contactlist.*
+FROM contactlist
+WHERE id = " . addslashes($listidentifier) . "");
+	}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	public function migrateAccount($from, $to) {
+		$from = addslashes($from);
+		$to = addslashes($to);
+		
+		$sql = "UPDATE user SET shaddow = '" . $to . "' WHERE userid = '" . $from . "'";
+		$this->execute($sql);
+		
+		$sql = "UPDATE def SET owner = '" . $to . "' WHERE owner = '" . $from . "'";
+		$this->execute($sql);
+		
+		$sql = "UPDATE entries SET userid = '" . $to . "' WHERE userid = '" . $from . "'";
+		$this->execute($sql);
+	
+		$sql = "UPDATE discussion SET userid = '" . $to . "' WHERE userid = '" . $from . "'";
+		$this->execute($sql);
+		
+		$sql = "UPDATE contactlist SET userid = '" . $to . "' WHERE userid = '" . $from . "'";
+		$this->execute($sql);
+	
+		$sql = "UPDATE contactlistmembers SET userid = '" . $to . "' WHERE userid = '" . $from . "'";
+		$this->execute($sql);
+	
+	}
 
 
 }

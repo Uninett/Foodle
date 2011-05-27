@@ -5,8 +5,6 @@
 	<meta charset="utf-8" />
 
 	<!-- Foodle: CSS -->	
-	<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle.css" /> 
-	<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle-layout.css" />
 	
 <?php
 
@@ -21,9 +19,6 @@ echo '<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodl
 
 
 ?>
-
-
-
 
 	<!-- JQuery -->
 	<script type="text/javascript" src="/res/js/jquery.js"></script>
@@ -51,51 +46,6 @@ if (!empty($this->data['foodle'])) {
 
 
 ?>
-	
-// 		$(document).ready(function() {
-// 	
-// 			$("a.signin").DiscoJuice({
-// 				"title": 'Sign in to <strong>Foodle</strong>',
-// 				"subtitle": "Select your Provider",
-// 				"always": false,
-// 				"overlay": true,
-// 				"cookie": true,
-// 				"type": false,
-// 				"country": true,
-// 				"countryAPI": "/simplesaml/module.php/ulxmeta/country.php",
-// 				"metadata": "/simplesaml/module.php/ulxmeta/index.php",
-// 				"discoPath": "/res/discojuice/",
-// 				"location": false,
-// 				"disco": {
-// 					"spentityid": "https://foodl.org/simplesaml/module.php/saml/sp/metadata.php/saml",
-// 					"url": "https://foodl.org/res/discojuice/discojuiceDiscoveryResponse.html?",
-// 					"stores": [
-// 						'https://disco.uninett.no/',
-// 						'https://foodle.feide.no/simplesaml/module.php/discopower/disco.php',
-// 						'https://kalmar2.org/simplesaml/module.php/discopower/disco.php'
-// //						'https://wayf-test.surfnet.nl/federate/saml20'
-// 					],
-// 					'writableStore': 'https://disco.uninett.no/'
-// 				},
-// 				"callback": function(e) {
-// 					var auth = e.auth || null;
-// 					var returnto = window.location.href || 'https://foodl.org';
-// 					switch(auth) {
-// 						
-// 						case 'twitter':
-// 							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=twitter&ReturnTo=' + escape(returnto);
-// 						break;
-// 					
-// 					
-// 						case 'saml':
-// 						default:
-// 							window.location = 'https://foodl.org/simplesaml/module.php/core/as_login.php?AuthId=saml&ReturnTo=' + escape(returnto) + '&saml:idp=' + escape(e.entityid);
-// 						break;							
-// 							
-// 					}
-// 				}
-// 			});
-// 		});
 	</script>
 	
 	
@@ -232,6 +182,8 @@ echo '</p>';
 
 
 
+
+
 	if (isset($this->data['loginurl'])) {
 		echo '<a class="button signin" style="float: right" href="' . htmlentities($this->data['loginurl']) . '"><span>' . $this->t('login') . '</span></a>';
 	} elseif(isset($this->data['logouturl'])) {
@@ -264,8 +216,10 @@ echo '</p>';
 			'"><span>Tweet</span></a>';
 	}
 
-
-
+	if (isset($this->data['showcontacts'])) {
+		echo '<a class="button" style="float: right" href="/groups"><span>' . $this->t('groups') . '</span></a>';
+	}
+	
 	if (array_key_exists('showedit', $this->data)) {
 		echo('<a class="button" href="/edit/' .$this->data['foodle']->identifier . '" style="float: right"><span>' . $this->t('editfoodle') . '</span></a>');
 	}

@@ -23,7 +23,6 @@ class Data_Contacts {
 	public function load() {
 		if ($this->contacts === null) {
 		
-	
 			if ($this->store->exists('contacts', $this->user->userid, NULL)) {
 				error_log('Contacts: Found contact list for user  [' . $this->user->userid . '] in cache.');
 				$this->contacts = $this->store->getValue('contacts', $this->user->userid, NULL);
@@ -34,15 +33,16 @@ class Data_Contacts {
 			$this->contacts = array();
 			
 			foreach($newcontacts AS $k => $v) {
-				$this->contacts[$v['userid']] = $v;
+				$this->contacts[$v['userid']] = array('userid' => $v['userid']);
+				if(!empty($v['username'])) $this->contacts[$v['userid']]['name'] = $v['username'];
+				if(!empty($v['email'])) $this->contacts[$v['userid']]['email'] = $v['email'];
+
 				$this->contacts[$v['userid']]['key'] = sha1($v['userid']);
 			}
 			
 			$this->store->set('contacts', $this->user->userid, NULL, $this->contacts, self::CACHETIME);
 			
 		}
-		
-		
 		
 	}
 	
@@ -73,11 +73,11 @@ class Data_Contacts {
 			
 			if (count($res) > 12) break;
 			
-			if (strpos(strtolower($c['username']), $term) !== false) {
+			if (strpos(strtolower($c['name']), $term) !== false) {
 				$res[] = $c; continue;
 			}
 
-			if (strpos(strtolower($c['email']), $term) !== false) {
+			if (!empty($c['email']) && strpos(strtolower($c['email']), $term) !== false) {
 				$res[] = $c; continue;
 			}
 			

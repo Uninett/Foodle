@@ -48,6 +48,17 @@ try {
 					$api->show();
 					break;
 					
+				case 'foodlelist': 
+					$api = new API_Foodlelist($config, $parameters);
+					$api->show();
+					break;
+					
+					
+				case 'foodle': 
+					$api = new API_Foodle($config, $parameters);
+					$api->show();
+					break;
+					
 				case 'invite': 
 					$api = new API_Invite($config, $parameters);
 					$api->show();
@@ -78,6 +89,11 @@ try {
 			require('mail.php');
 			break;
 
+		case 'accountmapping':
+			$page = new Pages_PageAccountMapping($config, $parameters);
+			$page->show();
+			break;
+
 		case 'profile':
 			$page = new Pages_PageProfile($config, $parameters);
 			$page->show();
@@ -99,8 +115,13 @@ try {
 			$page->show();
 			break;
 			
-		case 'contacts':
+		case 'groups':
 			$page = new Pages_PageContacts($config, $parameters);
+			$page->show();
+			break;
+			
+		case 'group-invite':
+			$page = new Pages_PageGroupInvite($config, $parameters);
 			$page->show();
 			break;
 

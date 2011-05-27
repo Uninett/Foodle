@@ -5,8 +5,7 @@
  */
 class Data_User {
 
-	public $userid, $username, $email, $org, $orgunit, $photol, $photom, $photos, $notifications, $features, $calendar, $timezone, $location, $realm, $language, $role, $idp, $auth;
-
+	public $userid, $username, $email, $org, $orgunit, $photol, $photom, $photos, $notifications, $features, $calendar, $timezone, $location, $realm, $language, $role, $idp, $auth, $shaddow, $shaddowed = FALSE;
 
 	public $anonymous = TRUE;
 	public $loadedFromDB = FALSE;

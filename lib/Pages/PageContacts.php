@@ -32,20 +32,14 @@ class Pages_PageContacts extends Pages_Page {
 	
 		$contacts = new Data_Contacts($this->fdb, $this->user);
 	
-
-
 		$this->template->data['user'] = $this->user;
 		$this->template->data['authenticated'] = true;
 		$this->template->data['showsupport'] = TRUE;
 		$this->template->data['loginurl'] = $this->auth->getLoginURL();
 		$this->template->data['logouturl'] = $this->auth->getLogoutURL();
-
-		
-
 		
 		$this->template->data['contacts'] = $contacts->getContacts();
-			
-		
+				
 		$this->template->data['bread'] = array(
 			array('href' => '/' . $this->config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), 
 			array('title' => 'Contacts'), 

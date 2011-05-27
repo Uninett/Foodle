@@ -453,25 +453,7 @@ $(document).ready(function() {
 	$("#share_accordion").accordion({
 		autoHeight: false
 	});
-	$("input#invite_search").autocomplete({
-		minLength: 0,
-		source: function( request, response ) {
-			var term = request.term;
-			if (term.length === 1) return;
-//				that.resetCategories();							
-			inviteSearch(term);
-		}
-	});
-	
-	$("form#form_invite_search").submit(function(event) {	
-		event.preventDefault();
-		if ($("#invite_search").attr('value') == '') return false;
-		if (foodle_top_invite && !foodle_top_invite.disabled) {
-			inviteUser(foodle_top_invite);
-		}
-		$("#invite_search").attr('value', '');
-		inviteSearch();
-	});
+
 
 
 	$("#foodletabs").bind('tabsshow',function(event, ui) {
@@ -492,124 +474,20 @@ $(document).ready(function() {
 
 });
 
-var foodle_top_invite = null;
 
 
-function isEmail(str) {
-	var regex = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-	return regex.test(str)
-}
-
-// function addEmailResult(email) {
-// 	var html = '<div id="user_by_email" class="invite_result_entry"><input type="submit" value="Invite" /> <img style="position: relative; top: 2px" src="/res/mail16.png" alt="person" /> ' + email + '</div>';
-// 	$("div#invite_results").append(html);	
-// 	
-// 	$("div#invite_results div:last-child input").click(function(event) {
-// 		event.preventDefault();
-// 		user = {'email': email};
-// 		inviteUser(user);
-// 		$(this).parent().hide('slow');
-// 	});
-// }
-
-function addSearchResult(user) {
-
-	var displayname = 'unknown';
-	var icon = '/res/user_grey.png';
-	if (user.username) {
-		displayname = user.username;
-	} else if (	user.email) {
-		displayname = user.email;
-		icon = '/res/mail16.png';
-	}
-	var disabled = (user.disabled ? true : false);
-	// console.log(user);
-
-	var html = 
-		'<div id="user_' + escape(user.key) + '" class="invite_result_entry">' + 
-		'<input ' + (disabled ? ' disabled="disabled" '  : '') + 'type="submit" value="Invite" /> ' + 
-		'<img style="position: relative; top: 2px" src="' + icon + '" alt="person" /> ' + 
-		displayname + 
-		'</div>';
-	$("div#invite_results").append(html);	
-	
-	$("div#invite_results div:last-child input").click(function(event) {
-		event.preventDefault();
-		inviteUser(user);
-		$(this).parent().hide('slow');
-	});
-	
-}
-
-function invitationComplete(user) {
-	//console.log('Complete for '+ user.userid);
-	$("div#user_" + escape(user.key) + " img.waiting").hide();
-	$("div#user_" + escape(user.key) + " img.complete").show();
-}
-
-function addInvitedPending(user) {
-
-	var displayname = 'unknown';
-	var icon = '/res/user_grey.png';
-	if (user.username) {
-		displayname = user.username;
-	} else if (	user.email) {
-		displayname = user.email;
-		icon = '/res/mail16.png';
-	}
-
-	var html = '<div id="user_' + escape(user.key) + '" class="invite_result_entry">' + 
-				'<img style="position: relative; top: 2px" src="' + icon + '" alt="person" /> ' + displayname + 
-				'<img class="waiting" style="float: right" src="/res/spinning.gif" alt="waiting" /> ' +
-				'<img class="complete" style="display: none; float: right" src="/res/maybe.png" alt="waiting" /> ' +
-				'</div>';
-	$("div#invited_list").prepend(html);	
-
-}
-
-function inviteUser(user) {
-	
-	addInvitedPending(user);
-	
-	var inviteobj = {'foodle': foodle_id};
-	if (user.userid) inviteobj.userid = user.userid;
-	if (user.email) inviteobj.email = user.email;
-	
-	$.getJSON("/api/invite", inviteobj, function(data) {
-		if (data.status == 'ok' && data.data) {
-			invitationComplete(user);
-		} else {
-			//console.log('Error when doing API / invite : ' + data.message);
-		}
-	});
-
-//	alert('Invite user ' + user.userid);
-}
-
-function inviteSearch(term) {	
-	
-// 	if (isEmail(term)) {
-// 		$("div#invite_results").empty();
-// 		addEmailResult(term);
-// 		return;
-// 	}
-	
-	$.getJSON("/api/contacts", {'term' : term, 'exclude': foodle_id}, function(data) {
-		if (data.status == 'ok' && data.data) {
-			$("div#invite_results").empty();
-			var i = 0;
-			for(var userid in data.data) {
-				if (i++ === 0) foodle_top_invite = data.data[userid];
-				addSearchResult(data.data[userid]);
-			}
-		} else {
-			//console.log('Error when doing API / contacts : ' + data.message);
-		}
-	});
-	
-}
 
 
 function toggle(x) {	
 	$("*[id='" + x + "']").toggle();
 }
+
+
+
+
+
+
+
+
+
+
