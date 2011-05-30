@@ -309,6 +309,10 @@ class API_Contacts extends API_Authenticated {
 			if (!empty($_REQUEST['setrole'])) {
 				$this->requireMembership($list, 'admin');
 				if (empty($_REQUEST['user'])) throw new Exception('Invalid userid provided');
+				if (!in_array($_REQUEST['setrole'], array('admin', 'member'))) {
+					throw new Exception('Trying to set role attribute to an invalid value');
+				}
+				
 				$this->fdb->setContactlistMembershipRole($list, $_REQUEST['user'], $_REQUEST['setrole']);
 			}
 			
