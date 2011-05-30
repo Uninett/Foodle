@@ -197,6 +197,8 @@ You may also create new Foodles on your own, and invite others to respond.
 		$this->template->data['title'] = 'Foodle :: ' . $this->foodle->name;
 		$this->template->data['foodle'] = $this->foodle;
 		$this->template->data['user'] = $this->user;
+		$this->template->data['userToken'] = $this->user->getToken();
+		
 		$this->template->data['foodlepath'] = $this->foodlepath;
 		
 

@@ -47,8 +47,6 @@ var Foodle_Contacts = function() {
 	}
 	
 	
-	
-	
 	// Retrieve a list of contactlists owned by the current user
 	function getContactlistsResponse(data) {
 		if (data.status == 'ok' && data.data) {
@@ -91,25 +89,25 @@ var Foodle_Contacts = function() {
 	
 		addUser: function(userid, listid) {
 			console.log('Adding user ' + userid + ' to list ' + listid);
-			$.getJSON("/api/contacts/" + listid, {adduser: userid}, getContactlistResponse);
+			$.getJSON("/api/contacts/" + listid, {userToken: FoodleAPIuserToken, adduser: userid}, getContactlistResponse);
 		},
 		
 		removeUser: function(userid, listid) {
 			console.log('Removing user ' + userid + ' from list ' + listid);
-			$.getJSON("/api/contacts/" + listid, {removeuser: userid}, getContactlistResponse);
+			$.getJSON("/api/contacts/" + listid, {userToken: FoodleAPIuserToken, removeuser: userid}, getContactlistResponse);
 		},
 		
 		setMembershipRole: function(userid, listid, role) {
 			if (role !== 'member' && role !== 'admin') throw new Exception('Invalid membership role');
-			$.getJSON("/api/contacts/" + listid, {setrole: role, user: userid}, getContactlistResponse);
+			$.getJSON("/api/contacts/" + listid, {userToken: FoodleAPIuserToken, setrole: role, user: userid}, getContactlistResponse);
 		},
 		
 		addContactlist: function(name) {
-			$.getJSON("/api/contacts", {newlist: name}, getContactlistsResponse);
+			$.getJSON("/api/contacts", {userToken: FoodleAPIuserToken, newlist: name}, getContactlistsResponse);
 		},
 		
 		removeContactlist: function(listid) {
-			$.getJSON("/api/contacts", {removelist: listid}, getContactlistsResponse);
+			$.getJSON("/api/contacts", {userToken: FoodleAPIuserToken, removelist: listid}, getContactlistsResponse);
 		},
 	
 		
@@ -140,34 +138,34 @@ var Foodle_Contacts = function() {
 		
 		// Retrieve a list of contactlists owned by the current user
 		getContactlists: function() {
-			$.getJSON("/api/contacts", null, getContactlistsResponse);
+			$.getJSON("/api/contacts", {userToken: FoodleAPIuserToken}, getContactlistsResponse);
 		},
 		
 		// Get a specific contactlist.
 		getContactlist: function(listid, foodleid) {
 			console.log('Contacting ' + "/api/contacts/" + listid);
-			var excludes = null;
-			if (foodleid) excludes = {exclude: foodleid};
-			$.getJSON("/api/contacts/" + listid, excludes, getContactlistResponse);
+			var parameters = { userToken: FoodleAPIuserToken };
+			if (foodleid) parameters.exclude = foodleid;
+			$.getJSON("/api/contacts/" + listid, parameters, getContactlistResponse);
 		},
 		
 		getFoodleResponders: function(foodleid, listid) {
-			$.getJSON("/api/contacts/foodle:" + foodleid, {'excludeList': listid}, getAutolistResponse);
+			$.getJSON("/api/contacts/foodle:" + foodleid, {userToken: FoodleAPIuserToken, 'excludeList': listid}, getAutolistResponse);
 		},
 		
 		// List auto contacts (may include search terms)
 		autolist: function(term, listid, foodleid) {			
-			$.getJSON("/api/contacts/auto", {'term' : term, 'exclude': foodleid, 'excludeList': listid}, getAutolistResponse);
+			$.getJSON("/api/contacts/auto", {userToken: FoodleAPIuserToken, 'term' : term, 'exclude': foodleid, 'excludeList': listid}, getAutolistResponse);
 		},
 		
 		// List of recent foodles by owner
 		getFoodlelist: function() {			
-			$.getJSON("/api/foodlelist", null, getFoodlelistResponse);
+			$.getJSON("/api/foodlelist", {userToken: FoodleAPIuserToken}, getFoodlelistResponse);
 		},
 		
 		addOneFoodle: function(foodleid, callback) {
 			console.log('add one foodle ' + foodleid);
-			$.getJSON("/api/foodle/" + foodleid, null, function(data) {
+			$.getJSON("/api/foodle/" + foodleid, {userToken: FoodleAPIuserToken}, function(data) {
 				console.log('addOneFoodle response');
 			
 				if (data.status == 'ok' && data.data) {
@@ -177,7 +175,9 @@ var Foodle_Contacts = function() {
 				} else {
 					error('Error retrieving oneFoodle ' + data.message);
 				}
+				
 			});
+			
 		}
 		
 		

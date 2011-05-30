@@ -88,6 +88,9 @@ class Data_User {
 	}
 	
 	
+	public function validateToken($token, $usage = NULL) {
+		return ($token === $this->getToken($usage));
+	}
 	
 	public function getToken($usage = NULL) {
 		return self::getUserToken($this->userid, $usage);

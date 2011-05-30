@@ -54,6 +54,15 @@ if (!empty($this->data['foodle'])) {
 	<script type="text/javascript" src="/res/js/foodle.js"></script>	
 
 	<script type="text/javascript">
+
+<?php
+
+if (!empty($this->data['userToken'])) {
+	echo 'var FoodleAPIuserToken = "' . $this->data['userToken'] . '";' . "\n\n";
+}
+
+
+?>
 	
 		$(document).ready(function() {
 

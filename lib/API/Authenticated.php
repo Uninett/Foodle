@@ -6,8 +6,6 @@ abstract class API_Authenticated extends API_API {
 
 	function __construct($config, $parameters) {
 		parent::__construct($config, $parameters);
-		
-
 	}
 	
 	protected function requireOAuth() {
@@ -37,13 +35,23 @@ abstract class API_Authenticated extends API_API {
 		
 		if ($this->auth->isAuth()) {
 			$this->user = $this->auth->getUser();
+			$this->requireUserToken();
 			return;
 		}
 		
 		$this->requireOAuth();
 		
 	}
-		
+
+	protected function requireUserToken() {
+		if (empty($_REQUEST['userToken'])) {
+			throw new Exception('Authenticated API Calls require [userToken] to be provided.');
+		}
+		if (!$this->user->validateToken($_REQUEST['userToken'])) {
+			throw new Exception('Invalid User Token provided [' . htmlspecialchars($_REQUEST['userToken']) . ']');
+		}
+	}
+	
 	protected function prepare() {
 		$this->auth();
 	}

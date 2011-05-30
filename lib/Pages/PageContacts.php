@@ -38,6 +38,8 @@ class Pages_PageContacts extends Pages_Page {
 		$this->template->data['loginurl'] = $this->auth->getLoginURL();
 		$this->template->data['logouturl'] = $this->auth->getLogoutURL();
 		
+		$this->template->data['userToken'] = $this->user->getToken();
+		
 		$this->template->data['contacts'] = $contacts->getContacts();
 				
 		$this->template->data['bread'] = array(

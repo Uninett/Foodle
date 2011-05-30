@@ -129,6 +129,7 @@ function inviteUser(user) {
 	var inviteobj = {'foodle': foodle_id};
 	if (user.userid) inviteobj.userid = user.userid;
 	if (user.email) inviteobj.email = user.email;
+	if (FoodleAPIuserToken) inviteobj.userToken = FoodleAPIuserToken;
 	
 	$.getJSON("/api/invite", inviteobj, function(data) {
 		if (data.status == 'ok' && data.data) {
