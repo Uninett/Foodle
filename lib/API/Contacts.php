@@ -7,7 +7,7 @@ class API_Contacts extends API_Authenticated {
 
 	function __construct($config, $parameters) {
 		parent::__construct($config, $parameters);
-		
+	
 		#print_r($parameters); exit;
 		
 	}
@@ -155,7 +155,7 @@ class API_Contacts extends API_Authenticated {
 		
 
 		
-		return $result;
+		return array_values($result);
 	}
 
 	function requireMembership($identifier, $role = 'member') {
@@ -229,7 +229,7 @@ class API_Contacts extends API_Authenticated {
 		
 		// error_log(var_export($contacts, TRUE));
 		
-		return $contacts;
+		return array_values($contacts);
 		
 	}
 	

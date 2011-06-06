@@ -160,6 +160,8 @@ class FoodleDBConnector {
 		
 		if (!empty($row['timezone'])) $foodle->timezone = $row['timezone'];
 		
+		if (!empty($row['groupid'])) $foodle->groupid = $row['groupid'];
+		
 		
 		if(self::isJSON($row['columns'][0])) {
 			#echo 'Use new encoding format';
@@ -393,6 +395,7 @@ class FoodleDBConnector {
 					name = '" . mysql_real_escape_string($foodle->name) . "', 
 					descr = '" . mysql_real_escape_string($foodle->descr) . "', 
 					columns = '" . mysql_real_escape_string(json_encode($foodle->columns))  . "',
+					groupid = " . (isset($foodle->groupid) ? "" . mysql_real_escape_string($foodle->groupid) . "" : 'null') . ",
 					expire = '" . mysql_real_escape_string($foodle->expire) . "',
 					maxdef = '" . mysql_real_escape_string($foodle->getMaxDef()) . "',
 					anon = '" . ($foodle->allowanonymous ? '1' : '0') . "',
@@ -407,11 +410,12 @@ class FoodleDBConnector {
 			
 		} else {
 			$sql = "
-				INSERT INTO def (id, name, descr, columns, expire, maxdef,  owner, anon, timezone, columntype, responsetype, extrafields, datetime) values (" . 
+				INSERT INTO def (id, name, descr, columns, groupid, expire, maxdef,  owner, anon, timezone, columntype, responsetype, extrafields, datetime) values (" . 
 					"'" . mysql_real_escape_string($foodle->identifier) . "'," . 
 					"'" . mysql_real_escape_string($foodle->name) . "', " . 
 					"'" . mysql_real_escape_string($foodle->descr) . "', " . 
 					"'" . mysql_real_escape_string(json_encode($foodle->columns)) . "', " . 
+					(isset($foodle->groupid) ? "" . mysql_real_escape_string($foodle->groupid) . "" : 'null') . ", " .
 					"'" . $foodle->expire . "', " . 
 					"'" . mysql_real_escape_string($foodle->getMaxDef()) . "', " . 
 					"'" . mysql_real_escape_string($foodle->owner) . "', " . 
@@ -679,7 +683,7 @@ class FoodleDBConnector {
 				'" . $foodle->identifier . "'," . 
 				"'" . mysql_real_escape_string($user->userid) . "', " . 
 				"'" . mysql_real_escape_string($user->username) . "', " . 
-				"'" . mysql_real_escape_string(utf8_decode($message)) . "')";
+				"'" . mysql_real_escape_string($message) . "')";
 		
 		$this->execute($sql);
 
@@ -797,31 +801,46 @@ class FoodleDBConnector {
 	}
 	
 
-	public function getAllEntries($no = 20) {
+
+
+// 	public function getActivityStream(Data_User $user, $foodleids, $no = 20) {
+// 		$statusupdates = $this->getStatusUpdate($user, $foodleids, $no);
+// 
+// #		$stream = new Data_ActivityStream($this);
+// #		$stream->activity = $statusupdates;
+// 		
+// #		return $stream->compact();
+// 	}
+	
+	
+	
+	
+	public function getDiscussionEntries($foodleids, $no = 30) {
+		$fidstr = "('" . join("', '", $foodleids) . "')"; 
 
 		$sql ="
-			SELECT def.*, user.username ownername
-			FROM def LEFT JOIN user ON (def.owner = user.userid)
-			ORDER BY def.created DESC 
+			SELECT discussion.*,def.name, UNIX_TIMESTAMP(discussion.created) AS unix
+			FROM discussion, def 
+			WHERE foodleid IN " . $fidstr . "
+				and def.id = discussion.foodleid
+			ORDER BY discussion.created DESC 
 			LIMIT " . $no;
-		
+#			echo '<pre>'; print_r($sql); exit;
+			
 		return $this->q($sql);
 	}
-
-	public function getActivityStream(Data_User $user, $foodleids, $no = 20) {
-		$statusupdates = $this->getStatusUpdate($user, $foodleids, $no);
-
-		$stream = new Data_ActivityStream($this);
-		$stream->activity = $statusupdates;
-		
-		return $stream->compact();
+	
+	
+	public function getRecentResponse($foodleid, $no = 3) {
+		$sql = "
+SELECT IFNULL(user.username, entries.username) AS name, UNIX_TIMESTAMP(IFNULL(entries.updated, entries.created)) AS modified
+FROM entries LEFT JOIN user ON (entries.userid = user.userid)
+WHERE entries.foodleid = '" . htmlspecialchars($foodleid) . "' AND NOT entries.invitation
+ORDER BY IFNULL(entries.updated, entries.created) DESC
+LIMIT " . $no . "
+";
+		return $this->q($sql);
 	}
-	
-	
-	
-	
-	
-	
 
 	protected function getStatusUpdate(Data_User $user, $foodleids, $no = 100) {
 		
@@ -871,13 +890,74 @@ class FoodleDBConnector {
 		return $resarray;
 	}
 	
+	public function getAllEntries($no = 20) {
+
+		$sql ="
+			SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire), user.username ownername
+			FROM def LEFT JOIN user ON (def.owner = user.userid)
+			ORDER BY def.created DESC 
+			LIMIT " . $no;
+		
+		return $this->q($sql);
+	}
+
+
+	public function getGroupEntriesSpecific($groupid, $no = 20) {
+		$sql = "
+SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire
+FROM def 
+	JOIN contactlist ON (def.groupid = contactlist.id) 
+WHERE contactlist.id = '" . addslashes($groupid) . "'";
+
+		return $this->q($sql);
+
+	}
+
+
+	public function getGroupEntries(Data_User $user, $no = 20) {
+
+		$result = array();
+		
+		$sql = "
+SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire, user.username ownername, contactlist.id AS groupid, contactlist.name AS groupname
+FROM def 
+	JOIN contactlist ON (def.groupid = contactlist.id) 
+	JOIN contactlistmembers ON (contactlist.id = contactlistmembers.id) 
+	LEFT JOIN user ON (def.owner = user.userid) 
+WHERE contactlistmembers.userid = '" . $user->userid . "'";
+
+		$data = $this->q($sql);
+		if(!empty($data)){
+			foreach($data AS $row) {
+				$result[$row['id']] = $row;
+			}
+		}		
+
+		$sql = "
+SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire, user.username ownername, contactlist.id AS groupid, contactlist.name AS groupname
+FROM def 
+	JOIN contactlist ON (def.groupid = contactlist.id) 
+	LEFT JOIN user ON (contactlist.userid = user.userid) 
+WHERE contactlist.userid = '" . $user->userid . "'";
+
+		$data = $this->q($sql);
+		if(!empty($data)){
+			foreach($data AS $row) {
+				$result[$row['id']] = $row;
+			}
+		}		
+		
+		return $result;
+
+	}
+	
 	public function getYourEntries(Data_User $user) {
 
 		$sql ="
-			SELECT entries.*, def.*, user.username ownername 
-			FROM entries, def LEFT JOIN user ON (def.owner = user.userid)
-			WHERE entries.userid = '" . $user->userid . "' and entries.foodleid = def.id 
-			ORDER BY def.created DESC";
+SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire, user.username ownername, invitation
+FROM entries, def LEFT JOIN user ON (def.owner = user.userid)
+WHERE entries.userid = '" . $user->userid . "' and entries.foodleid = def.id 
+ORDER BY def.created DESC";
 
 		$resarray = array();
 		$result = $this->q($sql);
@@ -894,11 +974,12 @@ class FoodleDBConnector {
 	public function getOwnerEntries(Data_User $user, $no = 20) {
 				
 		$sql ="
-			SELECT * 
-			FROM def 
-			WHERE owner = '" . addslashes($user->userid) . "'
-			ORDER BY created DESC 
-			LIMIT " . $no;
+SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire, user.username ownername, UNIX_TIMESTAMP(IFNULL(def.updated, def.created)) AS unix
+FROM def 
+LEFT JOIN user ON (def.owner = user.userid) 
+WHERE def.owner = '" . addslashes($user->userid) . "'
+ORDER BY def.created DESC 
+LIMIT " . $no;
 
 		$resarray = array();
 		$result = $this->q($sql);
@@ -994,7 +1075,7 @@ WHERE contactlistmembers.userid = '" . addslashes($user->userid) . "'";
 	
 	
 
-	public function getContactlist(Data_User $user, $listidentifier) {
+	public function getContactlist($user, $listidentifier) {
 	
 		$sql ="
 SELECT contactlist.userid as owner, contactlistmembers.userid as memberid, contactlistmembers.role as membership, user.*
@@ -1018,6 +1099,34 @@ WHERE contactlist.id = " . addslashes($listidentifier) . "
 		
 		return $list;
 	
+	}
+	
+	
+	public function getUsersByOrg($org) {
+		$sql ="
+SELECT user.userid
+FROM user 
+WHERE org = '" .addslashes($org) . "'
+";
+		return $this->q($sql);
+	}
+	
+	public function getUsersByRealm($realm) {
+		$sql ="
+SELECT user.userid, email
+FROM user 
+WHERE realm = '" .addslashes($realm) . "'
+";
+		return $this->q($sql);
+	}
+	
+	public function getUsersByOrgUnit($orgunit, $realm) {
+		$sql ="
+SELECT user.userid
+FROM user 
+WHERE orgunit = '" .addslashes($orgunit) . "' AND realm = '" .addslashes($realm) . "'
+";
+		return $this->q($sql);
 	}
 	
 	
@@ -1124,6 +1233,52 @@ WHERE id = " . addslashes($listidentifier) . "");
 		$sql = "UPDATE contactlistmembers SET userid = '" . $to . "' WHERE userid = '" . $from . "'";
 		$this->execute($sql);
 	
+	}
+
+
+	public function addFile(Data_User $user, $groupid, $stored_file, $filename, $mimetype) {
+		$sql = "
+			INSERT INTO files (groupid, filename, mimetype, userid, stored_filename) values (
+				'" . addslashes($groupid) . "',
+				'" . addslashes($filename) . "', 
+				'" . addslashes($mimetype) . "', 
+				'" . addslashes($user->userid) . "', 
+				'" . addslashes($stored_file) . "')";
+		error_log($sql);
+		$this->execute($sql);
+	}
+	
+	public function getFiles($groupid) {
+		$sql = "
+			SELECT * FROM files WHERE groupid = '" . addslashes($groupid) . "'
+		";
+		return $this->q($sql);
+	}
+	
+	public function getFileinfo($filename) {
+		$sql = "SELECT * FROM files WHERE stored_filename = '" . addslashes($filename) . "'";
+		return $this->q1($sql);
+	}
+	
+	public function addGroupIfNotExists($groupname) {
+		$sql = "SELECT * FROM contactlist WHERE userid = '' AND name = '" . mysql_real_escape_string($groupname) . "'";
+		$res = $this->q($sql);
+		
+		if (count($res) > 0) {
+			return $res[0]['id'];
+		}
+		
+		$sql = "INSERT INTO contactlist (userid, name) VALUES ('', '" . mysql_real_escape_string($groupname) . "')";
+		$this->execute($sql);
+		
+		$sql = "SELECT * FROM contactlist WHERE userid = '' AND name = '" . mysql_real_escape_string($groupname) . "'";
+		$res = $this->q($sql);
+		
+		if (count($res) > 0) {
+			return $res[0]['id'];
+		}		
+		
+		throw new Exception('Failed to create a new group');
 	}
 
 

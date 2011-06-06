@@ -14,6 +14,7 @@ CREATE TABLE `def` (
   `responsetype` tinytext,
   `extrafields` text,
   `datetime` text,
+  `groupid` int(11) default NULL,
   PRIMARY KEY  (`id`)
 );
 
@@ -27,7 +28,8 @@ CREATE TABLE `entries` (
   `updated` timestamp NULL default NULL,
   `notes` text,
   `email` text,
-	PRIMARY KEY  (`id`)
+  `invitation` tinyint(1) default '0',
+  PRIMARY KEY  (`id`)
 );
 
 CREATE TABLE `discussion` (
@@ -58,20 +60,33 @@ CREATE TABLE `user` (
   `language` tinytext,
   `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `updated` timestamp NULL default NULL,
+  `role` tinytext,
+  `idp` tinytext,
+  `auth` tinytext,
+  `shaddow` varchar(100) default NULL,
   PRIMARY KEY  (`userid`)
 );
 
 CREATE TABLE `contactlist` (
-	`id` int(11) NOT NULL,
-	`userid` varchar(100) NOT NULL,
-	`name` text,
-	PRIMARY KEY(id)
+  `id` int(11) NOT NULL auto_increment,
+  `userid` varchar(100) NOT NULL,
+  `name` text,
+  PRIMARY KEY  (`id`)
 );
 
 CREATE TABLE `contactlistmembers` (
-	`id` int(11) NOT NULL,
-	`userid` varchar(100) NOT NULL,
-	PRIMARY KEY (id,userid)
+  `id` int(11) NOT NULL,
+  `userid` varchar(100) NOT NULL,
+  `role` tinytext,
+  PRIMARY KEY  (`id`,`userid`)
 );
 
+CREATE TABLE `files` (
+  `groupid` int(11) NOT NULL,
+  `filename` varchar(200) NOT NULL,
+  `mimetype` varchar(100) default NULL,
+  `userid` varchar(100) default NULL,
+  `stored_filename` varchar(100) NOT NULL,
+  PRIMARY KEY  (`stored_filename`)
+);
 

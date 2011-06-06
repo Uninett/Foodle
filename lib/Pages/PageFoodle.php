@@ -198,6 +198,11 @@ You may also create new Foodles on your own, and invite others to respond.
 		$this->template->data['foodle'] = $this->foodle;
 		$this->template->data['user'] = $this->user;
 		$this->template->data['userToken'] = $this->user->getToken();
+
+		if (!empty($this->foodle->groupid)) {
+			$this->template->data['groupInfo'] = $this->fdb->getGroupInfo($this->foodle->groupid);
+		}
+
 		
 		$this->template->data['foodlepath'] = $this->foodlepath;
 		

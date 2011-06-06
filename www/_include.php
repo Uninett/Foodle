@@ -60,6 +60,10 @@ require_once($THISPATH . 'lib/Data/ActivityStream.php');
 // API
 require_once($THISPATH . 'lib/API/API.php');
 require_once($THISPATH . 'lib/API/Authenticated.php');
+require_once($THISPATH . 'lib/API/Files.php');
+require_once($THISPATH . 'lib/API/Upload.php');
+require_once($THISPATH . 'lib/API/Activity.php');
+require_once($THISPATH . 'lib/API/Download.php');
 require_once($THISPATH . 'lib/API/Contacts.php');
 require_once($THISPATH . 'lib/API/Invite.php');
 require_once($THISPATH . 'lib/API/Foodlelist.php');
@@ -77,6 +81,7 @@ require_once($THISPATH . 'lib/Pages/PageFoodle.php');
 require_once($THISPATH . 'lib/Pages/Debug.php');
 require_once($THISPATH . 'lib/Pages/FDebug.php');
 require_once($THISPATH . 'lib/Pages/PageFront.php');
+require_once($THISPATH . 'lib/Pages/PageGroup.php');
 require_once($THISPATH . 'lib/Pages/PageGroupInvite.php');
 require_once($THISPATH . 'lib/Pages/PageProfile.php');
 require_once($THISPATH . 'lib/Pages/PageAttributes.php');

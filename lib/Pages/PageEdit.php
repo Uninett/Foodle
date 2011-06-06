@@ -86,6 +86,8 @@ You may also create new Foodles on your own, and invite others to respond.
 		
 		$t->data['timezone'] = $this->timezone;
 		$t->data['ftimezone'] = $this->foodle->timezone;
+		
+		$t->data['mygroups'] = $this->fdb->getContactlists($this->user);
 
 		$t->data['name'] = $this->foodle->name;
 		$t->data['identifier'] = $this->foodle->identifier;

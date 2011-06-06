@@ -49,6 +49,7 @@ if (!empty($this->data['foodle']->datetime)) {
         <li><a id="link_preview" href="#fcols"><span><?php echo $this->t('setupcolumns'); ?></span></a></li> 
         <!-- <li><a  href="#preview"><span><?php echo $this->t('preview'); ?></span></a></li>  -->
         <li><a href="#advanced"><span><?php echo $this->t('advancedoptions'); ?></span></a></li>
+        <li><a href="#groups"><span><?php echo $this->t('groups'); ?></span></a></li>
     </ul> 
     <div id="fdescr"> 
 
@@ -625,6 +626,44 @@ if (!empty($this->data['foodle']->datetime)) {
 		
 		
 	</div>
+
+
+
+	<div id="groups">
+		
+		<p>You may publish your Foodle poll to one of the following group pages. The group page will then include a link to this Foodle.</p>
+		<?php
+			
+			$existingGroup = 'groups_00';
+			if (!empty($this->data['foodle']->groupid)) {
+				$existingGroup = 'groups_' . $this->data['foodle']->groupid;
+			}
+			
+			if (empty($this->data['mygroups'])) {
+				echo '<p>You are not member of any groups.</p>';
+				echo '<p><a href="/groups">Manage groups</a>.</p>';
+			} else {
+				$inputid = 'groups_00'; 
+				$checked = (($inputid === $existingGroup) ? ' checked="checked" ' : '');
+				echo '<div><input type="radio" name="groups" id="' . $inputid . '" value="-1" ' . $checked . '/> <label for="' . $inputid . '">No groups</label></div>';	
+				foreach($this->data['mygroups'] AS $group) {
+					$inputid = 'groups_' . htmlspecialchars($group['id']);
+					$checked = (($inputid === $existingGroup) ? ' checked="checked" ' : '');
+					echo '<div><input type="radio" name="groups" id="' . $inputid . '"  ' . $checked . 'value="' .htmlspecialchars($group['id']) . '" /> <label for="' . $inputid . '">' . htmlspecialchars($group['name']) . '</label></div>';	
+				}
+			
+			
+			}
+		
+// 			echo '<pre>';
+// 			print_r($this->data['mygroups']);
+// 			echo '</pre>';
+		
+		?>
+		
+	</div>
+
+
 
 
 </div>

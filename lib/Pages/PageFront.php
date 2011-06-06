@@ -33,24 +33,24 @@ class Pages_PageFront extends Pages_Page {
 		// ---- o ----- o ---- o ----- o ---- o ----- o
 		// This part needs to be updated.
 
- 		$entries = $this->fdb->getYourEntries($this->user);
-
-		$allentries = null;
-
-
-		if ($this->user->isAdmin())
-			$allentries = $this->fdb->getAllEntries(25);
-
- 		$ownerentries = $this->fdb->getOwnerEntries($this->user, 10);
+//  		$entries = $this->fdb->getYourEntries($this->user);
+// 
+// 		$allentries = null;
+// 
+// 
+// 		if ($this->user->isAdmin())
+// 			$allentries = $this->fdb->getAllEntries(25);
+// 
+//  		$ownerentries = $this->fdb->getOwnerEntries($this->user, 10);
  		
- 	
-
-		$foodleids = array();
- 		if(!empty($entries)) foreach($entries AS $e) $foodleids[] = $e['foodleid'];
-		if(!empty($allentries)) foreach($allentries AS $e) $foodleids[] = $e['id'];
- 		if(!empty($ownerentries)) foreach($ownerentries AS $e) $foodleids[] = $e['id'];
-
-		$statusupdate = $this->fdb->getActivityStream($this->user, $foodleids, 100);
+ 	// 
+// 
+// 		$foodleids = array();
+//  		if(!empty($entries)) foreach($entries AS $e) $foodleids[] = $e['foodleid'];
+// 		if(!empty($allentries)) foreach($allentries AS $e) $foodleids[] = $e['id'];
+//  		if(!empty($ownerentries)) foreach($ownerentries AS $e) $foodleids[] = $e['id'];
+// 
+// 		$statusupdate = $this->fdb->getActivityStream($this->user, $foodleids, 100);
 		
 		$stats = $this->fdb->getStats($this->user->userid);
 
@@ -68,10 +68,14 @@ class Pages_PageFront extends Pages_Page {
 // 		$t->data['userid'] = $this->user->userid;
 // 		$t->data['displayname'] = $this->user->username;
 
+		$t->data['userToken'] = $this->user->getToken();
+
 		$t->data['showprofile'] = $this->user->loadedFromDB;
 		$t->data['showcontacts'] = $this->auth->isAuth();
 
 		$t->data['authenticated'] = $this->auth->isAuth();
+		
+		$t->data['mygroups'] = $this->fdb->getContactlists($this->user);
 		
 		$t->data['showsupport'] = TRUE;
 		
@@ -81,13 +85,8 @@ class Pages_PageFront extends Pages_Page {
 		$t->data['logouturl'] = $this->auth->getLogoutURL();
 		
 		// ---- o ----- o ---- o ----- o ---- o ----- o
-		$t->data['yourentries'] = $entries;
-		$t->data['allentries'] = $allentries;
-		$t->data['ownerentries'] = $ownerentries;
-
 		$t->data['enableFacebookAuth'] = $this->config->getValue('enableFacebookAuth', TRUE);
 		$t->data['facebookshare'] = FALSE;
-		$t->data['statusupdate'] = $statusupdate;
 		$t->data['stats'] = $stats;
 		// ---- o ----- o ---- o ----- o ---- o ----- o
 

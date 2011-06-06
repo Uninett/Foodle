@@ -966,3 +966,128 @@ div.foodle_invite_all {
 	background: #ffd;
 }
 
+
+
+
+div#dropbox {
+/*	height: 30px; */
+	border: 2px dashed #ccc; 
+	margin: 1em 0px; 
+	padding: 2em;
+}
+div#dropbox.dropboxDragover {
+	background-color:  #ffe;
+	border: 2px solid #999; 
+	cursor: pointer;
+	cursor: hand;
+}
+div#dropbox p {
+	color: #999;
+}
+
+div#dropbox:hover {
+	background-color:  #ffe;
+	border: 2px solid #999; 
+	cursor: pointer;
+	cursor: hand;
+}
+
+
+
+div.activitystream {
+/*	width: 100%;*/
+	clear: both;
+	border-top: 1px solid #ccc;
+	padding: 0px 0px 0px 0px;
+	z-index: 1;
+}
+
+
+div#activity div.activity {
+	border: 1px solid #ccc;
+	background: #f5f5f5; 
+	margin: .5em 0px; padding: 3px 1em;
+
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+
+}
+div#activity div.activity * {
+	margin: 0px;
+}
+div#activity div.activity.discussion {
+	background: #fcfcfc;
+}
+div#activity div.activity.response {
+	
+}
+div#activity div.activity a{ 
+	color: #444;
+	border-bottom: 1px dotted #666;
+	text-decoration: none;
+}
+div#activity div.activity a:hover{ 
+	border-bottom: 1px solid #666;
+}
+div#activity div.activity h2{ 
+	margin-bottom: 10px ! important;
+	text-decoration: none;
+}
+div#activity div.activity p.persons{
+	font-size: 90%;
+	margin-top: 10px;
+}
+
+div#activity div.activity div.activitytag {
+	color: white; 
+	margin: 3px;
+	padding: 2px; 
+	float: right; 
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+
+}
+
+div#activity div.activity div.activitytag.youcreated {
+	background: #666; 
+	border: 1px solid #111; 
+
+
+}
+div#activity div.activity div.activitytag.yourespondednot {
+	background: #944; 
+	border: 1px solid #611; 
+
+
+
+}
+div#activity div.activity div.activitytag.youresponded {
+	background: #494; 
+	border: 1px solid #161; 
+}
+
+div#activity div.activity div.activitytag.invited {
+	background: #FFC125; 
+	border: 1px solid #975; 
+	color: #fff;
+}
+
+div#activity div.activity div.activitytag.groupref {
+	color: #333 ! important;
+	border: 1px solid #999;
+	background-color: #fff;
+	clear: right;
+}
+div#activity div.activity div.discussion {
+	background: white; 
+	margin: 5px; 
+	border: 1px solid #ccc; 
+	padding: .2em 1em;
+	
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+

@@ -10,8 +10,20 @@ $headbar .= '<a class="button" style="float: right" href="/foodle/' . $this->dat
 
 $this->data['headbar'] = $headbar;
 
-$this->data['head'] = '<script type="text/javascript" src="/res/js/foodle-contacts-api.js"></script>';
-$this->data['head'] .= '<script type="text/javascript" src="/res/js/foodle-response.js"></script>';
+// $this->data['head'] = '<script type="text/javascript" src="/res/js/foodle-contacts-api.js"></script>';
+// $this->data['head'] = '<script type="text/javascript" src="/res/js/foodle-response.js"></script>';
+
+if (!empty($this->data['showsharing'])) {
+	$this->data['head'] .= '<script type="text/javascript" src="/res/js/foodle-data.js"></script>';
+	$this->data['head'] .= '<script type="text/javascript" src="/res/js/foodle-invite.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			Foodle_Invitation_View("' . htmlspecialchars($this->data['foodle']->identifier) . '");
+		});
+	</script>
+	
+	';
+}
 
 $this->includeAtTemplateBase('includes/header.php'); 
 
@@ -155,7 +167,14 @@ if (!empty($this->data['datetimetext']) ||
 
 
 
-
+if (!empty($this->data['groupInfo'])) {
+	
+	echo ('<div class="datetimebox">');	
+	echo ('<p><strong>' . htmlspecialchars($this->data['groupInfo']['name']) . '</strong></p>');
+	echo ('<p><a href="/group/' . htmlspecialchars($this->data['groupInfo']['id']) . '">View group page</a></p>');
+	echo ('</div>');
+	
+}
 
 
 
@@ -242,7 +261,7 @@ $discussion = $this->data['foodle']->getDiscussion();
 			echo '<li><a href="#showdebug"><span>' . $this->t('debug') . '</span></a></li>';
 		}
 		
-        echo '<li><a href="#contactlist"><span>' .  $this->t('contactlist') . '</span></a></li>';
+        echo '<li><a href="#contactlist"><span>' .  $this->t('groups') . '</span></a></li>';
 		
 		if (!empty($this->data['showdelete'])) {
 			echo '<li><a href="#delete"><span>' . $this->t('delete') . '</span></a></li>';
@@ -639,7 +658,7 @@ foreach($discussion AS $d) {
 	
 	// The discussion entry content (the text)
 	echo '  <div style="margin: 0px 0px 0px 350px; padding: 2px .5em;" >';
-	echo htmlentities(strip_tags($d['message']));
+	echo htmlentities(strip_tags($d['message']), null, "UTF-8");
 	echo   '</div>';	
 	
 
@@ -794,12 +813,12 @@ echo '
 
 <div id="contactlist" style="margin: .2em 5em .2em 5em; padding: 3em 0px; ">
 
-	<p>You may build a contact list based upon the people that responded to this Foodle.</p>
+	<p>You may build a group based upon the people that responded to this Foodle.</p>
 	
-	<p>A contact list will allow you to later easily send an invitation to a group of people.</p>
+	<p>A group will allow you to later easily send an invitation to the same people.</p>
 
 	<form action="/groups" method="get">
-		<input type="submit" value="Build Contact list" />	
+		<input type="submit" value="Manage groups" />	
 		<input type="hidden" name="foodleid" value="' . $this->data['foodle']->identifier . '" />
 	</form>
 

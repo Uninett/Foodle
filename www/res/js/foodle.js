@@ -1,3 +1,5 @@
+var FOODLE = FOODLE || {};
+
 function selectTab() {
 	var opts = {};
 	$("#foodletabs ul li a").each(function(index) {

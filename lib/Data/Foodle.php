@@ -60,6 +60,8 @@ class Data_Foodle {
 	
 	public $loadedFromDB = FALSE;
 	
+	public $groupid = NULL;
+	
 	public $created, $updated;
 	
 	protected $datecache = NULL;
@@ -866,6 +868,7 @@ class Data_Foodle {
 		}
 		$this->datetime = $this->getDateTimeFromPost();
 	}
+
 	
 	public function updateFromPost(Data_User $user) {
 
@@ -902,6 +905,15 @@ class Data_Foodle {
 		}
 		if (!empty($_REQUEST['responsetype'])) {
 			$this->responsetype = $_REQUEST['responsetype'];
+		}
+		
+		if (!empty($_REQUEST['groups'])) {
+			if ($_REQUEST['groups'] == '-1') {
+				$this->groupid = NULL;
+			} else {
+				$this->groupid = $_REQUEST['groups'];
+			}
+
 		}
 		
 		$this->extrafields = array();

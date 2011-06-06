@@ -96,6 +96,8 @@ You may also create new Foodles on your own, and invite others to respond.
 		if (isset($_REQUEST['save'])) $this->addEntry();
 
 		$t = new SimpleSAML_XHTML_Template($this->config, 'foodlecreate.php', 'foodle_foodle');
+		
+		$t->data['mygroups'] = $this->fdb->getContactlists($this->user);
 
 		$t->data['authenticated'] = $this->auth->isAuth();
 		$t->data['user'] = $this->user;	

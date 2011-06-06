@@ -8,63 +8,232 @@ class Data_ActivityStream {
 	public $activity;
 	
 	public $loadedFromDB = FALSE;
-	private $db;
 	
-	function __construct(FoodleDBConnector $db) {
+	protected $db, $user;
+	
+	protected $ids;
+	protected $foodleData;
+	
+	function __construct(FoodleDBConnector $db, Data_User $user) {
+		$this->ids = array();
+		$this->activity = array();
 		$this->db = $db;
+		$this->user = $user;
 	}
 	
-	private function compactEntry($entries) {
-		$compact = array(
-			'name' => $entries[0]['name'],
-			'foodleid' => $entries[0]['foodleid'],
-		);
+	public function prepareUser() {
+		$this->loadCandidates();
+		$this->loadDiscussion();
+		$this->loadResponses();
 		
-		$compact['type'] = $entries[0]['type'];
+		$this->prepareSort();
+		$this->sortA();
+	}
+	
+	
+	public function prepareGroup($groupid) {
+		$this->loadCandidatesGroup($groupid);
+		$this->loadDiscussion();
+		$this->loadResponses();
 		
-		$users = array();
-		$recentUpdate = 0;
-		foreach($entries AS $entry) {
-			if (!empty($entry['username'])) $users[] = $entry['username'];
-			if ($entry['unix'] > $recentUpdate) $recentUpdate = $entry['unix'];
+		$this->prepareSort();
+		$this->sortA();
+	}
+	
+	
+	protected function prepareSort() {
+		
+		foreach($this->activity AS $key => $a) {
+			
+			if ($a['type'] === 'response') {
+				if (!empty($a['responses'])) {
+					foreach($a['responses'] AS $resp) {
+						if (empty($this->activity[$key]['unix']) || $this->activity[$key]['unix'] < $resp['modified']) {
+							$this->activity[$key]['unix'] = $resp['modified'];
+						}
+					}
+				}
+
+				if (!empty($a['discussion'])) {
+					foreach($a['discussion'] AS $resp) {
+						if (empty($this->activity[$key]['unix']) || $this->activity[$key]['unix'] < $resp['unix']) {
+							$this->activity[$key]['unix'] = $resp['unix'];
+						}
+					}
+				}
+				
+			}
+			
+			if (!empty($this->activity[$key]['foodle']['unix'])) {
+				if (empty($this->activity[$key]['unix']) || $this->activity[$key]['unix'] < $this->activity[$key]['foodle']['unix']) {
+					$this->activity[$key]['unix'] = $this->activity[$key]['foodle']['unix'];
+				}
+			}
+			
+			if (!empty($this->activity[$key]['foodle']['descr'])) {
+				$this->activity[$key]['foodle']['summary'] = strip_tags(Data_Foodle::cleanMarkdownInput($this->activity[$key]['foodle']['descr']), '<p>');
+				if (strlen($this->activity[$key]['foodle']['summary']) > 160) {
+					$this->activity[$key]['foodle']['summary'] = substr($this->activity[$key]['foodle']['summary'], 0, 160) . ' …';
+				}
+			}
+			
+			if (!empty($this->activity[$key]['unix'])) {
+				$this->activity[$key]['ago'] = FoodleUtils::date_diff(time() - $this->activity[$key]['unix']);
+			}
+
+			
 		}
 		
-		$compact['names'] = join(', ', $users);
-		$compact['recent'] = $recentUpdate;
-		return $compact;
 	}
 	
-	public function compact() {
-		$collapsed = array();
-#		echo '<pre>'; print_r($this->activity); echo '</pre>';
+	protected function sortA() {
 		
+		function cmp($a, $b) {
+			if (empty($a['unix'])) return 1;
+			if (empty($b['unix'])) return -1;
+			return ($a['unix'] > $b['unix']) ? -1 : 1;
+		}
 		
-		foreach($this->activity AS $a) {
-			if (isset($a['message'])) {
-				$collapsed[$a['foodleid']]['messages'][] = $a;
-			} elseif(isset($a['response'])) {
-				$collapsed[$a['foodleid']]['responses'][] = $a;
+		usort($this->activity, 'cmp');
+		
+	}
+	
+	public function getData() {
+		return $this->activity;
+	}
+	
+	protected function loadDiscussion() {
+		if(empty($this->ids)) return;
+		$data = $this->db->getDiscussionEntries($this->ids);
+		foreach($data AS $e) {
+		
+			if (empty($this->foodleData[$e['foodleid']]['discussion'])) {
+				$this->foodleData[$e['foodleid']]['discussion'] = array();
+			}
+			$this->foodleData[$e['foodleid']]['discussion'][] = $e;
+		}
+	}
+	
+	protected function loadResponses() {
+		if(empty($this->ids)) return;
+		foreach($this->ids AS $id) {
+			
+			$resp = $this->db->getRecentResponse($id);
+			
+			$newactivity = array(
+				'type' => 'response',
+				'foodle' => $this->foodleData[$id],
+				'responses' => $resp,
+			);
+			
+			$this->activity[] = $newactivity;
+			
+		}
+		
+	}
+	
+	
+	
+	protected function loadCandidatesGroup($groupid) {
+	
+		$candidates = array();
+		
+		$nc = $this->db->getGroupEntriesSpecific($groupid);
+		foreach($nc AS $c) {
+			$candidates[$c['id']] = 1;
+			$this->foodleData[$c['id']] = $c;
+		}
+		
+#		echo '<pre>Data: '; print_r($this->foodleData); exit;	
+		
+		$nc = $this->db->getOwnerEntries($this->user);
+		foreach($nc AS $c) {
+			$c['youcreated'] = true;
+			if (!empty($this->foodleData[$c['id']])) {
+				$this->foodleData[$c['id']] = array_merge($this->foodleData[$c['id']], $c);
+			} 
+		}
+
+
+		$nc = $this->db->getYourEntries($this->user);
+		foreach($nc AS $c) {
+
+			$c['youresponded'] = true;
+			if (!empty($this->foodleData[$c['id']])) {
+				$this->foodleData[$c['id']] = array_merge($this->foodleData[$c['id']], $c);
+			} 
+		}
+		
+#		echo '<pre>Data: '; print_r($this->foodleData); exit;	
+		
+		$this->ids = array_keys($candidates);
+
+	}
+	
+	
+	protected function loadCandidates() {
+		$candidates = array();
+		
+		$nc = $this->db->getGroupEntries($this->user);
+		foreach($nc AS $c) {
+			$candidates[$c['id']] = 1;
+			$this->foodleData[$c['id']] = $c;
+		}
+		
+
+		
+		if ($this->user->isAdmin()) {			
+			$nc = $this->db->getAllEntries();
+			foreach($nc AS $c) {
+				$candidates[$c['id']] = 1;
+				if (!empty($this->foodleData[$c['id']])) {
+					$this->foodleData[$c['id']] = array_merge($this->foodleData[$c['id']], $c);
+				} else {
+					$this->foodleData[$c['id']] = $c;
+				}
 			}
 		}
 		
-		$compactlist = array();
-		foreach($collapsed AS $cfoodle) {
-			if (!empty($cfoodle['responses'])) $compactlist[] = $this->compactEntry($cfoodle['responses']);
-			if (!empty($cfoodle['messages'])) $compactlist[] = $this->compactEntry($cfoodle['messages']);
+		$nc = $this->db->getOwnerEntries($this->user);
+		foreach($nc AS $c) {
+			$candidates[$c['id']] = 1;
+			$c['youcreated'] = true;
+			if (!empty($this->foodleData[$c['id']])) {
+				$this->foodleData[$c['id']] = array_merge($this->foodleData[$c['id']], $c);
+			} else {
+				$this->foodleData[$c['id']] = $c;
+			}
 		}
-		
-#		echo '<pre>compact:'; print_r($compactlist); echo '</pre>';
-		
-		function cmp($a, $b){
-		    if ($a['recent'] == $b['recent']) {
-		        return 0;
-		    }
-		    return ($a['recent'] > $b['recent']) ? -1 : 1;
+
+
+		$nc = $this->db->getYourEntries($this->user);
+		foreach($nc AS $c) {
+			$candidates[$c['id']] = 1;
+			
+#			print_r($c); exit;
+
+			if ($c['invitation'] == 1) {
+				$c['invited'] = true;		
+			} else {
+				$c['youresponded'] = true;		
+			}
+			
+			if (!empty($this->foodleData[$c['id']])) {
+				$this->foodleData[$c['id']] = array_merge($this->foodleData[$c['id']], $c);
+			} else {
+				$this->foodleData[$c['id']] = $c;
+			}
 		}
-		usort($compactlist, "cmp");
+
+
 		
-		return $compactlist;
+		$this->ids = array_keys($candidates);
+#		echo '<pre>'; print_r($this->ids); exit;		
+
 	}
+	
+	
+	
 
 
 }

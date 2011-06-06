@@ -1,10 +1,24 @@
 <?php 
+
+	
+ 	$this->data['head'] = '
+
+	<script type="text/javascript" src="/res/js/foodle-data.js"></script>
+	<script type="text/javascript" src="/res/js/foodle-front.js"></script>
+	
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+//				Foodle_API.getData(\'/api/activity\', null, updateActivityList);
+				
+				Foodle_Front_View();
+			});
+		</script>
+ 	';
+ 	
 	$this->includeAtTemplateBase('includes/header.php'); 
 
 ?>
-
-
-
 
 
 
@@ -55,37 +69,6 @@
 			</form>
 		</div>
 
-		<h2><?php echo($this->t('statusupdates')); ?></h2>
-
-		<?php
-
-		echo('<div class="statusupdates">');
-
-		foreach ($this->data['statusupdate'] AS $su) {
-
-			if ($su['type'] == 'discussion') {
-				echo('<div class="statusupdate">');
-				echo('<h3><a href="/foodle/' . $su['foodleid'] .'#discussion">' . htmlspecialchars($su['name']) . '</a></h3>');
-				echo('<p>' . $su['names'] . ' ' . $this->t('addeddiscussion') . '.</p>');
-				echo('<p style="color: #999; font-size: small">' . FoodleUtils::date_diff(time() - $su['recent']) . ' ago</p>');
-				echo('</div>');
-				
-			} else {
-				
-				echo('<div class="statusupdate">');
-				echo('<h3><a href="/foodle/' . $su['foodleid'] .'#responses">' . htmlspecialchars($su['name']) . '</a></h3>');
-				echo('<p>' . $su['names'] . ' ' . $this->t('respondedrecent') . '.</p>');
-				echo('<p style="color: #999; font-size: small">' . FoodleUtils::date_diff(time() - $su['recent']) . ' ago</p>');
-				echo('</div>');
-
-			}
-
-			#print_r($su);
-
-		}
-		echo('</div>');
-
-		?>
 
 
 
@@ -101,63 +84,29 @@
 
 
 		<?php
-		if (is_array($this->data['ownerentries']) && count($this->data['ownerentries']) > 0) {
-			echo('<h2>' . $this->t('youcreated') . '</h2>');
-#			echo '<ul class="statusupdates">';
-			foreach ($this->data['ownerentries'] AS $entry) {
-				echo '<div class="lentry">';
-				echo ' <div class="lheader"><a href="/foodle/' . $entry['id'] . '#responses">' . 
-					htmlspecialchars($entry['name']) . '</a></div>';
-#				echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8') . ' </div>';
-#				echo '<pre>'; print_r($entry); echo '</pre>';
-				echo '</div>';
-			}
-#			echo '</ul>';
-		}
-		?>
-
-
-
-
-
-
-
-		<?php if (isset($this->data['allentries'])) { ?>
-			<h2><?php echo $this->t('recent'); ?></h2>
-			<?php
-			if (is_array($this->data['allentries'])) {
-
-				foreach ($this->data['allentries'] AS $entry) {
-				echo '<div class="lentry">';
-				echo ' <div class="lheader"><a href="/foodle/' . $entry['id'] . '#responses">' . 
-					htmlspecialchars($entry['name']) . '</a></div>';
-#				echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8') . ' </div>';
-
-					if (!empty($entry['ownername'])) {
-					
-						echo ' <div class="lowner">' . 
-							Data_User::getUsernameHTMLstatic($entry['owner'], $entry['ownername'], !empty($entry['ownername']), !$this->data['user']->isAdmin() ) . 
-							'</div>';
-					} else {
-						echo ' <div class="lowner">' . $entry['owner'] . '</div>';
-					}
-
-
-#				echo '<pre>'; print_r($entry); echo '</pre>';
-				echo '</div>';
+			
+			if (!empty($this->data['mygroups'])) {
+				echo '<h2>' . $this->t('groups') . '</h2>';
+				foreach($this->data['mygroups'] AS $group) {
+					echo '<div><img src="/res/group.png" /> <a href="group/' . htmlspecialchars($group['id']) . '">' . htmlspecialchars($group['name']) . '</a></div>';
 				}
+				echo '<p><a href="/groups">Manage groups</a>.</p>';
+			
 			}
-			?>
-		<?php } ?>
-
-
-
+		
+// 			echo '<pre>';
+// 			print_r($this->data['mygroups']);
+// 			echo '</pre>';
+		
+		?>
 
 			
 	</div>
 	<div class="col3">
 
+			
 
+			
 
 
 			<h2>
@@ -166,37 +115,7 @@
 			<p>
 				<?php echo $this->t('cresponses', array('%NUM%' => $this->data['stats']['total7days']) ); ?>
 			</p>
-			
 
-			<?php
-			if (is_array($this->data['yourentries']) && count($this->data['yourentries']) > 0) {
-
-				echo('<h2>' . $this->t('respondedto') . '</h2>');
-
-				foreach ($this->data['yourentries'] AS $entry) {
-					echo '<div class="lentry">';
-					echo ' <div class="lheader"><a href="/foodle/' . $entry['id'] . '">' . 
-						htmlspecialchars($entry['name']) . '</a></div>';
-#					echo ' <div class="lbody">' . mb_substr(strip_tags($entry['descr']), 0, 200, 'utf-8').  ' </div>';
-
-					if (!empty($entry['ownername'])) {
-					
-						echo ' <div class="lowner">' . 
-							Data_User::getUsernameHTMLstatic($entry['owner'], $entry['ownername'], !empty($entry['ownername']), !$this->data['user']->isAdmin() ) . 
-							'</div>';
-					} else {
-						echo ' <div class="lowner">' . $entry['owner'] . '</div>';
-					}
-
-
-					
-					
-#				echo '<pre>'; print_r($entry); echo '</pre>';
-					echo '</div>';
-				}
-
-			}
-			?>
 
 
 			<h2><?php echo $this->t('moreinfo'); ?></h2>
@@ -214,7 +133,12 @@
 	<br style="height: 0px; clear: both">
 </div>
 
-
+<div class="activitystream">
+	
+	<div style="margin: 2em;">
+		<div id="activity"></div>
+	</div>
+</div>
 
 
 			

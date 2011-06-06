@@ -52,7 +52,11 @@ try {
 					$api = new API_Foodlelist($config, $parameters);
 					$api->show();
 					break;
-					
+
+				case 'activity': 
+					$api = new API_Activity($config, $parameters);
+					$api->show();
+					break;					
 					
 				case 'foodle': 
 					$api = new API_Foodle($config, $parameters);
@@ -68,6 +72,22 @@ try {
 					$api = new API_IdPList($config, $parameters);
 					$api->show();
 					break;
+					
+				case 'files':
+					$api = new API_Files($config, $parameters);
+					$api->show();
+					break;
+					
+				case 'upload':
+					$api = new API_Upload($config, $parameters);
+					$api->show();
+					break;
+
+				case 'download':
+					$api = new API_Download($config, $parameters);
+					$api->show();
+					break;
+
 
 			}
 			break;
@@ -114,6 +134,15 @@ try {
 			$page = new Pages_PageUser($config, $parameters);
 			$page->show();
 			break;
+			
+			
+		case 'group':
+			$page = new Pages_PageGroup($config, $parameters);
+			$page->show();
+			break;
+			
+
+			
 			
 		case 'groups':
 			$page = new Pages_PageContacts($config, $parameters);

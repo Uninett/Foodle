@@ -1,25 +1,28 @@
 <?php 
 
-	$this->data['head'] = '<script type="text/javascript" src="/res/js/foodle-contacts-api.js"></script>';
-	$this->data['head'] .= '<script type="text/javascript" src="/res/js/foodle-contacts.js"></script>';
+// 	$this->data['head'] = '<script type="text/javascript" src="/res/js/foodle-contacts-api.js"></script>';
+// 	$this->data['head'] .= '<script type="text/javascript" src="/res/js/foodle-contacts.js"></script>';
+
+
+$foodleid = '';
 
 if (isset($_REQUEST['foodleid'])) {
 	Data_Foodle::requireValidIdentifier($_REQUEST['foodleid']);
-
-	$this->data['head'] .= "
-<script type=\"text/javascript\">
-	$(document).ready(function() {
-		Foodle_Contacts.addOneFoodle('" . $_REQUEST['foodleid'] . "', addOneFoodle);
-	});
-</script>
-	";
-	
+	$foodleid = '"' . $_REQUEST['foodleid'] . '"';
 }
 
+$this->data['head'] = '
+		
+<script type="text/javascript" src="/res/js/foodle-data.js"></script>
+<script type="text/javascript" src="/res/js/foodle-groupmanage.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		Foodle_GroupManage_View(' . $foodleid . ');
+	});
+</script>
+';
 
-	
-
-	$this->includeAtTemplateBase('includes/header.php'); 
+$this->includeAtTemplateBase('includes/header.php'); 
 
 $user = $this->data['user'];
 
@@ -90,11 +93,26 @@ $user = $this->data['user'];
 			<h2>
 				Managing groups
 			</h2>
+			
+			<p>The group functionality of Foodle is currently in <span style="background: #ffd; border: 1px solid #cca; border-radius: 4px; padding: 4px">Beta</span>. Please <a href="mailto:andreas.solberg@uninett.no">let me know about any problems</a>.</p>
+			
 			<p>
 				By structuring your contacts in groups, you may easily invite various groups of people to respond to your Foodles.
 			</p>
+			
+			<p>A group have members in three categories:</p>
+			
+			<div><img src="/res/user_red.png" />
+				<strong>Group owner</strong> owns the group.
+			</div>
 
-
+			<div><img src="/res/user_suit.png" />
+				<strong>Group admin</strong> may add, remove and invite members.
+			</div>
+				
+			<div><img src="/res/user_grey.png" />
+				<strong>Group members</strong> may leave the group, but not add other members. Group members can access the group content.
+			</div>
 
 	</div><!-- /#col3 -->
 	<br style="height: 0px; clear: both">

@@ -25,6 +25,9 @@ echo '<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodl
 	<script type="text/javascript" src="/res/js/jquery-ui.js"></script>
 	<script type="text/javascript" src="/res/js/jquery-placeholder.js"></script>
 	<link rel="stylesheet" media="screen" type="text/css" href="/res/js/uitheme/jquery-ui-themeroller.css" />
+	
+	<script type="text/javascript" src="/res/js/foodle-api-generic.js"></script>
+	
 	<!-- JQuery -->
 	
 
@@ -59,12 +62,22 @@ if (!empty($this->data['foodle'])) {
 
 if (!empty($this->data['userToken'])) {
 	echo 'var FoodleAPIuserToken = "' . $this->data['userToken'] . '";' . "\n\n";
-}
 
+}
 
 ?>
 	
 		$(document).ready(function() {
+
+
+<?php
+
+if (!empty($this->data['userToken'])) {
+	echo 'Foodle_API.init("' . $this->data['userToken'] . '");';
+}
+
+?>
+
 
 			$("#foodletabs").tabs();
 			$("#foodletabs").bind('tabsshow',function(event, ui) {
