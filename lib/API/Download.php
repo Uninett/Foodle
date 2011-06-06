@@ -38,6 +38,29 @@ class API_Download extends API_Authenticated {
 	}
 
 	
+	function checkMimetype($mimetype) {
+	
+		$splitted = explode('/', $mimetype);
+		
+		if ($splitted[0] === 'image') return TRUE;
+		if ($splitted[0] === 'video') return TRUE;
+	
+		if (!in_array($mimetype, array(
+            'application/msword',
+            'application/rtf',
+            'application/vnd.ms-excel',
+            'application/vnd.ms-powerpoint',
+
+            // open office
+            'application/vnd.oasis.opendocument.text',
+            'application/vnd.oasis.opendocument.spreadsheet',
+            
+            'application/octet-stream',
+		))) {
+			throw new Exception('Mime type ' . htmlspecialchars($mimetype) . ' is not allowed, because of a security restriction on allowed mime types. Contact andreas.solberg@uninett.no if you think this MIME type should be allowed.');
+		}
+	}
+	
 	function prepare() {
 
 		$fileName = $this->fileinfo['filename'];
@@ -50,11 +73,13 @@ class API_Download extends API_Authenticated {
 		
 		$storef = $fpath . '/' . $this->filename;
 
+		$this->checkMimetype($mimetype);
 		
 		
 		header('Content-disposition: attachment; filename=' . htmlspecialchars($this->fileinfo['filename'] ));
 		header('Content-type: ' . $this->fileinfo['mimetype']);
-		echo(file_get_contents($storef));
+		echo(file_get_contents($storef)); 
+		exit;
 		error_log('File: ' . $storef);
 		error_log('File tag asked for: ' . $this->filename);
 		
