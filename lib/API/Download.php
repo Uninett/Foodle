@@ -135,6 +135,7 @@ class API_Download extends API_Authenticated {
 
             // ms office
             'doc' => 'application/msword',
+            'docx' => 'application/msword',
             'rtf' => 'application/rtf',
             'xls' => 'application/vnd.ms-excel',
             'ppt' => 'application/vnd.ms-powerpoint',
