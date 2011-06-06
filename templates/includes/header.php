@@ -262,22 +262,38 @@ echo '</p>';
 <?php
 $languages = $this->getLanguageList();
 $langnames = array(
-	'no' => 'Bokmål',
-	'nn' => 'Nynorsk',
-	'se' => 'Sami',
-	'da' => 'Dansk',
-	'fi' => 'Suomeksi',
-	'en' => 'English',
-	'de' => 'Deutsch',
-	'sv' => 'Svenska',
-	'es' => 'Español',
-	'fr' => 'Français',
-	'nl' => 'Nederlands',
-	'lb' => 'Luxembourgish', 
-	'cs' => 'Čeština',
-	'sl' => 'Slovenščina', // Slovensk
-	'hr' => 'Hrvatski', // Croatian
-	'hu' => 'Magyar', // Hungarian
+			'no' => 'Bokmål',
+			'nn' => 'Nynorsk',
+			'se' => 'Sámegiella',
+			'sam' => 'Åarjelh-saemien giele',
+			'da' => 'Dansk',
+			'en' => 'English',
+			'de' => 'Deutsch',
+			'sv' => 'Svenska',
+			'fi' => 'Suomeksi',
+			'es' => 'Español',
+			'fr' => 'Français',
+			'it' => 'Italiano',
+			'nl' => 'Nederlands',
+			'lb' => 'Luxembourgish', 
+			'cs' => 'Czech',
+			'sl' => 'Slovenščina', // Slovensk
+			'lt' => 'Lietuvių kalba', // Lithuanian
+			'hr' => 'Hrvatski', // Croatian
+			'hu' => 'Magyar', // Hungarian
+			'pl' => 'Język polski', // Polish
+			'pt' => 'Português', // Portuguese
+			'pt-BR' => 'Português brasileiro', // Portuguese
+			'ru' => 'русский язык', // Russian
+			'et' => 'Eesti keel',
+			'tr' => 'Türkçe',
+			'el' => 'ελληνικά',
+			'ja' => '日本語',
+			'zh-tw' => '中文',
+			'ar' => 'العربية', // Arabic
+			'fa' => 'پارسی', // Persian
+			'ur' => 'اردو', // Urdu
+			'he' => 'עִבְרִית', // Hebrew
 );
 
 
