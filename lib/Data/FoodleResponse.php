@@ -101,6 +101,13 @@ class Data_FoodleResponse {
 	}
 	
 	
+	public static function freebusycoltype($type) {
+		#echo 'setting type ' . $type;
+		if ($type === 'BUSY') return '0';
+		if ($type === 'BUSY-TENTATIVE') return '2';
+		return '1';
+	}
+	
 	/**
 	 * Fill inn all columns from calendar URL (if present)
 	 */
@@ -117,19 +124,26 @@ class Data_FoodleResponse {
 		$slots = $this->foodle->getColumnDates();
 		foreach($slots AS $i => $slot) {
 			$crash = $cal->available($slot[0], $slot[1]);
-			if ($crash !== NULL) {
-				if ($crash instanceof Event) {
-					$responseData[(int)$i] = '0';
-					$crashingEvents[(int)$i] = $crash->showShort();					
-				} elseif(is_string($crash)) {
-					$responseData[(int)$i] = '0';
-					$crashingEvents[(int)$i] = $crash;
+			
+			#echo '<pre>CRASH: '; print_r($crash); echo '</pre>';
+			
+			if ($crash['available'] !== 'FREE') {
+				if ($crash['crash'] instanceof Event) {
+					$responseData[(int)$i] = self::freebusycoltype($crash['available']);
+					$crashingEvents[(int)$i] = $crash['crash']->showShort();					
+				} elseif(is_string($crash['crash'])) {
+					$responseData[(int)$i] = self::freebusycoltype($crash['available']);
+					$crashingEvents[(int)$i] = $crash['crash'];
 				}
 			}
 		}
+		
+
+		
 		$this->response['data'] = $responseData;
 		$this->response['crash'] = $crashingEvents;
 		
+		#echo '<pre>icalfilled: '; print_r($this->response['data']); echo('</pre>');# exit;
 		#echo 'ical fill completed. '; 
 	}
 	

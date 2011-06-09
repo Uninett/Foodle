@@ -106,13 +106,14 @@ class Calendar {
 			if (isset($fbobj->freebusy)) {
 				foreach($fbobj->freebusy AS $fb) {
 					$this->freebusy[] = self::parseFreeBusyLine($fb);
+					#echo 'POOOT';
 				}
 			} else {
 				
 				$start = self::parseTime($fbobj->dtstart);
 				$end   = self::parseTime($fbobj->dtend);
 				
-				$this->freebusy[] = array($start, $end);
+				$this->freebusy[] = array($start, $end, 'BUSY');
 			}
 		}
 		
@@ -121,10 +122,11 @@ class Calendar {
 	
 
 	public static function parseFreeBusyLine($line) {
-		$splp = explode('/', $line);
+		#echo 'parseFreeBusyLine='; echo '<pre>'; print_r( $line); echo '</pre>';
+		$splp = explode('/', $line['data']);
 		$busybegin = self::parseTime($splp[0]);
 		$busyend   = self::parseTime($splp[1]);
-		return array($busybegin, $busyend);
+		return array($busybegin, $busyend, (isset($line['FBTYPE']) ? $line['FBTYPE'] : 'BUSY'));
 	}
 
 	
@@ -149,6 +151,15 @@ class Calendar {
 // 		return NULL;
 // 	}
 	
+	
+	public static function updateAvailability($pre, $type) {
+		#echo '[updateAvailability] ' . $pre . ' ' . var_export($type, TRUE);
+		if ($pre === 'BUSY') return $pre;
+		if ($type === 'BUSY') return $type;
+		if ($type === 'BUSY-TENTATIVE') return $type;
+		return 'FREE';
+	}
+	
 	/*
 	 * Check if the user is available in the period (begin, end).
 	 * That means that no freebusy overlaps with this interval.
@@ -157,6 +168,9 @@ class Calendar {
 	 */
 	public function checkFreeBusy($begin, $end) {
 #		error_log('Checking freebusy');
+		
+		$result = 'FREE';
+
 		if (!empty($this->freebusy)) {
 			foreach($this->freebusy AS $fb) {
 				#$splp = explode('/', $fb);
@@ -167,16 +181,24 @@ class Calendar {
 				
 #				error_log('Checking BUSY slot [' . date('r', $busybegin) . '] to [' . date('r', $busyend) . ']');
 
-				if (((int)$end > (int)$busybegin) && ((int)$end <= (int)$busyend)) return FALSE;
-				if (((int)$begin >= (int)$busybegin) && ((int)$begin < (int)$busyend)) return FALSE;
-				if (((int)$begin <= (int)$busybegin) && ((int)$end >= (int)$busyend)) return FALSE;
+				#echo '<pre>ENTRY:'; print_r($fb); echo '</pre>';
+
+				if (((int)$end > (int)$busybegin) && ((int)$end <= (int)$busyend)) $result = self::updateAvailability($result, $fb[2]);
+				if (((int)$begin >= (int)$busybegin) && ((int)$begin < (int)$busyend)) $result = self::updateAvailability($result, $fb[2]);
+				if (((int)$begin <= (int)$busybegin) && ((int)$end >= (int)$busyend)) $result = self::updateAvailability($result, $fb[2]);
 			}
 		}
-		return TRUE;
+		return $result;
 	}
 	
 	public function available($begin, $end) {
 		$events = $this->getEvents();
+		
+		
+		$result = array(
+			'crash' => null,
+			'available' => 'FREE'
+		);
 		
 #		echo '<pre>'; print_r($events); echo '</pre>';
 		
@@ -194,18 +216,21 @@ class Calendar {
 		// 	error_log('Checking if user is avalable in period [' . date('r', $begin) . '] to [' . date('r', $end) .']   BUSY');
 		// }
 		
-		if (!$freebusyAvailable) return 'Busy';
+		#echo 'freebusyAvailable: ' . $freebusyAvailable;
 		
-
+		if ($freebusyAvailable !== 'FREE') {
+			$result['available'] = $freebusyAvailable;
+			$result['crash'] = 'Busy';
+		}
 		
 		if (!empty($events)) {
 			foreach($events AS $event) {
 				#echo '<pre>'; print_r($event); exit;
 				#echo('<p>Checking interval [' . date('j. M Y H:i', $begin) . '] [' . date('j. M Y H:i', $end) . ']   event start [' . date('j. M Y H:i', $event->getStart()) . ']');
-				if ($event->overlap($begin, $end)) return $event;
+				if ($event->overlap($begin, $end)) return array('crash' => $event, 'available' => 'BUSY');
 			}
 		}
-		return NULL;
+		return $result;
 	}
 
 	public static function parseTime($text) {

@@ -102,16 +102,13 @@ class XHTMLResponseEntry {
 		
 		}
 		
-		
-
-
-	
-		#echo '<pre>'; print_r($response); exit;
 	
 		if ($response->response['type'] === 'ical') {
 			foreach ($response->response['data'] AS $no => $entry) {
 				if ($entry == '1') {
 					echo '<td class="yes center"><img class="yesimg" alt="No" src="/res/yes.png" /></td>';
+				} else if ($entry == '2') { 
+					echo '<td class="maybe center"><img class="maybeimg" alt="Maybe" src="/res/maybe.png" /></td>';
 				} else {
 					echo '<td class="no center"><img class="yesimg" alt="Yes" src="/res/busy.png" /></td>';
 				}
@@ -246,6 +243,9 @@ class XHTMLResponseEntry {
 				foreach ($responsecal->response['data'] AS $no => $entry) {
 					if ($entry == '1') {
 						echo '<td class="yes center"><img class="yesimg" alt="No" src="/res/yes.png" /></td>';
+					} else if ($entry == '2') { 
+						echo '<td class="maybe center"><img class="maybeimg" alt="Maybe" src="/res/maybe.png" /></td>';
+
 					} else {
 						echo '<td class="no center"><img class="yesimg" alt="Yes" src="/res/busy.png" /></td>';
 					}
@@ -484,6 +484,8 @@ class XHTMLResponseEntry {
 		$extrafields = $response->foodle->getExtraFields();
 		
 		
+#		echo '<pre>'; print_r($response); exit;
+		
 		$class = '';
 		if (!empty($response->notes)) {
 			$class = 'hasnotes';
@@ -597,6 +599,9 @@ class XHTMLResponseEntry {
 				foreach ($response->response['data'] AS $no => $entry) {
 					if ($entry == '1') {
 						echo '<td class="yes center"><img class="yesimg" alt="Yes" src="/res/yes.png" /></td>';
+					} else if ($entry == '2') { 
+						echo '<td class="maybe center"><img class="maybeimg" alt="Maybe" title="Tentative event" src="/res/maybe.png" /></td>';
+
 					} else {
 						echo '<td class="no center"><img class="yesimg" alt="Yes" title="' . $t->t('calendarcollision') . ': '. $response->response['crash'][$no] . '" src="/res/busy.png" /></td>';
 					}

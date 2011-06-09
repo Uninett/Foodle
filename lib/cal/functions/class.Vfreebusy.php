@@ -33,22 +33,51 @@ class Vfreebusy extends iCalObj {
 		$this->$varname = $temp;
 	}
 	
-	function process_line($key, $line) {
-		#echo "\tfeed key= $key line=$line to the object of type ".	get_class($this)."\n";
+	function parseKV($line) {
+		if (preg_match('/^(.*?)=(.*?)$/', $line, $matches)) {
+			return array($matches[1], $matches[2]);
+		}
+		return null;
+	}
+	
+	function getMetaParams($line) {
+		$meta = array();
 		
-		#echo 'processing key [' . $key . ']';
+		$split = explode(';', $line);
+		if (count($split) === 1) return $meta;
+		
+		array_shift($split);
+		foreach($split AS $entry) {
+			$ep = $this->parseKV($entry);
+			if ($ep === null) continue;
+			
+			$meta[$ep[0]] = $ep[1];
+		}
+		
+#		echo '<p>DATA: <pre>'; print_r($meta); echo '</pre>';
+		return $meta;
+	}
+	
+	function process_line($key, $line) {
+#		echo "<p>\tfeed: key= $key line=$line to the object of type ".	get_class($this)."\n";
+		
+		$varname = strtolower($key);
 		
 		if (preg_match('/^(.*?):(.*?)$/', $line, $matches)) {
-			$line = $matches[2];
+			$name = $matches[1];
+			$value = $matches[2];
+			$meta = $this->getMetaParams($name);
 		}
+
 		
 		switch ($key)
 		{
 			case 'FREEBUSY':
-				$line = str_replace("$key:","",$line);
-				$varname = strtolower($key);
-				$this->pushVar($varname, $this->clean_string($line));
+				$meta['data'] = $this->clean_string($value);
+				
+				$this->pushVar($varname, $meta);
 				break;
+				
 			default:
 				parent::process_line($key, $line);
 		}	
