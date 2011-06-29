@@ -96,6 +96,17 @@ class Data_ActivityStream {
 		
 		usort($this->activity, 'cmp');
 		
+		
+		/*
+		 * Limiting the shown entries to the last 20 entries, for performance reasons.
+		 */
+		$na = array(); $i = 0;
+		foreach($this->activity AS $a) {
+			if ($i++ > 20) break;
+			$na[] = $a;
+		}
+		
+		$this->activity = $na;
 	}
 	
 	public function getData() {
