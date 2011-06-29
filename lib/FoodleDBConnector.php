@@ -893,7 +893,7 @@ LIMIT " . $no . "
 	public function getAllEntries($no = 20) {
 
 		$sql ="
-			SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire), user.username ownername
+			SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire, user.username ownername
 			FROM def LEFT JOIN user ON (def.owner = user.userid)
 			ORDER BY def.created DESC 
 			LIMIT " . $no;
