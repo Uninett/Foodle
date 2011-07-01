@@ -48,12 +48,14 @@ class FoodleAuth {
 			$this->user->userid = self::getUserid($attributes);
 			$this->user->username = self::getUsername($attributes);
 			$this->user->email = self::getEmail($attributes);
-			$this->user->calendar = self::getCalendar($attributes);
 			$this->user->org = self::getOrg($attributes);
 			$this->user->orgunit = self::getOrgunit($attributes);
 			$this->user->location = self::getLocation($attributes);
 			$this->user->realm = self::getRealm($attributes);
 			$this->user->language = self::getLanguage($attributes);
+
+			// $this->user->calendar = self::getCalendar($attributes);			
+			$this->user->setCalendarsExternal(self::getCalendar($attributes));
 
 
 			if ($authsource === 'twitter') $this->user->auth = 'twitter';
@@ -98,13 +100,17 @@ class FoodleAuth {
 				if (!$dbUser->shaddowed) {
 					$modified = $dbUser->updateData($this->user);
 					$this->user = $dbUser;
-					if ($modified) { 
+					if ($modified) {
 						$this->db->saveUser($this->user);
 						error_log('Saving user: ' . var_export($attributes, TRUE));
 					}
+					
+					// echo '<pre>dbUser'; print_r($dbUser); exit;
 
 				} else {
+					error_log('Logging in with a shaddowed user. User data is then not updated...');
 					$this->user = $dbUser;
+					
 				}
 				
 				
@@ -123,6 +129,8 @@ class FoodleAuth {
 			unset($_COOKIE['foodleEmail']);	
 		}
 	}
+	
+	
 	
 	public function getAttributes() {
 		
@@ -400,7 +408,7 @@ class FoodleAuth {
 
 	protected static function getCalendar($attributes) {
 		if (array_key_exists('freebusyurl', $attributes)) 
-			return $attributes['freebusyurl'][0];
+			return $attributes['freebusyurl'];
 		return NULL;
 	}
 	

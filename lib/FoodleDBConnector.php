@@ -260,7 +260,7 @@ class FoodleDBConnector {
 		$user->photos = $row['photos'];
 		$user->notifications = Data_User::decode($row['notifications']);
 		$user->features = Data_User::decode($row['features']);
-		$user->calendar = $row['calendar'];
+
 		$user->timezone = $row['timezone'];
 		$user->location = $row['location'];
 		$user->realm = $row['realm'];
@@ -270,6 +270,14 @@ class FoodleDBConnector {
 		$user->auth = $row['auth'];
 		$user->shaddow = $row['shaddow'];
 		$user->shaddowed = $shaddowed;
+		
+		error_log('reading usuer from database');
+		if (!empty($row['calendar'])) {
+			error_log('Setting calendar: ' . var_export($row['calendar'], TRUE));
+			$user->setCalendar($row['calendar']);
+		}
+
+//		$user->calendar = $row['calendar'];
 
 		$user->loadedFromDB = TRUE;
 		
@@ -329,7 +337,7 @@ class FoodleDBConnector {
 					self::sqlParameter('photos', $user->photos, 'null') . 
 					self::sqlParameter('notifications', Data_User::encode($user->notifications), 'null') . 
 					self::sqlParameter('features', Data_User::encode($user->features), 'null') . 
-					self::sqlParameter('calendar', $user->calendar, 'null') . 
+					self::sqlParameter('calendar', Data_User::encode($user->getCalendar()), 'null') . 
 					self::sqlParameter('timezone', $user->timezone, 'null') . 
 					self::sqlParameter('location', $user->location, 'null') . 
 					self::sqlParameter('realm', $user->realm, 'realm') . 

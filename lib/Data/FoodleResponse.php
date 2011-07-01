@@ -94,7 +94,7 @@ class Data_FoodleResponse {
 			'type' => 'ical',
 			'data' => NULL,
 #			'crash' => $crashingEvents,
-			'calendarURL' => $user->calendar,
+			'calendarURL' => $user->getSingleCalendar(),
 		);
 		
 		$this->icalfill($cache);

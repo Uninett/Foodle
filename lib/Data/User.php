@@ -5,7 +5,13 @@
  */
 class Data_User {
 
-	public $userid, $username, $email, $org, $orgunit, $photol, $photom, $photos, $notifications, $features, $calendar, $timezone, $location, $realm, $language, $role, $idp, $auth, $shaddow, $shaddowed = FALSE;
+	// Public data fields
+	public $userid, $username, $email, $org, $orgunit, $photol, $photom, $photos, $notifications, $features, $timezone, $location, $realm, $language, $role, $idp, $auth, $shaddow, $shaddowed = FALSE;
+	
+	// More complex structures are protected.
+	protected $calendar;
+
+
 
 	public $anonymous = TRUE;
 	public $loadedFromDB = FALSE;
@@ -209,9 +215,132 @@ class Data_User {
 		$this->notifications[$key] = $value;
 	}
 	
+	public function setCalendar($str) {
+		$data = self::decode($str);
+		
+		if (is_array($data)) {
+			$this->calendar = $data;
+		} else {
+			$this->calendar = array(array(
+				'src' => $data,
+				'type' => 'external',
+				'include' => TRUE,
+			));
+		}
+	}
+	
+	public function setCalendarsExternal($calendars) {
+			
+		error_log('setCalendarsExternal(): ' . var_export($calendars, TRUE));
+			
+		// Only continue if at least one calendar should be set
+		if (empty($calendars)) return;
+		
+		
+		
+		// Initiliaize the calendar array.
+		if (empty($this->calendar)) {
+			$this->calendar = array();
+		}
+		
+		error_log('setCalendarsExternal() Ready...');
+
+
+		// Setup an array of calendars to add.
+		// 0: is not yet added.
+		// 1: is already added.
+		$toadd = array();
+		foreach($calendars AS $n) {
+			$toadd[$n] = 0;
+		}
+		
+		error_log('setCalendarsExternal() Setup ready... ' . var_export($toadd, TRUE));
+		
+		error_log('Walk through : ' . var_export($this->calendar, TRUE));
+		
+		// Check which calendars already exists - and do not touch those.
+		foreach($this->calendar AS $k => $v) {
+			if ($this->calendar[$k]['type'] === 'external') {
+				if (array_key_exists($this->calendar[$k]['src'], $toadd)) {
+					$toadd[$this->calendar[$k]['src']] = 1;
+					
+					error_log('Calendar [' . $this->calendar[$k]['src'] . '] is already set, and will not be touched');
+					
+				} else {
+				
+					error_log('Calendar [' . $this->calendar[$k]['src'] . '] will be removed.');
+				
+					// Remove external calendars that is not scheduled to be added...
+					unset($this->calendar[$k]);
+				}
+			} else {
+				error_log('Type was not external, skipping....');
+			}
+		}
+		
+		// Add the remaining (new) calendars
+		foreach($toadd AS $k => $v) {
+			if ($v === 1) continue; // Already added.
+			
+			$this->calendar[] = array(
+				'src' => $k,
+				'type' => 'external',
+				'include' => TRUE,
+			);
+		}
+		
+		
+	}
+
+	public function hasCalendar() {
+	
+		if (empty($this->calendar)) {
+			return FALSE;
+		}
+		
+		foreach($this->calendar AS $c) {
+			if ($c['include']) return TRUE;
+		}
+		return FALSE;
+	}
+
+
+	public function getCalendar() {
+		return $this->calendar;
+	}
+	
+	public function getSingleCalendar() {
+		if (empty($this->calendar)) return NULL;
+		if (empty($this->calendar[0]['src'])) throw new Exception('empty source URL for calendar: ' . var_export($this->calendar, TRUE));
+		return $this->calendar[0]['src'];
+	}
+	
+	public function getCalendarURLs($type = NULL) {
+		
+		$result = array();
+		foreach($this->calendar AS $c) {
+			if (
+				($type === NULL) || 
+				($c['type'] === $type)
+				) {
+					
+				$result[] = $c['src'];
+					
+			}
+		}
+		return $result;
+	}
+	
 	public static function decode($s) {
+		// Check if the string is not considered to be JSON, then just return the value.
+		if (!in_array($s[0], array('{', '[', '"'))) {
+			return $s;
+		}
+	
 		if (empty($s)) return null;
-		return json_decode($s, TRUE);
+		$parsed =  json_decode($s, TRUE);
+		if ($parsed === NULL) throw new Exception('Could not decode JSON string [' . $s . ']');
+		return $parsed;
 	}
 	
 	public static function encode($s) {
@@ -220,7 +349,7 @@ class Data_User {
 	}
 	
 	public function updateData($from) {
-
+	
 		if ($this->userid !== $from->userid) throw new Exception('Trying to update user with a mismatching user id');
 		$modified = FALSE;
 		
@@ -297,13 +426,17 @@ class Data_User {
 			$this->photol = $from->photol;
 		}
 
-
-		if (!empty($from->calendar)) {
-			if ($this->calendar!== $from->calendar) {
-				error_log('Calendar from [' . $this->calendar. '] to [' . $from->calendar . ']');
+		// Calendar requires some special processing...
+		if ($from->hasCalendar()) {
+		
+			$before = $this->getCalendar();
+			$this->setCalendarsExternal($from->getCalendarURLs('external'));
+			$after = $this->getCalendar();
+			
+			if ($before !== $after) {
+				error_log('Calendar from [' . var_export($before, TRUE). '] to [' . var_export($after, TRUE) . ']');
 				$modified = TRUE;
 			}
-			$this->calendar = $from->calendar;
 		}
 		
 		
@@ -331,9 +464,6 @@ class Data_User {
 		
 	}
 	
-	public function hasCalendar() {
-		return ($this->calendar !== NULL);
-	}
 	
 	public static function requireValidUserid($userid) {
 		if (!preg_match("/^[a-zA-Z0-9\-\+_!@\.=]+$/", $userid)) {
@@ -351,7 +481,7 @@ class Data_User {
 			self::debugfield('User ID', $this->userid) . 
 			self::debugfield('Name', $this->username) . 
 			self::debugfield('E-mail', $this->email) . 
-			self::debugfield('Calendar URL', $this->calendar) . '</dl>'
+			self::debugfield('Calendar URL', var_export($this->getCalendar(), TRUE)) . '</dl>'
 			;
 		return $text;
 	}
@@ -360,7 +490,7 @@ class Data_User {
 		$text = '';
 		if ($this->hasCalendar() ) {
 			
-			$cal = new Calendar($this->calendar, TRUE);
+			$cal = new Calendar($this->getSingleCalendar(), TRUE);
 			$freebusy = $cal->getFreeBusy();
 			
 			$text .= '<p>List of free busy times:</p><ul>';

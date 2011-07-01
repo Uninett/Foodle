@@ -80,6 +80,10 @@ class Pages_PageProfile extends Pages_Page {
 	function show() {
 	
 		if (isset($_REQUEST['submit_profile'])) $this->updateProfile();
+		
+		if (!empty($_REQUEST['debug'])) {
+			header('Content-Type: text/plain; charset=utf-8'); print_r($this->user); exit;
+		}
 
 		$this->template->data['user'] = $this->user;
 		$this->template->data['authenticated'] = true;

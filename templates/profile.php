@@ -64,6 +64,11 @@ echo '</dl>';
 if ($this->data['user']->hasCalendar()) {
 	echo  '<p><img style="" alt="Calendar" title="Calendar" class="" src="/res/calendar-export.png" /> ' .
 		$this->t('youhavecalendar') . '</p>';
+	
+// 	echo '<pre>Calendar: ';
+// 	print_r($this->data['user']->getCalendar());
+// 	echo '</pre>';
+	
 }
 
 
