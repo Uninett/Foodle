@@ -25,7 +25,54 @@ $config = SimpleSAML_Configuration::getInstance('foodle');
 $db = new FoodleDBConnector($config);
 echo 'Foodle calendar cache fetcher' . "\n";
 
-$urls = $db->getCalendarURLs();
+$userids = $db->getUserIDs();
+
+if (count($argv) > 1) {
+	$userids = array(array('userid' => $argv[1]));
+	echo "Running caledarcache updates only for this user:   " . $argv[1] . "\n";
+}
+
+foreach($userids AS $userid) {
+	
+	echo 'Processing user ID ' . $userid['userid'] . "\n";
+	$user = $db->readUser($userid['userid']);
+	
+	$urls = $user->getCalendarURLs();
+	
+	if (empty($urls)) continue;
+	
+	foreach($urls AS $url) {
+		
+		echo ' Processing URL : ' . $url . "\n";
+		
+		$cal = new Calendar($url, FALSE);
+		$cal->updateCache();
+		
+	}
+	
+	
+}
+
+
+if (count($argv) > 1) {
+	$userids = array(array('userid' => $argv[1]));
+	echo "Running caledarcache updates only for this user:   " . $argv[1] . "\n";
+	
+	$user = $db->readUser($userids[0]['userid']);
+	$aggregator = $user->getCalendarAggregator();
+	$aggregator->testSomeDates();
+	
+}
+
+
+
+// $cal = new Calendar('https://www.google.com/calendar/ical/andreassolberg%40gmail.com/public/basic.ics', FALSE);
+// $cal->updateCache();
+// 
+// $cal->testSomeDates();
+
+exit;
+
 
 $start = time();
 

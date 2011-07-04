@@ -77,6 +77,12 @@ try {
 					$api = new API_Files($config, $parameters);
 					$api->show();
 					break;
+
+				case 'profile-calendars':
+					$api = new API_ProfileCalendars($config, $parameters);
+					$api->show();
+					break;
+
 					
 				case 'upload':
 					$api = new API_Upload($config, $parameters);
@@ -116,6 +122,11 @@ try {
 
 		case 'profile':
 			$page = new Pages_PageProfile($config, $parameters);
+			$page->show();
+			break;
+			
+		case 'profile-calendars':
+			$page = new Pages_PageProfileCalendars($config, $parameters);
 			$page->show();
 			break;
 

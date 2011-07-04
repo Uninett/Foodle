@@ -217,6 +217,12 @@ class FoodleDBConnector {
 		$limite = ($limit ? ' WHERE shaddow is NULL' : '');
 		return $this->q('SELECT * FROM user ' . $limite);
 	}
+	
+	public function getUserIDs() {
+		
+		return $this->q('SELECT userid FROM user where shaddow is null');
+		
+	}
 
 	public function readUser($userid, $shaddowed = FALSE) {
 		/*

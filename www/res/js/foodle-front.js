@@ -21,3 +21,5 @@ var Foodle_Front_View = function() {
 	}
 
 };
+
+

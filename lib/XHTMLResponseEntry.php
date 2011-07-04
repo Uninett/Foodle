@@ -601,6 +601,10 @@ class XHTMLResponseEntry {
 						echo '<td class="yes center"><img class="yesimg" alt="Yes" src="/res/yes.png" /></td>';
 					} else if ($entry == '2') { 
 						echo '<td class="maybe center"><img class="maybeimg" alt="Maybe" title="Tentative event" src="/res/maybe.png" /></td>';
+						
+					} else if ($entry == '9') { 
+						echo '<td class="no center grey"><img class="yesimg" alt="Invalid entry" title="Error loading calendar" src="/res/error.png" /></td>';
+
 
 					} else {
 						echo '<td class="no center"><img class="yesimg" alt="Yes" title="' . $t->t('calendarcollision') . ': '. $response->response['crash'][$no] . '" src="/res/busy.png" /></td>';

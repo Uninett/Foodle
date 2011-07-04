@@ -276,10 +276,14 @@ class Data_Foodle {
 		
 #		echo '<pre>'; print_r($dates);
 		
-		$sortedByDate = array();
-		foreach($dates AS $date) {
-			$sortedByDate[$this->toTimezone($date[0], $timezone)->format('Y-m-d')][] = $date;
-		}
+// 		try {
+			$sortedByDate = array();
+			foreach($dates AS $date) {
+				$sortedByDate[$this->toTimezone($date[0], $timezone)->format('Y-m-d')][] = $date;
+			}
+// 		} catch(Exception $e) {
+// 			error_log('Could not successfully parse timezone information.');
+// 		}
 		
 		$this->columns = array();
 		foreach($sortedByDate AS $dates) {

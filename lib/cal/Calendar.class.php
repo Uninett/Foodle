@@ -5,119 +5,153 @@
  */
 class Calendar {
 
-#	const CACHETIME = 60*15; // 15 minutes
 	const CACHETIME = 900; // 15 minutes
 	
-	/* Instance of sspmod_core_Storage_SQLPermanentStorage
-	 * 
-	 * key1		calendar URL
-	 * key2		NULL
-	 * type		'calendar'
-	 *
-	 */
-	public $store;
-	public $events;
-	public $freebusy;
+	protected $parser, $url;
+	
+	protected $calID;
 
-	protected $parser;
+	protected $freebusy;
+
+
+	protected static function cacheGET($calID) {
+		return json_decode(SimpleSAML_Memcache::get('calendar-' . $calID), TRUE);
+	}
 	
-	public function Calendar($url, $cache = FALSE) {
-	
-		#$cache = FALSE;
+	protected static function cacheSET($calID, $freebusy) {
+		return SimpleSAML_Memcache::set('calendar-' . $calID, json_encode($freebusy) );
+	}
 		
+	
+	public function Calendar($url) {
+
 		if (empty($url))
 			throw new Exception('Trying to access an Calendar with specifying an empty URL');
+
+		$this->url = $url;	
+		$this->calID = sha1($url);
 	
-		error_log('Calendar init with URL [' . $url . '] ' . ($cache ? 'CACHE' : 'NOCACHE'));
+		//error_log('Calendar init with URL [' . $url . '] ');
 	
-		$this->events = array();
 		$this->freebusy = array();
-		$this->store = new sspmod_core_Storage_SQLPermanentStorage('calendarcache');
-	
+		
+//		$this->store = new sspmod_core_Storage_SQLPermanentStorage('calendarcache');
+		
+
 		$this->parser = new Parser();
 		
-		if (
-			(!$cache)
-				||
-			($cache && !$this->store->exists('calendar', $url, NULL))
-		) {
-			/*
-			 * Retrieving calendar from HTTP, parse it and store the result to cache.
-			 */
-
-			if (!$this->store->exists('calendar', $url, NULL)) {
-				error_log('Calendar was NOT found in cache. Refreshing....');
-			}
-
-			$this->parser->process_file($url);
-			
-			if (!empty($this->parser->event_list)) {
-				foreach($this->parser->event_list AS $e) {
-					$this->events[] = new Event($e);
-				}
-			}
-			if (!empty($this->parser->freebusy_list)) {
-				$this->processFreeBusyObjects();
-
-			} 
-			$cached = array('events' => $this->events, 'freebusy' => $this->freebusy);
-			
-			$this->store->set('calendar', $url, NULL, $cached, self::CACHETIME);
-			error_log('Storing retrieved calendar to cache [' . $url . ']');
-
-			// echo '<pre>cached:'; print_r($cached); 
-			// echo 'freebusy'; print_r($this->freebusy);
-			// echo 'events:'; print_r($this->events);
-			// echo '</pre>'; 
-			// exit;
-
+		/*
+		 * Retrieving calendar from cache.
+		 */
+		
+		$cached = self::cacheGET($this->calID);
+		
+		
+		if(empty($cached)) {
+//			error_log('Reading calendar from cache. NOT FOUND.');
 		} else {
+//			error_log('Reading calendar from cache. FOUND ');
+			$this->freebusy = $cached;
 			
-			/*
-			 * Retrieving calendar from cache.
-			 */
+			error_log('Reading calendar from cache. Found ' . count($this->freebusy) . ' entries');
 			
-			$cached = (array) $this->store->get('calendar', $url, NULL);
-			$this->events = $cached['value']['events'];
-			$this->freebusy = $cached['value']['freebusy'];
-			
-			error_log('Reading calendar reading from cache [' . $url . ']');
-			error_log('From cache: ' . var_export(array_keys($cached['value']), TRUE));
-			error_log('Cache expires: ' . date('j. F Y  H:i:s', $cached['expire']));
-			
-			// echo '<pre>cached:'; print_r($cached); 
-			// echo "\n" . 'freebusy:'; print_r($this->freebusy);
-			// echo "\n" . 'events:'; print_r($this->events);
-			// echo '</pre>'; 
-			// exit;
-			
+//			print_r($this->freebusy);	
 		}
+		
 
+		
+// 		error_log('Reading calendar reading from cache [' . $url . ']');
+// 		error_log('From cache: ' . var_export(array_keys($cached['value']), TRUE));
+// 		error_log('Cache expires: ' . date('j. F Y  H:i:s', $cached['expire']));
+		
+		// echo '<pre>cached:'; print_r($cached); 
+		// echo "\n" . 'freebusy:'; print_r($this->freebusy);
+		// echo "\n" . 'events:'; print_r($this->events);
+		// echo '</pre>'; 
+		// exit;
+		
 	}
+	
+	
+
+	
+	
+	public function updateCache() {
+	
+		$this->parser->process_file($this->url);
+		
+
+		$this->processFreeBusyObjects();
+
+//		print_r($this->freebusy);	
+		
+		$this->cacheSET($this->calID, $this->freebusy);
+		
+		//error_log('Storing retrieved calendar to cache');
+		
+		
+	}
+	
+	
 	
 	private function processFreeBusyObjects() {
 		
+
 		$this->freebusy = array();
-		if (!is_array($this->parser->freebusy_list)) continue;
-		
-		foreach($this->parser->freebusy_list AS $fbobj) {
-			if (!$fbobj instanceof Vfreebusy) continue;
+
+
+		/*
+		 * If the iCalendar file contains some VFreeBusy elements, then process them.
+		 */
+		if (!empty($this->parser->freebusy_list) && is_array($this->parser->freebusy_list)) {
+
+			//error_log('Processing free busy list');
 			
-			if (isset($fbobj->freebusy)) {
-				foreach($fbobj->freebusy AS $fb) {
-					$this->freebusy[] = self::parseFreeBusyLine($fb);
-					#echo 'POOOT';
+			foreach($this->parser->freebusy_list AS $fbobj) {
+				if (!$fbobj instanceof Vfreebusy) continue;
+				
+				if (isset($fbobj->freebusy)) {
+					foreach($fbobj->freebusy AS $fb) {
+						$this->freebusy[] = self::parseFreeBusyLine($fb);
+						#echo 'POOOT';
+					}
+				} else {
+					
+					$start = self::parseTime($fbobj->dtstart);
+					$end   = self::parseTime($fbobj->dtend);
+					
+					$this->freebusy[] = array($start, $end, 'BUSY');
 				}
-			} else {
-				
-				$start = self::parseTime($fbobj->dtstart);
-				$end   = self::parseTime($fbobj->dtend);
-				
-				$this->freebusy[] = array($start, $end, 'BUSY');
 			}
 		}
 		
-#		$this->freebusy = $this->parser->freebusy_list[0]->freebusy;
+		
+		
+
+		/*
+		 * If the iCalendar file contains some regular events, then process them.
+		 */
+		if (!empty($this->parser->event_list) && is_array($this->parser->event_list) ) {
+		
+			//error_log('Processing event list');
+			
+			foreach($this->parser->event_list AS $e) {
+				$event = new Event($e);
+				
+				$tempfreebusyentry = array(
+					$event->getStart(),
+					$event->getEnd(),
+					'BUSY'
+				);
+				//error_log('New entry: ');
+				//print_r($tempfreebusyentry);
+				$this->freebusy[] = $tempfreebusyentry;
+				
+			}
+		}
+		
+		
+
 	}
 	
 
@@ -130,30 +164,10 @@ class Calendar {
 	}
 
 	
-// 	public function checkFreeBusy2($begin, $end) {
-// #		error_log('Checking freebusy');
-// 		if (!empty($this->freebusy)) {
-// 			$i = 0;
-// 			foreach($this->freebusy AS $fb) {
-// 
-// 				$splp = explode('/', $fb);
-// 				$busybegin = self::parseTime($splp[0]);
-// 				$busyend   = self::parseTime($splp[1]);
-// 
-// #				error_log('Checking BUSY slot [' . date('r', $busybegin) . '] to [' . date('r', $busyend) . ']');
-// 
-// 				if (((int)$end > (int)$busybegin) && ((int)$end < (int)$busyend)) return $i;
-// 				if (((int)$begin > (int)$busybegin) && ((int)$begin < (int)$busyend)) return $i;
-// 				if (((int)$begin < (int)$busybegin) && ((int)$end > (int)$busyend)) return $i;
-// 								$i++;
-// 			}
-// 		}
-// 		return NULL;
-// 	}
 	
 	
 	public static function updateAvailability($pre, $type) {
-		#echo '[updateAvailability] ' . $pre . ' ' . var_export($type, TRUE);
+		//echo "\n" . '[updateAvailability] ' . $pre . ' ' . var_export($type, TRUE);
 		if ($pre === 'BUSY') return $pre;
 		if ($type === 'BUSY') return $type;
 		if ($type === 'BUSY-TENTATIVE') return $type;
@@ -171,66 +185,43 @@ class Calendar {
 		
 		$result = 'FREE';
 
+
+
 		if (!empty($this->freebusy)) {
 			foreach($this->freebusy AS $fb) {
+//				echo '#';
 				#$splp = explode('/', $fb);
 				$busybegin = $fb[0];
 #				self::parseTime($splp[0]);
 				$busyend   = $fb[1];
 #				self::parseTime($splp[1]);
 				
-#				error_log('Checking BUSY slot [' . date('r', $busybegin) . '] to [' . date('r', $busyend) . ']');
+//				error_log('Checking BUSY slot [' . date('r', $busybegin) . '] to [' . date('r', $busyend) . ']');
 
 				#echo '<pre>ENTRY:'; print_r($fb); echo '</pre>';
+				
+				//echo $fb[2];
+				
+				$match = false;
 
-				if (((int)$end > (int)$busybegin) && ((int)$end <= (int)$busyend)) $result = self::updateAvailability($result, $fb[2]);
-				if (((int)$begin >= (int)$busybegin) && ((int)$begin < (int)$busyend)) $result = self::updateAvailability($result, $fb[2]);
-				if (((int)$begin <= (int)$busybegin) && ((int)$end >= (int)$busyend)) $result = self::updateAvailability($result, $fb[2]);
+				if (((int)$end > (int)$busybegin) && ((int)$end <= (int)$busyend)) $match = true;
+				if (((int)$begin >= (int)$busybegin) && ((int)$begin < (int)$busyend)) $match = true;
+				if (((int)$begin <= (int)$busybegin) && ((int)$end >= (int)$busyend)) $match = true;
+				
+				if($match) {
+					$result = self::updateAvailability($result, $fb[2]);
+					
+					error_log('Found ' . $fb[2] . ' match [' . date('r', $busybegin) . '] to [' . date('r', $busyend) . ']');
+
+				}
 			}
 		}
 		return $result;
 	}
 	
 	public function available($begin, $end) {
-		$events = $this->getEvents();
-		
-		
-		$result = array(
-			'crash' => null,
-			'available' => 'FREE'
-		);
-		
-#		echo '<pre>'; print_r($events); echo '</pre>';
-		
-		$freebusyAvailable = $this->checkFreeBusy($begin, $end);
 
-		// if ($freebusyAvailable !== NULL) {
-		// 	error_log('Checking if user is avalable in period [' . date('r', $begin) . '] to [' . date('r', $end) .']   BUSY [' . $freebusyAvailable. ']');			
-		// } else {
-		// 	error_log('Checking if user is avalable in period [' . date('r', $begin) . '] to [' . date('r', $end) .']   AVAIL');
-		// }
-		// 	
-		// if ($freebusyAvailable) {
-		// 	error_log('Checking if user is avalable in period [' . date('r', $begin) . '] to [' . date('r', $end) .']   AVAILABLE');			
-		// } else {
-		// 	error_log('Checking if user is avalable in period [' . date('r', $begin) . '] to [' . date('r', $end) .']   BUSY');
-		// }
-		
-		#echo 'freebusyAvailable: ' . $freebusyAvailable;
-		
-		if ($freebusyAvailable !== 'FREE') {
-			$result['available'] = $freebusyAvailable;
-			$result['crash'] = 'Busy';
-		}
-		
-		if (!empty($events)) {
-			foreach($events AS $event) {
-				#echo '<pre>'; print_r($event); exit;
-				#echo('<p>Checking interval [' . date('j. M Y H:i', $begin) . '] [' . date('j. M Y H:i', $end) . ']   event start [' . date('j. M Y H:i', $event->getStart()) . ']');
-				if ($event->overlap($begin, $end)) return array('crash' => $event, 'available' => 'BUSY');
-			}
-		}
-		return $result;
+		return $this->checkFreeBusy($begin, $end);
 	}
 
 	public static function parseTime($text) {
@@ -271,28 +262,28 @@ class Calendar {
 		$startslot = floor($begin / $resolution);
 		$endslot   = floor($end / $resolution);
 		
-		$eventslots = array();
-		foreach ($this->getEvents() AS $event)
-			$eventslots[] = array('event' => $event, 'slots' => $event->slotRange());
+// 		$eventslots = array();
+// 		foreach ($this->getEvents() AS $event)
+// 			$eventslots[] = array('event' => $event, 'slots' => $event->slotRange());
 		
 		$slots = array_fill(0, $endslot - $startslot, null);
 
-		foreach ($this->getEvents() AS $event) {
-			$es = $event->slotRange();			
-			if ( (min($es[0] + $es[1], $endslot) - max($es[0], $startslot)) > 0) {
-				for ($i = max($es[0], $startslot); $i <= min($es[0] + $es[1], $endslot); $i++) {
-					$slots[($i-$startslot)][] = $event;
-#					echo '<p>adding event to ' . ($i - $startslot) . ' : ' . $event->dump();
-				}
-			}
-		}
+// 		foreach ($this->getEvents() AS $event) {
+// 			$es = $event->slotRange();			
+// 			if ( (min($es[0] + $es[1], $endslot) - max($es[0], $startslot)) > 0) {
+// 				for ($i = max($es[0], $startslot); $i <= min($es[0] + $es[1], $endslot); $i++) {
+// 					$slots[($i-$startslot)][] = $event;
+// #					echo '<p>adding event to ' . ($i - $startslot) . ' : ' . $event->dump();
+// 				}
+// 			}
+// 		}
 		return $slots;	
 	}
 	
-	
-	public function getEvents() {
-		return $this->events;
-	}
+// 	
+// 	public function getEvents() {
+// 		return $this->events;
+// 	}
 
 	public function getFreeBusy() {
 		return $this->freebusy;

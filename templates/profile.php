@@ -71,7 +71,7 @@ if ($this->data['user']->hasCalendar()) {
 	
 }
 
-
+echo '<p>[ <a href="/profile-calendars">Setup calendars</a> ]</p>';
 
 
 

@@ -71,6 +71,8 @@ class Data_FoodleResponse {
 	
 	public function updateFromical(Data_User $user, $cache = TRUE) {
 
+
+
 		if (!$user->hasCalendar()) throw new Exception('User has no calendar information');
 		
 		$this->invitation = false;
@@ -94,7 +96,7 @@ class Data_FoodleResponse {
 			'type' => 'ical',
 			'data' => NULL,
 #			'crash' => $crashingEvents,
-			'calendarURL' => $user->getSingleCalendar(),
+//			'calendarURL' => $user->getSingleCalendar(),
 		);
 		
 		$this->icalfill($cache);
@@ -112,30 +114,61 @@ class Data_FoodleResponse {
 	 * Fill inn all columns from calendar URL (if present)
 	 */
 	public function icalfill($cache = TRUE) {
+	
+#		echo '<pre>'; debug_print_backtrace(); exit;
 		
-		#echo '<pre>icalfill on :'; print_r($this->response); echo('</pre>');# exit;
+		//echo '<pre>icalfill on :'; print_r($this->response); echo('</pre>');# exit;
 		
-		if (!array_key_exists('calendarURL', $this->response)) return;
+		// if (!array_key_exists('calendarURL', $this->response)) return;
+		
+		if (!$this->response || !$this->response['type'] || $this->response['type'] !== 'ical') {
+			error_log('SKIPPING RESPONSE. NOT A CALENDAR RESPONSE');
+			return;
+		}
+		
+		
+		// echo '<pre>'; print_r($this); echo '</pre>'; exit;
 		
 		$responseData = array_fill(0, $this->foodle->getNofColumns(), '1');
 		$crashingEvents = array_fill(0, $this->foodle->getNofColumns(), NULL);
 		
-		$cal = new Calendar($this->response['calendarURL'], TRUE);
-		$slots = $this->foodle->getColumnDates();
-		foreach($slots AS $i => $slot) {
-			$crash = $cal->available($slot[0], $slot[1]);
-			
-			#echo '<pre>CRASH: '; print_r($crash); echo '</pre>';
-			
-			if ($crash['available'] !== 'FREE') {
-				if ($crash['crash'] instanceof Event) {
+		//$cal = new Calendar($this->response['calendarURL'], TRUE);
+		
+		// echo '<pre>'; print_r($this); exit;
+		
+		
+		try {
+		
+			$aggregator = $this->user->getCalendarAggregator();
+			if ($aggregator === NULL) throw new Exception('Could not create an CalendarAggregator.');
+		
+			$slots = $this->foodle->getColumnDates();
+			foreach($slots AS $i => $slot) {
+				$crash = $aggregator->available($slot[0], $slot[1]);
+				
+				//echo '<pre>CRASH: '; print_r($crash); echo '</pre>';
+				
+				if ($crash['available'] !== 'FREE') {
 					$responseData[(int)$i] = self::freebusycoltype($crash['available']);
-					$crashingEvents[(int)$i] = $crash['crash']->showShort();					
-				} elseif(is_string($crash['crash'])) {
-					$responseData[(int)$i] = self::freebusycoltype($crash['available']);
-					$crashingEvents[(int)$i] = $crash['crash'];
+					$crashingEvents[(int)$i] = 'Busy';
+					
+	// 				if ($crash['crash'] instanceof Event) {
+	// 					$responseData[(int)$i] = self::freebusycoltype($crash['available']);
+	// 					$crashingEvents[(int)$i] = $crash['crash']->showShort();					
+	// 				} elseif(is_string($crash['crash'])) {
+	// 					$responseData[(int)$i] = self::freebusycoltype($crash['available']);
+	// 					$crashingEvents[(int)$i] = $crash['crash'];
+	// 				} else {
+	// 					throw new Exception('Whoops');
+	// 				}
 				}
 			}
+		
+		} catch(Exception $e) {	
+		
+			error_log('Error reading calendar response: ' . $e->getMessage());
+			$responseData = array_fill(0, $this->foodle->getNofColumns(), '9');
+		
 		}
 		
 

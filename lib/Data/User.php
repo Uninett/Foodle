@@ -229,6 +229,40 @@ class Data_User {
 		}
 	}
 	
+	public function calendarURLexists($url) {
+		if (empty($this->calendar)) return FALSE;
+		foreach($this->calendar AS $c) {
+			if ($c['src'] === $url) return TRUE;
+		}
+		return FALSE;	
+	}
+	
+	public function addCalendarURL($url, $type = 'user', $include = true) {
+		if ($this->calendarURLexists($url)) return;
+		
+		$this->calendar[] = array('type' => $type, 'src' => $url, 'include' => $include);
+		
+	}
+	
+	public function removeCalendarURL($url) {
+		if (!$this->calendarURLexists($url)) return;
+		foreach($this->calendar AS $key => $v) {
+			if ($v['src'] === $url) {
+				unset($this->calendar[$key]);
+			}
+		}
+	}
+	
+	public function switchCalendarURL($url) {
+		if (!$this->calendarURLexists($url)) return;
+		foreach($this->calendar AS $key => $v) {
+			if ($v['src'] === $url) {
+				$this->calendar[$key]['include'] = !$this->calendar[$key]['include'];
+			}
+		}
+	}
+		
+	
 	public function setCalendarsExternal($calendars) {
 			
 		error_log('setCalendarsExternal(): ' . var_export($calendars, TRUE));
@@ -318,6 +352,9 @@ class Data_User {
 	public function getCalendarURLs($type = NULL) {
 		
 		$result = array();
+		
+		if (empty($this->calendar)) return NULL;
+		
 		foreach($this->calendar AS $c) {
 			if (
 				($type === NULL) || 
@@ -329,6 +366,17 @@ class Data_User {
 			}
 		}
 		return $result;
+	}
+	
+	public function getCalendarAggregator() {
+		$a = new CalendarAggregator();
+		
+		if (!$this->hasCalendar()) return NULL;
+		foreach($this->calendar AS $c) {
+			if ($c['include']) $a->addCalendar($c['src']);
+		}
+		return $a;
+		
 	}
 	
 	public static function decode($s) {
@@ -490,15 +538,22 @@ class Data_User {
 		$text = '';
 		if ($this->hasCalendar() ) {
 			
-			$cal = new Calendar($this->getSingleCalendar(), TRUE);
-			$freebusy = $cal->getFreeBusy();
+			$aggregator = $this->getCalendarAggregator();
+			$fb = $aggregator->getFreeBusy();
 			
-			$text .= '<p>List of free busy times:</p><ul>';
-			foreach($freebusy AS $fb) {
-				$text .= '<li>Busy from <i>' . date('r', $fb[0]). '</i> to <i>' . date('r', $fb[1]). '</i>.</li>';
+			
+			foreach($fb AS $f) {
+			
+				$text .= '<p>List of free busy times:</p><ul>';
+				foreach($f AS $fe) {
+					$text .= '<li>Busy from <i>' . date('r', $fe[0]). '</i> to <i>' . date('r', $fe[1]). '</i>.</li>';
+				}
+				$text .= '</ul>';
+	#			$text .= '<p>Calenar output: ' . var_export($freebusy, TRUE) . '</p>';
+
+			
 			}
-			$text .= '</ul>';
-#			$text .= '<p>Calenar output: ' . var_export($freebusy, TRUE) . '</p>';
+						
 			
 		} else {
 			$text .= '<p>User has not enabled calendar</p>';

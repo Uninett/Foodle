@@ -65,6 +65,7 @@ require_once($THISPATH . 'lib/API/Upload.php');
 require_once($THISPATH . 'lib/API/Activity.php');
 require_once($THISPATH . 'lib/API/Download.php');
 require_once($THISPATH . 'lib/API/Contacts.php');
+require_once($THISPATH . 'lib/API/ProfileCalendars.php');
 require_once($THISPATH . 'lib/API/Invite.php');
 require_once($THISPATH . 'lib/API/Foodlelist.php');
 require_once($THISPATH . 'lib/API/IdPList.php');
@@ -84,6 +85,7 @@ require_once($THISPATH . 'lib/Pages/PageFront.php');
 require_once($THISPATH . 'lib/Pages/PageGroup.php');
 require_once($THISPATH . 'lib/Pages/PageGroupInvite.php');
 require_once($THISPATH . 'lib/Pages/PageProfile.php');
+require_once($THISPATH . 'lib/Pages/PageProfileCalendars.php');
 require_once($THISPATH . 'lib/Pages/PageAttributes.php');
 require_once($THISPATH . 'lib/Pages/PageUser.php');
 require_once($THISPATH . 'lib/Pages/PageSupport.php');
@@ -108,6 +110,7 @@ require_once($THISPATH . 'lib/getsatisfaction/FastPass.php');
 
 // Loading icalendar scripts..
 require_once($THISPATH . 'lib/cal/Calendar.class.php');
+require_once($THISPATH . 'lib/cal/CalendarAggregator.class.php');
 require_once($THISPATH . 'lib/cal/Event.class.php');
 require_once($THISPATH . 'lib/cal/functions/class.Parser.php');
 require_once($THISPATH . 'lib/cal/functions/class.iCalObj.php');
