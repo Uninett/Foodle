@@ -368,7 +368,7 @@ class FoodleDBConnector {
 					self::sqlParameter('photos', $user->photos, 'null', FALSE) . 
 					self::sqlParameter('notifications', Data_User::encode($user->notifications), 'null', FALSE) . 
 					self::sqlParameter('features', Data_User::encode($user->features), 'null', FALSE) . 
-					self::sqlParameter('calendar', $user->calendar, 'null', FALSE) . 
+					self::sqlParameter('calendar', Data_User::encode($user->getCalendar()), 'null', FALSE) . 
 					self::sqlParameter('timezone', $user->timezone, 'null', FALSE) . 
 					self::sqlParameter('location', $user->location, 'null', FALSE) . 
 					self::sqlParameter('realm', $user->realm, 'null', FALSE) . 
