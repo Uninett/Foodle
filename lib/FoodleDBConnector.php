@@ -758,13 +758,15 @@ class FoodleDBConnector {
 		} else {
 			if (!empty($response->email)) $this->removeEmailInvites($response->foodle->identifier, $response->email);
 			$sql = "
-				INSERT INTO entries (foodleid, userid, username, email, invitation, response, updated) values (
+				INSERT INTO entries (foodleid, userid, username, email, invitation, response, notes, updated) values (
 					'" . addslashes($response->foodle->identifier) . "',
 					'" . addslashes($response->userid) . "', 
 					'" . addslashes($response->username) . "', 
 					'" . addslashes($response->email) . "', 
-					" . $invitation . ", 
-					'" . $response->asJSON() . "', now())";
+					" . $invitation . ", " .
+					"'" . $response->asJSON() . "', " .
+					'"' . addslashes($response->notes) . '", ' . 
+					"now())";
 			
 		}
 
