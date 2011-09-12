@@ -6,7 +6,7 @@ $headbar = '<a class="button" style="float: right; "
 		$this->t('open_in_spreadsheet') . '</span></a>';
 
 
-$headbar .= '<a class="button" style="float: right" href="/foodle/' . $this->data['foodle']->identifier . '"><span>' . $this->t('refresh') . '</span></a>';
+//$headbar .= '<a class="button" onclick="alert(\'foo\') && return false" style="float: right" ><span>' . $this->t('refresh') . '</span></a>';
 
 $this->data['headbar'] = $headbar;
 
