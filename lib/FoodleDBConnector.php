@@ -543,7 +543,7 @@ class FoodleDBConnector {
 			$maxclause = ' AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(entries.updated) < ' . mysql_real_escape_string($maxago) ;
 		}
 		if (!$includeInvites) {
-			$maxclause = ' AND invitation = false ';
+			$maxclause .= ' AND invitation = false ';
 		}
 		
 		$sql ="
@@ -1299,4 +1299,3 @@ WHERE id = " . addslashes($listidentifier) . "");
 
 
 }
-
