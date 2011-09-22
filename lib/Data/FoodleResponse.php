@@ -56,7 +56,8 @@ class Data_FoodleResponse {
 	
 	public function statusline() {	
 		
-		return date('H:i', $this->updated) . ' ' . $this->username . ' added a response';
+		
+		return date('l H:i', $this->updated) . ' ' . $this->username . ' added a response';
 	
 	}
 	
