@@ -50,7 +50,7 @@ Below follows the latest updates on Foodles you have created.
 				$text .= "\n";
 				foreach($res['updates']['discussion'] AS $discussion) {
 					#print_r($discussion);
-					$text .= "* " . date('H:i', $discussion['createdu']) . ' ' . $discussion['username'] . " added a discussion entry.\n";
+					$text .= "* " . date('l H:i', $discussion['createdu']) . ' ' . $discussion['username'] . " added a discussion entry.\n";
 				}
 				$text .= "\n";
 			}
@@ -68,10 +68,10 @@ You can turn of this e-mail notification, and configure other notification messa
 			htmlspecialchars($profileurl) . '">from your Foodle preference page</a>:
 
 	' . htmlspecialchars($profileurl);
-
+	
 
 		$to = $this->user->email;
-#		$to = 'andreassolberg@gmail.com';
+		// $to = 'andreassolberg@gmail.com';
 		$mailer = new Foodle_EMail($to, 'Daily Foodle status update', 'Foodl.org <no-reply@foodl.org>');
 		$mailer->setBody($text);
 		$mailer->send();
@@ -107,6 +107,7 @@ $c = 0;
 foreach($users AS $userid => $foodles) {
 	$c++;
 	echo "\nProcessing user " . $c . "/" . $no . "  "  . $userid . "\n";
+	
 	
 	$user = $db->readUser($userid);
 	if ($user === false) {
