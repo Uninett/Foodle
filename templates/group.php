@@ -5,7 +5,7 @@
  	
 	<script type="text/javascript" src="/res/js/jquery.dnduploader.js"></script>
 	<script type="text/javascript" src="/res/js/foodle-data.js"></script>
-	<script type="text/javascript" src="/res/js/foodle-group.js"></script>
+	<script type="text/javascript" src="/res/js/foodle-group.js"></script> 
 
 <!--
  	<script type="text/javascript" src="/res/js/foodle-contacts-api.js"></script>
@@ -17,8 +17,8 @@
  		$(document).ready(function() {
 
 
-//			Foodle_Contacts.getContactlist(currentList);
-//			Foodle_API.getData(\'/api/activity/group/\' + currentList , null, updateActivityList);
+			// Foodle_Contacts.getContactlist(currentList);
+			// Foodle_API.getData(\'/api/activity/group/\' + currentList , null, updateActivityList);
 
 			Foodle_Group_View(' . htmlspecialchars($this->data['groupInfo']['id']) . ');
 		});

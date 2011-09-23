@@ -40,17 +40,17 @@ var Foodle_GroupManage_View = function(foodleid) {
 	searchOptionEnable(false);
 	$("form#foodle_form_add_contactlist").submit(addContactlist);
 	$("select#foodle_contact_lookuptype").change(selectContactlisttype);
-
+	
 	
 	
 	getGrouplist();
 	getFoodlelist();
-	
-	if (foodleid) {
-		addOneFoodle(foodleid);
-	} else {
+ 
+	 if (foodleid) {
+	 	addOneFoodle(foodleid);
+	 } else {
 		getAutolist();
-	}
+	 }
 
 	$("form#foodle_form_add_contactlist").submit(addContactlist);
 	
@@ -138,9 +138,11 @@ var Foodle_GroupManage_View = function(foodleid) {
 	}
 		
 	function refreshContactListSelection() {
+		
 		var matchList = undefined;
 		if(currentList) matchList = currentList.obj.id;
 		$("div.foodle_contactlist").each(function() {
+
 			if ($(this).data('id') == matchList) {
 				$(this).addClass("foodle_contactlist_selected");
 			} else {
@@ -164,6 +166,7 @@ var Foodle_GroupManage_View = function(foodleid) {
 			params.excludeList = currentList.obj.id;
 		}
 		api.getData("/api/contacts/auto", params, FOODLE.data.Person, showAutolist);
+		//api.getData("/api/contacts/auto", params, FOODLE.data.Person, function() { alert('done'); });
 	}
 	
 	function getGrouplist() {
@@ -358,9 +361,9 @@ var Foodle_GroupManage_View = function(foodleid) {
 			};
 		
 			$("div.foodle_autolist").append( persons[i].view(true, buttons ) );
-			//console.log(persons[i]);
-		}
 
+		}
+		
 	}
 	
 	

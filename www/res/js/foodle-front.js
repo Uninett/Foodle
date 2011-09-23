@@ -13,7 +13,6 @@ var Foodle_Front_View = function() {
 	
 	function showActivity(activities) {
 		var i;
-		console.log('show activity');
 		$("div#activity").empty();
 		for(i = 0; i < activities.length; i++) {
 			$("div#activity").append( activities[i].view() );

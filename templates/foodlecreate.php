@@ -7,10 +7,10 @@ $this->data['head'] = '
 	<link rel="stylesheet" media="screen" type="text/css" href="/res/markitup/skins/markitup/style.css" />
 	<link rel="stylesheet" media="screen" type="text/css" href="/res/markitup/sets/markdown/style.css" />
 
+	<!-- Javascript specific for Foodle Create page -->
+	<script type="text/javascript" src="/res/js/foodle-create.js"></script>
+
 	<script type="text/javascript" >
-	   $(document).ready(function() {
-	      $("#foodledescr").markItUp(mySettings);
-	   });
 	</script>
 ';
 

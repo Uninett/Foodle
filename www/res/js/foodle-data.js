@@ -160,7 +160,7 @@ FOODLE.data.Person = (function() {
 			extra = '',
 			disabled = '',
 			style = '';
-			
+
 		if (user.obj.disabled) {
 			disabled = ' disabled="disabled" ';
 		}
@@ -168,14 +168,14 @@ FOODLE.data.Person = (function() {
 		if (button.float) {
 			style = ' style="float: ' + button.float + '" ';
 		}
-		
-		
-		html = '<input type="submit" ' + disabled + ' ' + style + 'name="' + button.name + '" value="' + button.value + '" />';
+
+		html = $('<input type="submit" ' + disabled + ' ' + style + 'name="' + button.name + '" value="' + button.value + '" />');
 		
 		if (button.callback) {
 			html = $(html).click(createUserSpecificCallback(user, button.callback) );
 		}
-		
+//		alert("button" + html);	
+
 		return html;
 	
 	}
@@ -187,7 +187,7 @@ FOODLE.data.Person = (function() {
 	Constr.prototype.view = function(includeID, buttons, extra) {
 		
 		// console.log(contact);
-		
+
 		includeID = !(!includeID || false);
 	
 		var 
@@ -195,7 +195,7 @@ FOODLE.data.Person = (function() {
 			userpage = null;
 		
 		if (this.obj.token) {
-			userpage = '/user/' + $userid + '?token=' + this.obj.token;
+			userpage = '/user/' + this.obj.userid + '?token=' + this.obj.token;
 		}
 		
 
@@ -232,28 +232,45 @@ FOODLE.data.Person = (function() {
 			if (this.obj.twitter) {
 				html = html + ' (<a href="http://twitter.com/' + utils.escape(this.obj.twitter) + '">@' + utils.escape(this.obj.twitter) + '</a>)';
 			} else if (this.obj.email) {
-				html = html + '<span style="font-size: 90%; color: #666"> (<img style="position:relative; bottom: -2px" src="/res/mail16.png" alt="User profile" /> ' + utils.escape(this.obj.email) + ')</a>'
+				html = html + '<span style="font-size: 90%; color: #666"> (<img style="position:relative; bottom: -2px" src="/res/mail16.png" alt="User profile" /> ' + utils.escape(this.obj.email) + ')</span>';
 			} else {
 				html = html + ' (' + utils.escape(this.obj.userid) + ')'
 			}
 
 		
 		}
-		
+
 		if (extra) {
 			html = html + extra;
 		}
 		
+		// return '';
+		// html = $('<div rel="' + utils.escape(this.obj.userid) + '" class="foodle_contact" >' + html + '</div>').data({
+		// 	'userid': this.obj.userid,
+		// 	'name': this.obj.name,
+		// 	'email': this.obj.email
+		// }); //.click(addUser);
+
 		
-		html = $('<div rel="' + utils.escape(this.obj.userid) + '" class="foodle_contact" >' + html + '</div>').data({
-			'userid': this.obj.userid,
+		html = $('<div rel="' + utils.escape(this.obj.userid) + '" class="foodle_contact" >' + html + '</div>');
+
+		var dob = {
+			"userid": this.obj.userid,
 			'name': this.obj.name,
 			'email': this.obj.email
-		}); //.click(addUser);
+		};
+		$(html).data(dob);
 		
+//		$(html).data("person", dob);
+		// $(html).data();
+
+
 		if (buttons) {
 			for(var i = 0; i < buttons.length; i++) {
 				html = html.prepend(viewButton(buttons[i], this));
+//				$(html).prepend(viewButton(buttons[i], this));
+//				viewButton(buttons[i], this).prepentTo(html);
+//				$(html).prepend("lkj");
 			}
 		}
 
