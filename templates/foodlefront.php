@@ -1,6 +1,8 @@
 <?php 
 
 	
+
+if (!empty($this->data['userToken'])) {
  	$this->data['head'] = '
 
 	<script type="text/javascript" src="/res/js/foodle-data.js"></script>
@@ -9,12 +11,13 @@
 
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {
-//				Foodle_API.getData(\'/api/activity\', null, updateActivityList);
-				
 				Foodle_Front_View();
 			});
 		</script>
  	';
+
+}
+
  	
 	$this->includeAtTemplateBase('includes/header.php'); 
 

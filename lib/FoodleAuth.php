@@ -45,6 +45,7 @@ class FoodleAuth {
 			$attributes = $this->as->getAttributes();
 			
 			$this->user = new Data_User($this->db);
+			$this->user->anonymous = FALSE;
 			$this->user->userid = self::getUserid($attributes);
 			$this->user->username = self::getUsername($attributes);
 			$this->user->email = self::getEmail($attributes);
@@ -94,6 +95,7 @@ class FoodleAuth {
 			
 			if ($this->db->userExists($this->user->userid)) {
 				$dbUser = $this->db->readUser($this->user->userid);
+				$dbUser->anonymous = FALSE;
 				
 				// echo '<pre>dbUser'; print_r($dbUser); exit;
 				
