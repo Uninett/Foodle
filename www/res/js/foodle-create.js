@@ -376,7 +376,7 @@ function verifyDate(str) {
 	return regex.test(str)
 }
 function verifyTime(str) {
-	var regex = /^[0-9]{1,2}([:.][0-9]{2})?(-[0-9]{1,2}([:.][0-9]{2})?)?$/;
+	var regex = /^[0-9]{1,2}[:.][0-9]{2}(-[0-9]{1,2}[:.][0-9]{2})?$/;
 	return regex.test(str)
 }
 
