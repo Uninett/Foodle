@@ -4,66 +4,54 @@ $(document).ready(function() {
 
 	
 
-		selectColumnTypes();
-		prepareDateColumns();
+	selectColumnTypes();
+	prepareDateColumns();
 
 
 
-		/* --- Register button clicks --- */
-		$('input:radio[name="columntypes"]').change(selectColumnTypes);
+	/* --- Register button clicks --- */
+	$('input:radio[name="columntypes"]').change(selectColumnTypes);
 
-		$('a.duplicate').click(duplicateTimeSlots);
-		$("a[id='link_preview']").click(updatePreview);
-		$("a[id='btnToColSetup']").click(updatePreview);
-		$("a.buttonUpdatePreview").click(updatePreview);
-		$("a.onemorecolumn").click(addOneNewColumn);
-		$("a.onemoreoption").click(addOneMoreOption);
+	$('a.duplicate').click(duplicateTimeSlots);
+	$("a[id='link_preview']").click(updatePreview);
+	$("a[id='btnToColSetup']").click(updatePreview);
+	$("a.buttonUpdatePreview").click(updatePreview);
+	$("a.onemorecolumn").click(addOneNewColumn);
+	$("a.onemoreoption").click(addOneMoreOption);
 
-		$("select[name='timezone']").change(updatePreview);
-
-
-		// Section for the box associating a foodle with a specific date or time...
-		$("input#eventtimeopt").change(onoffEventDateTimeSelector);
-		$("input#eventallday").change(prepareEventDateTimeSelector);
-		$("input#eventmultipledays").change(prepareEventDateTimeSelector);
+	$("select[name='timezone']").change(updatePreview);
 
 
-		prepareEventDateTimeSelector();
-		onoffEventDateTimeSelector();
-
-	// 	$("div.columnsetupgeneric input.fscoli").placeholder({'className': 'placeholdertemp'});
-	// 	$("div.columnsetupgeneric input.fcoli").placeholder({'className': 'placeholdertemp'});
-
+	// Section for the box associating a foodle with a specific date or time...
+	$("input#eventtimeopt").change(onoffEventDateTimeSelector);
+	$("input#eventallday").change(prepareEventDateTimeSelector);
+	$("input#eventmultipledays").change(prepareEventDateTimeSelector);
 
 
-
-		// Datepicker for expiration date
-		$("#deadline").datepicker({  
-			dateFormat: "yy-mm-dd 16:00",
-			firstDay: 1,
-			yearRange: '2009:2015'
-		});
-
-		// Datepicker for expiration date
-		$("#eventdatefrom").datepicker({  
-			dateFormat: "yy-mm-dd",
-			firstDay: 1,
-			yearRange: '2009:2015'
-		});
-		$("#eventdateto").datepicker({  
-			dateFormat: "yy-mm-dd",
-			firstDay: 1,
-			yearRange: '2009:2015'
-		});	
+	prepareEventDateTimeSelector();
+	onoffEventDateTimeSelector();
 
 
+	// Datepicker for expiration date
+	$("#deadline").datepicker({  
+		dateFormat: "yy-mm-dd 16:00",
+		firstDay: 1,
+		yearRange: '2009:2015'
+	});
+
+	// Datepicker for expiration date
+	$("#eventdatefrom").datepicker({  
+		dateFormat: "yy-mm-dd",
+		firstDay: 1,
+		yearRange: '2009:2015'
+	});
+	$("#eventdateto").datepicker({  
+		dateFormat: "yy-mm-dd",
+		firstDay: 1,
+		yearRange: '2009:2015'
+	});	
 
 
-
-
-
-
-	
 	
 
 });
@@ -160,20 +148,24 @@ function onoffEventDateTimeSelector() {
 }
 
 function prepareEventDateTimeSelector() {
-	if ($("input#eventallday").attr('checked') && !$("input#eventmultipledays").attr('checked')) {
+	
+	console.log('prepareEventDateTimeSelector()');
+	
+	if ($("input#eventallday:checkbox:checked").val() && !$("input#eventmultipledays:checkbox:checked").val()) {
 		$("span#todelimiter").hide();
 	} else {
 		$("span#todelimiter").show();
 	}
 
-	if ($("input#eventallday").attr('checked')) {
+
+	if ($("input#eventallday:checkbox:checked").val()) {
 		$("input#eventtimefrom").hide();
 		$("input#eventtimeto").hide();
 	} else {
 		$("input#eventtimefrom").show();
 		$("input#eventtimeto").show();
 	}
-	if ($("input#eventmultipledays").attr('checked')) {
+	if ($("input#eventmultipledays:checkbox:checked").val()) {
 		$("input#eventdateto").show();
 	} else {
 		$("input#eventdateto").hide();
