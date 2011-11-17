@@ -223,6 +223,21 @@ class Data_Foodle {
 		}
 		
 	}
+
+
+	public function datetimeEpoch() {
+		if (!empty($this->datetime['timefrom'])) {
+
+			$dateto = $this->datetime['datefrom'];
+			if (!empty($this->datetime['dateto'])) $dateto = $this->datetime['dateto'];
+			
+			return $this->toEpoch($this->datetime['datefrom'] . ' ' . $this->datetime['timefrom']);
+			
+		} else {
+			
+			return $this->toEpoch($this->datetime['datefrom'] . ' 08:00');
+		}
+	}
 	
 	public function datetimeText($timezone) {
 	
@@ -1013,7 +1028,12 @@ class Data_Foodle {
 		return '';
 	}
 	
-	
+	public function getExpireTextShort() {
+		if (empty($this->expire)) return 'This foodle will not expire';
+		if ($this->isExpired()) return 'This foodle is expired';
+		
+		return 'Expires in ' . FoodleUtils::date_diff((int)$this->expire - time()) . '';
+	}
 	
 	public function getExpireText() {
 
