@@ -73,18 +73,29 @@ if (!empty($this->data['userToken'])) {
 		</div>
 
 
+		<h2>
+			<?php echo $this->t('statistics'); ?>
+		</h2>
+		<p>
+			<?php echo $this->t('cresponses', array('%NUM%' => $this->data['stats']['total7days']) ); ?>
+		</p>
 
 
 
-
-
+		<h2><?php echo $this->t('moreinfo'); ?></h2>
+		<ul>
+			<li><a href="https://rnd.feide.no/software/foodle/"><?php echo $this->t('foodlesoftware'); ?></a></li>
+			<li><a href="https://rnd.feide.no/software/foodle/foodle-privacy-policy/"><?php echo $this->t('privacypolicy'); ?></a></li>
+			<li><a href="http://rnd.feide.no"><?php echo $this->t('rndblog'); ?></a></li>
+		</ul>
 
 
 
 	</div>
+	
+	
+	
 	<div class="col2">
-			
-
 
 		<?php
 			
@@ -107,26 +118,15 @@ if (!empty($this->data['userToken'])) {
 	</div>
 	<div class="col3">
 
+			<?php
 			
-
-			
-
-
-			<h2>
-				<?php echo $this->t('statistics'); ?>
-			</h2>
-			<p>
-				<?php echo $this->t('cresponses', array('%NUM%' => $this->data['stats']['total7days']) ); ?>
-			</p>
-
-
-
-			<h2><?php echo $this->t('moreinfo'); ?></h2>
-			<ul>
-				<li><a href="https://rnd.feide.no/software/foodle/"><?php echo $this->t('foodlesoftware'); ?></a></li>
-				<li><a href="https://rnd.feide.no/software/foodle/foodle-privacy-policy/"><?php echo $this->t('privacypolicy'); ?></a></li>
-				<li><a href="http://rnd.feide.no"><?php echo $this->t('rndblog'); ?></a></li>
-			</ul>
+				if ($this->data['authenticated']) {			
+					
+					echo '<h2>Upcomming</h2><div id="upcomming"></div>';
+					
+					echo '<p id="upcommingb">[ <a href="' . htmlspecialchars($this->data['calendarurl']) . '">iCalendar feed</a> <span style="color: #aaa">(beta)</a> ] </p>';
+				}
+			?>
 
 
 

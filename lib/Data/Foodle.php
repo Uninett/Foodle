@@ -161,6 +161,23 @@ class Data_Foodle {
 		return $this->responses;
 	}
 	
+	public function datetimeEpoch() {
+		if (!empty($this->datetime['timefrom'])) {
+			$dateto = $this->datetime['datefrom'];
+			if (!empty($this->datetime['dateto'])) $dateto = $this->datetime['dateto'];
+			return $this->toEpoch($this->datetime['datefrom'] . ' ' . $this->datetime['timefrom']);
+		} else {                
+			return $this->toEpoch($this->datetime['datefrom'] . ' 08:00');
+		}
+	}
+	
+	public function getExpireTextShort() {
+		if (empty($this->expire)) return 'This foodle will not expire';
+		if ($this->isExpired()) return 'This foodle is expired';
+
+		return 'Expires in ' . FoodleUtils::date_diff((int)$this->expire - time()) . '';
+	}
+	
 	public function timezoneEnabled() {
 		if (empty($this->timezone)) return FALSE;
 		if ($this->getColumnDepth() < 2) return FALSE;
@@ -430,6 +447,62 @@ class Data_Foodle {
 // 
 // 		return TRUE;
 	}
+	
+	
+	function dtstart() {
+
+		// From stamp is date and time
+		if (!empty($this->datetime['timefrom'])) {
+
+			if (!empty($this->timezone)) {
+				$from = $this->toEpoch($this->datetime['datefrom'] . ' ' . $this->datetime['timefrom']);
+
+				// Alternative return with local timezone reference...
+				// 		DTSTART;TZID=Europe/London:20110205T080000
+				// return 'DTSTART;TZID=' . $this->timezone . ':' . date('Ymd\THis', $from)  . '; from: ' . $from;
+
+				return 'DTSTART:' . gmdate('Ymd\THis\Z', $from);
+			} 
+			$from = strtotime($this->datetime['datefrom'] . ' ' . $this->datetime['timefrom']);
+			return 'DTSTART:' . date('Ymd\THis', $from);
+		}
+
+		// From stamp is only a date		
+		$from = strtotime($this->datetime['datefrom']);
+		return 'DTSTART;VALUE=DATE:' . date('Ymd', $from);
+	}
+
+	function dtend() {
+
+		$dateto = $this->datetime['datefrom'];
+		if (!empty($this->datetime['dateto'])) $dateto = $this->datetime['dateto'];
+
+		// to stamp is date and time
+		if (!empty($this->datetime['timeto'])) {
+
+
+
+			if (!empty($this->timezone)) {
+
+				$to = $this->toEpoch($dateto . ' ' . $this->datetime['timeto']);
+
+				// DTSTART;TZID=Europe/London:20110205T080000
+				// return 'DTEND;TZID=' . $this->timezone . ':' . date('Ymd\THis', $to);
+
+				return 'DTEND:' . gmdate('Ymd\THis\Z', $to);
+			} 
+
+			$to = strtotime($dateto . ' ' . $this->datetime['timeto']);
+			return 'DTEND:' . date('Ymd\THis', $to);
+
+		}
+
+		// to stamp is only a date		
+		$to = strtotime($dateto);
+		return 'DTEND;VALUE=DATE:' . date('Ymd', $to + 86400);
+	}
+	
+	
 	
 	public function isLocked() {
 		return (boolean)($this->isExpired() || $this->maxReached());
@@ -1035,3 +1108,4 @@ class Data_Foodle {
 
 }
 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   

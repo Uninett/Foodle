@@ -25,6 +25,13 @@ var Foodle_Group = function() {
 		api.getData('/api/contacts/' + groupid, null, FOODLE.data.Person, callback);
 	}
 	
+	function getEvents(callback) {
+		api.getData('/api/events/group/' + groupid, null, FOODLE.data.Event, callback);
+	}
+
+	
+
+	
 	return {
 		// Initialization methods
 		setGroupid: setGroupid,
@@ -32,7 +39,8 @@ var Foodle_Group = function() {
 		// Get data methods
 		getFiles: getFiles,
 		getMembers: getMembers,
-		getActivity: getActivity
+		getActivity: getActivity,
+		getEvents: getEvents
 	};
 	
 }();
@@ -45,6 +53,7 @@ var Foodle_Group_View = function(groupid) {
 	Foodle_Group.getFiles(showFiles);
 	Foodle_Group.getMembers(showMembers);
 	Foodle_Group.getActivity(showActivity);
+	Foodle_Group.getEvents(showEvents);
 	
 	$("div#dropbox").dndUploader({
 		url : '/api/upload/' + groupid,
@@ -89,6 +98,15 @@ var Foodle_Group_View = function(groupid) {
 		$("div#activity").empty();
 		for(i = 0; i < activities.length; i++) {
 			$("div#activity").append( activities[i].view() );
+		}
+	}
+	
+	function showEvents(events) {
+		var i;
+		$("div#upcomming").empty();
+		for(i = 0; i < events.length; i++) {
+			$("div#upcomming").append( events[i].view() );
+			if (i > 25) break;
 		}
 	}
 

@@ -997,6 +997,33 @@ div#dropbox:hover {
 
 
 
+
+div#upcomming div.event {
+	margin: 3px 1px;
+	padding: 2px 0px;
+	border-top: 1px solid #eee;
+	clear: both;
+}
+div#upcomming div.event p {
+	margin: 0px; padding: 0px;
+}
+div#upcomming div.event p.foodlename {
+	font-size: 120%;
+}
+
+div#upcomming div.event.tentative  {
+	color: #999;
+	background: #fafafa;
+}
+div#upcomming div.event.tentative a {
+	color: #caa;
+}
+div#upcomming div.event div.groupref a {
+	color: #aaa;	
+}
+
+
+
 div.activitystream {
 /*	width: 100%;*/
 	clear: both;

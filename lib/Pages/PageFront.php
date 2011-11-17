@@ -77,6 +77,8 @@ class Pages_PageFront extends Pages_Page {
 		
 		$t->data['mygroups'] = $this->fdb->getContactlists($this->user);
 		
+		$t->data['calendarurl'] = FoodleUtils::getUrl() . 'calendar/user/' . $this->user->userid . '/' . $this->user->getToken('calendar');
+		
 		$t->data['showsupport'] = TRUE;
 		
 //		$t->data['theme'] = 'terena';

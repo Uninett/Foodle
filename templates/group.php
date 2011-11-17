@@ -16,10 +16,6 @@
  	<script type="text/javascript" charset="utf-8">
  		$(document).ready(function() {
 
-
-			// Foodle_Contacts.getContactlist(currentList);
-			// Foodle_API.getData(\'/api/activity/group/\' + currentList , null, updateActivityList);
-
 			Foodle_Group_View(' . htmlspecialchars($this->data['groupInfo']['id']) . ');
 		});
 		
@@ -44,14 +40,17 @@
 	<div class="gutter"></div>
 	<div class="col4">
 
-		<h3>Shared documents</h3>
-		
-		<div class="filelist"></div>
-		
-		<div id="dropbox" style="">
-			<p style="">Drop files here to share with the group</p>
-			<div class="progress"></div>
+
+		<h2>
+			Group Members
+		</h2>
+
+		<div class="foodle_contacts">
 		</div>
+		
+		<p><a href="/groups">Manage groups</a></p>
+
+
 
 
 
@@ -70,14 +69,20 @@
 	
 	<div class="col6">
 
-		<h2>
-			Group Members
-		</h2>
-
-		<div class="foodle_contacts">
-		</div>
+		<h3>Upcomming</h3>
 		
-		<p><a href="/groups">Manage groups</a></p>
+		<div id="upcomming"></div>
+
+
+		<h3>Shared documents</h3>
+		
+		<div class="filelist"></div>
+		
+		<div id="dropbox" style="">
+			<p style="">Drop files here to share with the group</p>
+			<div class="progress"></div>
+		</div>
+
 
 	</div><!-- /#col3 -->
 	<br style="height: 0px; clear: both">

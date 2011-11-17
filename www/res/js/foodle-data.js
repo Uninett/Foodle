@@ -372,6 +372,75 @@ FOODLE.data.Activity = (function() {
 	
 		html = '<div class="activity ' + utils.escape(this.obj.type) + '">' + html + '</div>';
 		
+		
+		
+
+		
+		return html;
+	}
+	
+	return Constr;
+	
+})();
+
+
+
+
+FOODLE.data.Event = (function() {
+
+	var
+		// Dependencies
+		utils = FOODLE.utils,
+		
+		// Private properties
+		Constr;
+		
+
+	
+	
+
+	Constr = function(obj) { 
+		this.obj = obj;
+	};
+	
+	Constr.prototype.view = function(includegroup) {
+		
+		includegroup = !!(includegroup);
+		var html = '',
+			message,
+			i;
+		
+		
+		html = '';
+		
+		if (this.obj.type === 'tentative') {
+			html = '<img src="/res/datetime32tentative.png" style="float: right" />';
+			html = html + '<p>' + this.obj.unixt + ' (Tentative)</p>';
+		} else if (this.obj.type === 'expire') {
+			html = '<img src="/res/timeexpire.png" style="float: right" />';
+			html = html + '<p>' + this.obj.expiretext + '</p>';
+		} else {
+			html = '<img src="/res/datetime32.png" style="float: right" />';
+			if (this.obj.unixt) {
+				html = html + '<p>' + this.obj.unixt + '</p>';
+			}
+		}
+		
+		html = html + '<p class="foodlename"><a href="/foodle/' + utils.escape(this.obj.foodle.id) + '">' + utils.escape(this.obj.foodle.name) + '</a></p>';
+		
+		// console.log('includegroup');
+		// console.log(includegroup);
+		// console.log(this.obj.foodle);
+		
+		if (includegroup && this.obj.foodle.groupid) {
+			html = html + '<div class="eventtag groupref">' + 
+				'<img src="/res/group_grey.png" /> ' + 
+				'<a href="/group/' + utils.escape(this.obj.foodle.groupid) + '">' + 
+				utils.escape(this.obj.foodle.groupname) + '</a></div>';
+		}
+		
+		html = '<div class="event  ' + utils.escape(this.obj.type) + '">' + html + '</div>';
+		
 		return html;
 	}
 	
