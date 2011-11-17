@@ -106,7 +106,7 @@ var Foodle_Group_View = function(groupid) {
 		$("div#upcomming").empty();
 		for(i = 0; i < events.length; i++) {
 			$("div#upcomming").append( events[i].view() );
-			if (i > 12) break;
+			if (i > 25) break;
 		}
 	}
 

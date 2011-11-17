@@ -403,77 +403,12 @@ FOODLE.data.Event = (function() {
 		this.obj = obj;
 	};
 	
-	Constr.prototype.view = function() {
-			
+	Constr.prototype.view = function(includegroup) {
+		
+		includegroup = !!(includegroup);
 		var html = '',
 			message,
 			i;
-		
-		
-		if (this.obj.foodle.youcreated) {
-			html = html + '<div style="" class="activitytag youcreated" >You created</div>';
-		}
-		if (this.obj.foodle.youresponded) {
-			html = html + '<div class="activitytag youresponded" >You responded</div>';
-		} else {
-			if (this.obj.foodle.invited) {
-				html = html + '<div class="activitytag invited" >Invited - not yet responded</div>';
-			} else {
-				html = html + '<div class="activitytag yourespondednot" >Not yet responded</div>';
-			}
-		}
-	
-		if (this.obj.foodle.groupname) {
-			html = html + '<div class="activitytag groupref">Group [<a href="/group/' + utils.escape(this.obj.foodle.groupid) + '">' + 
-				utils.escape(this.obj.foodle.groupname) + '</a>]</div>';
-		}
-	
-		
-		html = html + '<h2><a href="/foodle/' + utils.escape(this.obj.foodle.id) + '#responses">' + 
-			utils.escape(this.obj.foodle.name) + '</a></h2>';
-		
-		if (this.obj.foodle.summary) {
-			// The summary property is not escaped on purpose. This is already a controlled property that is generated from
-			// the description property, only allowing <p> tags; generated from markdown.
-			html = html + '<div>' + this.obj.foodle.summary + '</div>';
-		}
-		
-		
-		if (this.obj.foodle.discussion) {
-			for(i = 0; i < this.obj.foodle.discussion.length; i++) {
-				message = this.obj.foodle.discussion[i];
-				html = html + '<div class="discussion">' + 
-					utils.escape(message.message) + 
-					'<p class="persons"><img style="position:relative: top: 3px" src="/res/user_grey.png" /> ' + utils.escape(message.username) + 
-					'</p>' + 
-					'</div>';
-			}
-		}
-		
-		html = html + '<p class="persons">';
-		
-		if (this.obj.responses) {
-			html = html + 'Latest responses ';
-			for (var i = 0; i < this.obj.responses.length; i++) {
-				html = html + '<img style="position:relative: top: 3px" src="/res/user_grey.png" />' + 
-					utils.escape(this.obj.responses[i].name) + ' ';
-			}
-			html = html + '';
-		}
-		
-		if (this.obj.foodle.ownername) {
-			html = html + ' &mdash; Created by <img style="position:relative: top: 3px" src="/res/user_grey.png" /> ' + 
-				utils.escape(this.obj.foodle.ownername) + '';
-		}
-		html = html + '</p>';
-	
-		
-		if (this.obj.ago) {
-			html = '<div style="margin: 3px .4em; padding: 3px; float: right">' + 
-				utils.escape(this.obj.ago) + ' ago</div>' + html;
-		}
-	
-		html = '<div class="activity ' + utils.escape(this.obj.type) + '">' + html + '</div>';
 		
 		
 		html = '';
@@ -491,7 +426,18 @@ FOODLE.data.Event = (function() {
 			}
 		}
 		
-		html = html + '<p><a href="/foodle/' + utils.escape(this.obj.foodle.id) + '">' + utils.escape(this.obj.foodle.name) + '</a></p>';
+		html = html + '<p class="foodlename"><a href="/foodle/' + utils.escape(this.obj.foodle.id) + '">' + utils.escape(this.obj.foodle.name) + '</a></p>';
+		
+		// console.log('includegroup');
+		// console.log(includegroup);
+		// console.log(this.obj.foodle);
+		
+		if (includegroup && this.obj.foodle.groupid) {
+			html = html + '<div class="eventtag groupref">' + 
+				'<img src="/res/group_grey.png" /> ' + 
+				'<a href="/group/' + utils.escape(this.obj.foodle.groupid) + '">' + 
+				utils.escape(this.obj.foodle.groupname) + '</a></div>';
+		}
 		
 		html = '<div class="event  ' + utils.escape(this.obj.type) + '">' + html + '</div>';
 		

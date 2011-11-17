@@ -1007,6 +1007,9 @@ div#upcomming div.event {
 div#upcomming div.event p {
 	margin: 0px; padding: 0px;
 }
+div#upcomming div.event p.foodlename {
+	font-size: 120%;
+}
 
 div#upcomming div.event.tentative  {
 	color: #999;
@@ -1015,7 +1018,9 @@ div#upcomming div.event.tentative  {
 div#upcomming div.event.tentative a {
 	color: #caa;
 }
-
+div#upcomming div.event div.groupref a {
+	color: #aaa;	
+}
 
 
 
