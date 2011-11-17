@@ -69,7 +69,7 @@
 	
 	<div class="col6">
 
-		<h3>Upcomming</h3>
+		<h3>Upcoming</h3>
 		
 		<div id="upcomming"></div>
 

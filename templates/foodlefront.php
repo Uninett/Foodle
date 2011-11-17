@@ -122,7 +122,7 @@ if (!empty($this->data['userToken'])) {
 			
 				if ($this->data['authenticated']) {			
 					
-					echo '<h2>Upcomming</h2><div id="upcomming"></div>';
+					echo '<h2>Upcoming</h2><div id="upcomming"></div>';
 					
 					echo '<p id="upcommingb">[ <a href="' . htmlspecialchars($this->data['calendarurl']) . '">iCalendar feed</a> <span style="color: #aaa">(beta)</a> ] </p>';
 				}
