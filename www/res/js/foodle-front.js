@@ -19,13 +19,14 @@ var Foodle_Front_View = function() {
 		$("div#upcomming").empty();
 		for(i = 0; i < events.length; i++) {
 			$("div#upcomming").append( events[i].view(true) );
-			if (!showall && i > 8) {
-				showmore = $('<p>[ <a href="">Show more</a> ]</p>');
+			if (!showall && i >= 6) {
+				showmore = $('<span id="upcommingshowmore">[ <a href="">Show more</a> ]</span>');
 				$(showmore).click(function(e) {
 					e.preventDefault();
 					showEvents(events, true)
+					$("#upcommingshowmore").hide();
 				});
-				$("div#upcomming").append(showmore);
+				$("p#upcommingb").append(showmore);
 				break;
 			}	
 		}

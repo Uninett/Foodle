@@ -44,7 +44,6 @@ class Pages_PageFoodle extends Pages_Page {
 		$this->datesonly = $this->foodle->datesOnly();
 		
 
-		
 		#Timer::tick('Timezone preparations');
 		
 		$this->auth();

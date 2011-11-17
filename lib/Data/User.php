@@ -95,6 +95,7 @@ class Data_User {
 	
 	
 	public function validateToken($token, $usage = NULL) {
+		error_log('Comparing input [' . $token . '] with correct [' . $this->getToken($usage) . '] usage [' . $usage . ']');
 		return ($token === $this->getToken($usage));
 	}
 	

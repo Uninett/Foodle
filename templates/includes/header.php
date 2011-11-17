@@ -157,7 +157,7 @@ if (isset($this->data['head']))
 
 <!-- Red logo header -->
 <div id="header">	
-	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 3.3</span> 
+	<div id="logo">Foodle <span id="version"><?php echo $this->t('version'); ?> 3.4</span> 
 		<a id="news" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/category/foodle/">
 			∘ <?php echo $this->t('read_news'); ?></a>  
 		<a id="mailinglist" style="font-size: small; color: white" target="_blank" href="http://rnd.feide.no/software/foodle/">
