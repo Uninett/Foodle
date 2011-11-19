@@ -100,7 +100,7 @@ class Data_User {
 	}
 	
 	public function getToken($usage = NULL) {
-		if ($this->anonymous) return null;
+//		if ($this->anonymous) return null;
 		return self::getUserToken($this->userid, $usage);
 	}
 	

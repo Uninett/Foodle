@@ -36,9 +36,12 @@ class Pages_PageUser extends Pages_Page {
 		if ($this->currentuser->isAdmin()) return;
 	
 		if (empty($_REQUEST['token']))
+		
 			throw new Exception('You do not have access to this profile.');
-		error_log('User-s token is : ' . $this->showuser->getToken('profile'));
+			error_log('User-s token is : ' . $this->showuser->getToken('profile'));
+			
 		if ($_REQUEST['token'] !== $this->showuser->getToken('profile')) {
+			error_log('User-s token is : ' . $this->showuser->getToken('profile'));
 			throw new Exception('You do not have access to this profile. The token you provided was invalid.');
 		}
 	}
