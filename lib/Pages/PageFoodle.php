@@ -233,6 +233,10 @@ You may also create new Foodles on your own, and invite others to respond.
 
 		// Configuration
 		$this->template->data['facebookshare'] = $this->config->getValue('enableFacebookAuth', TRUE);
+		
+		$this->template->data['entityid'] = $this->config->getValue('entityid');
+		$this->template->data['responseurl'] = FoodleUtils::getUrl() . 'response';
+		
 
 		$this->template->data['expired'] = $this->foodle->isExpired();
 		$this->template->data['expire'] = $this->foodle->expire;

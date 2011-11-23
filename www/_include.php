@@ -80,6 +80,7 @@ require_once($THISPATH . 'lib/API/Foodle.php');
 
 // Pages
 require_once($THISPATH . 'lib/Pages/Page.php');
+require_once($THISPATH . 'lib/Pages/PageDisco.php');
 require_once($THISPATH . 'lib/Pages/Photo.php');
 require_once($THISPATH . 'lib/Pages/PageGS.php');
 require_once($THISPATH . 'lib/Pages/PageAccountMapping.php');

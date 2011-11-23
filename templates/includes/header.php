@@ -18,23 +18,101 @@ if (!empty($this->data['theme'])) {
 echo '<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle-core.css" />';
 
 
+
+
+$config = SimpleSAML_Configuration::getInstance('foodle');
+$entityid = $config->getValue('entityid');
+$feeds = $config->getArrayize('feeds', array('edugain'));
+$responseurl = FoodleUtils::getUrl() . 'discoresponse';
+
+$discojuiceconfig = '
+	"Foodle",
+    "' . $entityid . '",
+    "' . $responseurl . '", 
+	' . json_encode($feeds) . ',
+	"http://foodl.org/?idp="
+';
+
+
 ?>
+
+
+<link rel="stylesheet" media="screen" type="text/css" href="/res/js/uitheme/jquery-ui-themeroller.css" />	
+<link rel="stylesheet" type="text/css" href="https://static.discojuice.org/css/discojuice.css" />
+
 
 	<!-- JQuery -->
 	<script type="text/javascript" src="/res/js/jquery.js"></script>
 	<script type="text/javascript" src="/res/js/jquery-ui.js"></script>
 	<script type="text/javascript" src="/res/js/jquery-placeholder.js"></script>
-	<link rel="stylesheet" media="screen" type="text/css" href="/res/js/uitheme/jquery-ui-themeroller.css" />
 	
-	<script type="text/javascript" src="/res/js/foodle-api-generic.js"></script>
 	
+	<script type="text/javascript" src="/res/js/foodle-api-generic.js"></script>	
 	<!-- JQuery -->
 	
+
+
+	<!-- DiscoJuice hosted by UNINETT at discojuice.org -->
+	<!-- <script type="text/javascript" language="javascript" src="http://dev.discojuice.org/discojuice/discojuice.misc.js"></script>
+	<script type="text/javascript" language="javascript" src="http://dev.discojuice.org/discojuice/discojuice.ui.js"></script>
+	<script type="text/javascript" language="javascript" src="http://dev.discojuice.org/discojuice/discojuice.control.js"></script>
+	<script type="text/javascript" language="javascript" src="http://dev.discojuice.org/discojuice/discojuice.hosted.js"></script>
+	<script type="text/javascript" language="javascript" src="http://dev.discojuice.org/discojuice/discojuice.dict.nb.js"></script> -->
+	<script type="text/javascript" src="https://engine.discojuice.org/discojuice-stable.min.js"></script>
+
+	
+
+	<script type="text/javascript">
+		var djc = DiscoJuice.Hosted.getConfig(<?php echo $discojuiceconfig; ?>);
+		djc.overlay = true;
+		// djc.always = true;
+		djc.disco.subIDstores = {
+			'https://idp.feide.no': 'https://idp.feide.no/simplesaml/module.php/feide/getOrg.php',
+			"https://wayf.wayf.dk": "https://wayf.wayf.dk/module.php/wayfdiscopower/disco.php"
+		};
+		
+<?php
+	echo "
+		djc.metadata.push('" . FoodleUtils::getUrl(). "/extradiscofeed');
+		djc.disco.subIDwritableStores = {};
+		djc.disco.subIDwritableStores['https://idp.feide.no'] = 'https://idp.feide.no/simplesaml/module.php/feide/preselectOrg.php?ReturnTo=" .  urlencode(FoodleUtils::getUrl() . '/discoresponse') . "&HomeOrg=';
+		djc.disco.subIDwritableStores['https://wayf.wayf.dk'] = 'https://wayf.wayf.dk/module.php/wayfdiscopower/disco.php?entityID=https%3A%2F%2Fwayf.wayf.dk&return=https%3A%2F%2Fwayf.wayf.dk%2Fmodule.php%2Fsaml%2Fsp%2Fdiscoresp.php&returnIDParam=idpentityid&idpentityid=';
+
+		
+	";
+		
+?>
+
+
+		djc.callback = function(e) {
+			console.log(e);
+
+			var auth = e.auth || null;
+			var returnto = window.location.href || 'https://foodl.org';
+			switch(auth) {
+
+				case 'twitter':
+					window.location = '<?php echo FoodleUtils::getUrl(); ?>simplesaml/module.php/core/as_login.php?AuthId=twitter&ReturnTo=' + escape(returnto);
+				break;
+
+
+				case 'saml':
+				default:
+					window.location = '<?php echo FoodleUtils::getUrl(); ?>simplesaml/module.php/core/as_login.php?AuthId=saml&ReturnTo=' + escape(returnto) + '&saml:idp=' + escape(e.entityID);
+				break;							
+
+			}
+		}
+		$(document).ready(function() {
+			$("a.signin").DiscoJuice(djc);
+		});
+
+	</script>
 
 <?php
 
 
-sspmod_discojuice_EmbedHelper::head(false);
+// sspmod_discojuice_EmbedHelper::head(false);
 
 
 ?>

@@ -6,7 +6,7 @@
 class FoodleAuth {
 
 	private $isAuth = FALSE;
-#	private $attributes = array();
+
 	
 	private $sspconfig;
 	private $config;
