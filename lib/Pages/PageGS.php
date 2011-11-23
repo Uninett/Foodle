@@ -32,13 +32,13 @@ class Pages_PageGS extends Pages_Page {
 	// Process the page.
 	function show() {
 		
-		error_log('Fast Pass URL');
+		// error_log('Fast Pass URL');
 		
 		$url = FastPass::url($this->config->getValue('getsatisfaction.key'), $this->config->getValue('getsatisfaction.secret'), 
 			$this->user->email, $this->user->name, $this->user->userid);
 
 		$furl = 'http://tjenester.ecampus.no/fastpass/finish_signover?company=ecampus&fastpass=' . urlencode($url);
-		error_log('Fast Pass URL generated was: ' . $furl);
+		// error_log('Fast Pass URL generated was: ' . $furl);
 		
 		SimpleSAML_Utilities::redirect($furl);
 

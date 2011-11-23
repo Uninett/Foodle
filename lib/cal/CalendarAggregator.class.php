@@ -13,7 +13,7 @@ class CalendarAggregator {
 	}
 	
 	public function addCalendar($url) {
-		error_log('adding url: ' . $url);
+		// error_log('adding url: ' . $url);
 		$this->calendars[] = new Calendar($url);
 	}
 

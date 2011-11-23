@@ -95,7 +95,7 @@ class Data_User {
 	
 	
 	public function validateToken($token, $usage = NULL) {
-		error_log('Comparing input [' . $token . '] with correct [' . $this->getToken($usage) . '] usage [' . $usage . ']');
+		// error_log('Comparing input [' . $token . '] with correct [' . $this->getToken($usage) . '] usage [' . $usage . ']');
 		return ($token === $this->getToken($usage));
 	}
 	
@@ -161,7 +161,7 @@ class Data_User {
 		$file_small  = $basepath . $basefilename . '-s.jpeg';
 		
 		if (!file_exists($file_org)) {
-			error_log('Storing a new photo for use [' . $this->userid . ']');
+			// error_log('Storing a new photo for use [' . $this->userid . ']');
 			file_put_contents($file_org, base64_decode($photo));
 		}
 		
@@ -170,28 +170,28 @@ class Data_User {
 			$source = imagecreatefromjpeg($file_org);
 			
 			if ($source === FALSE) {
-				error_log('Image for user [' . $this->userid . '] was invalid format');
+				// error_log('Image for user [' . $this->userid . '] was invalid format');
 				return null;
 			//		throw new Exception('Image from ');
 			}
 		}
 
 		if (!file_exists($file_large)) {
-			error_log('Storing a new photo for use [' . $this->userid . '] large');
+			// error_log('Storing a new photo for use [' . $this->userid . '] large');
 			$largeimage = imagecreatetruecolor(200, 200);
 			imagecopyresampled($largeimage, $source, 0, 0, 0, 0, 200, 200, $width, $height);
 			imagejpeg($largeimage, $file_large);
 		}
 
 		if (!file_exists($file_medium)) {
-			error_log('Storing a new photo for use [' . $this->userid . '] medium');
+			// error_log('Storing a new photo for use [' . $this->userid . '] medium');
 			$mediumimage = imagecreatetruecolor(64, 64);
 			imagecopyresampled($mediumimage, $source, 0, 0, 0, 0, 64, 64, $width, $height);
 			imagejpeg($mediumimage, $file_medium);
 		}
 		
 		if (!file_exists($file_small)) {
-			error_log('Storing a new photo for use [' . $this->userid . '] small');
+			// error_log('Storing a new photo for use [' . $this->userid . '] small');
 			$smallimage = imagecreatetruecolor(32, 32);
 			imagecopyresampled($smallimage, $source, 0, 0, 0, 0, 32, 32, $width, $height);
 			imagejpeg($smallimage, $file_small);
@@ -267,7 +267,7 @@ class Data_User {
 	
 	public function setCalendarsExternal($calendars) {
 			
-		error_log('setCalendarsExternal(): ' . var_export($calendars, TRUE));
+		// error_log('setCalendarsExternal(): ' . var_export($calendars, TRUE));
 			
 		// Only continue if at least one calendar should be set
 		if (empty($calendars)) return;
@@ -279,7 +279,7 @@ class Data_User {
 			$this->calendar = array();
 		}
 		
-		error_log('setCalendarsExternal() Ready...');
+		// error_log('setCalendarsExternal() Ready...');
 
 
 		// Setup an array of calendars to add.
@@ -290,9 +290,9 @@ class Data_User {
 			$toadd[$n] = 0;
 		}
 		
-		error_log('setCalendarsExternal() Setup ready... ' . var_export($toadd, TRUE));
+		// error_log('setCalendarsExternal() Setup ready... ' . var_export($toadd, TRUE));
 		
-		error_log('Walk through : ' . var_export($this->calendar, TRUE));
+		// error_log('Walk through : ' . var_export($this->calendar, TRUE));
 		
 		// Check which calendars already exists - and do not touch those.
 		foreach($this->calendar AS $k => $v) {
@@ -300,17 +300,17 @@ class Data_User {
 				if (array_key_exists($this->calendar[$k]['src'], $toadd)) {
 					$toadd[$this->calendar[$k]['src']] = 1;
 					
-					error_log('Calendar [' . $this->calendar[$k]['src'] . '] is already set, and will not be touched');
+					// error_log('Calendar [' . $this->calendar[$k]['src'] . '] is already set, and will not be touched');
 					
 				} else {
 				
-					error_log('Calendar [' . $this->calendar[$k]['src'] . '] will be removed.');
+					// error_log('Calendar [' . $this->calendar[$k]['src'] . '] will be removed.');
 				
 					// Remove external calendars that is not scheduled to be added...
 					unset($this->calendar[$k]);
 				}
 			} else {
-				error_log('Type was not external, skipping....');
+				// error_log('Type was not external, skipping....');
 			}
 		}
 		
@@ -405,14 +405,14 @@ class Data_User {
 		
 		if (!empty($from->username)) {
 			if ($this->username !== $from->username) {
-				error_log('username from [' . $this->username. '] to [' . $from->username . ']');
+				// error_log('username from [' . $this->username. '] to [' . $from->username . ']');
 				$modified = TRUE;
 			}
 			$this->username = $from->username;
 		}
 		if (!empty($from->email)) {
 			if ($this->email !== $from->email) {
-				error_log('email from [' . $this->email. '] to [' . $from->email . ']');
+				// error_log('email from [' . $this->email. '] to [' . $from->email . ']');
 				$modified = TRUE;
 			}
 			$this->email = $from->email;
@@ -420,7 +420,7 @@ class Data_User {
 		
 		if (!empty($from->org)) {
 			if ($this->org !== $from->org) {
-				error_log('org from [' . $this->org. '] to [' . $from->org . ']');
+				// error_log('org from [' . $this->org. '] to [' . $from->org . ']');
 				$modified = TRUE;
 			}
 			$this->org = $from->org;
@@ -428,7 +428,7 @@ class Data_User {
 		
 		if (!empty($from->orgunit)) {
 			if ($this->orgunit !== $from->orgunit) {
-				error_log('orgunit from [' . $this->orgunit. '] to [' . $from->orgunit . ']');
+				// error_log('orgunit from [' . $this->orgunit. '] to [' . $from->orgunit . ']');
 				$modified = TRUE;
 			}
 			$this->orgunit = $from->orgunit;
@@ -436,7 +436,7 @@ class Data_User {
 		
 		if (!empty($from->location)) {
 			if ($this->location !== $from->location) {
-				error_log('location from [' . $this->location. '] to [' . $from->location . ']');
+				// error_log('location from [' . $this->location. '] to [' . $from->location . ']');
 				$modified = TRUE;
 			}
 			$this->location = $from->location;
@@ -444,7 +444,7 @@ class Data_User {
 		
 		if (!empty($from->realm)) {
 			if ($this->realm !== $from->realm) {
-				error_log('Realm from [' . $this->realm. '] to [' . $from->realm . ']');
+				// error_log('Realm from [' . $this->realm. '] to [' . $from->realm . ']');
 				$modified = TRUE;
 			}
 			$this->realm = $from->realm;
@@ -453,7 +453,7 @@ class Data_User {
 
 		if (!empty($from->idp)) {
 			if ($this->idp !== $from->idp) {
-				error_log('IdP entityid from [' . $this->idp. '] to [' . $from->idp . ']');
+				// error_log('IdP entityid from [' . $this->idp. '] to [' . $from->idp . ']');
 				$modified = TRUE;
 			}
 			$this->idp = $from->idp;
@@ -461,7 +461,7 @@ class Data_User {
 
 		if (!empty($from->auth)) {
 			if ($this->auth !== $from->auth) {
-				error_log('auth from [' . $this->auth. '] to [' . $from->auth . ']');
+				// error_log('auth from [' . $this->auth. '] to [' . $from->auth . ']');
 				$modified = TRUE;
 			}
 			$this->auth = $from->auth;
@@ -470,7 +470,7 @@ class Data_User {
 		
 		if (!empty($from->photol)) {
 			if ($this->photol !== $from->photol) {
-				error_log('photo url from [' . $this->photol. '] to [' . $from->photol . ']');
+				// error_log('photo url from [' . $this->photol. '] to [' . $from->photol . ']');
 				$modified = TRUE;
 			}
 			$this->photol = $from->photol;
@@ -484,7 +484,7 @@ class Data_User {
 			$after = $this->getCalendar();
 			
 			if ($before !== $after) {
-				error_log('Calendar from [' . var_export($before, TRUE). '] to [' . var_export($after, TRUE) . ']');
+				// error_log('Calendar from [' . var_export($before, TRUE). '] to [' . var_export($after, TRUE) . ']');
 				$modified = TRUE;
 			}
 		}
@@ -497,12 +497,12 @@ class Data_User {
 			
 			if (!empty($newtimezone)) {
 				$this->timezone = $newtimezone;
-				error_log('User had no timezone set. Setting to [' . $newtimezone. ']');
+				// error_log('User had no timezone set. Setting to [' . $newtimezone. ']');
 				$modified = TRUE;
 			}
 		}
 #		echo '<pre>'; print_r($from); exit;
-#		error_log('User set..');
+#		// error_log('User set..');
 		
 		// TODO: photos
 		// TODO: Calendar check...

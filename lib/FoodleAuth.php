@@ -6,7 +6,7 @@
 class FoodleAuth {
 
 	private $isAuth = FALSE;
-#	private $attributes = array();
+
 	
 	private $sspconfig;
 	private $config;
@@ -110,7 +110,7 @@ class FoodleAuth {
 					// echo '<pre>dbUser'; print_r($dbUser); exit;
 
 				} else {
-					error_log('Logging in with a shaddowed user. User data is then not updated...');
+					// error_log('Logging in with a shaddowed user. User data is then not updated...');
 					$this->user = $dbUser;
 					
 				}

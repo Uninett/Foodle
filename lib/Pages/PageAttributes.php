@@ -24,7 +24,7 @@ class Pages_PageAttributes extends Pages_Page {
 	protected function setLocale() {
 		$lang = $this->template->getLanguage();
 		
-		error_log('Language: ' . $lang);
+		// error_log('Language: ' . $lang);
 		
 		$localeMap = array(
 			'no' => 'nb_NO.utf8',
@@ -35,7 +35,7 @@ class Pages_PageAttributes extends Pages_Page {
 		
 		if (isset($localeMap[$lang])) {	
 			setlocale(LC_ALL, $localeMap[$lang]);
-			error_log('Setting locale to ' . $localeMap[$lang]);
+			// error_log('Setting locale to ' . $localeMap[$lang]);
 		}
 		
 	}

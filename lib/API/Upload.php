@@ -36,7 +36,7 @@ class API_Upload extends API_Authenticated {
 		$fileName = NULL;
 		$contentLength = NULL;
 		
- 		error_log(var_export($_SERVER, TRUE));
+ 		// error_log(var_export($_SERVER, TRUE));
 		
 		
 		if (array_key_exists('HTTP_X_FILENAME', $_SERVER) && array_key_exists('CONTENT_LENGTH', $_SERVER)) {
@@ -59,7 +59,7 @@ class API_Upload extends API_Authenticated {
 		
 		$this->fdb->addFile($this->user, $this->groupid, $storefilename, $fileName, $mimetype);
 		
-		error_log('Storing file: ' . $storef);
+		// error_log('Storing file: ' . $storef);
 		
 // 		error_log('Receiving a file');
 // 		error_log(var_export($_FILES, TRUE));

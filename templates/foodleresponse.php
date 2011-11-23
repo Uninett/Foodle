@@ -14,6 +14,7 @@ $this->data['headbar'] = $headbar;
 // $this->data['head'] = '<script type="text/javascript" src="/res/js/foodle-response.js"></script>';
 
 if (!empty($this->data['showsharing'])) {
+	if (empty($this->data['head'])) $this->data['head'] = '';
 	$this->data['head'] .= '<script type="text/javascript" src="/res/js/foodle-data.js"></script>';
 	$this->data['head'] .= '<script type="text/javascript" src="/res/js/foodle-invite.js"></script>
 	<script type="text/javascript">

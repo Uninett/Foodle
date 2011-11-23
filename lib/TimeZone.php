@@ -38,11 +38,11 @@ class TimeZone {
 	public function lookupRegion($region) {
 		
 		if ($this->store->exists('region', $region, NULL)) {
-			error_log('IP Geo location: Found region [' . $region . '] in cache.');
+			// error_log('IP Geo location: Found region [' . $region . '] in cache.');
 			return $this->store->getValue('region', $region, NULL);
 		}
 		
-		error_log('Lookup region');
+		// error_log('Lookup region');
 		$rawdata = file_get_contents('http://freegeoip.net/tz/json/' . $region);
 		
 		if (empty($rawdata)) throw new Exception('Error looking up IP geo location for [' . $ip . ']');
@@ -53,7 +53,7 @@ class TimeZone {
 		
 		$timezone = $data['timezone'];
 		
-		error_log('IP Geo location: Store region [' . $region . '] in cache: ' . $timezone);
+		// error_log('IP Geo location: Store region [' . $region . '] in cache: ' . $timezone);
 		$this->store->set('region', $region, NULL, $timezone);
 		
 		return $timezone;	
@@ -62,11 +62,11 @@ class TimeZone {
 	public function lookupIP($ip) {
 
 		if ($this->store->exists('ip', $ip, NULL)) {
-			error_log('IP Geo location: Found ip [' . $ip . '] in cache.');
+			// error_log('IP Geo location: Found ip [' . $ip . '] in cache.');
 			return $this->store->getValue('ip', $ip, NULL);
 		}
 		
-		error_log('Lookup IP');
+		// error_log('Lookup IP');
 		$rawdata = file_get_contents('http://freegeoip.net/json/' . $ip);
 		
 		if (empty($rawdata)) throw new Exception('Error looking up IP geo location for [' . $ip . ']');
@@ -78,7 +78,7 @@ class TimeZone {
 		
 		$region = $data['country_code'] . '/' . $data['region_code'];
 		
-		error_log('IP Geo location: Store ip [' . $ip . '] in cache: ' . $region);
+		// error_log('IP Geo location: Store ip [' . $ip . '] in cache: ' . $region);
 		$this->store->set('ip', $ip, NULL, $region);
 		
 		return $region;

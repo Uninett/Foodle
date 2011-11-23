@@ -37,6 +37,7 @@ var Foodle_Front_View = function() {
 	
 	
 	function getActivity(callback) {
+		console.log('getactivity()');
 		api.getData('/api/activity', null, FOODLE.data.Activity, callback);
 	}
 	

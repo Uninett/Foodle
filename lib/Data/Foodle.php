@@ -697,7 +697,7 @@ class Data_Foodle {
 		
 		$this->datecache = $dates;
 		
-		error_log('Dates; ' . var_export($dates, true));
+		// error_log('Dates; ' . var_export($dates, true));
 		
 		return $dates;
 	}
@@ -1108,5 +1108,6 @@ class Data_Foodle {
 	
 	
 	
+
 
 }

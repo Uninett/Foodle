@@ -24,7 +24,7 @@ class Data_Contacts {
 		if ($this->contacts === null) {
 		
 			if ($this->store->exists('contacts', $this->user->userid, NULL)) {
-				error_log('Contacts: Found contact list for user  [' . $this->user->userid . '] in cache.');
+				// error_log('Contacts: Found contact list for user  [' . $this->user->userid . '] in cache.');
 				$this->contacts = $this->store->getValue('contacts', $this->user->userid, NULL);
 				return;
 			}
@@ -60,7 +60,7 @@ class Data_Contacts {
 		}
 
 		$left = count($this->contacts);
-		error_log('Excluded ' . $i . ' entries from contacts, because part of Foodle ' . $foodleid . '  (' . $left . ' left)');
+		// error_log('Excluded ' . $i . ' entries from contacts, because part of Foodle ' . $foodleid . '  (' . $left . ' left)');
 	
 	}
 	

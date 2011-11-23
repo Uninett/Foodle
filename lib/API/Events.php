@@ -16,7 +16,7 @@ class API_Events extends API_Authenticated {
 
 		$as = new Data_EventStream($this->fdb, $this->user);
 		
-		error_log('Accessing API_Events');
+		// error_log('Accessing API_Events');
 
 		
 		if (count($this->parameters) === 0) {

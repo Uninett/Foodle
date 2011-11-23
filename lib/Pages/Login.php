@@ -9,7 +9,7 @@ class Pages_Login extends Pages_Page {
 	function __construct($config, $parameters) {
 		parent::__construct($config, $parameters);
 				
-		error_log('Foodle /login ');
+		// error_log('Foodle /login ');
 		$this->auth();
 	
 	}
@@ -20,7 +20,7 @@ class Pages_Login extends Pages_Page {
 //		$this->auth->requireAuth(TRUE);
 		
 		if ($this->auth->isAuth()) {
-			error_log('Foodle /login User is already authenticated ');
+			// error_log('Foodle /login User is already authenticated ');
 			$this->complete();
 		}
 		

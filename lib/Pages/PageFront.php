@@ -30,6 +30,8 @@ class Pages_PageFront extends Pages_Page {
 		if (isset($_REQUEST['setresponse'])) $this->setResponse();
 		if (isset($_REQUEST['discussionentry'])) $this->addDiscussionEntry();
 		
+		
+
 		// ---- o ----- o ---- o ----- o ---- o ----- o
 		// This part needs to be updated.
 
@@ -60,6 +62,9 @@ class Pages_PageFront extends Pages_Page {
 
 		$t = new SimpleSAML_XHTML_Template($this->config, 'foodlefront.php', 'foodle_foodle');
 
+
+
+
 		$t->data['bread'] = array(
 			array('title' => 'bc_frontpage'), 
 		);
@@ -68,7 +73,10 @@ class Pages_PageFront extends Pages_Page {
 // 		$t->data['userid'] = $this->user->userid;
 // 		$t->data['displayname'] = $this->user->username;
 
-		$t->data['userToken'] = $this->user->getToken();
+		if ($this->auth->isAuth()) {
+			$t->data['userToken'] = $this->user->getToken();			
+		}
+
 
 		$t->data['showprofile'] = $this->user->loadedFromDB;
 		$t->data['showcontacts'] = $this->auth->isAuth();

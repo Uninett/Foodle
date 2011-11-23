@@ -264,6 +264,30 @@ try {
 			$page->show();
 			break;
 
+		case 'disco':
+			$page = new Pages_PageDisco($config, $parameters);
+			$page->show();
+			break;
+			
+		case 'discoresponse':
+			require_once('discoresponse.html');
+			break;
+			
+		case 'extradiscofeed':
+			header('Content-Type: application/javascript; charset: utf-8');
+			$data = file_get_contents('extradiscofeed.js');
+			if ($_REQUEST['callback']) {
+				if(!preg_match('/^[a-z0-9A-Z\-_]+$/', $_REQUEST['callback'])) throw new Exception('Invalid characters in callback.');
+
+				header('Content-Type: application/javascript; charset=utf-8');
+				echo $_REQUEST['callback'] . '(' . $data . ')';
+			} else {
+				header('Content-Type: application/json; charset=utf-8');
+				echo $data;
+			}
+			
+			break;
+
 		case 'test':
 			require_once('test-calendar.php');
 			break;
