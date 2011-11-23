@@ -9,6 +9,13 @@
 <?php
 
 
+
+if (isset($this->data['foodle'])) {
+	echo '<link rel="alternate" type="application/rss+xml" title="' . $this->t('subscribe_rss') . '" href="/foodle/' . $this->data['foodle']->identifier . '?output=rss" />';
+}
+	
+
+
 if (!empty($this->data['theme'])) {
 	$theme = $this->data['theme'];
 	echo '<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle-' . $theme . '.css" /> ';
@@ -37,8 +44,8 @@ $discojuiceconfig = '
 ?>
 
 
-<link rel="stylesheet" media="screen" type="text/css" href="/res/js/uitheme/jquery-ui-themeroller.css" />	
-<link rel="stylesheet" type="text/css" href="https://static.discojuice.org/css/discojuice.css" />
+	<link rel="stylesheet" media="screen" type="text/css" href="/res/js/uitheme/jquery-ui-themeroller.css" />	
+	<link rel="stylesheet" type="text/css" href="https://static.discojuice.org/css/discojuice.css" />
 
 
 	<!-- JQuery -->
@@ -109,14 +116,6 @@ $discojuiceconfig = '
 
 	</script>
 
-<?php
-
-
-// sspmod_discojuice_EmbedHelper::head(false);
-
-
-?>
-
 
 	<script type="text/javascript">
 <?php
@@ -124,7 +123,6 @@ $discojuiceconfig = '
 if (!empty($this->data['foodle'])) {
 	echo 'var foodle_id = "' . htmlspecialchars($this->data['foodle']->identifier) . '"; ' . "\n\n";
 }
-
 
 ?>
 	</script>
@@ -207,24 +205,20 @@ if (!empty($this->data['userToken'])) {
 	</script>
 
 
-	<?php
-		if (isset($this->data['foodle'])) {
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $this->t('subscribe_rss') . '" href="/foodle/' . $this->data['foodle']->identifier . '?output=rss" />';
-		}
-		
-	?>
 
-	<title><?php 
-		$title = 'Foodle';
-		if (isset($this->data['title']))
-			$title = $this->data['title']; 
-		echo $title;
-	?></title> 
+
+
 
 <?php
 
 if (isset($this->data['head']))
 	echo $this->data['head']; 
+
+$title = 'Foodle';
+if (isset($this->data['title']))
+	$title = $this->data['title']; 
+echo '<title>' . $title . '</title>';
+
 
 
 ?>
