@@ -62,6 +62,7 @@ $discojuiceconfig = '
 			};
 
 	<?php
+	
 		echo "
 			djc.metadata.push('" . FoodleUtils::getUrl(). "/extradiscofeed');
 			djc.disco.subIDwritableStores = {};
@@ -91,5 +92,23 @@ $discojuiceconfig = '
 </head>
 <body style="background: #ccc">
     <p style="display: none" style="text-align: right"><a class="signin" href="/">signin</a></p>
+
+	<noscript style="">
+		
+		<div style="background: white; border: 1px solid #ccc">
+			<p>Javascript is not enabled in your webbrowser.</p>
+		
+			<p>Please turn on Javascript and refresh the page to continue.</p>
+		
+			<p>If you for some reason are not able to enable javascript, please go a URL similar to this, to login and use foodle.</p>
+		
+			<blockquote><a href="https://foodl.org/login?auth=saml&amp;idp=https://idp.feide.no"><pre><code>https://foodl.org/login?auth=saml&amp;idp=https://idp.feide.no</code></pre></a></blockquote>
+		
+			<p>Replace the idp with the entityid of your idp if you are not using Feide to login</p>.
+		
+		</div>
+		
+	</noscript>
+
 </body>
 </html>
