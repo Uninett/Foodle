@@ -13,7 +13,7 @@ class API_Invite extends API_Authenticated {
 		parent::prepare();	
 		$this->contacts = new Data_Contacts($this->fdb, $this->user);
 		
-		error_log('API: api/invite');
+		// error_log('API: api/invite');
 
 		if (empty($_REQUEST['foodle'])) throw new Exception('Missing parameter [foodle] on api/invite');
 		
@@ -25,10 +25,10 @@ class API_Invite extends API_Authenticated {
 		
 		if (!empty($userid)) {
 			$this->inviteByUserID($userid, $foodleid);
-			error_log('Inviting user [' . $userid . ']');
+			// error_log('Inviting user [' . $userid . ']');
 		} elseif(!empty($email)) {
 			$this->inviteByEmail($email, $foodleid);
-			error_log('Inviting user by email [' . $email . ']');
+			// error_log('Inviting user by email [' . $email . ']');
 			
 			
 		} else {
@@ -99,7 +99,7 @@ class API_Invite extends API_Authenticated {
 			error_log('Foodle response was added, but mail notification was not sent because of users preferences');
 			return;
 		}
-		error_log('Sending Foodle invitation... !');
+		// error_log('Sending Foodle invitation... !');
 		
 		
 	

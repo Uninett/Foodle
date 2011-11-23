@@ -277,9 +277,9 @@ class FoodleDBConnector {
 		$user->shaddow = $row['shaddow'];
 		$user->shaddowed = $shaddowed;
 		
-		error_log('reading usuer from database');
+		// error_log('reading usuer from database');
 		if (!empty($row['calendar'])) {
-			error_log('Setting calendar: ' . var_export($row['calendar'], TRUE));
+			// error_log('Setting calendar: ' . var_export($row['calendar'], TRUE));
 			$user->setCalendar($row['calendar']);
 		}
 
@@ -331,7 +331,7 @@ class FoodleDBConnector {
 		*/
 		
 		if ($user->loadedFromDB) {
-			error_log('FoodleDB: Updating user data');
+			// error_log('FoodleDB: Updating user data');
 			$sql = "
 				UPDATE user SET " .
 					self::sqlParameter('username', $user->username, 'null') . 
@@ -355,7 +355,7 @@ class FoodleDBConnector {
 			";
 			
 		} else {
-			error_log('FoodleDB: Adding a new user');
+			// error_log('FoodleDB: Adding a new user');
 			$sql = "
 				INSERT INTO user (userid, username, email, org, orgunit, photol, photom, photos, notifications, features, calendar, timezone, location, realm, language, auth, idp) values (" . 
 					self::sqlParameter('userid', $user->userid, null, FALSE) . 
@@ -1260,7 +1260,7 @@ WHERE id = " . addslashes($listidentifier) . "");
 				'" . addslashes($mimetype) . "', 
 				'" . addslashes($user->userid) . "', 
 				'" . addslashes($stored_file) . "')";
-		error_log($sql);
+		// error_log($sql);
 		$this->execute($sql);
 	}
 	

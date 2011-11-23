@@ -53,7 +53,7 @@ class Calendar {
 //			error_log('Reading calendar from cache. FOUND ');
 			$this->freebusy = $cached;
 			
-			error_log('Reading calendar from cache. Found ' . count($this->freebusy) . ' entries');
+			// error_log('Reading calendar from cache. Found ' . count($this->freebusy) . ' entries');
 			
 //			print_r($this->freebusy);	
 		}
@@ -211,7 +211,7 @@ class Calendar {
 				if($match) {
 					$result = self::updateAvailability($result, $fb[2]);
 					
-					error_log('Found ' . $fb[2] . ' match [' . date('r', $busybegin) . '] to [' . date('r', $busyend) . ']');
+					// error_log('Found ' . $fb[2] . ' match [' . date('r', $busybegin) . '] to [' . date('r', $busyend) . ']');
 
 				}
 			}

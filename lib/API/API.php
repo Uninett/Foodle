@@ -31,7 +31,7 @@ abstract class API_API {
 			$returnobj['status'] = 'error';
 			$returnobj['message'] = $e->getMessage();
 			
-			error_log('API returning error: ' . $e->getMessage());
+			// error_log('API returning error: ' . $e->getMessage());
 			
 		}
 

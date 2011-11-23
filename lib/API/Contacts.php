@@ -197,12 +197,12 @@ class API_Contacts extends API_Authenticated {
 
 		if (!empty($_REQUEST['term'])) {
 		
-			error_log('Search term was [' . $_REQUEST['term']. ']');
+			// error_log('Search term was [' . $_REQUEST['term']. ']');
 			$contacts = $this->contacts->search($_REQUEST['term']);
 		
 		
 			if ($this->isEmail($_REQUEST['term'])) {
-				error_log('is email');
+				// error_log('is email');
 				$email = $_REQUEST['term'];
 				if (empty($contacts)) {
 					$contacts = array(
@@ -220,7 +220,7 @@ class API_Contacts extends API_Authenticated {
 
 
 		} else {
-			error_log('Returning all contacts');
+			// error_log('Returning all contacts');
 			$contacts = $this->contacts->getContacts(10);
 		}
 		

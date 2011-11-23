@@ -123,7 +123,7 @@ class Data_FoodleResponse {
 		// if (!array_key_exists('calendarURL', $this->response)) return;
 		
 		if (!$this->response || !$this->response['type'] || $this->response['type'] !== 'ical') {
-			error_log('SKIPPING RESPONSE. NOT A CALENDAR RESPONSE');
+			// error_log('SKIPPING RESPONSE. NOT A CALENDAR RESPONSE');
 			return;
 		}
 		
