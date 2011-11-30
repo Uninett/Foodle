@@ -51,7 +51,7 @@
 		"it": "\"Foodle\" recenti (accesso come amministratore)",
 		"et": "Hiljutised foodle'id (adminni ligip\u00e4\u00e4s)",
 		"ja": "\u6700\u8fd1\u306eFoodle\uff08\u7ba1\u7406\u8005\u30a2\u30af\u30bb\u30b9\uff09",
-		"pl": "Ostatnie foodle (dost\u0119p administracyjny)"
+		"pl": "Ostatnie Foodle (dost\u0119p administracyjny)"
 	},
 	"welcomeheader": {
 		"no": "Velkommen til Foodle",
@@ -87,7 +87,7 @@
 		"it": "Foodle \u00e8 un servizio per che permette di effettuare semplici indagini o sondaggi e la programmazione di riunioni.",
 		"ja": "Foodle\u306f\u3001\u4f1a\u8b70\u306e\u30b9\u30b1\u30b8\u30e5\u30fc\u30eb\u8abf\u6574\u304c\u7c21\u5358\u306b\u3067\u304d\u308b\u30b5\u30fc\u30d3\u30b9\u3067\u3059\u3002",
 		"et": "Foodle on teenus lihtsate k\u00fcsitluste koostamiseks ja kohtumiste kokkuleppimiseks.",
-		"pl": "Foodle to us\u0142uga do obs\u0142ugi ankiet, przegl\u0105d\u00f3w oraz planowania spotka\u0144."
+		"pl": "Foodle to us\u0142uga do obs\u0142ugi ankiet, g\u0142osowa\u0144 oraz planowania spotka\u0144."
 	},
 	"authtext": {
 		"no": "Du er autentisert som %DISPLAYNAME% (<tt>%USERID%<\/tt>)",
@@ -246,7 +246,7 @@
 		"it": "scelta multipla",
 		"et": "mitmene valik",
 		"ja": "\u8907\u6570\u9078\u629e",
-		"pl": "wiele wybor\u00f3w"
+		"pl": "wielokrotny wyb\u00f3r"
 	},
 	"name": {
 		"no": "Navn",
@@ -567,7 +567,7 @@
 		"it": "Risposte",
 		"et": "Vastused",
 		"ja": "\u56de\u7b54",
-		"pl": "Odpowied\u017a"
+		"pl": "Odpowiedzi"
 	},
 	"bc_frontpage": {
 		"no": "Foodle forside",
@@ -816,7 +816,7 @@
 		"cs": "M\u016f\u017eete bu\u010f zadat sloupce Foodle ru\u010dn\u011b, nebo p\u0159idat data z panelu vpravo.",
 		"it": "Puoi creare qui le colonne \"foodle\" manualmente, o aggiungere date utilizzando il pannello a destra.",
 		"ja": "\u30de\u30cb\u30e5\u30a2\u30eb\u304b\u53f3\u306e\u30da\u30a4\u30f3\u304b\u3089\u30ab\u30e9\u30e0\u3092\u8ffd\u52a0\u3059\u308b\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002",
-		"pl": "Mo\u017cesz albo r\u0119cznie utworzy\u0107 tutaj kolumny, albo doda\u0107 daty z prawgo panelu."
+		"pl": "Mo\u017cesz albo r\u0119cznie utworzy\u0107 tutaj kolumny, albo doda\u0107 daty z prawego panelu."
 	},
 	"maxheader": {
 		"no": "Max antall svar",
@@ -852,7 +852,7 @@
 		"it": "Dopo quanti inserimenti Foodle sar\u00e0 chiuso?",
 		"et": "Kui mitme vastuse p\u00e4rast sulgeda?",
 		"ja": "\u4f55\u4eba\u304b\u3089\u306e\u56de\u7b54\u304c\u3042\u3063\u305f\u3089Foodle\u3092\u78ba\u5b9a\u3055\u305b\u307e\u3059\u304b\uff1f",
-		"pl": "Po ilu wpisach Foodle ma zostac zablokowany?"
+		"pl": "Po ilu wpisach Foodle ma zosta\u0107 zablokowany?"
 	},
 	"maxcolinfo": {
 		"no": "Begrense alle svar, eller bare svar med en spesiell kolonne avkrysset?",
@@ -974,7 +974,7 @@
 		"cs": "emailov\u00e9 adresy pouze t\u011bch, kte\u0159\u00ed zvolili tento sloupec",
 		"it": "Indirizzi di posta elettronica di coloro che hanno selezionato questa colonna",
 		"ja": "\u3053\u306e\u67a0\u3092\u30c1\u30a7\u30c3\u30af\u3057\u305f\u56de\u7b54\u8005\u306eE-mail\u30a2\u30c9\u30ec\u30b9",
-		"pl": "Adresy mailowych os\u00f3b, kt\u00f3\u00b6e zaznaczy\u0142y t\u0119 kolumn\u0119"
+		"pl": "Adresy mailowych os\u00f3b, kt\u00f3re zaznaczy\u0142y t\u0119 kolumn\u0119"
 	},
 	"help": {
 		"no": "Hjelp?",
@@ -1152,7 +1152,7 @@
 		"it": "Il tuo nome",
 		"et": "Sinu nimi",
 		"ja": "\u3042\u306a\u305f\u306e\u540d\u524d",
-		"pl": "Twoje imie i nazwisko"
+		"pl": "Twoje imi\u0119 i nazwisko"
 	},
 	"email": {
 		"no": "E-postadresse",
@@ -1293,7 +1293,7 @@
 		"cs": "N\u00ed\u017ee uveden\u00e9 URL odkazuje na tento Foodle a automaticky aktivuje p\u0159ihl\u00e1\u0161en\u00ed pomoc\u00ed Facebooku. Pos\u00edlejte ho pouze t\u011bm u\u017eivatel\u016fm, o kter\u00fdch v\u00edte, \u017ee maj\u00ed \u00fa\u010det na Facebooku. URL je ur\u010deno p\u0159edev\u0161\u00edm pro sd\u00edlen\u00ed na va\u0161em facebookov\u00e9m profilu, p\u0159\u00edpadn\u011b ve facebookov\u00fdch skupin\u00e1ch.",
 		"it": "Il link qui sotto punta a questo \"Foodle\" e richieder\u00e0 automaticamente l'autenticazione con Facebook. Manda questo link solo ad utenti che hanno un account su Facebook e che vogliono utilizzarlo con Foodle. Questo \u00e8 un link utile da condividere attraverso il tuo profilo Facebook (gruppi facebook, ecc.)",
 		"ja": "\u4e0b\u8a18\u304c\u3053\u306eFoodle\u3078\u306e\u30ea\u30f3\u30af\u306b\u306a\u308a\u3001\u81ea\u52d5\u7684\u306bFacebook\u3067\u306e\u8a8d\u8a3c\u304c\u306f\u3058\u307e\u308a\u307e\u3059\u3002Facebook\u306b\u30a2\u30ab\u30a6\u30f3\u30c8\u3092\u3082\u3063\u3066\u3044\u3066\u3001\u305d\u308c\u306b\u3088\u308bFoodle\u5229\u7528\u3092\u671b\u3093\u3067\u3044\u308b\u30e6\u30fc\u30b6\u306b\u306e\u307f\u3053\u306e\u30ea\u30f3\u30af\u3092\u901a\u77e5\u3057\u3066\u4e0b\u3055\u3044\u3002\u3042\u306a\u305f\u306eFacebook\u30d7\u30ed\u30d5\u30a1\u30a4\u30eb\uff08Facebook\u30b0\u30eb\u30fc\u30d7\u306a\u3069\uff09\u304b\u3089\u3053\u306eURL\u3092\u5171\u6709\u3059\u308b\u3068\u4fbf\u5229\u3067\u3059\u3002",
-		"pl": "Poni\u017cszy link wskazuje tego Foodle'a i b\u0119dzie automatycznie inicjowa\u0142 uwierzytelnienie w facebooku. Wy\u015blij ten link wy\u0142\u0105cznie do tych u\u017cytkownik\u00f3w, o kt\u00f3rych wiesz, \u017ce maj\u0105 konto na Facebooku i chc\u0105 korzysta\u0107 z Foodle'a. Jest to wygodny URL do udost\u0119pnienia w Twoim profilu Facebook."
+		"pl": "Poni\u017cszy link wskazuje tego Foodle'a i b\u0119dzie automatycznie inicjowa\u0142 uwierzytelnienie w Facebooku. Wy\u015blij ten link wy\u0142\u0105cznie do tych u\u017cytkownik\u00f3w, o kt\u00f3rych wiesz, \u017ce maj\u0105 konto na Facebooku i chc\u0105 korzysta\u0107 z Foodle'a. Jest to wygodny URL do udost\u0119pnienia na Twoim profilu Facebook."
 	},
 	"linkonfacebook": {
 		"no": "Legg en lenke til denne Foodle-n p\u00e5 min Facebook",
@@ -1412,7 +1412,7 @@
 		"it": "Salva le modifiche a questo \"Foodle\"",
 		"et": "Salvesta selle foodle'i muudatused",
 		"ja": "\u3053\u306eFoodle\u306e\u5909\u66f4\u3092\u4fdd\u5b58",
-		"pl": "Zapami\u0119taj zmiany w tym foodle'u"
+		"pl": "Zapami\u0119taj zmiany w tym Foodle'u"
 	},
 	"logout": {
 		"no": "Logg ut",
@@ -1476,7 +1476,7 @@
 		"it": "\"Foodle\" ha ottenuto %NUM% risposte negli ultimi 7 giorni.",
 		"ja": "\u904e\u53bb\uff11\u9031\u9593\u3067 %NUM% \u5229\u7528\u304c\u3042\u308a\u307e\u3057\u305f\u3002",
 		"et": "Foodle on saanud viimase 7 p\u00e4eva jooksul %NUM% vastust.",
-		"pl": "Fiidle otrzyma\u0142 %NUM% w ci\u0105gu ostatnich 7 dni."
+		"pl": "Foodle otrzyma\u0142 %NUM% odpowiedzi w ci\u0105gu ostatnich 7 dni."
 	},
 	"statusupdates": {
 		"no": "Statusoppdateringer",
@@ -1635,7 +1635,7 @@
 		"cs": "Aby mohli ostatn\u00ed reagovat na tento Foodle, mus\u00edte jim p\u0159edat n\u00ed\u017ee uveden\u00fd odkaz.",
 		"it": "Per consentire l'accesso ad altri e richiedere una risposta a questo \"Foodle\" devi comunicare il link sottostante.",
 		"ja": "\u3053\u306eFoodle\u306b\u4ed6\u306e\u65b9\u306e\u56de\u7b54\u3084\u30a2\u30af\u30bb\u30b9\u3092\u5e0c\u671b\u3059\u308b\u5834\u5408\u306f\u3001\u4e0b\u8a18\u306e\u30ea\u30f3\u30af\u3092\u901a\u77e5\u3057\u3066\u4e0b\u3055\u3044\u3002",
-		"pl": "Aby da\u0107 innym dost\u0119p do tego Foodl'a i poprosi\u0107 o odpowied\u017a, musisz przekaza\u0107 poni\u017cszy link."
+		"pl": "Aby da\u0107 innym dost\u0119p do tego Foodle'a i poprosi\u0107 o odpowied\u017a, musisz przekaza\u0107 poni\u017cszy link."
 	},
 	"sharinglink": {
 		"no": "URL som gir tilgang til denne Foodle-n:",
@@ -1673,7 +1673,7 @@
 		"cs": "N\u00ed\u017ee uvid\u00edte n\u00e1hled, jak bude v\u00e1\u0161 Foodle vypadat. Pokud jste hotov(a), klikn\u011bte na tla\u010d\u00edtko \u2039Dokon\u010dit Foodle\u203a. P\u0159ed dokon\u010den\u00edm Foodle m\u016f\u017eete znovu upravit n\u00e1zev a popis a tak\u00e9 pokro\u010dil\u00e9 volby.",
 		"it": "Sotto puoi vedere un'anteprima di come apparir\u00e0 il tuo \"Foodle\". Quando avrai terminato, fai click sul bottone <Completa Foodle> posto qui sotto. Puoi modificare il nome, la descrizione e la configurazione utilizzando le opzioni avanzate, prima di completare il tuo \"Foodle\".",
 		"ja": "\u3042\u306a\u305f\u306e\u4f5c\u6210\u3057\u305fFoodle\u306e\u30d7\u30ec\u30d3\u30e5\u30fc\u3092\u898b\u308b\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002\u5fc5\u8981\u306a\u9805\u76ee\u3092\u5165\u529b\u3057\u305f\u3089\u300c\u5b8c\u6210\u300d\u30dc\u30bf\u30f3\u3092\u62bc\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
-		"pl": "Poni\u017cej zobaczysz podgl\u0105d docelowego Foodle'a. Gdy zako\u0144czysz, naci\u015bnij poni\u017cszy przycisk 'Zako\u0144cz Foodle'. Sprawd\u017a ponownie nazw\u0119, opis i skonfiguruj zaawansowane opcje przed zako\u0144czeniem konfiguracji."
+		"pl": "Poni\u017cej zobaczysz podgl\u0105d docelowego Foodle'a. Gdy zako\u0144czysz, naci\u015bnij  przycisk 'Zako\u0144cz Foodle'. Sprawd\u017a ponownie nazw\u0119, opis i skonfiguruj zaawansowane opcje przed zako\u0144czeniem konfiguracji."
 	},
 	"calendarenabled": {
 		"no": "Dersom du \u00f8nsker det kan du velge at svaret ditt blir oppdatert automatisk fra din kalender. Da vil svaret ditt endre seg fortl\u00f8pende ettersom kalenderen din endres. ",
@@ -1701,7 +1701,7 @@
 		"it": "Inserimento manuale",
 		"et": "T\u00e4ida ka ise vastus",
 		"ja": "\u81ea\u5206\u3067\u56de\u7b54\u3092\u66f8\u304d\u8fbc\u307f",
-		"pl": "Wype\u0142nij odpowied\u017a"
+		"pl": "Wpisz odpowied\u017a"
 	},
 	"calendarsync": {
 		"no": "Oppdater automatisk fra kalender",
@@ -1728,7 +1728,7 @@
 		"de": "W\u00e4hlen sie oben aus ob sie ihre Antwort mit ihrem Kalender verbinden m\u00f6chten oder ob sie die Termine lieber manuell eintragen m\u00f6chten",
 		"it": "Seleziona qui sopra se vuoi collegare le tue risposte al tuo calendario o se vuoi inserire manualmente le date",
 		"ja": "\u3042\u306a\u305f\u306e\u30ab\u30ec\u30f3\u30c0\u30fc\u306b\u56de\u7b54\u3092\u9023\u52d5\u3055\u305b\u305f\u3044\u5834\u5408\u3001\u3042\u308b\u3044\u306f\u3001\u65e5\u4ed8\u3092\u624b\u52d5\u3067\u5165\u529b\u3057\u305f\u3044\u5834\u5408\u306f\u3001\u84b8\u6c17\u3092\u9078\u629e\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
-		"pl": "Ustal, czy chcesz powi\u0105za\u0107 swoj\u0105 odpowied\u017a z Twoim kalendarzem, lub wprowadzisz daty r\u0119cznie"
+		"pl": "Ustal, czy chcesz powi\u0105za\u0107 swoj\u0105 odpowied\u017a z Twoim kalendarzem, czy wprowadzi\u0107 daty r\u0119cznie"
 	},
 	"calendarcollision": {
 		"no": "Kollisjon i kalender",
@@ -1948,7 +1948,7 @@
 		"cs": "Syntaxe pro pol\u00ed\u010dko \"popis\" naho\u0159e je %Markdown%. Markdown je jednoduch\u00fd textov\u00fd form\u00e1t, kter\u00fd umo\u017enuje z\u00e1kladn\u00ed form\u00e1tov\u00e1n\u00ed. Zvolte z\u00e1lo\u017eku \u203aNastaven\u00ed sloupc\u016f\u203a pro n\u00e1hled sv\u00e9ho Foodle.",
 		"it": "La sintassi per campo descrizione qui sopra \u00e8 %Markdown%. Qui \"Markdown\" \u00e8 un semplice formato testo che permette semplici \"markup\". Seleziona il tab <Configurazione colonne> per visualizzare come apparir\u00e0 nel \"Foodle\".",
 		"ja": "\u4e0a\u8a18\u306e\u8a18\u8ff0\u67a0\u306e\u30b7\u30f3\u30bf\u30c3\u30af\u30b9\u306f\u3001%Markdown%\u3067\u3059\u3002Markdown\u306f\u3001\u5358\u7d14\u306a\u30d7\u30ec\u30a4\u30f3\u30c6\u30ad\u30b9\u30c8\u30d5\u30a9\u30fc\u30de\u30c3\u30c8\u3067\u3059\u3002\u6700\u7d42\u7684\u306aFoodle\u306e\u8868\u793a\u306f\u3001<\u30ab\u30e9\u30e0\u306e\u8a2d\u5b9a>\u30bf\u30d6\u3067\u78ba\u8a8d\u3067\u304d\u307e\u3059\u3002",
-		"pl": "Syntaks powy\u017cszego pola opisu jest %Markdown%. Markdown to prosty format tekstowy pozwalaj\u0105cy na u\u017cycie znacznik\u00f3w. Przejd\u017a do zak\u0142adki 'Ustal kolumny', aby zobaczy\u0107, jak b\u0119dzie to wygl\u0105da\u0107 docelowo."
+		"pl": "Syntaks powy\u017cszego pola opisu jest zgodna z j\u0119zykiem %Markdown%. Markdown to prosty format tekstowy pozwalaj\u0105cy na u\u017cycie znacznik\u00f3w. Przejd\u017a do zak\u0142adki 'Ustal kolumny', aby zobaczy\u0107, jak wszystko b\u0119dzie wygl\u0105da\u0107 docelowo."
 	},
 	"debug": {
 		"no": "Debug",
@@ -2095,7 +2095,7 @@
 		"da": "Ja, jeg vil gerne slette denne Foodle og tilh\u00f8rende svar. Denne Foodle, alle svar og diskussioner bliver slettet. Det er ikke muligt at gendanne den slettede Foodle.",
 		"sl": "Da, izbrani Foodle in pripadajo\u010de rezultate glasovanja \u017eelim izbrisati. Po tem koraku ni na\u010dina za povrnitev izbrisanih podatkov.",
 		"ja": "\u306f\u3044\u3001\u3053\u306eFoodle\u3068\u305d\u306e\u56de\u7b54\u3092\u524a\u9664\u3057\u307e\u3059\u3002Foodle\u81ea\u8eab\u3068\u3053\u306eFoodle\u306b\u95a2\u9023\u3059\u308b\u5168\u3066\u306e\u56de\u7b54\u3068\u30c7\u30a3\u30b9\u30ab\u30c3\u30b7\u30e7\u30f3\u304c\u524a\u9664\u3055\u308c\u307e\u3059\u3002\u524a\u9664\u3055\u308c\u305f\u30c7\u30fc\u30bf\u306f\u3001\u5143\u306b\u623b\u3059\u3053\u3068\u306f\u3067\u304d\u307e\u305b\u3093\u3002",
-		"pl": "Tak, chc\u0119 usun\u0105\u0107 tego Foodl'a i powi\u0105zane z nim odpowiedzi. Zostanie usuni\u0119ty Foodle oraz jego dane (odpowiedzi, g\u0142osy w dyskusji). Nie b\u0119dzie mo\u017cna odtworzy\u0107 utraconych danych."
+		"pl": "Tak, chc\u0119 usun\u0105\u0107 tego Foodle'a i powi\u0105zane z nim odpowiedzi. Zostanie usuni\u0119ty Foodle oraz jego dane (odpowiedzi, g\u0142osy w dyskusji). Nie b\u0119dzie mo\u017cna odtworzy\u0107 utraconych danych."
 	},
 	"timezonedateinfo": {
 		"no": "Du m\u00e5 spesifisere en dato (i dag er forh\u00e5ndsutfylt). Selv om datoen ikke er relevant, og heller ikke vises for brukere, s\u00e5 er det n\u00f8vendig for at utregningen av sommertid skal bli korrekt.",
@@ -2151,7 +2151,7 @@
 		"da": "Standard: Brug standard svartypen p\u00e5 de Foodler du laver. Generisk tekst Foodler bruger Ja\/Nej, dato og tidszone Foodler bruger Ja\/Nej\/M\u00e5ske",
 		"sl": "Privzeti tip odziva je Da\/Ne,  za datumski foodle pa tip odziva Da\/Ne\/Mogo\u010de. ",
 		"ja": "\u30c7\u30d5\u30a9\u30eb\u30c8\uff1a\u3042\u306a\u305f\u304c\u4f5c\u6210\u3057\u305f\u30bf\u30a4\u30d7\u306eFoodle\u3067\u306f\u30c7\u30d5\u30a9\u30eb\u30c8\u306e\u56de\u7b54\u30bf\u30a4\u30d7\u3092\u3054\u5229\u7528\u304f\u3060\u3055\u3044\u3002\u30c6\u30ad\u30b9\u30c8\u30bf\u30a4\u30d7\u3067\u306f\u3001\u306f\u3044\uff0f\u3044\u3044\u3048\u3001\u65e5\u4ed8\u3068\u30bf\u30a4\u30e0\u30be\u30fc\u30f3Foodle\u3067\u306f\u3001\u306f\u3044\uff0f\u3044\u3044\u3048\uff0f\u305f\u3076\u3093\u3001\u3092\u4f7f\u3044\u307e\u3059\u3002",
-		"pl": "Domy\u015blnie: U\u017cyj domy\u015blnego typu odpowiedzi dla tego Foodle'a. Podstawowy tekst odpowiedzi u\u017cywa Tak\/Nie, a Foodle korzystaj\u0105ce z date i czas\u00f3w u\u017cywaj\u0105 Tak\/Nie\/Mo\u017ce."
+		"pl": "Domy\u015blnie: U\u017cyj domy\u015blnego typu odpowiedzi dla tego Foodle'a. Podstawowy tekst odpowiedzi u\u017cywa Tak\/Nie, a Foodle korzystaj\u0105ce z dat i czas\u00f3w u\u017cywaj\u0105 Tak\/Nie\/Mo\u017ce."
 	},
 	"responsetype_yesno": {
 		"no": "Ja\/Nei: Brukerene vil f\u00e5 en sjekkboks i hver kolonne. En avkrysset boks betyr Ja, eller at brukeren er tilgjengelig.",
@@ -2332,7 +2332,7 @@
 		"da": "Foto",
 		"sv": "Foto",
 		"nn": "Bilde",
-		"pl": "Foto",
+		"pl": "Zdj\u0119cie",
 		"it": "Fotografia",
 		"sl": "Slika",
 		"et": "Foto",
@@ -2522,7 +2522,7 @@
 		"et": "Kutsutud kontaktid",
 		"ja": "\u62db\u5f85\u3057\u305f\u30b3\u30f3\u30bf\u30af\u30c8\u5148",
 		"da": "Inviter kontakter",
-		"pl": "Zaproszone kotakty"
+		"pl": "Zaproszone kontakty"
 	},
 	"users_responded": {
 		"no": "Brukere som allerede har svart p\u00e5 denne Foodlen",
