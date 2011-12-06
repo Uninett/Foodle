@@ -379,7 +379,7 @@ class FoodleAuth {
 	
 	
 	
-	protected static function getUserid($attributes) {
+	public static function getUserid($attributes) {
 		if (array_key_exists('eduPersonPrincipalName', $attributes)) 
 			return $attributes['eduPersonPrincipalName'][0];
 		if (array_key_exists('urn:oid:2.16.756.1.2.5.1.1.1', $attributes)) 
