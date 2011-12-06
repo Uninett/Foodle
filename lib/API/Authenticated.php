@@ -24,7 +24,9 @@ abstract class API_Authenticated extends API_API {
 		
 		$data = $store->getAuthorizedData($token->key);
 		
-		print_r($data); exit;
+		$userid = FoodleAuth::getUserid($data);
+		if (empty($userid)) throw new Exception('User ID not found in stored authenticated session. Should not happen.');
+		$this->user = $this->fdb->readUser($userid);
 
 	}
 	
