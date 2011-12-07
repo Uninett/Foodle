@@ -34,6 +34,7 @@ mysql> show columns from discussion;
 5 rows in set (0.00 sec)
  *
  */
+
 class Data_Foodle {
 
 	public $identifier;
@@ -188,8 +189,13 @@ class Data_Foodle {
 	
 	public function toEpoch($str) {
 		if (empty($str)) return FALSE;
+		
+		$str = preg_replace('/24:00/', '23:59', $str);
+		
 		if (!strtotime($str)) return FALSE;
 		$tdz = null;
+		
+
 		if (!empty($this->timezone)) {
 			$tdz = new DateTimeZone($this->timezone);
 			$d =  new DateTime($str, $tdz);
@@ -284,6 +290,8 @@ class Data_Foodle {
 	
 	public function presentInTimeZone($timezone) {
 	
+
+	
 		if (isset($this->columntype) && $this->columntype === 'timezone') {
 			$this->presentTimeZonePlanner($timezone); 
 			return;
@@ -291,7 +299,7 @@ class Data_Foodle {
 	
 		$dates = $this->getColumnDates();
 		
-#		echo '<pre>'; print_r($dates);
+
 		
 // 		try {
 			$sortedByDate = array();
@@ -302,24 +310,29 @@ class Data_Foodle {
 // 			error_log('Could not successfully parse timezone information.');
 // 		}
 		
-		$this->columns = array();
+
+		$newcolumns = array();
+		
 		foreach($sortedByDate AS $dates) {
 #			print_r($dates[0][0]); exit;
 #			echo 'convert: ' . $this->toTimezone($dates[0][0], $timezone)->format('D j. M');
-			
+
+			error_log('About to timezonefer date: ' . $dates[0][0]);
 			$newDate = array('title' => $this->toTimezone($dates[0][0], $timezone)->format('D j. M') );
 			
 			#print_r($newDate);
 			$children = array();
 			foreach($dates AS $date) {
+				error_log('About to timezonefer times: ' . $date[0] . ' ' . $date[1]);
 				$children[] = array(
 					'title' => $this->toTimezone($date[0], $timezone)->format('H:i') . '-' . 
 						$this->toTimezone($date[1], $timezone)->format('H:i')
 				);
 			}
 			$newDate['children'] = $children;
-			$this->columns[] = $newDate;
+			$newcolumns[] = $newDate;
 		}
+		$this->columns = $newcolumns;
 		
 // echo '<pre>Present in [' . $timezone.  ']: '; print_r($sortedByDate); 
 // echo 'Present in [' . $timezone.  ']: '; print_r($this->columns); 
@@ -677,23 +690,28 @@ class Data_Foodle {
 		$dates = array();
 		$anyDate = FALSE;
 		
+	//	 echo '<pre>columns: '; print_r($cols); echo '</pre>';
+		
 		foreach($cols AS $col) {
 			if (is_array($col)) {
 				$from = $this->toEpoch($col[0]);
 				$to = $this->toEpoch($col[1]);
 				$dates[] = array($from, $to );
+				error_log('Translating ' . var_export($col, true) . ' to [' . $from . ',' . $to . ']' );
 			} else {
-				$from = $this->toEpoch($col);
+				$from = (int)$this->toEpoch($col);
 				if (!empty($from)) {
-					$to = $this->toEpoch($col)+3600;
+					$to = $from + 3600;
 					$dates[] = array($from, $to );
+//					error_log('Translating ' . var_export($col, true) . ' to [' . $from . ',' . $to . ']' );
 				} else {
 					$dates[] = NULL;
+//					error_log('Translating ' . var_export($col, true) . ' to NULL' );
 				}
 			}
 		}
-		// echo '<pre>collected Dates'; print_r($dates); echo '</pre>';
-		// echo '<pre>columns: '; print_r($cols); echo '</pre>';
+		//echo '<pre>collected Dates'; print_r($dates); echo '</pre>';
+
 		
 		$this->datecache = $dates;
 		

@@ -71,10 +71,16 @@ class Pages_PageFoodle extends Pages_Page {
 	
 
 	protected function presentCustom() {
-		if ($this->timezoneEnable) {
-			$this->foodle->presentInTimeZone($this->timezone->getSelectedTimeZone());
-		} elseif($this->datesonly) {
-			$this->foodle->presentDatesOnly();
+		
+		try {
+			if ($this->timezoneEnable) {
+				$this->foodle->presentInTimeZone($this->timezone->getSelectedTimeZone());
+			} elseif($this->datesonly) {
+				$this->foodle->presentDatesOnly();
+			}
+		} catch(Exception $e) {
+			error_log('Could not presentCustom() Could be error in parsing dates etc: ' . $e->getMessage());
+			throw new Exception('Error parsing time and date fields in Foodle columns: ' . $e->getMessage() );
 		}
 	}
 	
