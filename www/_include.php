@@ -84,6 +84,7 @@ require_once($THISPATH . 'lib/Pages/PageDisco.php');
 require_once($THISPATH . 'lib/Pages/Photo.php');
 require_once($THISPATH . 'lib/Pages/PageGS.php');
 require_once($THISPATH . 'lib/Pages/PageAccountMapping.php');
+require_once($THISPATH . 'lib/Pages/PageAccountMappingPrepare.php');
 require_once($THISPATH . 'lib/Pages/PageFoodle.php');
 require_once($THISPATH . 'lib/Pages/Debug.php');
 require_once($THISPATH . 'lib/Pages/FDebug.php');

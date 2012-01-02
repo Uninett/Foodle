@@ -1226,6 +1226,27 @@ WHERE id = " . addslashes($listidentifier) . "");
 	}
 
 
+	public function getUserStats($userid) {
+		
+		$stats = array();
+		$stats['owner'] = $this->q1("SELECT COUNT(*) as c FROM def where owner = '" . addslashes($userid) . "'", 'c');
+		$stats['discussion'] = $this->q1("SELECT COUNT(*) as c FROM discussion where userid = '" . addslashes($userid) . "'", 'c');
+		$stats['responses'] = $this->q1("SELECT COUNT(*) as c FROM entries where userid = '" . addslashes($userid) . "'", 'c');
+		$stats['groupdef'] = $this->q1("SELECT COUNT(*) as c FROM contactlist where userid = '" . addslashes($userid) . "'", 'c');
+		$stats['groupmember'] = $this->q1("SELECT COUNT(*) as c FROM contactlistmembers where userid = '" . addslashes($userid) . "'", 'c');
+		try {
+			$stats['createdago'] = $this->q1("select created as ago from user where userid = '" . addslashes($userid) . "'", "ago");
+		} catch (Exception $e) {}		
+		try {
+			$stats['updatedago'] = $this->q1("select updated as ago from user where userid = '" . addslashes($userid) . "'", "ago");
+		} catch (Exception $e) {}	
+		return $stats;
+	}
+
+	public function searchUsersRealm($realm) {
+		//echo "SELECT * FROM user WHERE userid = '%@" . addslashes($realm). "' "; exit;
+		return $this->q("SELECT * FROM user WHERE userid LIKE '%@" . addslashes($realm). "' ");
+	}
 
 	public function migrateAccount($from, $to) {
 		$from = addslashes($from);

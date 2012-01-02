@@ -5,9 +5,9 @@
 
 <script>
 
-	function setUserid(el, user, where) {
-		$("#" + where).attr('value', user);
-		$(el).attr('disabled', 'disabled');
+	function setUserid(el, user, to) {
+		$("#useridFrom").attr('value', user);
+		$("#useridTo").attr('value', to);
 	}
 
 </script>
@@ -16,7 +16,7 @@
 
 	<h2>Account Mapping</h2>
 
-<form action="/accountmapping" method="post">
+<form action="/accountmappingprepare" method="post">
 
 	<p>User ID From: <input type="text" size="80" name="useridFrom" id="useridFrom" value="" />
 	<p>User ID To  : <input type="text" size="80" name="useridTo" id="useridTo" value="" />
@@ -52,7 +52,7 @@ function getStats($stats) {
 			case 'createdago':
 			case 'updatedago':
 			
-				//$value = FoodleUtils::date_diff(($value/1000)); 
+			//	$value = FoodleUtils::date_diff(($value/1000)); 
 			break;
 		}
 		
@@ -63,11 +63,15 @@ function getStats($stats) {
 }
 
 
-function presentUser($user) {
+function presentUser($user, $realmTo) {
+$to = '';
+	if (preg_match('/^(.*?)@/', $user['userid'], $matches)) {
+		$to = $matches[1] . '@' . $realmTo;
+	}
 
 	echo '<div class="' . (empty($user['shaddow']) ? 'clean' : 'shaddow') . '" style="border: 1px solid #eee; margin: 1em; padding: .5em">';
-	echo '<input style="float: right" type="submit" onclick="setUserid(this, \'' . $user['userid'] . '\', \'useridTo\')" value="Map to this" />';	
-	echo '<input style="float: right" type="submit" onclick="setUserid(this, \'' . $user['userid'] . '\', \'useridFrom\')" value="Map from this" />';
+	echo '<input style="float: right" type="submit" onclick="setUserid(this, \'' . $user['userid'] . '\', \'' . $to . '\')" value="Map this user" />';	
+
 
 	echo '<h3 style="color: green">' . $user['username'] . '</h3>';
 	echo '<dl>
@@ -108,20 +112,12 @@ function presentUser($user) {
 // echo '<pre>';
 // print_r($this->data['hits']);
 
-echo '<h1>Email matches</h1>';
-foreach($this->data['hits'] AS $h) {
-	echo '<h2>' . $h[0]['email'] . '</h2>';
-	foreach($h AS $hm) {
-		presentUser($hm);
-	}
-}
+echo '<h1>Users from [' . $this->data['realmFrom'] . ']</h1>';
+foreach($this->data['allusers'] AS $h) {
 
-echo '<h1>Name matches</h1>';
-foreach($this->data['hitsname'] AS $h) {
-	echo '<h2>' . $h[0]['username'] . '</h2>';
-	foreach($h AS $hm) {
-		presentUser($hm);
-	}
+	presentUser($h, $this->data['realmTo']);
+
+
 }
 
 

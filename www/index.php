@@ -137,6 +137,11 @@ try {
 			$page->show();
 			break;
 
+		case 'accountmappingprepare':
+			$page = new Pages_PageAccountMappingPrepare($config, $parameters);
+			$page->show();
+			break;
+
 		case 'profile':
 			$page = new Pages_PageProfile($config, $parameters);
 			$page->show();
@@ -314,6 +319,7 @@ try {
 
 } catch(Exception $e) {
 
+
 	$isAuth = FALSE;
 
 	try {
@@ -340,10 +346,6 @@ try {
 	$t->data['authenticated'] = $isAuth;
 	$t->data['showsupport'] = TRUE;
 	
-	FastPass::$domain = "tjenester.ecampus.no";
-	$t->data['getsatisfactionscript'] = FastPass::script(
-		$config->getValue('getsatisfaction.key'), $config->getValue('getsatisfaction.secret'), 
-		$email, $name, $userid);
 	
 	$t->show();
 
