@@ -24,6 +24,10 @@ class Pages_PageAccountMapping extends Pages_Page {
 			$limit = FALSE;
 		}
 		$this->allusers = $this->fdb->getAllUsers($limit);
+		
+		// foreach($this->allusers AS $k => $u) {
+		// 	$this->allusers[$k]['stats'] = $this->fdb->getUserStats($u['userid']);
+		// }
 
 	}
 	
@@ -63,6 +67,9 @@ class Pages_PageAccountMapping extends Pages_Page {
 		$hits = array();
 		foreach($matches AS $m) {
 			if (count($m) > 1) {
+				foreach($m as $k => $mm) {
+					$m[$k]['stats'] = $this->fdb->getUserStats($mm['userid']);
+				}
 				$hits[] = $m;
 			}
 		}
@@ -73,8 +80,6 @@ class Pages_PageAccountMapping extends Pages_Page {
 	function emailMatch() {
 		$matches = array();
 		
-
-		
 		foreach($this->allusers AS $u) {
 			if (empty($u['email'])) continue;
 			if (!isset($matches[$u['email']])) {
@@ -83,11 +88,12 @@ class Pages_PageAccountMapping extends Pages_Page {
 			$matches[$u['email']][] = $u;
 		}
 		
-
-		
 		$hits = array();
 		foreach($matches AS $m) {
 			if (count($m) > 1) {
+				foreach($m as $k => $mm) {
+					$m[$k]['stats'] = $this->fdb->getUserStats($mm['userid']);
+				}
 				$hits[] = $m;
 			}
 		}
