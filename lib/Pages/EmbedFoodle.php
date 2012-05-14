@@ -45,14 +45,18 @@ class Pages_EmbedFoodle extends Pages_PageFoodle {
 
 		$t = new SimpleSAML_XHTML_Template($this->config, 'foodleresponse.php', 'foodle_foodle');
 
-		$text = '<h2 class="foodleHeader">' . $this->foodle->name . '</h2>';
-		$text .= '<div class="foodleDescription">' . $this->foodle->getDescription() . '</div>';
+		if (empty($_REQUEST['skipintro'])) {
+			$text = '<h2 class="foodleHeader">' . $this->foodle->name . '</h2>';
+			$text .= '<div class="foodleDescription">' . $this->foodle->getDescription() . '</div>';
+		}
+
+
 
 		$table = XHTMLEmbed::getTable($t, $this->foodle);
 		$text .= $table;
 		
 		$url = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier;
-		$additionalData = '<div class="foodleAdditionalDetails"><form action="' . htmlspecialchars($url)  . '"><input type="submit" name="subm" value="Go to this Foodle" /></form></div>';
+		$additionalData = '<div class="foodleAdditionalDetails"><form target="_blank" action="' . htmlspecialchars($url)  . '"><input type="submit" name="subm" value="Go to this Foodle" /></form></div>';
 		$text .= $additionalData;
 		
 		
