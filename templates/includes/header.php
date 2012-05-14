@@ -65,7 +65,7 @@ $discojuiceconfig = '
 	<script type="text/javascript" language="javascript" src="http://dev.discojuice.org/discojuice/discojuice.control.js"></script>
 	<script type="text/javascript" language="javascript" src="http://dev.discojuice.org/discojuice/discojuice.hosted.js"></script>
 	<script type="text/javascript" language="javascript" src="http://dev.discojuice.org/discojuice/discojuice.dict.nb.js"></script> -->
-	<script type="text/javascript" src="https://engine.discojuice.org/discojuice-dev.min.js"></script>
+	<script type="text/javascript" src="https://engine.discojuice.org/discojuice-stable.min.js"></script>
 
 	
 
