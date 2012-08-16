@@ -138,7 +138,7 @@ class API_Invite extends API_Authenticated {
 
 ---
 
-* [Resond to this Foodle](' . $url . ')
+* [Respond to this Foodle](' . $url . ')
 * [View responses of other participants](' . $url . '#responses)' . $extralinks . '
 
 ' . $datetimetext . '
