@@ -168,6 +168,20 @@ You may also create new Foodles on your own, and invite others to respond.
 		SimpleSAML_Utilities::redirect($newurl  . '#responses' );
 	}
 	
+	protected function removeResponse () {
+		
+
+		$myresponse = $this->foodle->getMyResponse($this->user);
+		$myresponse->remove();
+
+		$newurl = SimpleSAML_Utilities::selfURLNoQuery() ;
+		if (isset($_REQUEST['timezone'])) {
+			$newurl .= '?timezone=' . urlencode($_REQUEST['timezone']);
+		}
+		SimpleSAML_Utilities::redirect($newurl );
+	}
+
+
 	// Save the users response..
 	protected function setResponseCalendar() {
 		$myresponse = $this->foodle->getMyCalendarResponse($this->user);
@@ -194,6 +208,7 @@ You may also create new Foodles on your own, and invite others to respond.
 #		echo '<pre>'; print_r($_REQUEST); exit;
 
 		if (isset($_REQUEST['save'])) $this->setResponse();
+		if (isset($_REQUEST['deleteMyResponse'])) $this->removeResponse();
 		if (isset($_REQUEST['savecal'])) $this->setResponseCalendar();
 		if (isset($_REQUEST['discussionentry'])) $this->addDiscussionEntry();
 

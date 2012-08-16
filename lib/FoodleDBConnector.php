@@ -729,6 +729,17 @@ class FoodleDBConnector {
 		$this->execute($sql);
 	}
 
+	public function removeFoodleResponse(Data_FoodleResponse $response) {
+		if ($response->loadedFromDB) {
+			$sql = "
+				DELETE FROM entries WHERE  
+					userid = '" . addslashes($response->userid) . "' AND 
+					foodleid = '" . $response->foodle->identifier. "'
+			";
+			$this->execute($sql);
+		} 
+	}
+
 
 	/*
 	 * Add or update response to a foodle

@@ -233,6 +233,10 @@ class Data_FoodleResponse {
 	public function save() {
 		$this->db->saveFoodleResponse($this);
 	}
+
+	public function remove() {
+		$this->db->removeFoodleResponse($this);	
+	}
 	
 	public function getAgo() {
 		if (!empty($this->updated)) return FoodleUtils::date_diff(time() - $this->updated);

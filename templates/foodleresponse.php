@@ -376,8 +376,16 @@ if (isset($_REQUEST['timezone'])) {
 	
 			}
 		}
-		echo '<br style="height: 0px; clear: both;"/>';		
-?>
+		echo '<br style="height: 0px; clear: both;"/>';
+
+	?>
+
+
+
+		<?php if ($this->data['myresponse']->loadedFromDB) {  ?>
+			<div style="border: 1px solid #caa; border-radius: 5px; background: #ecc; padding: 5px 10px; max-width: 300px">Delete your response?  <input type="submit" name="deleteMyResponse" value="Delete" /></div>
+		<?php } ?>
+
 
 	</form>
 	
