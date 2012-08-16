@@ -27,8 +27,17 @@
 		'geo':null,
 		'weight':-4,
 		'keywords': ['Guest', 'OpenIdP', 'Orphanage', 'Homeless', 'Create Account', 'Register']
+	},
+	{
+		'entityID': 'gidp.geant.net',
+		'title': 'GÉANT Identity Provider',
+		'icon': 'geant.png',
+		'descr':'Login provider for users registered at the GIdP',
+		'country':'_all_',
+		'geo':null,
+		'weight':-2,
+		'keywords': ['GEANT', 'Dante']
 	}
-	
 ]
 
 	
