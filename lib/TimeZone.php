@@ -121,7 +121,7 @@ class TimeZone {
 	public function getHTMLList($default = NULL, $autosubmit = FALSE) {
 
 		$tzlist = DateTimeZone::listIdentifiers();
-		$tzlist = array_reverse($tzlist);
+		// $tzlist = array_reverse($tzlist);
 		$thiszone = $this->getTimeZone();
 		
 		if (is_null($default)) $default = $thiszone;
