@@ -400,6 +400,9 @@ class Data_User {
 	
 	public function updateData($from) {
 	
+		$this->userid = strtolower($this->userid);
+		$from->userid = strtolower($from->userid);
+
 		if ($this->userid !== $from->userid) throw new Exception('Trying to update user with a mismatching user id');
 		$modified = FALSE;
 		

@@ -247,7 +247,7 @@ class FoodleDBConnector {
 		Data_User::requireValidUserid($userid);
 		$sql ="
 			SELECT * 
-			FROM user WHERE userid = '" . mysql_real_escape_string($userid) . "'";
+			FROM user WHERE userid = '" . mysql_real_escape_string(strtolower($userid)) . "'";
 
 		try {
 			$row = $this->q1($sql);
@@ -256,7 +256,7 @@ class FoodleDBConnector {
 		}
 
 		$user = new Data_User($this);
-		$user->userid = $row['userid'];
+		$user->userid = strtolower($row['userid']);
 		$user->username = $row['username'];
 		$user->email = $row['email'];
 		$user->org = $row['org'];
@@ -299,7 +299,7 @@ class FoodleDBConnector {
 		Data_User::requireValidUserid($userid);
 		$sql ="
 			SELECT userid
-			FROM user WHERE userid = '" . mysql_real_escape_string($userid) . "'";
+			FROM user WHERE userid = '" . mysql_real_escape_string(strtolower($userid)) . "'";
 
 		$rows = $this->q($sql);
 
