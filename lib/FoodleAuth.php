@@ -381,16 +381,16 @@ class FoodleAuth {
 	
 	public static function getUserid($attributes) {
 		if (array_key_exists('eduPersonPrincipalName', $attributes)) 
-			return $attributes['eduPersonPrincipalName'][0];
+			return strtolower($attributes['eduPersonPrincipalName'][0]);
 		if (array_key_exists('urn:oid:2.16.756.1.2.5.1.1.1', $attributes)) 
-			return $attributes['urn:oid:2.16.756.1.2.5.1.1.1'][0];			
+			return strtolower($attributes['urn:oid:2.16.756.1.2.5.1.1.1'][0]);			
 			
 		if (array_key_exists('eduPersonTargetedID', $attributes)) 
-			return $attributes['eduPersonTargetedID'][0];
+			return strtolower($attributes['eduPersonTargetedID'][0]);
 		if (array_key_exists('twitter_at_screen_name', $attributes))
-			return $attributes['twitter_at_screen_name'][0];
+			return strtolower($attributes['twitter_at_screen_name'][0]);
 		if (array_key_exists('mail', $attributes)) 
-			return $attributes['mail'][0];
+			return strtolower($attributes['mail'][0]);
 		
 		throw new Exception('Could not retrieve User ID. None of the required attributes was found [eduPersonPrincipalName] [eduPersonTargetedID] [mail]');
 	}
