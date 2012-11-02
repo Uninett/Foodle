@@ -96,8 +96,9 @@ class Data_Foodle {
 	}
 	
 	public static function cleanMarkdownInput($input) {
+		$input = strip_tags($input);
 		$input = Markdown($input);
-		$input = strip_tags($input, '<h1><h2><h3><h4><h5><h6><p><a><strong><span><br><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
+		// $input = strip_tags($input, '<h1><h2><h3><h4><h5><h6><p><a><strong><span><br><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
 		return $input;
 	}
 	
@@ -959,7 +960,8 @@ class Data_Foodle {
 			$this->descr = isset($_REQUEST['descr']) ? $_REQUEST['descr'] : '...';		
 			$this->descr = preg_replace('/\s(http[^ ]*?)\s/', '[\1](\1)', $this->descr);
 			$this->descr = preg_replace('/<(http[^>]*)>/', '[\1](\1)', $this->descr);
-			$this->descr = strip_tags($this->descr, '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
+			// $this->descr = strip_tags($this->descr, '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
+			$this->descr = strip_tags($this->descr);
 		}
 		if (!empty($_REQUEST['timezone'])) {
 			$this->timezone = $_REQUEST['timezone'];			
@@ -977,7 +979,8 @@ class Data_Foodle {
 		$this->descr = isset($_REQUEST['descr']) ? $_REQUEST['descr'] : '...';		
 		$this->descr = preg_replace('/\s(http[^ ]*?)\s/', '[\1](\1)', $this->descr);
 		$this->descr = preg_replace('/<(http[^>]*)>/', '[\1](\1)', $this->descr);
-		$this->descr = strip_tags($this->descr, '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
+		// $this->descr = strip_tags($this->descr, '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
+		$this->descr = strip_tags($this->descr);
 
 		if(!empty($_REQUEST['maxentries']) && is_numeric($_REQUEST['maxentries'])) {
 			$this->maxentries = strip_tags($_REQUEST['maxentries']);
