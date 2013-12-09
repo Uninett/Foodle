@@ -483,7 +483,7 @@
 		"no": "Oppdatere",
 		"da": "Opdat\u00e9r",
 		"nl": "Ververs",
-		"de": "aktualisieren",
+		"de": "Aktualisieren",
 		"sv": "Ladda om",
 		"es": "Refrescar",
 		"sl": "Osve\u017ei",
@@ -998,7 +998,7 @@
 		"no": "E-postadresser",
 		"da": "Email-adresser",
 		"nl": "E-mail adressen",
-		"de": "E-Mail-Adresse",
+		"de": "E-Mail-Adressen",
 		"sv": "E-postadresser",
 		"es": "Direcciones de correo electr\u00f3nico",
 		"sl": "E-po\u0161tni naslov",
@@ -1282,7 +1282,7 @@
 	"facebooklinkabout": {
 		"no": "Lenken under peker p\u00e5 denne Foodle-n, og vil automatisk initiere innlogging via Facebook. Send denne lenken KUN til brukere som du vet har en konto p\u00e5 Facebook og som du vet \u00f8nsker \u00e5 logge inn med Facebook. Denne lenken er fin \u00e5 bruke hvis du skal lenke til en Foodle fra din Facebook-profil eller en Facebook-gruppe.",
 		"da": "Linket herunder peger p\u00e5 denne Foodle og vil automatisk p\u00e5begynde autentificering via Facebook. Send kun dette link til folk som du ved har en Facebook-profil og som vil bruge Foodle. Dette er en <i>p\u00e6n<\/i> URL til brug p\u00e5 din Facebook-profil, grupper osv.",
-		"de": "Der Link unten zeigt auf dieses Foodle und wird automatisch eine Authentifizierung mit Facebook durchf\u00fchren. Schicken Sie diesen Link nur Nutzern von denen Sie wissen, dass diese einen Account auf Facebook haben und diesen mit Foodle nutzen wollen. Diese URL funktioniert super in Verbindung mit Ihrem Facebook Profil (Facebook-Gruppe etc.)",
+		"de": "Der Link unten zeigt auf diesen Foodle und wird automatisch eine Authentifizierung mit Facebook durchf\u00fchren. Schicken Sie diesen Link nur Nutzern von denen Sie wissen, dass diese einen Account auf Facebook haben und diesen mit Foodle nutzen wollen. Diese URL funktioniert super in Verbindung mit Ihrem Facebook Profil (Facebook-Gruppe etc.)",
 		"sv": "L\u00e4nken nedan pekar p\u00e5 denna Foodle och vill automatiskt aktivera inloggning p\u00e5 Facebook. Skicka endast denna l\u00e4nk till personer som du vet har Facebook och vill anv\u00e4nda detta tillsammans med Foodle. Denna l\u00e4nk som \u00e4r l\u00e4mplig att dela via t.ex. din profil p\u00e5 Facebook, grupp i Facebook o.s.v.",
 		"es": "El siguiente enlace apunta a este Foodle, y puede llevar autom\u00e1ticamente a la autenticaci\u00f3n con Facebook. Env\u00ede este enlace \u00fanicamente a usuarios que sepa que tienen una cuenta en Facebook y con los que quiera que usen Foodle. Es una buena URL para compartir con tu perfil de Facebook (grupo facebook, etc).",
 		"sl": "Spodnji URL naslov predstavlja ta Foodle, s klikom nanj se samodejno spro\u017ei avtentikacija preko Facebooka. Prijatelji, ki imajo Facebook uporabni\u0161ka imena se lahko v ta Foodle prijavijo z njim. URL je primerne oblike tudi za objavo v va\u0161em Facebook profilu (Facebook skupinah, itd)",
@@ -1626,6 +1626,7 @@
 		"pl": "Przeka\u017c"
 	},
 	"sharing": {
+		"de": "Um anderen Zugriff zu geben und andere zum Antworten auf diesen Foodle aufzufordern, sollten Sie die Personen auf den Link unten hinweisen.", 
 		"no": "For \u00e5 gi andre tilgang og for \u00e5 oppfordre brukere til \u00e5 besvare denne Foodle-n, kan du dele lenken nedenfor.",
 		"es": "Para poder dar acceso a otros y permitirles responder a este Foodle, deber\u00edas indicarlo en el link a continuaci\u00f3n",
 		"sv": "F\u00f6r att andra ska kunna komma \u00e5t att svara p\u00e5 denna Foodle m\u00e5ste du ge l\u00e4nken nedan till dessa personer.",
@@ -1652,6 +1653,7 @@
 		"pl": "URL daj\u0105cy dost\u0119p do tego Foodle'a:"
 	},
 	"sharing2": {
+		"de": "Sie haben die Wahl den Link per E-Mail, an eine Mailingliste, mit einem Instant Messanger oder einem anderen Kommunikationspfad zu schicken, um die Benutzer zu erreichen.",
 		"no": "Du kan dele lenken via e-post, p\u00e5 en e-post liste, eller via lynmelding eller en annen kommunikasjonskanal hvor du kan n\u00e5 alle de aktuelle brukerene.",
 		"es": "Puedes elegir enviar el enlace por email, en una lista de correo, mediante mensajer\u00eda instant\u00e1nea o por cualquier otro mecanismos mediante el que puedas llegar a los usuarios",
 		"sv": "Du kan skicka l\u00e4nken via e-post, via en e-postlista, via direktmeddelanden eller p\u00e5 annat s\u00e4tt till de som ska svara.",
@@ -1664,6 +1666,7 @@
 		"pl": "Mo\u017cesz ustali\u0107, jak wys\u0142a\u0107 link: mailem, przez list\u0119 mailow\u0105, za pomoc\u0105 komunikatora lub w inny spos\u00f3b."
 	},
 	"previewinfo3": {
+		"de": "Unten erscheint eine Vorschau, wie Ihr Foodle aussehen wird. Wenn Sie fertig sind, klicken Sie auf \"Foodle fertigstellen\". Sie können gerne den Namen und Beschreibung und weitere Optionen ändern bevor Sie Ihren Foodle fertigstellen.",
 		"no": "Nedenunder ser du en forh\u00e5ndsvisning av hvordan Foodle-n vil se ut. N\u00e5r du er ferdig klikker p\u00e5 du p\u00e5 \u2039Opprett Foodle\u203a knappen nedenunder. Du m\u00e5 gjerne endre navn og beskrivelse og endre p\u00e5 kolonnedefinisjonen over, f\u00f8r du velger \u00e5 opprette foodle-n.",
 		"es": "A continuaci\u00f3n, ver\u00e1 una vista previa de c\u00f3mo se mostrar\u00e1 tu Foodle. Cuando termines, haz click en el bot\u00f3n \"Terminar Foodle\". Si\u00e9ntete libre de modificar el nombre y la descripci\u00f3n y configurar las opciones avanzadas antes de dar por terminado tu Foodle",
 		"sv": "Nedan kan du se en f\u00f6rhandsgranskning hur denna Foodle kommer att se ut. N\u00e4r du \u00e4r klar ska du klicka p\u00e5 knappen \"Spara och aktivera Foodle\". G\u00e5 g\u00e4rna tillbaka till \"Namn och beskrivning\" och \"Avancerade inst\u00e4llningar\" f\u00f6r kompletteringar innan du sparar och aktiverar din Foodle.",
@@ -1676,6 +1679,7 @@
 		"pl": "Poni\u017cej zobaczysz podgl\u0105d docelowego Foodle'a. Gdy zako\u0144czysz, naci\u015bnij  przycisk 'Zako\u0144cz Foodle'. Sprawd\u017a ponownie nazw\u0119, opis i skonfiguruj zaawansowane opcje przed zako\u0144czeniem konfiguracji."
 	},
 	"calendarenabled": {
+		"de":"Dieser Foodle ist Kalender-aktiv, was bedeutet, dass Sie Ihre Antworten mit Ihrem Kalender synchronisieren können.",
 		"no": "Dersom du \u00f8nsker det kan du velge at svaret ditt blir oppdatert automatisk fra din kalender. Da vil svaret ditt endre seg fortl\u00f8pende ettersom kalenderen din endres. ",
 		"da": "Denne Foodle er",
 		"es": "Este Foodle es apto para su uso con calendarios lo que quiere decir que puedes sincronizar tu respuesta desde tu calendario",
@@ -1711,7 +1715,7 @@
 		"sl": "Sinhronizacija s koledarjem",
 		"nn": "Kalender-synkronisering",
 		"cs": "Synchronizace kalend\u00e1\u0159e",
-		"de": "Kalender Synchonisation",
+		"de": "Kalender Synchronisation",
 		"it": "Sincronizzazione con il calendario",
 		"et": "Uuenda kalendrist automaatselt",
 		"ja": "\u30ab\u30ec\u30f3\u30c0\u30fc\u304b\u3089\u81ea\u52d5\u7684\u306b\u30a2\u30c3\u30d7\u30c7\u30fc\u30c8",
@@ -1772,6 +1776,7 @@
 		"pl": "odpowiedzia\u0142 na tego Foodle'a"
 	},
 	"qcolumntype": {
+		"de": "Welche Art von Spalten möchten Sie für Ihren Foodle verwenden?"
 		"no": "Hvilke type alternativer vil du benytte?",
 		"es": "\u00bfQu\u00e9 tipo de columnas quieres usar en tu Foodle?",
 		"sv": "Vilken typ av kolumner vill du anv\u00e4nda i din Foodle?",
@@ -1785,6 +1790,7 @@
 		"pl": "Jakiego rodzaju kolumn chcesz u\u017cywa\u0107 w Twoim Foodle'u?"
 	},
 	"qcolumntypedates": {
+		"de": "Daten und Zeiträume (Besprechungsplanung, etc.)"
 		"no": "Dato og tidspunkt (m\u00f8teplanlegging og lignende)",
 		"es": "Fechas y ranuras de tiempo (planificaci\u00f3n de reuniones etc.)",
 		"sv": "Datum och tidsperioder (m\u00f6tesplanering etc.)",
@@ -1797,6 +1803,7 @@
 		"pl": "Daty i przedzia\u0142y czasu (planowanie spotkania itp.)"
 	},
 	"qcolumntypetext": {
+		"de": "Spalten-Header mit generischem Text."
 		"no": "Generelle alternativer i form av fri tekst",
 		"es": "Encabezados de columna con texto gen\u00e9rico",
 		"sv": "Kolumnrubriker med generisk text",
@@ -1850,6 +1857,7 @@
 		"pl": "Dodaj przedzia\u0142 czasu"
 	},
 	"duplicate": {
+		"de": "Dupliziere diese Zeit in alle Daten."
 		"no": "Dupliser tidspunktene til alle datoene",
 		"es": "Duplicar estas franjas de tiempo a todas las fechas",
 		"sv": "Kopiera dessa tidsperioder till alla datum",
@@ -1862,6 +1870,7 @@
 		"pl": "Powiel te przedzia\u0142y czasu we wszystkich czasach"
 	},
 	"onemoredate": {
+		"de": "Füge eine zusätzliche Datenspalte ein."
 		"no": "Legg til en ny dato",
 		"es": "A\u00f1adir una columna m\u00e1s de fecha",
 		"sv": "L\u00e4gg till en datumkolumn",
@@ -1875,6 +1884,7 @@
 		"pl": "Dodaj kolejn\u0105 kolumn\u0119 z dat\u0105"
 	},
 	"columnheader": {
+		"de": "Spaltenüberschrift."
 		"no": "Overskrift",
 		"da": "Kollonne overskrift",
 		"es": "Encabezado de columna",
@@ -1914,6 +1924,7 @@
 		"pl": "Dodaj opcj\u0119"
 	},
 	"addcolumn": {
+		"de": "Füge eine zusätzliche Spalte ein."
 		"no": "Legg til en ny overskrift",
 		"da": "tilf\u00f8j en kolonne",
 		"es": "A\u00f1adir una columna m\u00e1s",
@@ -1939,6 +1950,7 @@
 		"pl": "Przedzia\u0142 czasu mo\u017ce by\u0107 pojedyncz\u0105 godzin\u0105 (np. 10:00 lub 15:00) lub zakresem czasu (np. 12:00-14:00)."
 	},
 	"markdowninfo": {
+		"de": "Die Syntax für dieses Beschreibungsfeld ist %Markdown%. Markdown ist ein einfaches Textformat, das einfaches Markups erlaubt. Gehen Sie zu ‹Spalte einrichten› um eine Vorschau Ihres fertigen Doodles zu sehen.", 
 		"no": "Syntaksen for beskrivelsen over er basert p\u00e5 %Markdown%. Markdown er et enkelt tekstformat som tillater en enkel form for markup. G\u00e5 til \u2039Oppsett av kolonner\u203a for \u00e5 forh\u00e5ndsvise hvordan teksten vil vises p\u00e5 den ferdige Foodlen.",
 		"sl": "Tekst v polju za opis lahko oblikujete z %Markdown%. Markdown omogo\u010da enostavno dodajanja poudarkov (krepko, le\u017ee\u010de), strukture (ozna\u010devanje s to\u010dkami in naslovi) in povezav (na slike ali druge spletne vire). Za predogled izberite zavihek \"Nastavi stolpce\".",
 		"da": "Syntaksen for feltet ovenfor er %Markdown%, som tillader simpel markup. G\u00e5 til \u2039Setup column\u203a tab'en for visning af den endelige Foodle.",
@@ -2030,6 +2042,7 @@
 		"pl": "Do\u0142\u0105cz tego Foodle'a do Twojej strony"
 	},
 	"embed_text1": {
+		"de": "Foodle erlaubt es Ihnen eine automatisch aktualisierte Zusammenfassung dieses Foodles und einen Link einzubinden indem Sie das Textstück kopieren und unter ihrer Seite einfügen (wenn es Ihnen erlaubt wird HTML Input zu veröffentlichen)."
 		"no": "Foodle lar deg inkludere et automatisk oppdatert sammendrag av denne Foodle-n, inkludert en lenke, ved \u00e5 klippe og lime ut koden nedenunder til din webside (dersom den tillater HTML kode).",
 		"sv": "Foodle till\u00e5ter att du inkluderar en uppdaterad sammanfattning, inklusive l\u00e4nk, av denna Foodle i webbplats. Kopiera och klistra in kodsnutten nedan d\u00e4r du vill visa sammanfattningen. Observera att du m\u00e5ste ha r\u00e4tt att infoga HTML-kod i webbsidan f\u00f6r att det ska fungera.",
 		"sl": "Foodle lahko vklju\u010dite v svojo spletno stran tako, da spodnji URL vklju\u010dite v HTML va\u0161e spletne strani.",
@@ -2041,6 +2054,7 @@
 		"pl": "Foodle pozwala do\u0142\u0105czy\u0107 automatycznie aktualizowane podsumowanie tego Foodle'a, \u0142\u0105cznie z linkiem, poprzez przekopiowanie poni\u017cszego kawa\u0142ka na Twoj\u0105 stron\u0119 (je\u015bli ta strona pozwala na POST danych)"
 	},
 	"embed_api": {
+		"de": "Foodle bietet eine Schnittstelle zur Anwendungsprogrammierung (REST API) für Entwickler an, die den Foodle Support in eine Drittanbieter-Anwendung einfügen möchten. Kontaktieren Sie UNINETT für mehr Informationen.", 
 		"no": "Foodle tilbyr ogs\u00e5 et REST API for utviklere som vil inkludere st\u00f8tte for Foodle i tredjeparts applikasjoner. Kontakt UNINETT for mer informasjon om dette.",
 		"sv": "Foodle tillhandah\u00e5ller \u00e4ven ett REST-baserat API f\u00f6r utvecklare som vill inkludera st\u00f6d f\u00f6r Foodle i andra program. Ta kontakt med UNINETT f\u00f6r mer infromation.",
 		"sl": "Foodle ima vgrajen REST API, ki spletnim programerjem omogo\u010da vklju\u010devanje foodlov v druge spletne strani. ",
@@ -2052,6 +2066,7 @@
 		"pl": "Foodle dostarcza r\u00f3wnie\u017c interfejs REST API, przeznaczony dla programist\u00f3w, kt\u00f3rzy chc\u0105 doda\u0107 Foodle'a w swoich aplikacjach. Wi\u0119cej informacji uzyskasz w UNINETT."
 	},
 	"qcolumntypetimezone": {
+		"de": "Zeitzonenplaner", 
 		"no": "Tidssoneplanlegger",
 		"sv": "Tidszonsplanerare",
 		"cs": "Pl\u00e1nova\u010d \u010dasov\u00e9 z\u00f3ny",
@@ -2063,6 +2078,7 @@
 		"pl": "Strefa czasowa"
 	},
 	"delete": {
+		"de": "Löschen", 
 		"no": "Slett",
 		"sv": "Ta bort",
 		"cs": "Smazat",
@@ -2075,6 +2091,7 @@
 		"ja": "\u524a\u9664"
 	},
 	"delete_this": {
+		"de": "Diesen Foodle löschen", 
 		"no": "Slett denne Foodlen",
 		"sv": "Ta bort denna Foodle",
 		"cs": "Smazat Foodle",
@@ -2087,6 +2104,7 @@
 		"pl": "Usu\u0144 tego Foodle'a"
 	},
 	"delete_confirm": {
+		"de": "Ja, ich möchte diesen Foodle und alle dazugehörigen Antworten löschen. Dieser Foodle und alle Antworten und Diskussionen, die diesem Foodle angefügt wurden, werden gelöscht. Es gibt keine Möglichkeit die verlorenen Daten wiederherzustellen.", 
 		"no": "Ja, jeg vil slette denne Foodlen og alle tilknyttede svar. Foodlen selv og alle svar og diskusjonsinnlegg som er tilknyttet vil bli slettet. Det er ikke mulig \u00e5 angre etter at man har slettet en Foodle.",
 		"sv": "Ja, jag vill ta bort denna Foodle. Denna Foodle inkl. inkomna svar och diskussionsmeddelanden kommer att tas bort. Det \u00e4r inte m\u00f6jligt att \u00e5terst\u00e4lla borttagen information.",
 		"cs": "Ano, chci smazat tento Foodle a p\u0159\u00ed\u0161lu\u0161n\u00e9 reakce. Beru na v\u011bdom\u00ed, \u017ee smazan\u00fd Foodle nen\u00ed mo\u017eno obnovit.",
@@ -2098,6 +2116,7 @@
 		"pl": "Tak, chc\u0119 usun\u0105\u0107 tego Foodle'a i powi\u0105zane z nim odpowiedzi. Zostanie usuni\u0119ty Foodle oraz jego dane (odpowiedzi, g\u0142osy w dyskusji). Nie b\u0119dzie mo\u017cna odtworzy\u0107 utraconych danych."
 	},
 	"timezonedateinfo": {
+		"de": "Sie müssen ein Datum bestimmen (Standard ist das heutige Datum). Selbst wenn das Datum nicht direkt relevant ist, und nicht angezeigt wird, wird es benötigt um die Sommerzeit in den verschiedenen Zeitzonen anzugeben."
 		"no": "Du m\u00e5 spesifisere en dato (i dag er forh\u00e5ndsutfylt). Selv om datoen ikke er relevant, og heller ikke vises for brukere, s\u00e5 er det n\u00f8vendig for at utregningen av sommertid skal bli korrekt.",
 		"sv": "Du m\u00e5ste ange ett datum, dagensdatum \u00e4r f\u00f6rvalt. \u00c4ven fast datumet inte \u00e4r s\u00e4rskilt relevant, och aldrig visas, beh\u00f6vs det f\u00f6r att korrekt hantera sommartid i vissa tidszoner.",
 		"cs": "Mus\u00edte zadat datum (dne\u0161n\u00ed je p\u0159edvoleno), a to i v p\u0159\u00edpad\u011b, \u017ee datum nen\u00ed odpov\u011bdi relevantn\u00ed a \u017ee nen\u00ed zobrazov\u00e1no. Datum je nutn\u00e9 pro korektn\u00ed pr\u00e1ci s letn\u00edm \u010dasem v r\u016fzn\u00fdch \u010dasov\u00fdch z\u00f3n\u00e1ch.",
@@ -2109,6 +2128,7 @@
 		"pl": "Musisz poda\u0107 dat\u0119 (domy\u015blnie dzie\u0144 dzisiejszy). Data nie jest pokazywana, jest potrzebna do w\u0142a\u015bciwego ustalenia czasu letniego w niekt\u00f3rych strefach czasowych."
 	},
 	"timezonetimeinfo": {
+		"de": "Der Tag ist in 24 Stunden Zeitfenster aufgeteilt. Bearbeiten Sie diese nicht im Zeitzonenplaner.", 
 		"no": "Dagen er delt inn i 24 perioder. Du kan ikke endre disse in tidssoneplanleggeren.",
 		"sv": "Dynget \u00e4r delat i 24 tidsperioder. Du f\u00e5r inte \u00e4ndra dessa i tidszonsplaneraren.",
 		"cs": "Den je rozd\u011blen do 24 hodinov\u00fdch \u00fasek\u016f. M\u016f\u017eete je upravit v pl\u00e1nova\u010di \u010dasov\u00fdch z\u00f3n.",
@@ -2120,6 +2140,7 @@
 		"pl": "Dzie\u0144 jest podzielony na 24 przedzia\u0142y czasu po 1 godzinie. Nie mo\u017cesz tego modyfikowa\u0107 przy planowaniu dnia."
 	},
 	"responsetype": {
+		"de": "Antwortvariante", 
 		"no": "Svartype",
 		"sv": "Typ av svar",
 		"cs": "Typ odpov\u011bdi",
@@ -2132,6 +2153,7 @@
 		"pl": "Typ odpowiedzi"
 	},
 	"responsetypeinfo": {
+		"de": "Welche Optionen soll der Benutzer für jede Spalte erhalten?", 
 		"no": "Hvilken type valg vil du at brukeren skal ha for hver kolonne?",
 		"sv": "Vilka alternativ vill du ge anv\u00e4ndarna i varje kolumn?",
 		"cs": "Jak\u00e9 mo\u017enosti chcete u\u017eivatel\u016fm nab\u00eddnout ve sloupc\u00edch?",
@@ -2143,6 +2165,7 @@
 		"pl": "Jakie opcje chcesz da\u0107 u\u017cytkownikowi dla ka\u017cdej kolumny?"
 	},
 	"responsetype_default": {
+		"de": "Standard: Benutzen Sie die Standard-Antworten für diese Art von Foodle. Gewöhnlicher Text benutzt Ja/Nein, während Foodles mit Datum und Zeitzone Ja/Nein/Vielleicht benutzen.", 
 		"no": "Standard: Bruk standard svartype basert p\u00e5 hvilken type Foodle du har opprettet. Generell tekst blir Ja\/Nei, og dato og tidssoneplanleggeren bruker Ja\/Nei\/Kanskje.",
 		"sv": "Standard: Anv\u00e4nd standardsvaren f\u00f6r den typ av Foodle du skapat. Generisk text anv\u00e4nder Ja\/Nej medans Foodle med datum och tidzoner anv\u00e4nder Ja\/Nej\/Kanske.",
 		"cs": "P\u0159edvolen\u00e1 odpov\u011b\u010f je r\u016fzn\u00e1 podle typu Foodle, kter\u00fd vytvo\u0159\u00edte. Foodle s obecn\u00fdm textem pou\u017e\u00edv\u00e1 Ano\/Ne a Foodle s daty a \u010dasov\u00fdmi z\u00f3nami pou\u017e\u00edv\u00e1 Yes\/No\/Mo\u017en\u00e1.",
@@ -2154,6 +2177,7 @@
 		"pl": "Domy\u015blnie: U\u017cyj domy\u015blnego typu odpowiedzi dla tego Foodle'a. Podstawowy tekst odpowiedzi u\u017cywa Tak\/Nie, a Foodle korzystaj\u0105ce z dat i czas\u00f3w u\u017cywaj\u0105 Tak\/Nie\/Mo\u017ce."
 	},
 	"responsetype_yesno": {
+		"de": "Ja/Nein: Der Benutzer erhält ein Auswahlfeld in jeder Spalte. Ein abgehaktes Feld bedeutet Ja, oder die Verfügbarkeit des Benutzers.", 
 		"no": "Ja\/Nei: Brukerene vil f\u00e5 en sjekkboks i hver kolonne. En avkrysset boks betyr Ja, eller at brukeren er tilgjengelig.",
 		"sv": "Ja\/Nej: Anv\u00e4ndaren f\u00e5r en kryssruta i varje kolumn. En kryssad ruta betyder Ja eller att anv\u00e4ndaren \u00e4r tillg\u00e4nglig.",
 		"cs": "Ano\/Ne: U\u017eivatel bude m\u00edt k dispozici za\u0161krt\u00e1v\u00e1tko pro ka\u017ed\u00fd sloupec. Za\u0161krtnut\u00ed znamen\u00e1 Ano, respektive dostupnost u\u017eivatele.",
@@ -2165,6 +2189,7 @@
 		"pl": "Tak\/Nie:U\u017cytkownik "
 	},
 	"responsetype_yesnomaybe": {
+		"de": "Ja/Nein/Vielleicht: Der Benutzer erhält für jede Spalte drei Optionen: Ja, Nein und Vielleicht. Vielleicht zeigt Unsicherheit oder eine mögliche, aber weniger passende Option an.", 
 		"no": "Ja\/Nei\/Kanskje: For hver kolonne vil brukeren f\u00e5 tre valg: Ja, Nei og Kanskje. Kanskje indikerer usikkerhet, eller et mulig men mindre passende valg.",
 		"sv": "Ja\/Nej\/Kanske: F\u00f6r varje kolumn f\u00e5r anv\u00e4ndarna tre alternativt; Ja, Nej och Kanske. Kanske betyder ett os\u00e4kert eller ett mindre bra alterntiv.",
 		"cs": "Ano\/Ne\/Mo\u017en\u00e1: U\u017eivatel bude m\u00edt k dispozici t\u0159i volby: Ano, Ne, Mo\u017en\u00e1. Mo\u017en\u00e1 slou\u017e\u00ed pro vyj\u00e1d\u0159en\u00ed mo\u017en\u00e9, ale m\u00e9n\u011b vhodn\u00e9 volby.",
@@ -2176,6 +2201,7 @@
 		"pl": "Tak\/Nie\/Mo\u017ce: Przy ka\u017cdej kolumnie u\u017cytkownik ma do wyboru trzy opcje: Tak, Nie, Mo\u017ce. Mo\u017ce oznacza niepewno\u015b\u0107, albo mo\u017cliw\u0105, lecz mnie j wygodn\u0105 opcj\u0119."
 	},
 	"yes": {
+		"de": "Ja",
 		"no": "Ja",
 		"sv": "Ja",
 		"cs": "Ano",
@@ -2188,6 +2214,7 @@
 		"ja": "\u306f\u3044"
 	},
 	"no": {
+		"de":"Nein",
 		"no": "Nei",
 		"sv": "Nej",
 		"cs": "Ne",
@@ -2200,6 +2227,7 @@
 		"ja": "\u3044\u3044\u3048"
 	},
 	"maybe": {
+		"de": "Vielleicht", 
 		"no": "Kanskje",
 		"sv": "Kanske",
 		"cs": "Mo\u017en\u00e1",
@@ -2212,6 +2240,7 @@
 		"ja": "\u305f\u3076\u3093"
 	},
 	"issyncedwithcalendar": {
+		"de": "Diese Antwort wird automatisch mit dem Kalender des Benutzers synchronisiert", 
 		"cs": "Odpov\u011b\u010f je automaticky sychronizov\u00e1na s kalend\u00e1\u0159em u\u017eivatele",
 		"no": "Dette svaret er automatisk synkronisert med brukerens kalender",
 		"da": "Svaret er automatisk synkroniseret med brugerens kalender.",
@@ -2224,6 +2253,7 @@
 		"pl": "Ta odpowied\u017a jest automatycznie synchronizowana z kalendarzem u\u017cytkownika."
 	},
 	"expireinfo": {
+		"de": "Bei einem hinzugefügten Ablaufzeitpunkt wird der Foodle zur bestimmten Zeit geschlossen. Nach Ablauf des Foodles kann niemand Antworten bearbeiten oder neue Antworten hinzufügen.", 
 		"no": "Dersom man legger til en utl\u00f8psdato vil Foodlen stenge p\u00e5 det oppgitte tidspunktet. Ingen kan legge til eller endre sitt svar p\u00e5 en utl\u00f8pt Foodle.",
 		"da": "Ved at tilf\u00f8je et udl\u00f8bs tidspunkt, lukkes Foodlen p\u00e5 det angivne tidspunkt. Efter at Foodlen er udl\u00f8bet, kan ingen rette eller afgive nye svar.",
 		"sv": "Att l\u00e4gga till en st\u00e4ngningstidpunkt inneb\u00e4r att denna Foodle st\u00e4nger vid detta tillf\u00e4lle. Efter att denna Foodle har st\u00e4ngt kan ingen \u00e4ndra sina svar eller l\u00e4gga till nya svar.",
@@ -2235,6 +2265,7 @@
 		"pl": "Dodanie czasu wa\u017cno\u015bci oznacza, \u017ce Foodle zostanie zamkni\u0119ty po okre\u015blonym czasie. Je\u015bli min\u0119\u0142a data wa\u017cno\u015bci Foodle, to nie mo\u017cna zmienia\u0107 odpowiedzi, ani dodawa\u0107 nowych."
 	},
 	"myprofile": {
+		"de": "Profil", 
 		"no": "Brukerinnstillinger",
 		"da": "Profil",
 		"sv": "Profil",
@@ -2246,6 +2277,7 @@
 		"ja": "\u8a2d\u5b9a"
 	},
 	"notifcations": {
+		"de": "E-Mail Benachrichtigung", 
 		"no": "E-post varsel",
 		"da": "Email notifikation",
 		"sv": "E-postnotifiering",
@@ -2257,6 +2289,7 @@
 		"pl": "Powiadamianie mailem"
 	},
 	"notify_newresponse": {
+		"de": "Benachrichtige mich, wenn ich einen Foodle erfolgreich beantwortet habe.",
 		"no": "Varsle meg n\u00e5r jeg har svart p\u00e5 en Foodle",
 		"sv": "Meddela mig n\u00e4r jag lyckats svara p\u00e5 en Foodle",
 		"nn": "Send meg varsel n\u00e5r eg har svart p\u00e5 ein Foodle",
@@ -2267,6 +2300,7 @@
 		"pl": "Powiadom mnie, gdy odpowiedzia\u0142em na Foodle'a"
 	},
 	"notify_newfoodle": {
+		"de": "Benachrichtige mich, wenn ich einen neuen Foodle eröffnet habe", 
 		"no": "Varsle meg n\u00e5r jeg har opprettet en ny Foodle",
 		"sv": "Meddela mig n\u00e4r jag skapat en ny Foodle",
 		"nn": "Send meg varsel n\u00e5r eg har laga ein ny Foodle",
@@ -2277,6 +2311,7 @@
 		"pl": "Powiadom mnie, gdy utworzy\u0142em nowego Foodle'a"
 	},
 	"notify_otherstatus": {
+		"de": "Benachrichtige mich, wenn andere auf einen Foodle antworten, den ich eröffnet habe (nur einmal am Tag)",
 		"no": "Varsle meg n\u00e5r andre har svart p\u00e5 en Foodle jeg har opprettet (daglig oppsummering)",
 		"da": "Adviser mig n\u00e5r andre svare p\u00e5 en Foodle jeg har lavet (kun en gang om dagen)",
 		"sv": "Meddela mig n\u00e4r andra har svarat p\u00e5 en Foodle jag har skapat (endast en g\u00e5ng per dag)",
@@ -2287,6 +2322,7 @@
 		"pl": "Powiadom  mnie, gdy inni odpowiedz\u0105 na utworzonego przeze mnie Foodle'a (tylko raz dziennie)"
 	},
 	"notify_news": {
+		"de": "Benachrichtige mich über Neuigkeiten bei Foodle (nie häufiger als einmal in der Woche)",
 		"no": "Send meg nyheter om ny funksjonalitet (aldri oftere enn en gang i uken)",
 		"da": "Send my nyheder om nye funktioner i Foodle (aldrig mere end en gang om ugen)",
 		"sv": "Skicka mig information om nyheter i Foodle (aldrig mer \u00e4n en g\u00e5ng i veckan)",
@@ -2297,6 +2333,7 @@
 		"pl": "Prze\u015blij mi informacj\u0119 o nowych w\u0142asno\u015bciach w Foodle'u (ale nie cz\u0119\u015bciej ni\u017c raz w tygodniu)"
 	},
 	"profile_save": {
+		"de": "Änderungen an meinem Benutzerprofil speichern", 
 		"no": "Lagre endringer til min brukerprofil",
 		"da": "Gem \u00e6ndringer til min profil",
 		"sv": "Spara \u00e4ndringar i min anv\u00e4ndarprofil",
@@ -2308,6 +2345,7 @@
 		"pl": "Zapami\u0119taj zmiany w moim profilu u\u017cytkownika"
 	},
 	"extrafields": {
+		"de": "Zusätzliches Benutzer Feld", 
 		"no": "Ekstra felter med brukerdata",
 		"da": "Ekstra brugerfelter",
 		"sv": "Extra anv\u00e4ndarf\u00e4lt",
@@ -2318,6 +2356,7 @@
 		"pl": "Dodatkowe pola u\u017cytkownika"
 	},
 	"extrafields_info": {
+		"de": "Sie können zusätzliche Daten über Personen, die auf diesen Foodle antworten, sammeln. Diese Daten werden in separaten Spalten in diesem Foodle angezeigt.", 
 		"no": "Du kan velge \u00e5 legge til flere kolonner med mer informasjon om brukeren.",
 		"da": "Du kan v\u00e6lge at indsamle yderliget data om hvert svar til denne Foodle. Disse data vil blive pr\u00e6senteret i separate kolonner i denne Foodle.",
 		"sv": "Du kan v\u00e4lja att registrera extra information om varje svarande till denna Foodle. Denna information kommer att visas i egna kolumner i svaren p\u00e5 denna Foodle.",
@@ -2328,6 +2367,7 @@
 		"pl": "Mo\u017cesz ustali\u0107, \u017ce zbierane b\u0119d\u0105 dodatkowe dane od os\u00f3b odpowiadaj\u0105cych na Foodle'a. Te dane b\u0119d\u0105 pokazywane w oddzielnych kolumnach."
 	},
 	"extrafields_photo": {
+		"de": "Bild", 
 		"no": "Bilde",
 		"da": "Foto",
 		"sv": "Foto",
@@ -2339,6 +2379,7 @@
 		"ja": "\u5199\u771f"
 	},
 	"extrafields_org": {
+		"de": "Organisation",
 		"no": "Organisasjon",
 		"da": "Organisation",
 		"sv": "Organisation",
@@ -2350,6 +2391,7 @@
 		"ja": "\u6240\u5c5e"
 	},
 	"extrafields_location": {
+		"de": "Ort",
 		"no": "Lokasjon",
 		"da": "Lokation",
 		"sv": "Plats",
@@ -2361,6 +2403,7 @@
 		"pl": "Lokalizacja"
 	},
 	"timezone": {
+		"de": "Zeitzone", 
 		"no": "Tidssone",
 		"nn": "Tidssone",
 		"sv": "Tidszon",
@@ -2372,6 +2415,7 @@
 		"pl": "Strefa czasowa"
 	},
 	"attend": {
+		"de": "Ich werde teilnehmen", 
 		"no": "Jeg deltar",
 		"nn": "Eg vil delta",
 		"sv": "Jag kommer att delta",
@@ -2383,6 +2427,7 @@
 		"pl": "Chc\u0119 uczestniczy\u0107"
 	},
 	"select_time": {
+		"de": "Zeitpunkt auswählen", 
 		"no": "Bestem tidspunkt",
 		"nn": "Sett tidspunkt",
 		"sv": "Best\u00e4m tillf\u00e4lle",
@@ -2393,6 +2438,7 @@
 		"pl": "Ustal przedzia\u0142 czasu "
 	},
 	"select": {
+		"de": "Auswählen", 
 		"no": "Velg",
 		"nn": "Vel",
 		"sv": "V\u00e4lj",
@@ -2404,6 +2450,7 @@
 		"ja": "\u9078\u629e"
 	},
 	"save_fixdate": {
+		"de": "Zeitpunkt für diesen Foodle speichern und festlegen", 
 		"no": "Lagre, og l\u00e5s tidspunkt for denne Foodlen",
 		"nn": "Lagra og l\u00e5s tid for denne Foodlen",
 		"sv": "Spara best\u00e4mt tillf\u00e4lle f\u00f6r denna Foodle",
@@ -2414,6 +2461,7 @@
 		"pl": "Zapami\u0119taj i ustal przedzia\u0142 czasu dla tego Foodle'a"
 	},
 	"fixdate_descr": {
+		"de": "Sie können zusätzliche Information in die Beschreibung einfügen, zum Beispiel die Tagesordnung für einen geplanten Termin.", 
 		"no": "Dersom du \u00f8nsker, kan du endre eller legge til tekst i beskrivelsen, for eksempel inkludere en m\u00f8teinnkallelse med agenda.",
 		"nn": "Om du vil leggja til ekstra informasjon, kan du leggja inn t.d. dagsorden for eit m\u00f8te",
 		"sv": "Du kanske vill l\u00e4gga till mer information till beskrivningen, t.ex. en m\u00f6tesagenda f\u00f6r ett planerat m\u00f6te.",
@@ -2424,6 +2472,7 @@
 		"pl": "Mo\u017cesz chcie\u0107 doda\u0107 dodatkowe informacje w opisie, np. agend\u0119 planowanego spotkania."
 	},
 	"associate_time": {
+		"de": "Dies ist ein Ereignis mit bereits bestimmtem Datum und Zeit.",
 		"no": "Det er allerede avklart en dato og tidspunkt for denne Foodlen",
 		"nn": "Dato og tidspunkt er allereie avklart for denne Foodlen",
 		"sv": "Detta \u00e4r en h\u00e4ndelse med en redan best\u00e4md tidsperiod.",
@@ -2434,6 +2483,7 @@
 		"pl": "Dal tego wydarzenia ju\u017c wcze\u015bniej okre\u015blono dat\u0119 i czas."
 	},
 	"allday": {
+		"de": "Ganzer Tag", 
 		"no": "Hele dagen",
 		"nn": "Heile dagen",
 		"sv": "Hela dagen",
@@ -2445,6 +2495,7 @@
 		"ja": "\u5168\u65e5\u7a0b"
 	},
 	"multipledays": {
+		"de": "Mehrere Tage", 
 		"no": "Flere dager",
 		"nn": "Fleire dagar",
 		"sv": "Flera dagar",
@@ -2456,6 +2507,7 @@
 		"pl": "Wiele dni"
 	},
 	"userhascalendar": {
+		"de": "Diese/r Benutzer/in hat ihren/seinen Kalender mit Foodle verbunden.", 
 		"no": "Denne brukeren har koblet sin kalender til Foodle",
 		"sv": "Denna anv\u00e4ndare har anslutet sin kalender till Foodle.",
 		"sl": "Uporabnik je povezal svoj koledar s tem Foodlom.",
@@ -2465,6 +2517,7 @@
 		"pl": "Ten u\u017cytkownik powi\u0105za\u0142 sw\u00f3j kalendarz z Foodlem."
 	},
 	"sharelink": {
+		"de": "Link teilen", 
 		"no": "Del en lenke",
 		"sv": "Dela en l\u00e4nk",
 		"sl": "Posreduj to povezavo",
@@ -2474,6 +2527,7 @@
 		"pl": "Udost\u0119pnij ten link"
 	},
 	"shared_entries": {
+		"de": "Foodles, auf die Sie beide geantwortet haben", 
 		"no": "Foodler som dere begge har svart p\u00e5",
 		"sv": "Foodlar som ni b\u00e4gge har svarat p\u00e5",
 		"sl": "Foodli v katerih sta se odzvala oba",
@@ -2482,6 +2536,7 @@
 		"pl": "Foodle, na kt\u00f3re razem odpowiedzieli\u015bcie. "
 	},
 	"invite": {
+		"de": "Einladen", 
 		"no": "Invit\u00e9r",
 		"sv": "Bjud in",
 		"sl": "Povabi",
@@ -2491,6 +2546,7 @@
 		"pl": "Zapro\u015b"
 	},
 	"invitation": {
+		"de": "Einladung verschicken", 
 		"no": "Send ut invitasjon",
 		"sv": "Dela genom inbjudan",
 		"sl": "Deli z uporabo povabila",
@@ -2499,6 +2555,7 @@
 		"pl": "Udost\u0119pnij przez zaproszenie"
 	},
 	"invitation_intro": {
+		"de": "Zum Einladen nach Kontakten suchen, oder durch Eingabe der E-Mail-Adressen die Empfänger einladen.", 
 		"no": "S\u00f8k for kontakter du \u00f8nsker \u00e5 invitere til \u00e5 svare p\u00e5 denne Foodlen, eller skrive inn e-post-adressen.",
 		"sv": "S\u00f6k efter kontakter att bjuda in till denna Foodle eller bjud in genom att ange e-postadressen till mottagaren.",
 		"sl": "Poi\u0161\u010di kontakte za povabilo v ta Foodle ali povabi z vpisom njihovih e-po\u0161tnih naslovov.",
@@ -2507,6 +2564,7 @@
 		"pl": "Znajd\u017a dane kontaktowe, by zaprosi\u0107 do tego Foodle'a lub zapro\u015b wprowadzaj\u0105c adres mailowy odbiorcy."
 	},
 	"invite_button": {
+		"de": "Kontakte einladen", 
 		"no": "Invit\u00e9r kontakter",
 		"sv": "Bjud in kontakter",
 		"sl": "Povabi nekatere kontakte",
@@ -2516,6 +2574,7 @@
 		"pl": "Zapro\u015b "
 	},
 	"invited_users": {
+		"de": "Eingeladene Kontakte", 
 		"no": "Inviterte kontakter",
 		"sv": "Inbjudna kontakter",
 		"sl": "Povabi kontakte",
@@ -2525,6 +2584,7 @@
 		"pl": "Zaproszone kontakty"
 	},
 	"users_responded": {
+		"de": "Benutzer, die bereits auf diesen Foodle geantwortet haben.",
 		"no": "Brukere som allerede har svart p\u00e5 denne Foodlen",
 		"sv": "Anv\u00e4ndare som redan har svarat p\u00e5 denna Foodle",
 		"sl": "Uporabniki, ki so se \u017ee oddali svoj glas v tem Foodlu",
@@ -2534,6 +2594,7 @@
 		"pl": "U\u017cytkownicy, kt\u00f3rzy ju\u017c odpowiedzieli na tego Foodle'a"
 	},
 	"notify_participants": {
+		"de": "Teilnehmer informieren",
 		"no": "Varsle deltakere",
 		"sv": "Meddela deltagarna",
 		"sl": "Obvesti udele\u017eence",
@@ -2542,6 +2603,7 @@
 		"pl": "Powiadom uczestnik\u00f3w"
 	},
 	"send_fixdate_mail": {
+		"de": "Schicke eine Benachrichtigung an die unten aufgelisteten Teilnehmer mit Datum und Zeit für dieses Ereignis.", 
 		"no": "Send en epostvarsling til alle deltakerene listet nedenunder om valgt dato og tidspunkt.",
 		"sv": "Skicka e-post till deltagarna med information om datum och tid f\u00f6r denna h\u00e4ndelse.",
 		"sl": "O tem foodlu (z e-po\u0161to) obvesti vse na\u0161tete udele\u017eence.",
