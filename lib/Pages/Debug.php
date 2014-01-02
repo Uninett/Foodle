@@ -50,7 +50,7 @@ class Pages_Debug extends Pages_Page {
 
 
 		$cols = array();
-		$this->foodle->getColumnList(&$cols);
+		$this->foodle->getColumnList($cols);
 
 		// echo '<pre>'; 
 		// print_r($this->foodle->getColumnDates());
