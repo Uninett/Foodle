@@ -549,7 +549,7 @@ class Data_Foodle {
 	 * Each element in the array (first level) represents one row of 
 	 * column headers.
 	 */
-	public function getColumnHeaders($headers, $col = NULL, $level = 0) {
+	public function getColumnHeaders(&$headers, $col = NULL, $level = 0) {
 		$depth = $this->getColumnDepth();
 		if ($col === NULL) $col = $this->columns;
 		foreach($col AS $c) {
