@@ -66,6 +66,7 @@ require_once($THISPATH . 'lib/API/API.php');
 require_once($THISPATH . 'lib/API/Authenticated.php');
 require_once($THISPATH . 'lib/API/Files.php');
 require_once($THISPATH . 'lib/API/Upload.php');
+require_once($THISPATH . 'lib/API/Groups.php');
 require_once($THISPATH . 'lib/API/Activity.php');
 require_once($THISPATH . 'lib/API/Events.php');
 require_once($THISPATH . 'lib/API/Download.php');
