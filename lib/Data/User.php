@@ -519,7 +519,7 @@ class Data_User {
 	
 	
 	public static function requireValidUserid($userid) {
-		if (!preg_match("/^[a-zA-Z0-9\-\+_!@\.=]+$/", $userid)) {
+		if (!preg_match("/^[a-zA-Z0-9\-\+_!@\.:=\/]+$/", $userid)) {
 		    throw new Exception('Invalid characters in userid provided [' . htmlspecialchars($userid) . '].');
 		}
 	}

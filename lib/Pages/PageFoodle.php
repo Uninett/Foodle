@@ -231,6 +231,7 @@ You may also create new Foodles on your own, and invite others to respond.
 		// if ($this->foodle->calendarEnabled()) echo 'Foodle has calendar';
 		
 		$this->template->data['calenabled'] = ($this->calendarEnabled && $this->user->hasCalendar());
+		$this->template->data['calenabled'] = false;
 		$this->template->data['myresponse'] = $this->foodle->getMyResponse($this->user);
 		
 		if ($this->template->data['calenabled']) {

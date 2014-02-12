@@ -32,7 +32,12 @@ try {
 			$page = new Pages_PageFront($config, $parameters);
 			$page->show();
 			break;
-			
+		
+		case 'test2': 
+			echo "poot";
+			echo "req: " . Data_User::requireValidUserid('sdjfksjdhfksjdhf@http://idp-ftest.com/sldfjlksdfj/sdlfksdkfj=');
+
+			break;
 		
 		case 'calendar':
 			if (count($parameters) !== 3) throw new Exception('Missing parameter');
