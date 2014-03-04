@@ -9,7 +9,7 @@ class XHTMLCol {
 	public static function show(SimpleSAML_XHTML_Template $t, Data_Foodle $foodle, $confirm = FALSE) { 
 		
 		$coldef = array();
-		$foodle->getColumnHeaders(&$coldef);
+		$foodle->getColumnHeaders($coldef);
 		$coldepth = $foodle->getColumnDepth();
 		
 		if($confirm === TRUE) {

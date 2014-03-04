@@ -149,7 +149,7 @@ class API_Contacts extends API_Authenticated {
 			// echo 'Contact list excludes: ' . var_export(array_keys($excludes));
 			
 		}
-		self::exclude(&$result, $excludes);
+		self::exclude($result, $excludes);
 		
 //		$this->addme(&$result);
 		
@@ -224,8 +224,8 @@ class API_Contacts extends API_Authenticated {
 			$contacts = $this->contacts->getContacts(10);
 		}
 		
-		self::exclude(&$contacts, $excludes);
-		self::excludeList(&$contacts, $excludesList);
+		self::exclude($contacts, $excludes);
+		self::excludeList($contacts, $excludesList);
 		
 		// error_log(var_export($contacts, TRUE));
 		
@@ -288,7 +288,7 @@ class API_Contacts extends API_Authenticated {
 		
 					$listid = $_REQUEST['excludeList'];	
 					$excludesList = $this->fdb->getContactlist($this->user, $listid);
-					$this->excludeList(&$contacts, $excludesList);
+					$this->excludeList($contacts, $excludesList);
 				}	
 				return $contacts;
 
