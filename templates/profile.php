@@ -6,13 +6,11 @@ $user = $this->data['user'];
 
 
 ?>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 uninett-color-white uninett-padded"> 
 
 
-
-
-<div class="columned">
-	<div class="gutter"></div>
-	<div class="col1">
 
 		<h1 style="margin-bottom: 0px"><?php echo htmlspecialchars($user->username); ?></h1>
 
@@ -92,20 +90,14 @@ snot('otherstatus', $this, $user, TRUE);
 snot('news', $this, $user, FALSE);
 
 
-echo('<p><input type="submit" name="submit_profile" value="' . $this->t('profile_save') . '"></p></form>');
+echo('<p><input type="submit" class="btn btn-primary" name="submit_profile" value="' . $this->t('profile_save') . '"></p></form>');
 
 
 ?>
 
 
 	
-	
 
-
-
-	</div>
-	<div class="col2">
-			
 <?php
 
 
@@ -118,11 +110,6 @@ echo('<p><input type="submit" name="submit_profile" value="' . $this->t('profile
 
 
 ?>
-
-
-	</div>
-	<div class="col3">
-
 
 
 			<h2><?php echo $this->t('bc_attribute_check'); ?></h2>
@@ -142,13 +129,7 @@ echo('<p><input type="submit" name="submit_profile" value="' . $this->t('profile
 
 
 
-
-	</div><!-- /#col3 -->
-	<br style="height: 0px; clear: both">
-</div>
-
-
-
+</div></div></div>
 
 			
 <?php $this->includeAtTemplateBase('includes/footer.php'); ?>

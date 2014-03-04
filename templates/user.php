@@ -8,11 +8,10 @@ $user = $this->data['user'];
 ?>
 
 
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 uninett-color-white uninett-padded"> 
 
-
-<div class="columned">
-	<div class="gutter"></div>
-	<div class="col1">
 
 		<h1 style="margin-bottom: 0px"><?php echo htmlspecialchars($user->username); ?></h1>
 
@@ -84,11 +83,6 @@ if (!empty($this->data['sharedentries'])) {
 	
 	
 
-
-
-	</div>
-	<div class="col2">
-			
 <?php
 
 
@@ -109,10 +103,7 @@ if (!empty($this->data['sharedentries'])) {
 
 
 			
-	</div>
-	<div class="col3">
-
-
+	
 
 
 			<h2>
@@ -133,14 +124,7 @@ if (!empty($this->data['sharedentries'])) {
 
 
 
-
-
-	</div><!-- /#col3 -->
-	<br style="height: 0px; clear: both">
-</div>
-
-
-
+</div></div></div>
 
 			
 <?php $this->includeAtTemplateBase('includes/footer.php'); ?>

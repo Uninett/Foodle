@@ -1,0 +1,389 @@
+
+<form class="form-horizontal" role="form">
+
+	<h1>Create a new Foodle</h1>
+
+
+	<div class="form-group" id="form-group-title">
+		<label for="inputTitle" class="col-sm-2 control-label">Title</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="inputTitle" value="{{name}}" placeholder="Title">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="inputDescr" class="col-sm-2 control-label">Description</label>
+		<div class="col-sm-10">
+
+			<textarea class="form-control" id="inputDescr" placeholder="Description">{{descr}}</textarea>
+			<p class="help-block">You may use <a target="_blank" href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a> here.</p>
+		</div>
+	</div>
+
+
+	<div class="form-group gutter">
+		<label for="enableDeadline" class="col-sm-2 control-label">Deadline</label>
+
+		<div class="col-sm-10 ">
+			<div class="checkbox">
+				<label>
+					<input id="enableDeadline" type="checkbox"> Set a deadline when users are not allowed to respond after.
+				</label>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="form-group" id="sectionDeadline">
+
+		<div class="row">
+		<div class="col-sm-10 col-sm-offset-2">
+
+			
+			<div class="form-inline">
+
+				<div id="sectioninputDeadlineDate" class="form-group col-sm-2">
+					<div class="input-group ">
+						<input id="inputDeadlineDate" style="padding-left: 4px; padding-right: 2px" type="text" value="" class="form-control">
+						<div class="input-group-addon"><span class=" glyphicon glyphicon-calendar"></span></div>
+					</div>
+				</div>
+
+				<div id="sectioninputDeadlineTime" class="form-group col-sm-2">
+
+					<input id="inputDeadlineTime" style="" type="time" value="16:00" class="form-control">
+
+				</div>
+
+			</div>
+		
+			
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-sm-10 col-sm-offset-2">
+			<p class="help-block">If a deadline is set, users may not respond to the Foodle or modify their response after this date.</p>
+		</div>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="form-group gutter">
+		<label for="enableTime" class="col-sm-2 control-label">Date and time</label>
+
+		<div class="col-sm-10 ">
+			<div class="checkbox">
+				<label>
+					<input id="enableTime" type="checkbox"> The date and time has already been decided for this event.
+				</label>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="form-group" id="sectionTime">
+
+
+		<div class="col-sm-offset-2 col-sm-10 ">
+		
+			<div class="form-inline">
+
+				<div id="sectioninputDateStart" class="form-group col-sm-2">
+					<div class="input-group ">
+						<input id="inputDateStart" style="padding-left: 4px; padding-right: 2px" type="text" value="" class="form-control">
+						<div class="input-group-addon"><span class=" glyphicon glyphicon-calendar"></span></div>
+					</div>
+				</div>
+
+				<div id="sectioninputTimeStart" class="form-group col-sm-2">
+					<!-- <div class="input-group "> -->
+						<input id="inputTimeStart" style="" type="time" value="" class="form-control">
+						<!-- <div class="input-group-addon"><span class=" glyphicon glyphicon-time"></span></div> -->
+					<!-- </div> -->
+				</div>
+
+
+				<div id="sectioninputUntil" class="form-group col-sm-1" style="text-align: center">
+					until 
+				</div>
+
+
+				<div id="sectioninputDateEnd" class="form-group col-sm-2">
+					<div class="input-group ">
+						<input id="inputDateEnd" style="padding-left: 4px; padding-right: 2px" type="text" value="" class="form-control">
+						<div class="input-group-addon"><span class=" glyphicon glyphicon-calendar"></span></div>
+					</div>
+				</div>
+
+				<div id="sectioninputTimeEnd" class="form-group col-sm-2">
+					<!-- <div class="input-group "> -->
+						<input id="inputTimeEnd" style="" type="time" value="" class="form-control">
+						<!-- <div class="input-group-addon"><span class=" glyphicon glyphicon-time"></span></div> -->
+					<!-- </div> -->
+				</div>
+
+
+
+				<div class="checkbox col-sm-3" style="padding-left: 1em">
+					<label>
+						<input id="inputTimeAllDay" type="checkbox"> All day
+					</label>
+
+					<label style="padding-left: .5em">
+						<input id="inputTimeMultipleDays" type="checkbox"> Multiple days
+					</label>
+
+				</div>
+
+
+
+			</div>
+		
+		</div>
+	</div>
+
+
+
+
+	<div class="form-group" id="sectionTimeDetails">
+		<div class="col-sm-offset-2 col-sm-10 ">
+			<p id="timeDetails"></p>
+		</div>
+	</div>
+
+
+
+
+
+
+
+	<div id="sectionTimezone" class="form-group gutter">
+		<label for="enableTimezone" class="col-sm-2 control-label">Timezone</label>
+
+		<div class="col-sm-5 "style="" id="timezoneselector" ></div>
+
+	</div>
+
+
+
+
+
+	<div class="form-group">
+
+		<label for="inputEmail3" class="col-sm-2 control-label">Location</label>
+
+
+		<div class="col-sm-10">
+
+			<div class="checkbox">
+				<label>
+					<input id="enableLocation" type="checkbox"> There is a location for this event.
+				</label>
+			</div>
+		</div>
+
+	</div>
+
+	
+
+
+	<div id="sectionLocationDetails" class="form-group" >
+
+		<div class="col-sm-offset-2 col-sm-10">
+
+
+			<div class="row">
+				<div class="form-group col-sm-6">
+					<input id="inputLocationLocal" type="text" class="form-control" value="" placeholder="Local reference: i.e. Meetingroom X-101"  />
+				</div>
+
+				<div class="form-group col-sm-6">
+					<div class="input-group">
+						<input id="inputAddress" type="text" class="form-control" value="" placeholder="Address">
+						<span class="input-group-btn">
+							<button id="actLookupMap" class="btn btn-default" type="button">Lookup map</button>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div id="map-canvas" class="reset-img-max-width" style="border: 1px solid #aaa; border-radius: 4px; height: 300px"></div>
+			</div>
+
+
+		</div>
+	</div>
+
+
+
+
+
+	<div class="form-group">
+		<label for="ss" class="col-sm-2 control-label">Video meeting</label>
+
+		<div class="col-sm-10">
+			<div class="checkbox">
+				<label>
+					<input disabled="disabled" type="checkbox"> Create an Adobe Connect Meeting room for this event.
+				</label>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div id="columneditor" class="well">
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<div class="checkbox">
+				<label>
+					<input id="inputResponseTypeMaybe" type="checkbox" checked="checked"> Allow users to repsond with «maybe» on columns.
+				</label>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="form-group gutter">
+		<div class="col-sm-offset-2 col-sm-10">
+			<div class="checkbox">
+				<label>
+					<input id="inputRequireLogin" type="checkbox" checked="checked"> Require user to login
+				</label>
+			</div>
+			<p class="help-block">It is reccomended to require all users to login. Then you'll be sure that each user may only respond once, and you will know the identity behind each response.</p>
+		</div>
+	</div>
+
+
+	<div class="form-group gutter">
+		<label for="ss" class="col-sm-2 control-label">Restrictions</label>
+
+		<div class="col-sm-10">
+			<div class="checkbox">
+				<label>
+					<input id="enableRestrictions" type="checkbox" > Restrictions on what users may respond
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div id="sectionRestrictions">
+
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+
+				<div class="form-inline">
+
+					<div class="form-group col-sm-5">
+						<label>
+							<input id="enableRestrictionColLimit" type="checkbox" checked="checked"> Maximum number of checked responses to 
+						</label>
+					</div>
+				
+					<div class="form-group col-sm-5">
+						<select id="inputRestrictionColselector" class="form-control"></select>
+					</div>
+
+					<div class="form-group col-sm-2">
+						<input id="inputRestrictionColLimit" class="form-control" type="number" value="20" />
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+
+				<div class="form-inline">
+
+						<div class="form-group col-sm-5">
+							<label>
+								<input id="enableRestrictionRowlimit" class="" type="checkbox" > Maximum number of responses
+							</label>
+						</div>
+					
+						<div class="form-group col-sm-5">
+							<input id="inputRestrictionRowlimit" class="form-control" type="number" value="20" />
+						</div>
+					
+				</div>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+
+				<div class="form-inline">
+
+					<div class="form-group col-sm-5">
+						<label>
+							<input id="enableRestrictionCheckLimit" class="" type="checkbox" > Max columns checked per user 
+						</label>
+					</div>
+				
+					<div class="form-group col-sm-5">
+						<input id="inputRestrictionCheckLimit" class="form-control" type="number" value="1" />
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<pre style="display: none" id="debug" class="gutterc"></pre>
+
+
+	<div class="form-group gutter">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button id="submitFoodle" type="submit" class="btn btn-large btn-primary">
+				<span class="glyphicon glyphicon-pencil"></span>
+				Create Foodle
+			</button>
+		</div>
+	</div>
+
+
+</form>
+
+
+
+
+
+
+
+<div id="modalSuccess" class="modal fade">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Successfully saved foodle</h4>
+			</div>
+			<div class="modal-body">
+				<p>Your Foodle is now ready to be shared. Please send the following link to your participant in order for them to access and respond to the Foodle:</p>
+
+				<p><input id="shareURL" type="text" class="form-control" value="" /></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="actContinue btn btn-primary"><span class=""></span> Continue to Foodle</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+

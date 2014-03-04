@@ -57,6 +57,9 @@ class Data_EventStream {
 			
 			$foodle = $this->db->readFoodle($id);
 			$timezone = $this->timezone->getTimezone();
+
+			header('Content-type: text/plain; charset=utf-8');
+			// echo 'Timezone is '; print_r($timezone); echo "\n";
 			
 			
 			if ($this->includeExpires && !empty($foodle->expire) && $foodle->expire > $now) {
@@ -73,14 +76,14 @@ class Data_EventStream {
 			
 			if (!empty($foodle->datetime)) {
 				$unix = $foodle->datetimeEpoch();
-				$texttime = $foodle->toTimeZone($unix, $timezone)->format('D j. M H:i');
+				// $texttime = $foodle->toTimeZone($unix, $timezone)->format('D j. M H:i');
 				
 				if ($unix > ($now - $past)) {
 					$newevent = array(
 						'type' => 'event',
 						'foodle' => $this->foodleData[$id],
 						'unix' => $unix,
-						'unixt' => $texttime,
+						// 'unixt' => $texttime,
 						'created' => $foodle->getCreatedStamp(),
 						'dtstart' => $foodle->dtstart(),
 						'dtend' => $foodle->dtend(),
@@ -104,7 +107,7 @@ class Data_EventStream {
 
 					$unix = $dcolumn[0];
 					$unixTo = $dcolumn[1];
-					$texttime = $foodle->toTimeZone($unix, $timezone)->format('D j. M H:i');
+					// $texttime = $foodle->toTimeZone($unix, $timezone)->format('D j. M H:i');
 					
 					if ($unix > ($now - $past)) {
 						
@@ -113,7 +116,7 @@ class Data_EventStream {
 							'type' => 'tentative',
 							'foodle' => $this->foodleData[$id],
 							'unix' => $unix,
-							'unixt' => $texttime,
+							// 'unixt' => $texttime,
 							'dtstart' => 'DTSTART:' . gmdate('Ymd\THis\Z', $unix),
 							'dtend' => 'DTEND:' . gmdate('Ymd\THis\Z', $unixTo),
 							'created' => $foodle->getCreatedStamp(),
@@ -190,12 +193,19 @@ class Data_EventStream {
 		
 		usort($this->activity, 'cmp');
 		
+		$uniqueids = array();
 		
 		/*
 		 * Limiting the shown entries to the last 20 entries, for performance reasons.
 		 */
 		$na = array(); $i = 0;
 		foreach($this->activity AS $a) {
+			$id = $a['foodle']['id'];
+			// print_r(); exit;
+			if (isset($uniqueids[$id])) {
+				continue;
+			}
+			$uniqueids[$id] = 1;
 			if ($i++ > 20) break;
 			$na[] = $a;
 		}
@@ -203,11 +213,19 @@ class Data_EventStream {
 		$this->activity = $na;
 	}
 	
-	public function getData() {
-		// echo '<pre>';
-		// print_r($this->activity); exit;
-		return $this->activity;
+	public function getData($limit = null) {
+
+		$stream = $this->activity;
+
+		error_log("ACTIVITY STREAM API LIMIT " . $limit);
+
+		if ($limit !== null && $limit > 0) {
+			return array_slice($stream, 0, $limit);
+		}
+
+		return $stream;
 	}
+	
 	
 	
 	

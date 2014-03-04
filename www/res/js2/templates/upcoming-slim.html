@@ -1,0 +1,15 @@
+<a href="/foodle/{{foodle.id}}" class="list-group-item ">
+
+	{{#if typeI.expire}}
+		<span style="color: #eb212e" class="glyphicon glyphicon-time"></span>
+	{{/if}}
+	{{#if typeI.tentative}}
+		<span style="color: #f3823e" class=" glyphicon glyphicon-calendar"></span>
+	{{/if}}
+	{{#if typeI.standard}}
+		<span style="color: #f3823e" class="glyphicon glyphicon-calendar"></span>
+	{{/if}}
+
+	{{foodle.name}}
+
+</a>

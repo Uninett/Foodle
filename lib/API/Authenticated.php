@@ -5,6 +5,7 @@ abstract class API_Authenticated extends API_API {
 	protected $auth, $user;
 
 	function __construct($config, $parameters) {
+		$this->user = null;
 		parent::__construct($config, $parameters);
 	}
 	
@@ -29,11 +30,23 @@ abstract class API_Authenticated extends API_API {
 		$this->user = $this->fdb->readUser($userid);
 
 	}
+
+	protected function optionalAuth() {
+		$this->auth = new FoodleAuth($this->fdb);
+		$this->auth->requireAuth(TRUE);
+	
+		if ($this->auth->isAuth()) {
+			$this->user = $this->auth->getUser();
+		}
+
+	}
 	
 	// Authenticate the user
 	protected function auth() {
 		$this->auth = new FoodleAuth($this->fdb);
 		$this->auth->requireAuth(TRUE);
+
+		// $this->user = 'andreas@uninett.no'; return;
 		
 		if ($this->auth->isAuth()) {
 			$this->user = $this->auth->getUser();

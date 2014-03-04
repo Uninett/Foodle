@@ -28,13 +28,23 @@ class API_Foodle extends API_API {
 		}
 		
 		$subrequest = $this->parameters[1];
+
+
 		
 		if ($subrequest === 'responders') {
 			
 			$this->responses = $this->fdb->readResponses($this->foodle, NULL, FALSE);
-			return $this->responses;
+
+			$respobj = array();
+			foreach($this->responses AS $key => $r) {
+				$respobj[$key] = $r->getView();
+			}
+
+			return $respobj;
 			
 		}
+
+
 
 
 		throw new Exception('Invalid request parameters');

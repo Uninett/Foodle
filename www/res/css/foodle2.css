@@ -1,0 +1,92 @@
+.discojuice {
+	z-index: 1100 !important;
+}
+.discojuice .top {
+	background-color: #f5f5f5 !important;
+
+}
+.discojuice .discojuice_close {
+	background-color: transparent !important;
+}
+
+
+.gm-style img { max-width: none; }
+.gm-style label { width: auto; display:inline; }
+
+thead#tablehead {
+	/*font-size: 80%;*/
+}
+
+tbody#tablebody {
+
+}
+
+.responseCellYes { color: #006b49; background-color: #cec !important; text-align: center;}
+button.responseCellYes {border-color: #005544 !important; }
+
+.responseCellNo { color: #eb212e; background-color: #ecc !important; text-align: center;}
+button.responseCellNo {border-color: #bb1111 !important; }
+
+.responseCellMaybe { color: #f3823e; background-color: #fec !important; text-align: center;}
+button.responseCellMaybe {border-color: #ee3322 !important; }
+
+.responseCellFail { color: #999; }
+
+th {
+	font-weight: normal;
+	font-family: 'colfaxMedium', Helvetica, Arial, sans-serif;
+}
+
+
+.checkCell, .checkRadioCell {
+	cursor: pointer; cursor: hand
+}
+
+
+/* Foodle response page */
+
+#panelTime p , #panelLocation p, #panelDeadline p {
+	margin-top: 2px;
+	margin-bottom: 2px;
+
+}
+.loc-local {
+	font-size: 110%; 
+	font-family: 'colfaxMedium', Helvetica, Arial, sans-serif;
+}
+.time-fromnow {
+	font-size: 86%; color: #777; font-style:italic;
+}
+.time-duration {
+	font-size: 86%; color: #777; font-style:italic;
+}
+.s-md {
+	font-size: 105%;
+}
+.s-lg {
+	font-size: 120%;
+}
+
+#cellSave button { display: block !important; }
+#cellSave #cellSaveSpinning { display: none!important; }
+
+#cellSave.loading button { display: none!important; }
+#cellSave.loading #cellSaveSpinning { display: block!important; }
+
+label {
+	font-weight: normal;	
+}
+.form-group label.label-control {
+	font-family: 'colfaxMedium', Helvetica, Arial, sans-serif;
+	font-weight: normal;
+}
+
+
+.noterow {
+	padding: 4px 15px;
+	background: #FFFFCC;
+	font-size: 90%;
+	font-style:italic;
+}
+
+

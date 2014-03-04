@@ -1,0 +1,44 @@
+<a href="/foodle/{{foodle.id}}" class="list-group-item ">
+
+
+
+	{{#if typeI.expire}}
+		<span class="label label-danger pull-right">Expiring</span>
+		<p class="uninett-fontColor-red pull-right"  style="clear: both"> {{expiretext}}</p>
+	{{/if}}
+	{{#if typeI.tentative}}
+		<span class="label label-warning pull-right">Tentative</span>
+		<p class="uninett-fontColor-red pull-right" style="clear: both">{{getFromNow}}</p>
+	{{/if}}
+	{{#if typeI.standard}}
+		<p class="uninett-fontColor-red pull-right">{{getFromNow}}</p>
+	{{/if}}
+
+
+	<h4 class="list-group-item-heading">
+		{{foodle.name}}
+		<span class="badge pull-right">{{ago}}</span>
+	</h4>
+
+
+	{{#if foodle.descr}}
+		<p class="list-group-item-text">{{foodle.descr}}</p>
+	{{/if}}
+
+
+
+	{{#if foodle.responses}}
+		<p style="margin-bottom: 0px; margin-top: .4em; font-size: 87%">Latest responses:</p>
+		<ul style="margin: 0px; padding: 0px; font-size: 87%" class="uninett-ul">
+		{{#each foodle.responses}}
+			<li style="list-style: none"><span class="glyphicon glyphicon-user"></span> {{name}} <span class="ts uninett-fontColor-grey" data-ts="{{modified}}"></span></li>
+		{{/each}}
+		</ul>
+	{{/if}}	
+
+	<!-- <hr style="margin-top: 8px; margin-bottom: 2px" /> -->
+	<p style="font-size: 90%" class="list-group-item-text">
+		Created by <span class="glyphicon glyphicon-user"></span> {{foodle.ownername}}
+	</p>
+
+</a>

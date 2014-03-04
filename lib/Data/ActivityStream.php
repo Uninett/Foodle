@@ -1,5 +1,29 @@
 <?php
 
+
+function timer(&$i, $str = null) {
+	$now = microtime(true);
+	$diff = $now - $i;
+
+	$diffs = floor($diff * 1000);
+	if ($str !== null) {
+		error_log(' [TIMER] ' . str_pad($str, 16) . '    ' . str_pad($diffs, 10, ' ', STR_PAD_LEFT) . 'ms');	
+	}
+
+	$i = $now;
+}
+
+
+/*
+[Thu Feb 13 11:24:23 2014] [error] [client 94.246.37.42]  [TIMER] ------------, referer: https://beta.foodl.org/
+[Thu Feb 13 11:24:23 2014] [error] [client 94.246.37.42]  [TIMER] loadCandidates              19ms, referer: https://beta.foodl.org/
+[Thu Feb 13 11:24:23 2014] [error] [client 94.246.37.42]  [TIMER] loadDiscussion               3ms, referer: https://beta.foodl.org/
+[Thu Feb 13 11:24:23 2014] [error] [client 94.246.37.42]  [TIMER] loadResponses              206ms, referer: https://beta.foodl.org/
+[Thu Feb 13 11:24:23 2014] [error] [client 94.246.37.42]  [TIMER] prepareSort                330ms, referer: https://beta.foodl.org/
+[Thu Feb 13 11:24:23 2014] [error] [client 94.246.37.42]  [TIMER] sortA                       16ms, referer: https://beta.foodl.org/
+
+*/
+
 /**
  * This class represents an activity stream
  */
@@ -22,12 +46,28 @@ class Data_ActivityStream {
 	}
 	
 	public function prepareUser() {
+
+		$i = microtime(true);
+
+		error_log(' [TIMER] ------------');	
+	
 		$this->loadCandidates();
+		timer($i, 'loadCandidates');
+
 		$this->loadDiscussion();
-		$this->loadResponses();
+		timer($i, 'loadDiscussion');
+
+		$this->loadResponses2();
+		timer($i, 'loadResponses');
+
+		$this->prepareActivity();
+		timer($i, 'prepareActivity');
 		
 		$this->prepareSort();
+		timer($i, 'prepareSort');
+
 		$this->sortA();
+		timer($i, 'sortA');
 	}
 	
 	
@@ -45,7 +85,7 @@ class Data_ActivityStream {
 		
 		foreach($this->activity AS $key => $a) {
 			
-			if ($a['type'] === 'response') {
+			if (isset($a['type']) && $a['type'] === 'response') {
 				if (!empty($a['responses'])) {
 					foreach($a['responses'] AS $resp) {
 						if (empty($this->activity[$key]['unix']) || $this->activity[$key]['unix'] < $resp['modified']) {
@@ -70,12 +110,12 @@ class Data_ActivityStream {
 				}
 			}
 			
-			if (!empty($this->activity[$key]['foodle']['descr'])) {
-				$this->activity[$key]['foodle']['summary'] = strip_tags(Data_Foodle::cleanMarkdownInput($this->activity[$key]['foodle']['descr']), '<p>');
-				if (strlen($this->activity[$key]['foodle']['summary']) > 160) {
-					$this->activity[$key]['foodle']['summary'] = substr($this->activity[$key]['foodle']['summary'], 0, 160) . ' …';
-				}
-			}
+			// if (!empty($this->activity[$key]['foodle']['descr'])) {
+			// 	$this->activity[$key]['foodle']['summary'] = strip_tags(Data_Foodle::cleanMarkdownInput($this->activity[$key]['foodle']['descr']), '<p>');
+			// 	if (strlen($this->activity[$key]['foodle']['summary']) > 160) {
+			// 		$this->activity[$key]['foodle']['summary'] = substr($this->activity[$key]['foodle']['summary'], 0, 160) . ' …';
+			// 	}
+			// }
 			
 			if (!empty($this->activity[$key]['unix'])) {
 				$this->activity[$key]['ago'] = FoodleUtils::date_diff(time() - $this->activity[$key]['unix']);
@@ -97,11 +137,14 @@ class Data_ActivityStream {
 		usort($this->activity, 'cmp');
 		
 		
+		$uniqueids = array();
+
 		/*
 		 * Limiting the shown entries to the last 20 entries, for performance reasons.
 		 */
 		$na = array(); $i = 0;
 		foreach($this->activity AS $a) {
+
 			if ($i++ > 20) break;
 			$na[] = $a;
 		}
@@ -109,10 +152,22 @@ class Data_ActivityStream {
 		$this->activity = $na;
 	}
 	
-	public function getData() {
-		return $this->activity;
+	public function getData($limit = null) {
+
+		$stream = $this->activity;
+
+		error_log("ACTIVITY STREAM API LIMIT " . $limit);
+
+		if ($limit !== null) {
+			return array_slice($stream, 0, $limit);
+		}
+
+		return $stream;
 	}
 	
+	/*
+	 * Get all discussion entries for the set of candidate Identifiers
+	 */
 	protected function loadDiscussion() {
 		if(empty($this->ids)) return;
 		$data = $this->db->getDiscussionEntries($this->ids);
@@ -124,7 +179,49 @@ class Data_ActivityStream {
 			$this->foodleData[$e['foodleid']]['discussion'][] = $e;
 		}
 	}
-	
+
+
+	// protected function prepareActivity() {
+	// 	if(empty($this->ids)) return;
+	// 	$data = $this->db->getResponseEntries($this->ids);
+	// 	foreach($data AS $e) {
+	// 		if (empty($this->foodleData[$e['foodleid']]['discussion'])) {
+	// 			$this->foodleData[$e['foodleid']]['discussion'] = array();
+	// 		}
+	// 		$this->foodleData[$e['foodleid']]['discussion'][] = $e;
+	// 	}
+	// }
+
+	protected function loadResponses2() {
+		if(empty($this->ids)) return;
+		$data = $this->db->getResponseEntries($this->ids);
+
+		// echo '<pre>'; print_r($data); exit;
+
+		foreach($data AS $e) {
+		
+			if (empty($this->foodleData[$e['foodleid']]['responses'])) {
+				$this->foodleData[$e['foodleid']]['responses'] = array();
+			}
+			$this->foodleData[$e['foodleid']]['responses'][] = $e;
+		}
+		// echo '<pre>'; print_r($this->foodleData); exit;
+
+	}
+
+	protected function prepareActivity() {
+		if(empty($this->ids)) return;
+		foreach($this->ids AS $id) {
+			$newactivity = array(
+				'foodle' => $this->foodleData[$id]
+			);
+			$this->activity[] = $newactivity;
+		}
+		// echo '<pre>'; print_r($this->foodleData); exit;
+	}
+
+
+
 	protected function loadResponses() {
 		if(empty($this->ids)) return;
 		foreach($this->ids AS $id) {
@@ -181,7 +278,19 @@ class Data_ActivityStream {
 
 	}
 	
-	
+
+
+
+	/*
+	 * The result of the loadCandidates, is to fill the $this->ids array with 
+	 * all possible foodle { id: name} pairs that is relevant to that user.
+	 * Also the $this->foodleData is populated with 
+	 * Including :
+	 * 	group entries
+	 * 	all entries if user is admin
+	 * 	foodles that is created by the current user
+	 * 	foodles that you have responded to.
+	 */
 	protected function loadCandidates() {
 		$candidates = array();
 		
@@ -239,7 +348,7 @@ class Data_ActivityStream {
 
 		
 		$this->ids = array_keys($candidates);
-#		echo '<pre>'; print_r($this->ids); exit;		
+		// echo '<pre>'; print_r($this->ids); exit;
 
 	}
 	

@@ -186,6 +186,24 @@ class Data_FoodleResponse {
 		unset($data['crash']);
 		return json_encode($data);
 	}
+
+	public function getView() {
+
+		$obj = array();
+
+		$props = array('userid', 'username', 'email', 'response', 'notes', 'invitation', 'created', 'updated');
+
+		foreach($props AS $prop) {
+			if (isset($this->{$prop})) {
+				$obj[$prop] = $this->{$prop};
+			}
+		}
+
+		return $obj;
+
+	}
+
+
 	
 	public static function parsePostN($n) {
 		if(preg_match('/([0-9]+)-([0-9]+)/', $n, $matches)) {

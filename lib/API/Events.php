@@ -21,7 +21,13 @@ class API_Events extends API_Authenticated {
 		
 		if (count($this->parameters) === 0) {
 			$as->prepareUser();
-			return $as->getData();
+
+			$limit = null;
+			if (isset($_REQUEST['limit'])) {
+				$limit = $_REQUEST['limit'];
+			}
+
+			return $as->getData($limit);
 		}
 		
 		if (count($this->parameters) > 0) {

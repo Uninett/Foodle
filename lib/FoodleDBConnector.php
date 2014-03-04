@@ -146,6 +146,7 @@ class FoodleDBConnector {
 		$foodle->identifier = $id;
 		$foodle->name = $row['name'];
 		$foodle->descr = stripslashes($row['descr']);
+		$foodle->location = json_decode($row['location'], TRUE);
 		$foodle->expire = $row['expire_unix'];
 		$foodle->owner = $row['owner'];
 		$foodle->allowanonymous = (boolean) ($row['anon'] == '1');
@@ -174,9 +175,32 @@ class FoodleDBConnector {
 		
 		$maxdef = self::parseMaxDef($row['maxdef']);
 		
-		if ($maxdef[0]) {
+		if (isset($row['restrictions'])) {
+
+			$foodle->restrictions = json_decode($row['restrictions'], TRUE);
+
+		} else if ($maxdef[0]) {
+
 			$foodle->maxentries = $maxdef[0];
 			$foodle->maxcolumn = $maxdef[1];
+
+			if ($foodle->maxcolumn === 0) {
+	
+				$foodle->restrictions = array(
+					'rows' => $maxdef[0]
+				);
+
+			} else {
+	
+				$foodle->restrictions = array(
+					'col' => array(
+						'col' => $maxdef[1]-1,
+						'limit' => $maxdef[0]
+					)
+				);
+
+			}
+
 		}
 		
 		$foodle->loadedFromDB = TRUE;
@@ -408,39 +432,44 @@ class FoodleDBConnector {
 				UPDATE def SET 
 					name = '" . mysql_real_escape_string($foodle->name) . "', 
 					descr = '" . mysql_real_escape_string($foodle->descr) . "', 
+					location = '" . mysql_real_escape_string(Data_Foodle::encode($foodle->location)) . "', 
 					columns = '" . mysql_real_escape_string(json_encode($foodle->columns))  . "',
+					restrictions = '" . mysql_real_escape_string(Data_Foodle::encode($foodle->restrictions))  . "',
 					groupid = " . (isset($foodle->groupid) ? "" . mysql_real_escape_string($foodle->groupid) . "" : 'null') . ",
-					expire = '" . mysql_real_escape_string($foodle->expire) . "',
+					expire = " . (isset($foodle->expire) ? 'FROM_UNIXTIME(' . mysql_real_escape_string($foodle->expire) . ')' : 'null') .  ",
 					maxdef = '" . mysql_real_escape_string($foodle->getMaxDef()) . "',
 					anon = '" . ($foodle->allowanonymous ? '1' : '0') . "',
 					columntype = " . (isset($foodle->columntype) ? "'" . mysql_real_escape_string($foodle->columntype) . "'" : 'null') . ",
 					responsetype = " . (isset($foodle->responsetype) ? "'" . mysql_real_escape_string($foodle->responsetype) . "'" : "'default'") . ",
 					timezone = '" . mysql_real_escape_string($foodle->getTimeZone()) . "',
-					extrafields = '" . mysql_real_escape_string(Data_Foodle::encode($foodle->extrafields)) . "',
 					datetime = '" . mysql_real_escape_string(Data_Foodle::encode($foodle->datetime)) . "',
 					updated = NOW()	
 				WHERE id = '" . $foodle->identifier. "' 
 			";
+
+			error_log("UPDATE SQL " . $sql);
 			
 		} else {
 			$sql = "
-				INSERT INTO def (id, name, descr, columns, groupid, expire, maxdef,  owner, anon, timezone, columntype, responsetype, extrafields, datetime) values (" . 
+				INSERT INTO def (id, name, descr, location, columns, restrictions, groupid, expire, maxdef,  owner, anon, timezone, columntype, responsetype, datetime) values (" . 
 					"'" . mysql_real_escape_string($foodle->identifier) . "'," . 
 					"'" . mysql_real_escape_string($foodle->name) . "', " . 
 					"'" . mysql_real_escape_string($foodle->descr) . "', " . 
+					"'" . mysql_real_escape_string(Data_Foodle::encode($foodle->location)) . "', " . 
 					"'" . mysql_real_escape_string(json_encode($foodle->columns)) . "', " . 
+					"'" . mysql_real_escape_string(Data_Foodle::encode($foodle->restrictions)) . "', " . 
 					(isset($foodle->groupid) ? "" . mysql_real_escape_string($foodle->groupid) . "" : 'null') . ", " .
-					"'" . $foodle->expire . "', " . 
+					(isset($foodle->expire) ? 'FROM_UNIXTIME(' . mysql_real_escape_string($foodle->expire) . ')' : 'null') .  ", " . 
 					"'" . mysql_real_escape_string($foodle->getMaxDef()) . "', " . 
 					"'" . mysql_real_escape_string($foodle->owner) . "', " . 
 					"'" . ($foodle->allowanonymous ? '1' : '0') . "', " . 
 					"'" . mysql_real_escape_string($foodle->getTimeZone()) . "', " . 
 					(isset($foodle->columntype) ? "'" . mysql_real_escape_string($foodle->columntype) . "'" : 'null') . ", " .
 					(isset($foodle->responsetype) ? "'" . mysql_real_escape_string($foodle->responsetype) . "'" : "'default'") . ", " .
-					"'" . mysql_real_escape_string(Data_Foodle::encode($foodle->extrafields)) . "', " . 
 					"'" . mysql_real_escape_string(Data_Foodle::encode($foodle->datetime)) . "'" . 
 					")
 			";
+			error_log("Insert SQL " . $sql);
 			
 		}
 		$this->execute($sql);
@@ -597,6 +626,7 @@ class FoodleDBConnector {
 				#$newResponse->icalfill();
 				
 				$nof = $foodle->getNofColumns();
+				// echo "nof" . $nof; exit;
 				if ($newResponse->response['type'] == 'manual' && count($newResponse->response['data']) !== $nof) {
 						
 					$newResponse->invalid = TRUE;
@@ -857,6 +887,23 @@ class FoodleDBConnector {
 		return $this->q($sql);
 	}
 	
+	
+	public function getResponseEntries($foodleids, $no = 300) {
+		$fidstr = "('" . join("', '", $foodleids) . "')"; 
+
+		$sql ="
+SELECT IFNULL(user.username, entries.username) AS name, UNIX_TIMESTAMP(IFNULL(entries.updated, entries.created)) AS modified, entries.foodleid
+FROM entries LEFT JOIN user ON (entries.userid = user.userid)
+WHERE entries.foodleid IN " . $fidstr . " AND NOT entries.invitation
+ORDER BY IFNULL(entries.updated, entries.created) DESC
+LIMIT " . $no . "
+";
+			// echo '<pre>'; print_r($sql); exit;
+			
+		return $this->q($sql);
+	}
+	
+
 	
 	public function getRecentResponse($foodleid, $no = 3) {
 		$sql = "

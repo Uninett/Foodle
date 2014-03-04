@@ -36,6 +36,25 @@ class Data_User {
 		return FALSE;	
 	}
 	
+
+	public function getView() {
+
+		$opts = array('userid', 'username', 'email', 'org', 'orgunit', 
+			'photol', 'photom', 'photos', 'notifications', 'features', 'timezone', 
+			'location', 'realm', 'language', 'role', 'idp', 'auth', 'shaddow', 'shaddowed');
+		$user = array(
+		);
+		foreach($opts AS $o) {
+			$user[$o] = $this->{$o};
+		}
+
+		return $user;
+
+
+	}
+
+
+
 	
 	public function getResponseUsernameHTML($response) {
 		$userid = $response->userid;

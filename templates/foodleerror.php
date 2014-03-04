@@ -4,14 +4,20 @@
 ?>
 
 
-<div id="content">
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12"> 
+			<div class="jumbotron uninett-color-orange">
+				<h1>Error</h1>
+				<p><?php echo $this->data['message']; ?></p>
 
-	<h2>Error</h2>
+				<p> <a class="btn btn-lg btn-default" href="/" role="button">Go to frontpage &raquo;</a> </p>
+			</div>
+		</div>
+	</div>
+</div>
 
-
-	<p><?php echo $this->data['message']; ?></p>
-		
-
+	
 
 		
 <?php $this->includeAtTemplateBase('includes/footer.php'); ?>

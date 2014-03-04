@@ -1,0 +1,179 @@
+<div class="row">
+	
+	<div class="col-md-12">
+
+
+		<div id="ownerbar" class="btn-group pull-right">
+			<a class="btn btn-warning" href="/edit/{{identifier}}"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+			<a class="btn btn-danger" id="actDelete" ><span class="glyphicon glyphicon-remove"></span> Delete</a>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					<span class="glyphicon glyphicon-share"></span>
+					Share 
+					<span class="caret"></span>
+
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="#">Dropdown link</a></li>
+					<li><a href="#">Dropdown link</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<h1>{{name}}</h1>
+
+	</div>
+
+</div>
+
+
+<div class="row">
+		
+	<div id="foodleDescription" class="col-md-3">
+		
+		<p>{{{descrHTML}}}</p>
+
+	</div>
+
+
+	<div id="colLocation" class="col-md-3">
+
+
+		<div id="panelLocation" class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><span class="glyphicon glyphicon-map-marker"></span> Location</h3>
+			</div>
+			<div class="panel-body">
+				<div id="sectLocation"></div>
+			</div>
+		</div>
+
+		
+	</div>
+
+	<div id="colTime" class="col-md-3">
+
+		<div id="panelTime" class="panel panel-default">
+			<div class="uninett-color-lightBlue panel-heading">
+				<h3 class="panel-title"><span class="glyphicon glyphicon-calendar"></span> Date and time</h3>
+			</div>
+			<div id="sectTime" class="panel-body">
+			</div>
+		</div>
+
+		<div id="panelDeadline" class="panel panel-default">
+			<div class="uninett-color-lightBlue panel-heading">
+				<h3 class="panel-title"><span class="glyphicon glyphicon-time"></span> Deadline</h3>
+			</div>
+			<div id="sectDeadline" class="panel-body">
+				
+			</div>
+		</div>
+
+
+		<div id="panelRestrictions" class="panel panel-default">
+			<div class="uninett-color-lightBlue panel-heading">
+				<h3 class="panel-title"><span class="glyphicon glyphicon-lock"></span> Restrictions</h3>
+			</div>
+			<div id="sectRestrictions" class="panel-body">
+				
+			</div>
+		</div>
+
+
+		<div id="panelTimezone" class="panel panel-default">
+			<div class="uninett-color-lightBlue panel-heading">
+				<h3 class="panel-title"><span class="glyphicon glyphicon-globe"></span> Timezone</h3>
+			</div>
+
+			<div  class="panel-body">
+				<p>Select which timezone to present the timeslots.</p>
+				<div id="sectTimezone"></div>
+			</div>
+		</div>
+
+
+
+	</div>
+
+	<div class="col-md-3">
+
+		<div id="upcoming"></div>
+
+	</div>
+
+
+</div>
+
+<ul id="responsenav" class="nav nav-tabs">
+	<li id="navMyResponse" class="active"><a href="#">My response</a></li>
+	<li id="navAllResponses"><a href="#">All responses</a></li>
+	<li id="navComments"><a href="#">Discussion <span id="discussionCount" style="display: none" class="badge badge-primary">5</span></a></li>
+</ul>
+
+
+
+<div id="myResponseTable" class="row gutter clearfix">
+	<table class="table table-responsive table-condensed table-striped table-bordered">
+		<thead id="mytablehead"></thead>
+		<tbody id="mytablebody"></tbody>
+	</table>
+</div>
+
+<div id="responseTable" class="row gutter clearfix">
+
+	<div id="showComments">
+		<div class="checkbox">
+			<label>
+				<input id="enableComments" type="checkbox" class="" checked="checked"> Show all comments
+			</label>
+		</div>
+	</div>
+
+	<table class="table table-responsive table-condensed table-striped table-bordered">
+		<thead id="tablehead"></thead>
+		<tbody id="tablebody"></tbody>
+	</table>
+</div>
+
+<div id="commentPane" class="row gutter clearfix">
+	
+	<div class="col-md-6">
+		<textarea id="commentText" class="form-control" rows="3"></textarea>
+		<div class="clearfix" style="margin-top: 5px">
+			<button class="btn btn-primary pull-right" id="submitComment"> Add comment <span class="glyphicon glyphicon-chevron-right"></span></button>
+		</div>
+	</div>
+
+
+	<div class="col-md-6" id="commentList"></div>
+
+</div>
+
+
+
+<div id="statusline"></div>
+
+<div id="modalDelete" class="modal fade">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Deleting a Foodle</h4>
+			</div>
+			<div class="modal-body">
+				<p>Are you really sure you would like to delete this Foodle? There is no way to restore the deleted data. Both the Foodle and all the responses to this foodle will be deleted.</p>
+
+				<p>Deleting this Foodle:</p>
+
+				<p><input id="foodleID" type="text" class="form-control" value="" /></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button type="button" class="actContinue btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete foodle</button>
+			</div>
+		</div>
+	</div>
+</div>
+

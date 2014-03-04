@@ -96,19 +96,14 @@ You may also create new Foodles on your own, and invite others to respond.
 		if (isset($_REQUEST['save'])) $this->addEntry();
 
 		$t = new SimpleSAML_XHTML_Template($this->config, 'foodlecreate.php', 'foodle_foodle');
-		
-		$t->data['mygroups'] = $this->fdb->getContactlists($this->user);
 
-		$t->data['authenticated'] = $this->auth->isAuth();
+		$t->data['requirejs-main'] = 'main-create';
+		
 		$t->data['user'] = $this->user;	
+		$t->data['userToken'] = $this->user->getToken();
 		$t->data['loginurl'] = $this->auth->getLoginURL();
 		$t->data['logouturl'] = $this->auth->getLogoutURL('/');
-		$t->data['today'] = date('Y-m-d');
-		$t->data['tomorrow'] = date('Y-m-d', time() + 60*60*24 );
-		
-		$t->data['allowChangeColumn'] = TRUE;
-		
-		$t->data['timezone'] = $this->timezone;
+		$t->data['authenticated'] = $this->auth->isAuth();
 
 		$t->data['bread'] = array(
 			array('href' => '/', 'title' => 'bc_frontpage'), 

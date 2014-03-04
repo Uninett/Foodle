@@ -48,6 +48,7 @@ class FoodleAuth {
 			$this->user = new Data_User($this->db);
 			$this->user->anonymous = FALSE;
 			$this->user->userid = self::getUserid($attributes);
+
 			$this->user->username = self::getUsername($attributes);
 			$this->user->email = self::getEmail($attributes);
 			$this->user->org = self::getOrg($attributes);
@@ -57,7 +58,7 @@ class FoodleAuth {
 			$this->user->language = self::getLanguage($attributes);
 
 			// $this->user->calendar = self::getCalendar($attributes);			
-			$this->user->setCalendarsExternal(self::getCalendar($attributes));
+			// $this->user->setCalendarsExternal(self::getCalendar($attributes));
 
 
 			if ($authsource === 'twitter') $this->user->auth = 'twitter';
@@ -334,8 +335,8 @@ class FoodleAuth {
 		self::checkAttribute(&$result, 'User realm', $this->getRealm($attributes), 'error', array(
 		));
 
-		self::checkAttribute(&$result, 'Freebusy Calendar', $this->getCalendar($attributes), 'warning', array(
-		));
+		// self::checkAttribute(&$result, 'Freebusy Calendar', $this->getCalendar($attributes), 'warning', array(
+		// ));
 		
 
 		self::checkAttribute(&$result, 'Name of Organisation', $this->getOrg($attributes), 'warning', array(

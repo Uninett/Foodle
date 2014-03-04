@@ -38,16 +38,16 @@ class Pages_PageFoodle extends Pages_Page {
 		
 		#Timer::tick('Foodle read');
 		
-		$this->foodle->getColumnDates();
-		$this->calendarEnabled = $this->foodle->calendarEnabled();
-		$this->timezoneEnable = $this->foodle->timeZoneEnabled();
-		$this->datesonly = $this->foodle->datesOnly();
+		// $this->foodle->getColumnDates();
+		// $this->calendarEnabled = $this->foodle->calendarEnabled();
+		// $this->timezoneEnable = $this->foodle->timeZoneEnabled();
+		// $this->datesonly = $this->foodle->datesOnly();
 		
 
 		#Timer::tick('Timezone preparations');
 		
 		$this->auth();
-		$this->timezone = new TimeZone(NULL, $this->user);
+		// $this->timezone = new TimeZone(NULL, $this->user);
 	}
 	
 	protected function setLocale() {
@@ -202,117 +202,128 @@ You may also create new Foodles on your own, and invite others to respond.
 	// Process the page.
 	function show() {
 
-		
-		$this->presentCustom();
-		
-#		echo '<pre>'; print_r($_REQUEST); exit;
 
-		if (isset($_REQUEST['save'])) $this->setResponse();
-		if (isset($_REQUEST['deleteMyResponse'])) $this->removeResponse();
-		if (isset($_REQUEST['savecal'])) $this->setResponseCalendar();
-		if (isset($_REQUEST['discussionentry'])) $this->addDiscussionEntry();
-
-		
-
+		$this->template->data['requirejs-main'] = 'main-response';
+		$this->template->data['foodleid'] = $this->foodle->identifier;
+		$this->template->data['userid'] = $this->user->userid;
 		$this->template->data['title'] = 'Foodle :: ' . $this->foodle->name;
 		$this->template->data['foodle'] = $this->foodle;
 		$this->template->data['user'] = $this->user;
 		$this->template->data['userToken'] = $this->user->getToken();
 
-		if (!empty($this->foodle->groupid)) {
-			$this->template->data['groupInfo'] = $this->fdb->getGroupInfo($this->foodle->groupid);
-		}
+
+		// header('Content-type: text/plain; charset: utf-8');
+		// print_r($this->foodle);
+		// exit;
 
 		
-		$this->template->data['foodlepath'] = $this->foodlepath;
+		// $this->presentCustom();
+		
+// #		echo '<pre>'; print_r($_REQUEST); exit;
+
+// 		if (isset($_REQUEST['save'])) $this->setResponse();
+// 		if (isset($_REQUEST['deleteMyResponse'])) $this->removeResponse();
+// 		if (isset($_REQUEST['savecal'])) $this->setResponseCalendar();
+// 		if (isset($_REQUEST['discussionentry'])) $this->addDiscussionEntry();
+
+		
+
+
+
+		// if (!empty($this->foodle->groupid)) {
+		// 	$this->template->data['groupInfo'] = $this->fdb->getGroupInfo($this->foodle->groupid);
+		// }
+
+		
+		// $this->template->data['foodlepath'] = $this->foodlepath;
 		
 
 		// if ($this->user->hasCalendar()) echo 'User has calendar';
 		// if ($this->foodle->calendarEnabled()) echo 'Foodle has calendar';
 		
-		$this->template->data['calenabled'] = ($this->calendarEnabled && $this->user->hasCalendar());
-		$this->template->data['calenabled'] = false;
-		$this->template->data['myresponse'] = $this->foodle->getMyResponse($this->user);
+		// $this->template->data['calenabled'] = ($this->calendarEnabled && $this->user->hasCalendar());
+		// $this->template->data['calenabled'] = false;
+		// $this->template->data['myresponse'] = $this->foodle->getMyResponse($this->user);
 		
-		if ($this->template->data['calenabled']) {
-			$this->template->data['myresponsecal'] = $this->foodle->getMyCalendarResponse($this->user);
-			$this->template->data['defaulttype'] = $this->foodle->getDefaultResponse($this->user);
-		}
-		if (isset($_REQUEST['tab'])) {
-			$this->template->data['tab'] = $_REQUEST['tab'];
-		} elseif($this->template->data['myresponse']->loadedFromDB) {
-			$this->template->data['tab'] = '1';
-		}
+		// if ($this->template->data['calenabled']) {
+		// 	$this->template->data['myresponsecal'] = $this->foodle->getMyCalendarResponse($this->user);
+		// 	$this->template->data['defaulttype'] = $this->foodle->getDefaultResponse($this->user);
+		// }
+		// if (isset($_REQUEST['tab'])) {
+		// 	$this->template->data['tab'] = $_REQUEST['tab'];
+		// } elseif($this->template->data['myresponse']->loadedFromDB) {
+		// 	$this->template->data['tab'] = '1';
+		// }
 
-		if ($this->timezoneEnable) {
-			if (isset($_REQUEST['timezone'])) {
-				$this->template->data['stimezone'] = $_REQUEST['timezone'];
-			}
-			$this->template->data['timezone'] = $this->timezone;
-		}
+		// if ($this->timezoneEnable) {
+		// 	if (isset($_REQUEST['timezone'])) {
+		// 		$this->template->data['stimezone'] = $_REQUEST['timezone'];
+		// 	}
+		// 	$this->template->data['timezone'] = $this->timezone;
+		// }
 
 
 
 		// Configuration
-		$this->template->data['facebookshare'] = $this->config->getValue('enableFacebookAuth', TRUE);
+		// $this->template->data['facebookshare'] = $this->config->getValue('enableFacebookAuth', TRUE);
 		
-		$this->template->data['entityid'] = $this->config->getValue('entityid');
-		$this->template->data['responseurl'] = FoodleUtils::getUrl() . 'response';
+		// $this->template->data['entityid'] = $this->config->getValue('entityid');
+		// $this->template->data['responseurl'] = FoodleUtils::getUrl() . 'response';
 		
 
-		$this->template->data['expired'] = $this->foodle->isExpired();
-		$this->template->data['expire'] = $this->foodle->expire;
-		$this->template->data['expiretext'] = $this->foodle->getExpireText();
+		// $this->template->data['expired'] = $this->foodle->isExpired();
+		// $this->template->data['expire'] = $this->foodle->expire;
+		// $this->template->data['expiretext'] = $this->foodle->getExpireText();
 		
-		$this->template->data['maxcol'] = $this->foodle->maxcolumn;
-		$this->template->data['maxnum'] = $this->foodle->maxentries;
-		$this->template->data['used'] = $this->foodle->countResponses();
+		// $this->template->data['maxcol'] = $this->foodle->maxcolumn;
+		// $this->template->data['maxnum'] = $this->foodle->maxentries;
+		// $this->template->data['used'] = $this->foodle->countResponses();
 		
 				
 		$this->template->data['authenticated'] = $this->auth->isAuth();
 		$this->template->data['loginurl'] = $this->auth->getLoginURL();
 		$this->template->data['logouturl'] = $this->auth->getLogoutURL('/');
 		
-		$isAdmin = ($this->user->userid == $this->foodle->owner) || ($this->user->isAdmin());
+		// $isAdmin = ($this->user->userid == $this->foodle->owner) || ($this->user->isAdmin());
 		
 
-		$this->template->data['ownerid'] = $this->foodle->owner;
-		$this->template->data['showsharing'] = $isAdmin;
+		// $this->template->data['ownerid'] = $this->foodle->owner;
+		// $this->template->data['showsharing'] = $isAdmin;
 				
-		if (isset($_REQUEST['debugtab']) ) {
-			$this->template->data['showdebug'] = TRUE;
-		}
-		$this->template->data['showsupport'] = TRUE;
-		$this->template->data['showdelete'] = $isAdmin;
-		$this->template->data['showcontacts'] = $this->auth->isAuth();
+		// if (isset($_REQUEST['debugtab']) ) {
+		// 	$this->template->data['showdebug'] = TRUE;
+		// }
+		// $this->template->data['showsupport'] = TRUE;
+		// $this->template->data['showdelete'] = $isAdmin;
+		// $this->template->data['showcontacts'] = $this->auth->isAuth();
 		
-		$this->template->data['responsetype'] = $this->foodle->responseType();
+		// $this->template->data['responsetype'] = $this->foodle->responseType();
 
-		$this->template->data['customDistribute'] = array();
-		$this->template->data['customDistribute'][] = new EmbedDistribute($this->foodle, $this->template);
-		if ($this->user->realm === 'uninett.no') {
-			$this->template->data['customDistribute'][] = new UNINETTDistribute($this->foodle, $this->template);			
-		}
-		if ($this->user->userid === 'andreas@rnd.feide.no') {
-			$this->template->data['customDistribute'][] = new UNINETTDistribute($this->foodle, $this->template);			
-		}
+		// $this->template->data['customDistribute'] = array();
+		// $this->template->data['customDistribute'][] = new EmbedDistribute($this->foodle, $this->template);
+		// if ($this->user->realm === 'uninett.no') {
+		// 	$this->template->data['customDistribute'][] = new UNINETTDistribute($this->foodle, $this->template);			
+		// }
+		// if ($this->user->userid === 'andreas@rnd.feide.no') {
+		// 	$this->template->data['customDistribute'][] = new UNINETTDistribute($this->foodle, $this->template);			
+		// }
 
 			
-		$this->template->data['showedit'] = $isAdmin;
-		$this->template->data['showprofile'] = $this->user->loadedFromDB;
+		// $this->template->data['showedit'] = $isAdmin;
+		// $this->template->data['showprofile'] = $this->user->loadedFromDB;
 		
-		if (!empty($this->foodle->datetime)) {
-			$this->template->data['datetimetext'] = $this->foodle->datetimeText($this->timezone->getTimeZone());
-		}
+		// if (!empty($this->foodle->datetime)) {
+		// 	$this->template->data['datetimetext'] = $this->foodle->datetimeText($this->timezone->getTimeZone());
+		// }
 		
-		$this->template->data['showconfirmcolumn'] = $this->foodle->showConfirmColumn();
-		$this->template->data['showfixtimeslow'] = $this->foodle->showFixTimeslot() && $isAdmin;
-		$this->template->data['allowChangeColumn'] = $this->foodle->allowChangeColumn();
+		// $this->template->data['showconfirmcolumn'] = $this->foodle->showConfirmColumn();
+		// $this->template->data['showfixtimeslow'] = $this->foodle->showFixTimeslot() && $isAdmin;
+		// $this->template->data['allowChangeColumn'] = $this->foodle->allowChangeColumn();
 		
 		
-		$this->template->data['debugUser'] = $this->user->debug();
-		$this->template->data['debugFoodle'] = $this->foodle->debug();
-		$this->template->data['debugCalendar'] = $this->user->debugCalendar();
+		// $this->template->data['debugUser'] = $this->user->debug();
+		// $this->template->data['debugFoodle'] = $this->foodle->debug();
+		// $this->template->data['debugCalendar'] = $this->user->debugCalendar();
 		
 		$this->template->data['url'] = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier;
 

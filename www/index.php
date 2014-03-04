@@ -59,11 +59,17 @@ try {
 			$action2 = array_shift($parameters);
 			
 			switch($action2) {
-				case 'contacts': 
-					$api = new API_Contacts($config, $parameters);
+
+				case 'user': 
+					$api = new API_User($config, $parameters);
 					$api->show();
 					break;
-					
+
+				case 'discojuice': 
+					$api = new API_DiscoJuice($config, $parameters);
+					$api->show();
+					break;
+
 				case 'foodlelist': 
 					$api = new API_Foodlelist($config, $parameters);
 					$api->show();
@@ -79,16 +85,17 @@ try {
 					$api->show();
 					break;
 						
-				case 'foodle': 
+				case 'f': 
 					$api = new API_Foodle($config, $parameters);
 					$api->show();
 					break;
-					
-				case 'invite': 
-					$api = new API_Invite($config, $parameters);
+
+				case 'foodle': 
+					$api = new API_FoodleAuthenticated($config, $parameters);
 					$api->show();
 					break;
 
+					
 				case 'idplist': 
 					$api = new API_IdPList($config, $parameters);
 					$api->show();
@@ -99,33 +106,10 @@ try {
 					$api->show();
 					break;
 
-				case 'profile-calendars':
-					$api = new API_ProfileCalendars($config, $parameters);
-					$api->show();
-					break;
-
-					
-				case 'upload':
-					$api = new API_Upload($config, $parameters);
-					$api->show();
-					break;
-
-				case 'download':
-					$api = new API_Download($config, $parameters);
-					$api->show();
-					break;
-
-				case 'groups':
-					$api = new API_Groups($config, $parameters);
-					$api->show();
-					break;
-
-
 			}
 			break;
-			
-			
-			
+
+
 			
 	
 		case 'embed':
@@ -177,24 +161,7 @@ try {
 			$page->show();
 			break;
 			
-			
-		case 'group':
-			$page = new Pages_PageGroup($config, $parameters);
-			$page->show();
-			break;
-			
 
-			
-			
-		case 'groups':
-			$page = new Pages_PageContacts($config, $parameters);
-			$page->show();
-			break;
-			
-		case 'group-invite':
-			$page = new Pages_PageGroupInvite($config, $parameters);
-			$page->show();
-			break;
 
 		case 'photo':
 			$page = new Pages_Photo($config, $parameters);
@@ -315,7 +282,7 @@ try {
 		// Redirecting user if using old 
 		case 'favicon.ico':
 			header('Content-Type: image/x-icon');
-			include('res/favicon.ico');
+			include('res/uninett-theme/ico/favicon.ico');
 			break;
 
 		

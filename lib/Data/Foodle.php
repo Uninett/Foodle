@@ -4,32 +4,41 @@
  * This class represents a Foodle
  *
 mysql> show columns from def;
-+----------+--------------+------+-----+-------------------+-------+
-| Field    | Type         | Null | Key | Default           | Extra |
-+----------+--------------+------+-----+-------------------+-------+
-| id       | varchar(100) | NO   | PRI | NULL              |       |
-| name     | tinytext     | YES  |     | NULL              |       |
-| descr    | text         | YES  |     | NULL              |       |
-| columns  | text         | YES  |     | NULL              |       |
-| owner    | text         | YES  |     | NULL              |       |
-| created  | timestamp    | NO   |     | CURRENT_TIMESTAMP |       |
-| updated  | timestamp    | YES  |     | NULL              |       |
-| expire   | datetime     | YES  |     | NULL              |       |
-| maxdef   | text         | YES  |     | NULL              |       |
-| anon     | tinytext     | YES  |     | NULL              |       |
-| timezone | text         | YES  |     | NULL              |       |
-+----------+--------------+------+-----+-------------------+-------+
-11 rows in set (0.00 sec)
++--------------+--------------+------+-----+-------------------+-------+
+| Field        | Type         | Null | Key | Default           | Extra |
++--------------+--------------+------+-----+-------------------+-------+
+| id           | varchar(100) | NO   | PRI | NULL              |       |
+| name         | tinytext     | YES  |     | NULL              |       |
+| descr        | text         | YES  |     | NULL              |       |
+| columns      | text         | YES  |     | NULL              |       |
+| owner        | text         | YES  |     | NULL              |       |
+| created      | timestamp    | NO   |     | CURRENT_TIMESTAMP |       |
+| updated      | timestamp    | YES  |     | NULL              |       |
+| expire       | datetime     | YES  |     | NULL              |       |
+| maxdef       | text         | YES  |     | NULL              |       |
+| anon         | tinytext     | YES  |     | NULL              |       |
+| timezone     | text         | YES  |     | NULL              |       |
+| columntype   | tinytext     | YES  |     | NULL              |       |
+| responsetype | tinytext     | YES  |     | NULL              |       |
+| extrafields  | text         | YES  |     | NULL              |       |
+| datetime     | text         | YES  |     | NULL              |       |
+| groupid      | int(11)      | YES  |     | NULL              |       |
+| groupid2     | text         | YES  |     | NULL              |       |
+| location     | text         | YES  |     | NULL              |       |
+| restrictions | text         | YES  |     | NULL              |       |
++--------------+--------------+------+-----+-------------------+-------+
+19 rows in set (0.00 sec)
 
 mysql> show columns from discussion;
 +----------+--------------+------+-----+-------------------+----------------+
 | Field    | Type         | Null | Key | Default           | Extra          |
 +----------+--------------+------+-----+-------------------+----------------+
-| id       | int(11)      | NO   | PRI | NULL              | auto_increment | 
-| foodleid | varchar(100) | NO   |     |                   |                | 
-| username | tinytext     | YES  |     | NULL              |                | 
-| message  | text         | YES  |     | NULL              |                | 
-| created  | timestamp    | NO   |     | CURRENT_TIMESTAMP |                | 
+| id       | int(11)      | NO   | PRI | NULL              | auto_increment |
+| foodleid | varchar(100) | NO   |     | NULL              |                |
+| username | tinytext     | YES  |     | NULL              |                |
+| message  | text         | YES  |     | NULL              |                |
+| created  | timestamp    | NO   |     | CURRENT_TIMESTAMP |                |
+| userid   | tinytext     | YES  |     | NULL              |                |
 +----------+--------------+------+-----+-------------------+----------------+
 5 rows in set (0.00 sec)
  *
@@ -41,8 +50,12 @@ class Data_Foodle {
 	public $name;
 	public $descr;
 	
+	public $location;
+	
 	public $columntype;
 	public $responsetype = 'default';
+
+	public $restrictions = null;
 	
 	public $columns;
 	
@@ -725,7 +738,15 @@ class Data_Foodle {
 	// Return the number of columns...
 	public function getNofColumns($col = NULL) {
 		if ($col === NULL) $col = $this->columns;
+
+		// header('Content-type: text/plain');
+		// print_r($this); exit;
 		
+		if (isset($this->columntype) && $this->columntype === 'dates' && $this->columns && isset($this->columns['dates'])) {
+			// echo "only date new style";
+			return count($col['dates']) * count($col['timeslots']);
+		}
+
 		$no = 0;
 		foreach($col AS $c) {
 			if (isset($c['children'])) {
@@ -969,6 +990,97 @@ class Data_Foodle {
 		$this->datetime = $this->getDateTimeFromPost();
 	}
 
+	public function updateFromPostAPI(Data_User $user, $object) {
+
+		if (empty($object['title'])) throw new Exception('You did not type in a name for the foodle.');
+		if (empty($object['coldef'])) throw new Exception('Did not get column definition.');
+
+		if (!empty($object['identifier'])) {
+			$this->identifier = $object['identifier'];
+		}
+
+		$this->name = strip_tags($object['title']);
+		$this->descr = isset($object['descr']) ? $object['descr'] : '';
+		$this->descr = preg_replace('/\s(http[^ ]*?)\s/', '[\1](\1)', $this->descr);
+		$this->descr = preg_replace('/<(http[^>]*)>/', '[\1](\1)', $this->descr);
+		// $this->descr = strip_tags($this->descr, '<h1><h2><h3><h4><h5><h6><p><a><strong><em><ul><ol><li><dd><dt><dl><hr><img><pre><code>');
+		$this->descr = strip_tags($this->descr);
+
+		if(!empty($object['maxentries']) && is_numeric($object['maxentries'])) {
+			$this->maxentries = strip_tags($object['maxentries']);
+			$this->maxcolumn = strip_tags($object['maxentriescol']);
+		} else {
+			$this->maxentries = NULL;
+			$this->maxcolumn = NULL;
+		}
+		
+		if (!empty($object['restrictions'])) {
+			$this->restrictions = $object['restrictions'];
+		} else {
+			$this->restrictions = null;
+		}
+
+		
+		if (array_key_exists('allowanonymous', $object) && $object['allowanonymous']) {
+			$this->allowanonymous = TRUE;
+		} else {
+			$this->allowanonymous = FALSE;
+		}
+			
+		if (!empty($object['timezone'])) {
+			$this->timezone = $object['timezone'];			
+		}
+
+		if (!empty($object['columntype'])) {
+			$this->columntype = $object['columntype'];
+		}
+		if (!empty($object['responsetype'])) {
+			$this->responsetype = $object['responsetype'];
+		}
+		
+		if (!empty($object['groups'])) {
+			if ($object['groups'] == '-1') {
+				$this->groupid = NULL;
+			} else {
+				$this->groupid = $object['groups'];
+			}
+		}
+
+		if (!empty($object['location'])) {
+			$this->location = $object['location'];
+		} else {
+			$this->location = null;
+		}
+		
+		// $this->extrafields = array();
+		// if (!empty($object['extrafields_photo'])) $this->extrafields[] = 'photo';
+		// if (!empty($object['extrafields_org'])) $this->extrafields[] = 'org';
+		// if (!empty($object['extrafields_timezone'])) $this->extrafields[] = 'timezone';
+		// if (!empty($object['extrafields_location'])) $this->extrafields[] = 'location';
+
+
+		if (!empty($object['expire'])) {
+			$this->expire = intval($object['expire'], 10);
+		} else {
+			$this->expire = null;
+		}
+		
+	
+		if (!empty($object['datetime'])) {
+			$this->datetime = $object['datetime'];
+		} else {
+			$this->datetime = null;
+		}
+
+		$this->owner = $user->userid;
+
+		$this->columns = $object['coldef'];
+		
+		if (empty($this->identifier)) $this->setIdentifier(TRUE);
+		
+		#echo '<pre>'; print_r($this); print_r($_REQUEST); echo '</pre>'; exit;
+
+	}
 	
 	public function updateFromPost(Data_User $user) {
 
@@ -1024,7 +1136,7 @@ class Data_Foodle {
 		if (!empty($_REQUEST['extrafields_location'])) $this->extrafields[] = 'location';
 
 		
-#				echo '<pre>'; print_r($_REQUEST);  print_r($this); exit;
+		# echo '<pre>'; print_r($_REQUEST);  print_r($this); exit;
 		
 		$this->expire = strip_tags($_REQUEST['expire']);
 	
@@ -1128,6 +1240,42 @@ class Data_Foodle {
 	}
 	
 	
+	public function getView() {
+
+		$obj = array();
+
+		$props = array(
+			'identifier',
+			'name',
+			'descr',
+			'location',
+			'columntype',
+			'responsetype',
+			'restrictions',
+			'columns',
+			'expire',
+			'owner',
+			'allowanonymous',
+			'datetime',
+			'timezone',
+			'loadedFromDB',
+			'created',
+			'updated'
+		);
+
+		foreach($props AS $prop) {
+			if (isset($this->{$prop})) {
+				$obj[$prop] = $this->{$prop};
+			}
+		}
+
+		$obj['descrHTML'] = $this->getDescription();
+
+		return $obj;
+
+
+
+	}
 	
 
 

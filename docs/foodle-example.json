@@ -1,0 +1,28 @@
+{
+  "identifier": "Varfest-52fc9",
+  "name": "Vårfest",
+  "descr": "Vårfest med masse god mat.",
+  "columntype": "text",
+  "responsetype": "default",
+  "columns": [
+    {
+      "title": "Jeg deltar"
+    }
+  ],
+  "maxentries": null,
+  "maxcolumn": null,
+  "expire": null,
+  "owner": "andreas@uninett.no",
+  "allowanonymous": false,
+  "datetime": {
+    "datefrom": "2014-02-22",
+    "timefrom": "08:00",
+    "timeto": "16:00"
+  },
+  "extrafields": null,
+  "timezone": "Europe/Oslo",
+  "loadedFromDB": true,
+  "groupid": null,
+  "created": "1392284305",
+  "updated": null
+}
