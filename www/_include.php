@@ -26,8 +26,8 @@ date_default_timezone_set('Europe/Berlin');
 /*
  * Loading Foodle libraries
  */
-#require_once('../lib/Foodle.class.php');
 
+#
 require_once($THISPATH . 'lib/TimeZone.php');
 
 require_once($THISPATH . 'lib/FoodleAuth.php');
@@ -53,7 +53,6 @@ require_once($THISPATH . 'lib/Calendar/CalendarUser.php');
 
 // Data objects
 require_once($THISPATH . 'lib/Data/User.php');
-// require_once($THISPATH . 'lib/Data/Contacts.php');
 require_once($THISPATH . 'lib/Data/Foodle.php');
 
 require_once($THISPATH . 'lib/Data/FoodleResponse.php');
@@ -117,8 +116,6 @@ require_once($THISPATH . 'lib/Pages/PageEdit.php');
 require_once($THISPATH . 'lib/Pages/PageDelete.php');
 require_once($THISPATH . 'lib/Pages/PagePreview.php');
 
-require_once($THISPATH . 'lib/getsatisfaction/FastPass.php');
-//require_once($THISPATH . 'lib/getsatisfaction/OAuth.php');
 
 // Loading icalendar scripts..
 require_once($THISPATH . 'lib/cal/Calendar.class.php');
