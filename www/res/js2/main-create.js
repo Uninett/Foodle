@@ -5,7 +5,9 @@ define(function(require, exports, module) {
 		$ = jQuery = require('jquery'),
 
 		API = require('api/API').API,
-		EditFoodleController = require('controllers/EditFoodleController')
+		EditFoodleController = require('controllers/EditFoodleController'),
+
+		DJ = require('misc/discojuice')
 		;
 
 
