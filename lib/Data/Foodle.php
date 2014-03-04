@@ -698,7 +698,7 @@ class Data_Foodle {
 				$from = $this->toEpoch($col[0]);
 				$to = $this->toEpoch($col[1]);
 				$dates[] = array($from, $to );
-				error_log('Translating ' . var_export($col, true) . ' to [' . $from . ',' . $to . ']' );
+				// error_log('Translating ' . var_export($col, true) . ' to [' . $from . ',' . $to . ']' );
 			} else {
 				$from = (int)$this->toEpoch($col);
 				if (!empty($from)) {

@@ -5,7 +5,6 @@ require_once($THISPATH . 'lib/Timer.php');
 
 
 Timer::start();
-
 Timer::tick('started');
 
 require_once('_include.php');
@@ -21,7 +20,7 @@ $path = substr($fullURI, strlen($script) + 1, strlen($fullURI) - strlen($script)
 $parameters = explode('/', $path);
 
 
-#echo '<pre>'; print_r($parameters); exit;
+// echo '<pre>'; print_r($parameters); echo '</pre>'; exit;
 
 try {
 	
@@ -33,7 +32,12 @@ try {
 			$page = new Pages_PageFront($config, $parameters);
 			$page->show();
 			break;
-			
+		
+		case 'test2': 
+			echo "poot";
+			echo "req: " . Data_User::requireValidUserid('sdjfksjdhfksjdhf@http://idp-ftest.com/sldfjlksdfj/sdlfksdkfj=');
+
+			break;
 		
 		case 'calendar':
 			if (count($parameters) !== 3) throw new Exception('Missing parameter');
@@ -108,6 +112,11 @@ try {
 
 				case 'download':
 					$api = new API_Download($config, $parameters);
+					$api->show();
+					break;
+
+				case 'groups':
+					$api = new API_Groups($config, $parameters);
 					$api->show();
 					break;
 

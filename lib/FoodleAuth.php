@@ -43,6 +43,7 @@ class FoodleAuth {
 		
 			$this->isAuth = TRUE;
 			$attributes = $this->as->getAttributes();
+			$attributes['idp'] = array($this->as->getAuthData('saml:sp:IdP'));
 			
 			$this->user = new Data_User($this->db);
 			$this->user->anonymous = FALSE;
@@ -150,7 +151,11 @@ class FoodleAuth {
 
 		/* Check if valid local session exists.. */
 		if ($this->as->isAuthenticated() ) {
-			return $this->as->getAttributes();
+
+			$attrs = $this->as->getAttributes();
+			$attrs['idp'] = array($this->as->getAuthData('saml:sp:IdP'));
+
+			return $attrs;
 		}
 		return FALSE;
 	}
@@ -385,8 +390,11 @@ class FoodleAuth {
 		if (array_key_exists('urn:oid:2.16.756.1.2.5.1.1.1', $attributes)) 
 			return strtolower($attributes['urn:oid:2.16.756.1.2.5.1.1.1'][0]);			
 			
-		if (array_key_exists('eduPersonTargetedID', $attributes)) 
-			return strtolower($attributes['eduPersonTargetedID'][0]);
+		if (array_key_exists('eduPersonTargetedID', $attributes)) {
+			return md5($attributes['eduPersonTargetedID'][0]) . '@' . $attributes['idp'][0];
+
+		}
+			
 		if (array_key_exists('twitter_at_screen_name', $attributes))
 			return strtolower($attributes['twitter_at_screen_name'][0]);
 		if (array_key_exists('mail', $attributes)) 
