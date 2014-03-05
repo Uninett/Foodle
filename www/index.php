@@ -140,10 +140,7 @@ try {
 			$page->show();
 			break;
 			
-		case 'profile-calendars':
-			$page = new Pages_PageProfileCalendars($config, $parameters);
-			$page->show();
-			break;
+
 
 		case 'attributes':
 			$page = new Pages_PageAttributes($config, $parameters);

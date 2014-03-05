@@ -97,7 +97,7 @@ require_once($THISPATH . 'lib/Pages/PageFront.php');
 // require_once($THISPATH . 'lib/Pages/PageGroup.php');
 // require_once($THISPATH . 'lib/Pages/PageGroupInvite.php');
 require_once($THISPATH . 'lib/Pages/PageProfile.php');
-require_once($THISPATH . 'lib/Pages/PageProfileCalendars.php');
+// require_once($THISPATH . 'lib/Pages/PageProfileCalendars.php');
 require_once($THISPATH . 'lib/Pages/PageAttributes.php');
 require_once($THISPATH . 'lib/Pages/PageUser.php');
 require_once($THISPATH . 'lib/Pages/PageSupport.php');
