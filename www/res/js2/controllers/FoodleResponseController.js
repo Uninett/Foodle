@@ -24,6 +24,19 @@ define(function(require, exports) {
 	var t = require('lib/text!templates/foodleresponse.html');
 	var template = hb.compile(t);
 
+
+
+	/**
+	 * The FoodleResponseController is the main controller of the /foodle/identifier response page. 
+	 * 	It invokes subcontrollers for parts of the page
+	 * 	It requires the be loaded with a Foodle, but it is optional to provide an authenticated user.
+	 * 
+	 * @param  {[type]} api
+	 * @param  {[type]} foodle
+	 * @param  {[type]} user 	(May be null if user is not authenticated yet)
+	 * @param  {[type]} el 		
+	 * @return {[type]}
+	 */
 	var FoodleResponseController = Class.extend({
 		"init": function(api, foodle, user, el) {
 
@@ -70,7 +83,7 @@ define(function(require, exports) {
 			this.el.on('click', '#enableComments', function(e) {
 				e.stopPropagation();
 
-				console.log("CLICK on enableComments");
+				// console.log("CLICK on enableComments");
 				var enableComments = $('#enableComments').prop('checked');
 				if (enableComments) {
 					$('.noterow').show();
@@ -82,16 +95,12 @@ define(function(require, exports) {
 
 			this.el.on('change', '#timezoneselect', function(e) {
 				e.stopPropagation(); e.preventDefault();
-
-				// console.log("CHANGE DETECTED::: ", $('#timezoneselect').val() );
-
 				that.setTimezone();
-
 			});
 
 			this.el.on('click', '#submitComment', function(e) {
 				e.stopPropagation(); e.preventDefault();
-				console.error('Add comment');
+				// console.error('Add comment');
 
 				var comment = $('#commentText').val();
 				$('#commentText').val('');
@@ -99,7 +108,7 @@ define(function(require, exports) {
 				if (comment === '') return;
 
 				that.api.addComment(that.foodle, comment, function(res) {
-					console.log("Successfully saved comment")
+					// console.log("Successfully saved comment")
 					that.loadDiscussion();
 				});
 
@@ -108,7 +117,7 @@ define(function(require, exports) {
 
 			this.el.on('click', '#actDelete', function(e) {
 				e.stopPropagation(); e.preventDefault();
-				console.error('Delete');
+				// console.error('Delete');
 
 
 
@@ -120,7 +129,7 @@ define(function(require, exports) {
 					'keyboard': false
 				});
 				$('#modalDelete').on('click', '.actContinue', function() {
-					console.log('REDIRECT TO ');
+					// console.log('REDIRECT TO ');
 
 					that.api.deleteFoodle(that.foodle.identifier, function() {
 						// setTimeout(function() {
@@ -142,13 +151,22 @@ define(function(require, exports) {
 
 		"onLoadComplete": function() {
 
+			var that = this;
 			if (this.loaded) return;
 			this.loaded = true;
 
 
 			this.draw();
+
+		
 			this.myresponse = new MyResponseController(this.api, this.foodle, this.user, null, this.el.find("#mytablebody"));
-			this.myresponse.on('response', $.proxy(this.submitResponse, this));
+			this.myresponse.on('response', $.proxy(this.submitResponse, this));		
+			this.myresponse.on('register', function(user) {
+				console.error('FoodleResponseController is now registerig user as authenticated', user);
+				that.user = user;
+				that.foodle.setUser(user.userid);
+			});				
+
 
 			$('#responseTable').hide();
 			$('#commentPane').hide();
@@ -161,7 +179,6 @@ define(function(require, exports) {
 
 
 			this.setupTimezoneController();
-
 			this.loadDiscussion();
 		},
 
@@ -189,8 +206,14 @@ define(function(require, exports) {
 				that.onLoadComplete();
 				that.drawResponses();
 
-				var mr = that.foodle.getMyResponse();
-				that.myresponse.setMyResponse(mr);
+				// if (this.user) {
+					var mr = that.foodle.getMyResponse();
+
+					console.log("We are not completed loading responses. This is myresponse:", mr);
+
+					that.myresponse.setMyResponse(mr);
+
+				// }
 				
 			});
 		},
@@ -253,7 +276,7 @@ define(function(require, exports) {
 				row.append('<td>' + ustr + '</td>');
 
 
-				console.log("Processing response ", r.response);
+				// console.log("Processing response ", r.response);
 				for(var j = 0; j < r.response.data.length; j++) {
 					row.append(this.getResponseCell(r.getResponse(j)));
 				}
@@ -289,6 +312,9 @@ define(function(require, exports) {
 		"drawDiscussion": function() {
 			// console.log("drawDiscussion");
 
+			if (!this.user) {
+				$('#submitComment').addClass('disabled');
+			}
 
 			var c = $('<div class="list-group"></div>');
 
@@ -372,7 +398,7 @@ define(function(require, exports) {
 				
 			} else {
 				$('#ownerbar').hide();
-				console.log("NOT OWNER");
+				// console.log("NOT OWNER");
 			}
 
 			var tz = this.getDefaultTimezone();
@@ -406,7 +432,11 @@ define(function(require, exports) {
 
 			this.setCreated();
 
-			this.upcomingcontroller = new UpcomingListController(this.api, $("#upcoming"), 6, 'slim', this.foodle);
+
+			if (this.user) {
+				this.upcomingcontroller = new UpcomingListController(this.api, $("#upcoming"), 6, 'slim', this.foodle);	
+			}
+			
 
 
 			var defaultUserTimezone = this.getDefaultTimezone();
@@ -421,13 +451,13 @@ define(function(require, exports) {
 		},
 
 		"getDefaultTimezone": function() {
-			var defaultUserTimezone = null;
-			if (this.user.timezone) {
-				if (this.timezoneOK(this.user.timezone)) {
-					defaultUserTimezone = this.user.timezone;
-				}
+
+			if (this.user && this.user.timezone && this.timezoneOK(this.user.timezone)) {
+				return this.user.timezone;
+			} else if (this.foodle && this.foodle.timezone && this.timezoneOK(this.foodle.timezone)) {
+				return this.foodle.timezone;
 			}
-			return defaultUserTimezone;
+			return null;
 		},
 
 
@@ -442,9 +472,12 @@ define(function(require, exports) {
 
 			var tz = $('#timezoneselect').val();
 			if (this.timezoneOK(tz)) {
-				console.log("Set new timezone", tz);
+				// console.log("Set new timezone", tz);
 
-				this.api.setTimezone(tz);
+				if (this.user) {
+					this.api.setTimezone(tz);					
+				}
+
 
 				this.th.setTimezone(tz);
 				this.mth.setTimezone(tz);
@@ -467,8 +500,8 @@ define(function(require, exports) {
 
 
 
-			console.log("TIMEZONE");
-			console.log(this.user);
+			// console.log("TIMEZONE");
+			// console.log(this.user);
 
 			s.typeahead({
 				"source": window.moment_zones
@@ -490,12 +523,12 @@ define(function(require, exports) {
 
 
 
-			if (this.timezoneOK(tz) && this.timezoneOK(this.user.timezone) && this.user.timezone !== tz) {
+			if (this.timezoneOK(tz) && this.user && this.timezoneOK(this.user.timezone) && this.user.timezone !== tz) {
 				alternativeList.append('<li class="setTimezoneLink uninett-ul-li" data-timezone="' + tz + '"><a href="#">' + tz + '</a></li>');
 				alternativeList.append('<li class="setTimezoneLink uninett-ul-li" data-timezone="' + this.user.timezone + '"><a href="#">' + this.user.timezone + '</a></li>');
 				c.append(alternativeList);
 			} else {
-				console.error("NOT READY TO LIST alternativeList", this.timezoneOK(tz), this.timezoneOK(this.user.timezone), this.user.timezone, tz);
+				// console.error("NOT READY TO LIST alternativeList", this.timezoneOK(tz), this.timezoneOK(this.user.timezone), this.user.timezone, tz);
 			}
 
 			alternativeList.on('click', '.setTimezoneLink', function(e) {
@@ -657,11 +690,11 @@ define(function(require, exports) {
 			var container = $('#sectRestrictions');
 			var x;
 
-			console.log("Set restrictions on ", this.foodle);
+			// console.log("Set restrictions on ", this.foodle);
 
 			if (r.rows) {
 				x = this.foodle.getRowCount(r.rows);
-				console.log("Row count", x);
+				// console.log("Row count", x);
 				container.append('<p>' + x.left + ' of ' + r.rows + ' responses left.</p>');
 
 				if (x.locked) {
@@ -671,7 +704,7 @@ define(function(require, exports) {
 
 			if (r.col) {
 				x = this.foodle.getColCount(r.col.col, r.col.limit);
-				console.log("Col count", x);
+				// console.log("Col count", x);
 				container.append('<p>' + x.left + ' of ' + r.col.limit + ' spaces left.</p>');
 
 				if (x.locked) {

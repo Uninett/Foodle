@@ -39,6 +39,10 @@ abstract class API_Authenticated extends API_API {
 			$this->user = $this->auth->getUser();
 		}
 
+		if ($this->auth->checkAnonymousSession()) {
+			$this->user = $this->auth->getUser();	
+		}
+
 	}
 	
 	// Authenticate the user

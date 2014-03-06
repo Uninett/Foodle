@@ -152,13 +152,13 @@ define(function(require, exports) {
 				for (var j = 0; j < coldef.timeslots.length; j++) {
 
 					if (doTimezone) {
-						console.log("  › TIMEZONE › Perform translation from ", this.foodle.timezone, " to ", toTimezone);
+						// console.log("  › TIMEZONE › Perform translation from ", this.foodle.timezone, " to ", toTimezone);
 						xsfrom = moment.tz(coldef.dates[i] + ' ' + coldef.timeslots[j][0], this.foodle.timezone).tz(toTimezone);
 						xsto   = moment.tz(coldef.dates[i] + ' ' + coldef.timeslots[j][1], this.foodle.timezone).tz(toTimezone);
 
-						console.log("Convert " + coldef.dates[i] + ' ' + coldef.timeslots[j][0] + ' to ' + xsfrom.format('YYYY-MM-DD HH:mm'))
+						// console.log("Convert " + coldef.dates[i] + ' ' + coldef.timeslots[j][0] + ' to ' + xsfrom.format('YYYY-MM-DD HH:mm'))
 					} else {
-						console.log("  › TIMEZONE › DO NOT USE TIMEZONE");
+						// console.log("  › TIMEZONE › DO NOT USE TIMEZONE");
 						xsfrom = moment(coldef.dates[i] + ' ' + coldef.timeslots[j][0]);
 						xsto   = moment(coldef.dates[i] + ' ' + coldef.timeslots[j][1]);
 					}
@@ -175,7 +175,7 @@ define(function(require, exports) {
 		"interpretOldDateColumn": function(col, toTimezone) {
 			var dateColumns = [];
 
-			console.error('interpretOldDateColumn', col, toTimezone, this.foodle);
+			// console.error('interpretOldDateColumn', col, toTimezone, this.foodle);
 
 			var doTimezone = false;
 			if (this.foodle.timezone && toTimezone) doTimezone = true;
@@ -193,10 +193,10 @@ define(function(require, exports) {
 						strto = header + ' ' + itema[1];
 					}
 
-					console.error("Interpreting ...", strfrom, strto);
+					// console.error("Interpreting ...", strfrom, strto);
 
 					if (doTimezone) {
-						console.log("  › TIMEZONE › Perform translation from ", this.foodle.timezone, " to ", toTimezone);
+						// console.log("  › TIMEZONE › Perform translation from ", this.foodle.timezone, " to ", toTimezone);
 
 						xsfrom = moment.tz(strfrom, this.foodle.timezone).tz(toTimezone);
 						if (strto !== null) {
@@ -206,9 +206,9 @@ define(function(require, exports) {
 						}
 						
 
-						console.log("Convert " +strfrom + ' to ' + xsfrom.format('YYYY-MM-DD HH:mm'))
+						// console.log("Convert " +strfrom + ' to ' + xsfrom.format('YYYY-MM-DD HH:mm'))
 					} else {
-						console.log("  › TIMEZONE › DO NOT USE TIMEZONE");
+						// console.log("  › TIMEZONE › DO NOT USE TIMEZONE");
 						xsfrom = moment(strfrom);
 						if (strto !== null) {
 							xsto   = moment(strto);
@@ -229,7 +229,7 @@ define(function(require, exports) {
 		 */
 		"draw": function(tz) {
 
-			console.error('DRAW ', tz);
+			// console.error('DRAW ', tz);
 
 			var coldef;
 			if (this.foodle.columntype && this.foodle.columntype === 'dates' && !this.foodle.columns.hasOwnProperty('length')) {

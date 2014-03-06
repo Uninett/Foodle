@@ -13,6 +13,23 @@ class API_User extends API_Authenticated {
 
 		self::optionalAuth();
 
+		if (self::route('post', '^/api/user/register', &$parameters, &$object)) {
+
+			$name = filter_var($object['name'], FILTER_SANITIZE_SPECIAL_CHARS);
+			$email = filter_var($object['email'], FILTER_SANITIZE_EMAIL);
+
+			
+			$this->user = $this->auth->registerUser($name, $email);
+
+			$res = array('authenticated' => true);
+			$res['user'] = $this->user->getView();
+			$res['token'] = $this->user->getToken();
+
+			return $res;
+
+		}
+
+
 		if ($this->user === null) {
 			return array('authenticated' => false);
 		}
@@ -28,6 +45,10 @@ class API_User extends API_Authenticated {
 			return true;
 
 		}
+
+
+
+
 
 		$res = array('authenticated' => true);
 		$res['user'] = $this->user->getView();

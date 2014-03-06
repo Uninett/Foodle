@@ -20,6 +20,8 @@ class FoodleAuth {
 	public $disco, $entityid;
 	
 
+	protected $bootstrap = null;
+
 	function __construct($db) {
 		$this->db = $db;
 	
@@ -189,8 +191,34 @@ class FoodleAuth {
 		$this->as->requireAuth();
 
 	}
+
+	public function registerUser($name, $email) {
+
+		$sessid = SimpleSAML_Utilities::generateID();
+
+		$this->user = new Data_User($this->db);
+
+
+		setcookie('foodleSession', $sessid, time() + 60*60*24*90, '/');
+		$this->user->userid = (substr(sha1('sf65d4d5' . $sessid), 0, 10)); 
+		// this salt does NOT need to be secret.
+
+		setcookie('foodleEmail', $email, time() + 60*60*24*90, '/');
+		$this->user->email = $email;
+
 	
-	private function checkAnonymousSession() {
+		setcookie('foodleDisplayName', $name, time() + 60*60*24*90, '/');
+		$this->user->username = $name;
+
+
+		$this->bootstrap = $this->getBootstrap($sessid);
+		$this->sendEmail();
+
+		return $this->user;
+	
+	}
+	
+	public function checkAnonymousSession() {
 
 		$this->user = new Data_User($this->db);
 
@@ -212,33 +240,24 @@ class FoodleAuth {
 			$decode = base64_decode($_REQUEST['sessionBootstrap']);
 			$decodes = explode('|', $decode);
 			
-			setcookie('foodleSession', $decodes[0], time() + 60*60*24*90);
-			setcookie('foodleDisplayName', $decodes[1], time() + 60*60*24*90);
+			setcookie('foodleSession', $decodes[0], time() + 60*60*24*90, '/');
+			setcookie('foodleDisplayName', $decodes[1], time() + 60*60*24*90, '/');
 			
 			$this->user->userid = (substr(sha1('sf65d4d5' . $decodes[0]), 0, 10));
 			$this->user->username = ($decodes[1]);
 			if (count($decodes) > 2) {
-				setcookie('foodleEmail', $decodes[2], time() + 60*60*24*90);
+				setcookie('foodleEmail', $decodes[2], time() + 60*60*24*90, '/');
 				$this->user->email = ($decodes[2]);
 			}
 
 			
-		} elseif(!array_key_exists('foodleSession', $_COOKIE)) {
-			$sessid = SimpleSAML_Utilities::generateID();
-			setcookie('foodleSession', $sessid, time() + 60*60*24*90);
-			$this->user->userid = (substr(sha1('sf65d4d5' . $sessid), 0, 10));
+		} 
+
+		if (!array_key_exists('foodleSession', $_COOKIE)) {
+			return false;
 		}
 
-		if (!empty($_REQUEST['setEmail'])) {
-			setcookie('foodleEmail', $_REQUEST['setEmail'], time() + 60*60*24*90);
-			$this->user->email = ($_REQUEST['setEmail']);
-			$this->sendEmail();
-		}
 
-		if (array_key_exists('username', $_REQUEST)) {
-			setcookie('foodleDisplayName', $_REQUEST['username'], time() + 60*60*24*90);
-			$this->user->username = ($_REQUEST['username']);
-		}
 
 		return TRUE;
 		
@@ -262,9 +281,9 @@ class FoodleAuth {
 	
 	private function sendEmail() {
 		
-		$fromAddress = $this->config->getValue('fromAddress', 'no-reply@foodle.feide.no');
+		$fromAddress = $this->config->getValue('fromAddress', 'no-reply@foodle.org');
 		
-		$url =  FoodleUtils::getUrl() . '?sessionBootstrap=' . $this->getBootstrap();
+		$url =  FoodleUtils::getUrl() . '?sessionBootstrap=' . $this->bootstrap;
 		
 		$message = '<h2>Foodle</h2><p>It seems like you have been using Foodle for the first time. Welcome!
 			<p>You have been using Foodle as an anonymous user, and we send you this e-mail so that you can
@@ -286,21 +305,20 @@ class FoodleAuth {
 		
 	}
 	
-	private function getBootstrap() {
+	private function getBootstrap($sessid = null) {
 		
-		if (array_key_exists('foodleSession', $_COOKIE)) {
-			$str = $_COOKIE['foodleSession'];
-			
-			$displayName = $this->user->username;			
-			$str .= '|' . ($displayName ? $displayName : 'Unknown');
+		if ($sessid === null) return null;
 
-			$email = $this->user->email;
-			if ($email) $str .= '|' . $email;
-
-			return base64_encode($str);
-		}
+		$str = $sessid;
 		
-		return NULL;
+		$displayName = $this->user->username;			
+		$str .= '|' . ($displayName ? $displayName : 'Unknown');
+
+		$email = $this->user->email;
+		if ($email) $str .= '|' . $email;
+
+		return base64_encode($str);
+
 	}
 
 	

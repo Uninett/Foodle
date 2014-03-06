@@ -51,6 +51,8 @@ abstract class API_API {
 		$returnobj = array('status' => 'ok');
 
 	
+		header('Content-type: application/json; charset=utf-8');
+	
 		try {
 
 			$returnobj = $this->prepare();			
@@ -72,7 +74,7 @@ abstract class API_API {
 		}
 
 		
-		header('Content-type: application/json; charset=utf-8');
+		
 		
 		
 		// echo json_encode($returnobj, JSON_PRETTY_PRINT);

@@ -20,7 +20,8 @@ define(function(require, exports, module) {
 
 		$(document).ready(function() {
 
-			console.log("Received data", data);
+			// console.log("Received data", data);
+			DJ.load();		
 
 			if (data.authenticated) {
 
@@ -28,7 +29,7 @@ define(function(require, exports, module) {
 				
 				var frc = $("#foodleResponse");
 				var identifier = frc.data('foodleid');
-				console.log("Loaded with identifier", identifier);
+				// console.log("Loaded with identifier", identifier);
 
 				api.getFoodle(identifier, function(foodle) {
 					foodle.setUser(data.user.userid);
@@ -36,7 +37,25 @@ define(function(require, exports, module) {
 				});
 
 			} else {
-				DJ.load();				
+
+				var api = new API();
+
+				// api.createAnonymousSession('Andreas Anonymous', 'andreas@uninett.no', function(r) {
+				// 	console.log("Successfully registered", r);
+				// 	$.getJSON('/api/user', function(data) {
+				// 		console.log("Then what", data);
+				// 	});
+				// });
+
+				
+				var frc = $("#foodleResponse");
+				var identifier = frc.data('foodleid');
+				// console.log("Loaded with identifier", identifier);
+
+				api.getFoodle(identifier, function(foodle) {
+					// foodle.setUser(data.user.userid);
+					var cc = new FoodleResponseController(api, foodle, null, frc);
+				});
 			}
 
 

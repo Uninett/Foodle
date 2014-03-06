@@ -6,7 +6,7 @@ define(function(require) {
 		;
 
 
-	console.log("Loading DiscoJuice", DiscoJuice);
+	// console.log("Loading DiscoJuice", DiscoJuice);
 
 	var loaded = false;
 
@@ -20,7 +20,7 @@ define(function(require) {
 			$.getJSON('/api/discojuice', function(dj) {
 
 
-				console.log("Loaded DJ config", dj);
+				// console.log("Loaded DJ config", dj);
 
 				var djc = DiscoJuice.Hosted.getConfig(
 					dj.title, dj.entityid, dj.responseurl, dj.feeds, dj.returnurl

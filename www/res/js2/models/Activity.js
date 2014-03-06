@@ -6,7 +6,7 @@ define(function(require, exports) {
 
 	var Activity = Model.extend({
 		"show": function() {
-			console.log("SHOW");
+			// console.log("SHOW");
 		}
 	})
 

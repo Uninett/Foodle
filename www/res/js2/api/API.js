@@ -104,12 +104,15 @@ define(function(require, exports, module) {
 
 		"postData": function(url, object, callback) {
 
+
+			if(!this.token) throw new Error('UserToken was not set before API call was initiated at endpoint [' + endpoint + ']');
+
 			var data = JSON.stringify(object);
 			// data._userToken = this.token;
 
 			url += '?userToken=' + this.token;
 
-			console.log("About to post to this url: " + url);
+			// console.log("About to post to this url: " + url);
 
 			$.ajax({
 				type: "POST",
@@ -119,7 +122,7 @@ define(function(require, exports, module) {
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
 				success: function(data) {
-					console.log("Successfully posted data. Received back ", data);
+					// console.log("Successfully posted data. Received back ", data);
 					callback(data);
 				},
 				failure: function(errMsg) {
@@ -131,9 +134,11 @@ define(function(require, exports, module) {
 
 		"custom": function(url, method, callback) {
 
+			if(!this.token) throw new Error('UserToken was not set before API call was initiated at endpoint [' + endpoint + ']');
+
 			url += '?userToken=' + this.token;
 
-			console.log("About to post to this url: " + url);
+			// console.log("About to post to this url: " + url);
 
 			$.ajax({
 				type: method,
@@ -172,7 +177,9 @@ define(function(require, exports, module) {
 		"postResponse": function(response, callback) {
 			if (!response instanceof FoodleResponse) throw new {"message": "invalid FoodleResponse"};
 			var foodle = response.getFoodle();
-			this.postData('/api/foodle/' + foodle.identifier + '/myresponse', response.getView(), callback);
+			this.http('/api/foodle/' + foodle.identifier + '/myresponse', {
+				"data": response.getView()
+			}, callback);
 		},
 
 
@@ -181,15 +188,28 @@ define(function(require, exports, module) {
 		},
 
 		"getFoodle": function(id, callback) {
-			this.getData('/api/foodle/' + id, null, 'item', Foodle, callback);
+			this.http('/api/f/' + id, {
+				"constructor": Foodle,
+				"auth": false
+			}, callback);
 		},
 
 		"getFoodleResponses": function(id, callback) {
-			this.getData('/api/foodle/' + id + '/responders', null, 'object', FoodleResponse, callback);
+			this.http('/api/f/' + id + '/responders', {
+				"constructor": FoodleResponse,
+				"wrapper": "object",
+				"auth": false
+			}, callback);
+			// this.getData('/api/foodle/' + id + '/responders', null, 'object', FoodleResponse, callback);
 		},
 
 		"getFoodleDiscussion": function(id, callback) {
-			this.getData('/api/foodle/' + id + '/discussion', null, 'array', FoodleDiscussion, callback);
+			this.http('/api/f/' + id + '/discussion', {
+				"constructor": FoodleDiscussion,
+				"wrapper": "list",
+				"auth": false
+			}, callback);
+			// this.getData('/api/foodle/' + id + '/discussion', null, 'array', FoodleDiscussion, callback);
 		},
 
 		"setTimezone": function(tz, callback) {
@@ -203,11 +223,113 @@ define(function(require, exports, module) {
 
 		"getEvents": function(limit, callback) {
 			this.getData('/api/events', {"limit": limit || 0}, 'array', Event, callback);	
+		},
+
+
+
+
+		"postData": function(url, object, callback) {
+			console.error('Using deprecated api.postData() function to call ' + url);
+			return this.http(url, {data: object}, callback);
+		},
+
+
+		"http": function(url, opts, callback) {
+
+
+			var defaultSuccess = function(data) {
+				callback(data);
+			}
+			var defaultFailure = function(errMsg) {
+				alert(errMsg);
+			}
+
+			var ajaxConfig = {
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: defaultSuccess,
+				failure: defaultFailure
+			}
+
+			var defaultOptions = {
+				"method": "get",
+				"data": null,
+				"auth": true,
+				"constructor": null,
+				"wrapper": "item"
+			}
+
+			var options = $.extend({}, defaultOptions, opts);
+
+
+			ajaxConfig.url = url;
+			ajaxConfig.method = options.method;
+
+
+			if (options.auth) {
+				if(!this.token) throw new Error('UserToken was not set before API call was initiated at endpoint [' + url + ']');
+				url += '?userToken=' + this.token;
+			}
+
+
+			if (options.data !== null) {
+				ajaxConfig.processData = false;
+				ajaxConfig.data = JSON.stringify(options.data);
+				ajaxConfig.method = "post";
+			}
+
+			if (options.constructor !== null) {
+
+				if (typeof options.constructor !== 'function') throw "options.constructor is not a function";
+				var wf = null;
+
+				if (options.wrapper === 'item') {
+					wf = function(data) {
+						var processed = new options.constructor(data);
+						if (callback && typeof callback === 'function') callback(processed);				
+					};
+				} else if (options.wrapper === 'list') {
+
+					wf = function(data) {
+						var processed = {};
+						for(var i = 0; i < data.length; i++) {
+							processed.push(new options.constructor(data[i]));
+						}
+						if (callback && typeof callback === 'function') callback(processed);						
+					};
+
+				} else if (options.wrapper === 'object') {
+					wf = function(data) {
+						var processed = [];
+						for(i in data) {
+							processed[i] = new options.constructor(data[i]);
+						}
+						if (callback && typeof callback === 'function') callback(processed);					
+					};
+				}
+
+				ajaxConfig.success = wf;
+			}
+
+			
+			// console.log('About to perform an http ' + options.method + ' to this url: ' + url);
+			$.ajax(ajaxConfig);
+
+		},
+
+
+
+		"createAnonymousSession": function(name, email, callback) {
+			this.http('/api/user/register', {
+				"auth": false,
+				"data": {
+					"name": name,
+					"email": email
+				}
+			}, callback);
 		}
 
 	});
-
-
 
 
 

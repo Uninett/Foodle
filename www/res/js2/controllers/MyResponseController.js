@@ -9,7 +9,9 @@ define(function(require, exports) {
 		pretty = require('lib/pretty'),
 		moment = require('moment-timezone'),
 
+		Trail = require('misc/Trail'),
 		Foodle = require('models/Foodle'),
+		// User = require('models/User'),
 		FoodleResponse = require('models/FoodleResponse')
 
 		;
@@ -17,59 +19,7 @@ define(function(require, exports) {
 	var t = require('lib/text!templates/foodleresponse.html');
 	var template = hb.compile(t);
 
-	var Trail = Class.extend({
-		"init": function(limit) {
 
-			this.counter = 0;
-
-			this.limit = limit;
-			this.current = 0;
-			this.history = {};
-		},
-		"check": function(i) {
-
-			if (!this.history.hasOwnProperty(i)) {
-				this.current++;
-			}
-			this.history[i] = ++this.counter;
-
-			console.log(" ===> Check", i, this);
-		},
-		"uncheck": function(i) {
-
-			if (this.history.hasOwnProperty(i)) {
-				delete this.history[i];
-				this.current--;
-
-			}
-
-
-			console.log(" ===> Uncheck", i, this);
-		},
-
-		"getOldest": function() {
-			var lowest = 999999;
-			var item = null;
-
-			for(var key in this.history) {
-				if (this.history[key] < lowest) {
-					item = key;
-					lowest = this.history[key];
-				}
-			}
-			this.uncheck(item);
-			return item;
-		},
-
-
-		"wipeOld": function() {
-			if (this.current > this.limit) {
-				return this.getOldest();
-			}
-			return null;
-		}
-
-	});
 
 	var MyResponseController = Class.extend({
 
@@ -140,7 +90,7 @@ define(function(require, exports) {
 				var value = parseInt(obj.attr('value'), 10);
 				var colno = obj.data('col');
 
-				console.log("Click handling of ", value, colno);
+				// console.log("Click handling of ", value, colno);
 
 				if (that.trail) {
 					if (value === 1) {
@@ -151,7 +101,7 @@ define(function(require, exports) {
 
 					var extr = that.trail.wipeOld();
 					if (extr !== null) {
-						console.log("About to uncheck col", extr);
+						// console.log("About to uncheck col", extr);
 						$('input[name="myresp-col-' + extr + '"][value="0"]').prop('checked', true);
 					}
 					// console.error("Extract", extr);
@@ -160,8 +110,18 @@ define(function(require, exports) {
 
 			this.el.on('click', '.smtresponse', function(e) {
 				e.preventDefault(); e.stopPropagation();
-				that.submitResponse();
-				console.log("Submitting my respoinse");
+
+				console.log("Submit response", "User is", that.user);
+
+				if (!that.user) {
+					// console.log("User it not registgering");
+					that.registerUser(function() {
+						// console.log("Now submit");
+						that.submitResponse();
+					});
+				} else {
+					that.submitResponse();					
+				}
 
 			});
 
@@ -186,16 +146,56 @@ define(function(require, exports) {
 			}
 		},
 
+		"registerUser": function(callback) {
+
+			var that = this;
+
+			var name = $('#regName').val();
+			var email = $('#regEmail').val();
+
+			if (name) {
+				$('#regNameP').removeClass('has-error'); // .removeClass('has-feedback');
+			} else {
+				$('#regNameP').addClass('has-error'); // .addClass('has-feedback');
+				$('#regName').focus();
+				return;
+			}
+
+			if (email) {
+				$('#regEmailP').removeClass('has-error'); // .removeClass('has-feedback');
+			} else {
+				$('#regEmailP').addClass('has-error'); // .addClass('has-feedback');
+				$('#regEmail').focus();
+				return;
+			}
+
+
+			// console.error('Registering user ', name, email);
+
+			this.api.createAnonymousSession(name, email, function(response) {
+				console.log("Registering success. Token ", response.token);
+				console.log("Registering success. User ", response.user);
+				that.api.token = response.token;
+				that.user = response.user;
+				that.trigger('register', response.user);
+				that.submitResponse();
+			});
+
+
+
+		},
+
+
 
 		"submitResponse": function() {
 
-			console.log("Processing submitResponse");
+			console.log("Processing submitResponse()");
 
 			var response = new FoodleResponse();
 			response.setFoodle(this.foodle);
 			var no = this.foodle.getColNo();
 
-			console.log("About ro submit response. Checking through ", no);
+			// console.log("About to submit response. Checking through ", no);
 
 			// TODO. Not supported in IE8.0
 			var data = Array.apply(null, new Array(no)).map(Number.prototype.valueOf,0);
@@ -217,19 +217,11 @@ define(function(require, exports) {
 					}
 
 				} else {
-
 					x = ($("#myresp-col-" + i).prop('checked') ? 1 : 0);
-
 				}
-
-
-				console.log('Response ' + i, x);
 				if (x !== null) {
 					data[i] = x;
 				}
-
-				
-
 			}
 
 			var comment = $('#myResponseComment').val();
@@ -239,7 +231,7 @@ define(function(require, exports) {
 
 			response.setData(data);
 
-			console.log("Full response data", data);
+			// console.log("Full response data", data);
 			this.trigger('response', response);
 
 
@@ -256,7 +248,7 @@ define(function(require, exports) {
 			} else if (parseInt(i, 10) === 2) {
 				return '<td class="responseCellMaybe"><span class="glyphicon glyphicon glyphicon-question-sign"></span></td>';
 			} else {
-				console.log("Value was ", i);
+				// console.log("Value was ", i);
 				return '<td class="responseCellFail"><span class="glyphicon glyphicon glyphicon-info-sign"></span></td>';
 			}
 
@@ -274,8 +266,13 @@ define(function(require, exports) {
 
 			if (this.myresponse) {
 				setrow2.append('<th colspan="2" style="text-align: right">Update my response</th>');
-			} else {
+			} else if (this.user !== null) {
 				setrow2.append('<th colspan="2" ><span class="glyphicon glyphicon-user"></span> ' + this.user.username + '</th>');
+			} else {
+				setrow2.append('<td colspan="2" class="" >' + 
+					'<div id="regNameP" class="col-md-7"><input id="regName" type="text" class="form-control col-md-6" placeholder="Your name" /></div>' + 
+					'<div id="regEmailP" class="col-md-5"><input id="regEmail" type="text" class="form-control col-md-6" placeholder="Email" /></div>' + 
+					'</td>');
 			}
 
 
@@ -322,6 +319,10 @@ define(function(require, exports) {
 			setCommentRow.append('<td colspan="' + (fcolno) + '"><input type="text" id="myResponseComment" value="' + existingComment + '" placeholder="Optionally add a comment here..." class="form-control" /></td>');
 			this.el.append(setCommentRow);
 
+			if (this.user === null) {
+				$('#regName').focus();
+			}
+
 		},
 
 
@@ -342,10 +343,15 @@ define(function(require, exports) {
 			var setrow2 = $('<tr></tr>');
 			var setrow3 = $('<tr></tr>');
 
+
 			if (this.myresponse) {
-				setrow1.append('<th rowspan="3" style="text-align: right">Update my response</th>');
+				setrow1.append('<th colspan="3" style="text-align: right">Update my response</th>');
+			} else if (this.user !== null) {
+				setrow1.append('<th colspan="3" ><span class="glyphicon glyphicon-user"></span> ' + this.user.username + '</th>');
 			} else {
-				setrow1.append('<th rowspan="3"><span class="glyphicon glyphicon-user"></span> ' + this.foodle.getUser() + '</th>');
+				setrow1.append('<th colspan="3" >' + 
+					'<input type="text" class="form-control" />' + 
+					'</th>');
 			}
 
 			setrow1.append(this.getResponseCell(1));
@@ -405,6 +411,9 @@ define(function(require, exports) {
 			setCommentRow.append('<td colspan="' + (fcolno) + '"><input type="text" id="myResponseComment" value="' + existingComment + '" placeholder="Optionally add a comment here..." class="form-control" /></td>');
 			this.el.append(setCommentRow);
 
+			if (this.user === null) {
+				$('#regName').focus();
+			}
 
 
 		},
@@ -455,7 +464,7 @@ define(function(require, exports) {
 			this.el.empty();
 
 			if (this.foodle.locked() || this.foodle.lockedRestriction()) {
-				console.error('My response is locked');
+				// console.error('My response is locked');
 			} else {
 
 			

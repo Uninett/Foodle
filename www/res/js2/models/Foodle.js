@@ -9,12 +9,12 @@ define(function(require, exports) {
 	var Foodle = Model.extend({
 
 		"isOwner": function(user) {
-			console.log("Compare me ", this._.userid, " with ", this.owner);
+			// console.log("Compare me ", this._.userid, " with ", this.owner);
 			return (this._.userid === this.owner);
 			// console.log("Owner of this foodle is " + this.owner);
 		},
 		"show": function() {
-			console.log("SHOW");
+			// console.log("SHOW");
 		},
 		"setUser": function(userid) {
 			this._.userid = userid;
@@ -31,6 +31,10 @@ define(function(require, exports) {
 
 		"getMyResponse": function() {
 			
+			console.log("Foodle › attempting to load my response");
+			console.log("Userid", this._.userid);
+			console.log("Responses", this._.responses);
+
 			if (!this._.userid) return null;
 			if (!this._.responses) return null;
 
