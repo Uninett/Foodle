@@ -3,7 +3,7 @@
 if (isset($this->data['loginurl'])) {
 	// echo '<a class="button signin" style="float: right" href="' . htmlentities($this->data['loginurl']) . '"><span>' . $this->t('login') . '</span></a>';
 
-	echo '<li class="uninett-login"><button id="signin" type="button" class="btn btn-default uninett-login-btn" data-toggle="modal" data-target="#myModal">' . 
+	echo '<li class="uninett-login"><button type="button" class="signin btn btn-default uninett-login-btn" data-toggle="modal" data-target="#myModal">' . 
 		'<span class="glyphicon glyphicon-user uninett-fontColor-red"></span> ' . $this->t('login') . '</button></li>';
 
 
