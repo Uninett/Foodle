@@ -11,6 +11,10 @@ class API_User extends API_Authenticated {
 	
 	function prepare() {
 
+
+		$parameters = null;
+		$object = null;
+
 		self::optionalAuth();
 
 		if (self::route('post', '^/api/user/register', $parameters, $object)) {
@@ -45,8 +49,6 @@ class API_User extends API_Authenticated {
 			return true;
 
 		}
-
-
 
 
 

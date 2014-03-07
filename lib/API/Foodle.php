@@ -15,9 +15,13 @@ class API_Foodle extends API_API {
 	function prepare() {
 	
 
+		$parameters = null;
+		$object = null;
 
 		// All requests point at a specific Foodle
 		if (self::route(false, '^/api/f/([^/]+)(/|$)', $parameters, $object)) {
+
+			// print_r($parameters);
 
 			Data_Foodle::requireValidIdentifier($parameters[1]);
 			$this->foodleid = $parameters[1];
@@ -40,7 +44,7 @@ class API_Foodle extends API_API {
 				return $respobj;
 
 
-			} else if (self::route('get', '^/api/f/([^/]+)/discussion$', &$parameters, &$object)) {
+			} else if (self::route('get', '^/api/f/([^/]+)/discussion$', $parameters, $object)) {
 
 
 				$discussion = $this->fdb->readDiscussion($this->foodle);
