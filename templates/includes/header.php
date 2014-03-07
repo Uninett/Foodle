@@ -26,18 +26,6 @@
 	<![endif]-->
 
 
-<?php
-
-// Rests from discojuice loading. Remove if it does not cause any problems to comment it out...
-
-// $config = SimpleSAML_Configuration::getInstance('foodle');
-// $entityid = $config->getValue('entityid');
-// $feeds = $config->getArrayize('feeds', array('edugain'));
-// $responseurl = FoodleUtils::getUrl() . 'discoresponse';
-
-?>
-
-
 	<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle2.css" />
 	<link rel="stylesheet" media="screen" type="text/css" href="/res/js2/lib/datepicker3.css" />
 
@@ -47,20 +35,9 @@
 
 		if (!empty($this->data['foodle'])) {
 			echo "\n" . 'var foodle_id = "' . htmlspecialchars($this->data['foodle']->identifier) . '"; ' . "\n";
-		}
-		if (!empty($this->data['foodleid'])) {
+		} else if (!empty($this->data['foodleid'])) {
 			echo "\n" . 'var foodle_id = "' . htmlspecialchars($this->data['foodleid']) . '"; ' . "\n";
 		}
-
-		// if (!empty($this->data['userid'])) {
-		// 	echo 'var userid = "' . htmlspecialchars($this->data['userid']) . '";' . "\n";
-		// }
-
-		// if (!empty($this->data['userToken'])) {
-		// 	echo 'var FoodleAPIuserToken = "' . $this->data['userToken'] . '";' . "\n\n";
-		// } else {
-		// 	echo 'var FoodleAPIuserToken = null';
-		// }
 
 	?>
 	</script>
@@ -69,36 +46,21 @@
 	 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCAe5y-K5z_VmYQSCn6fPXantRZP8wyeM&amp;sensor=false"></script>
 
 
-	<!-- JQuery -->
-	<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script> -->
-	<!-- <script type="text/javascript" src="/res/js/jquery-placeholder.js"></script> -->
 
-	<!-- Require.js loads main script, which loads app dependencies -->
-	
-
-
-
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script> -->
 <?php 
+	// print_r($this->data);
+
 	if (isset($this->data['requirejs-main'])) {
 		echo '<script type="text/javascript" data-main="' . $this->data['requirejs-main'] . '" src="/res/js2/lib/require.js"></script>';
 	}
-
-
 ?>
 
 
-
-
-
-
-
-
 </head>
+
+
+
 <body>
-
-
-
 
 
 	<!-- Fixed navbar -->
@@ -119,37 +81,34 @@
 
 <?php
 
-	if (isset($this->data['showsupport'])) {
-		echo '<li><a href="' . htmlentities('/support') . '">' . $this->t('support') . '</a></li>';
-	}
 
 
 	
 
 	
-	if (array_key_exists('facebookshare', $this->data) && $this->data['facebookshare']) {
-		echo '<li><a class="button" style="float: right" onclick="showFacebookShare()"><span>' . $this->t('facebookshare') . '</span></a></li>';
-	}
+	// if (array_key_exists('facebookshare', $this->data) && $this->data['facebookshare']) {
+	// 	echo '<li><a class="button" style="float: right" onclick="showFacebookShare()"><span>' . $this->t('facebookshare') . '</span></a></li>';
+	// }
 
-	if (array_key_exists('twittershare', $this->data) && $this->data['twittershare']) {
-		echo '<li><a title="Share this foodle on Twitter" href="' . 
-			htmlspecialchars(
-				SimpleSAML_Utilities::addURLparameter('http://twitter.com/home', array(
-						'status' => 
-							'#foodle ' . $title . ': ' . SimpleSAML_Utilities::addURLparameter(SimpleSAML_Utilities::selfURL(), array('auth' => 'twitter'))
-					)
-				)
-			) . 
-			'">Tweet</a></li>';
-	}
+	// if (array_key_exists('twittershare', $this->data) && $this->data['twittershare']) {
+	// 	echo '<li><a title="Share this foodle on Twitter" href="' . 
+	// 		htmlspecialchars(
+	// 			SimpleSAML_Utilities::addURLparameter('http://twitter.com/home', array(
+	// 					'status' => 
+	// 						'#foodle ' . $title . ': ' . SimpleSAML_Utilities::addURLparameter(SimpleSAML_Utilities::selfURL(), array('auth' => 'twitter'))
+	// 				)
+	// 			)
+	// 		) . 
+	// 		'">Tweet</a></li>';
+	// }
 
 	// if (isset($this->data['showcontacts'])) {
 	// 	echo '<li><a class="button" style="float: right" href="/groups"><span>' . $this->t('groups') . '</span></a></li>';
 	// }
 	
-	if (array_key_exists('showedit', $this->data)) {
-		echo('<li><a class="button" href="/edit/' .$this->data['foodle']->identifier . '" style="float: right"><span>' . $this->t('editfoodle') . '</span></a></li>');
-	}
+	// if (array_key_exists('showedit', $this->data)) {
+	// 	echo('<li><a class="button" href="/edit/' .$this->data['foodle']->identifier . '" style="float: right"><span>' . $this->t('editfoodle') . '</span></a></li>');
+	// }
 
 
 
@@ -160,10 +119,10 @@
 ?>
 
 
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">About Foodle <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="https://rnd.feide.no/software/foodle/"><?php echo $this->t('foodlesoftware'); ?></a></li>
-							<li><a href="https://rnd.feide.no/software/foodle/foodle-privacy-policy/"><?php echo $this->t('privacypolicy'); ?></a></li>
+							<li><a href="https://github.com/UNINETT/Foodle/issues">Report bugs or ask questions</a></li>
+							<!-- <li><a href="https://rnd.feide.no/software/foodle/foodle-privacy-policy/"><?php echo $this->t('privacypolicy'); ?></a></li> -->
 							<li><a href="http://rnd.feide.no"><?php echo $this->t('rndblog'); ?></a></li>
 							<li><a id="news" target="_blank" href="http://rnd.feide.no/category/foodle/">
 								<?php echo $this->t('read_news'); ?></a></li>
@@ -179,42 +138,46 @@
 
 
 
+
+
+
+
+
 	<div class="container">
 
-
-		<!-- Grey header bar below -->
 		<div id="headerbar" style="clear: both">
 			<?php 
 
-			echo '<ol class="breadcrumb">';
-			if (isset($this->data['bread'])) {
-				$first = TRUE;
-				foreach ($this->data['bread'] AS $item) {
-					// if (!$first) echo ' » ';		
-					if (isset($item['href'])) {
-						
-						if (strstr($item['title'],'bc_') == $item['title'] ) {
-							echo '<li><a href="' . $item['href'] . '">' . $this->t($item['title']) . '</a></li>';
+				echo '<ol class="breadcrumb">';
+				if (isset($this->data['bread'])) {
+					$first = TRUE;
+					foreach ($this->data['bread'] AS $item) {
+						// if (!$first) echo ' » ';		
+						if (isset($item['href'])) {
+							
+							if (strstr($item['title'],'bc_') == $item['title'] ) {
+								echo '<li><a href="' . $item['href'] . '">' . $this->t($item['title']) . '</a></li>';
+							} else {
+								echo '<li><a href="' . $item['href'] . '">' . $item['title'] . '</a></li>';
+							}
 						} else {
-							echo '<li><a href="' . $item['href'] . '">' . $item['title'] . '</a></li>';
+							if (strstr($item['title'],'bc_') == $item['title'] ) {
+								echo '<li class="active">' . $this->t($item['title']) . '</li>';
+							} else {
+								echo '<li class="active">' . $item['title'] . '</li>';
+							}
+							
 						}
-					} else {
-						if (strstr($item['title'],'bc_') == $item['title'] ) {
-							echo '<li class="active">' . $this->t($item['title']) . '</li>';
-						} else {
-							echo '<li class="active">' . $item['title'] . '</li>';
-						}
-						
+						$first = FALSE;
 					}
-					$first = FALSE;
 				}
-			}
-			echo '</ol>';
+				echo '</ol>';
 
 
 				if (isset($this->data['headbar'])) {
 					echo $this->data['headbar'];
 				}
+
 			?>
 
 			<p style="height: 0px; clear: both"></p>
@@ -223,6 +186,4 @@
   
 
 	</div>
-
-
 
