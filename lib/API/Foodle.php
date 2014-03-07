@@ -17,18 +17,18 @@ class API_Foodle extends API_API {
 
 
 		// All requests point at a specific Foodle
-		if (self::route(false, '^/api/f/([^/]+)(/|$)', &$parameters, &$object)) {
+		if (self::route(false, '^/api/f/([^/]+)(/|$)', $parameters, $object)) {
 
 			Data_Foodle::requireValidIdentifier($parameters[1]);
 			$this->foodleid = $parameters[1];
 			$this->foodle = $this->fdb->readFoodle($this->foodleid);
 
 
-			if (self::route('get', '^/api/f/([^/]+)$', &$parameters, &$object)) {
+			if (self::route('get', '^/api/f/([^/]+)$', $parameters, $object)) {
 
 				return $this->foodle->getView();
 			
-			} else if (self::route('get', '^/api/f/([^/]+)/responders$', &$parameters, &$object)) {
+			} else if (self::route('get', '^/api/f/([^/]+)/responders$', $parameters, $object)) {
 
 				$this->responses = $this->fdb->readResponses($this->foodle, NULL, FALSE);
 
@@ -39,7 +39,7 @@ class API_Foodle extends API_API {
 
 				return $respobj;
 
-			} else if (self::route('get', '^/api/foodle/([^/]+)/discussion$', &$parameters, &$object)) {
+			} else if (self::route('get', '^/api/foodle/([^/]+)/discussion$', $parameters, $object)) {
 
 				$discussion = $this->fdb->readDiscussion($this->foodle);
 				return $discussion;

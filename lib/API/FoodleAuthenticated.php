@@ -19,7 +19,7 @@ class API_FoodleAuthenticated extends API_Authenticated {
 
 
 		// All requests point at a specific Foodle
-		if (self::route(false, '^/api/foodle/([^/]+)(/|$)', &$parameters, &$object)) {
+		if (self::route(false, '^/api/foodle/([^/]+)(/|$)', $parameters, $object)) {
 
 			Data_Foodle::requireValidIdentifier($parameters[1]);
 			$this->foodleid = $parameters[1];
@@ -27,12 +27,12 @@ class API_FoodleAuthenticated extends API_Authenticated {
 
 			$this->foodle = $this->fdb->readFoodle($this->foodleid);
 
-			if (self::route('get', '^/api/foodle/([^/]+)$', &$parameters, &$object)) {
+			if (self::route('get', '^/api/foodle/([^/]+)$', $parameters, $object)) {
 
 				return $this->foodle->getView();
 
 			// Update existing foodle
-			} else if (self::route('post', '^/api/foodle/([^/]+)$', &$parameters, &$object)) {
+			} else if (self::route('post', '^/api/foodle/([^/]+)$', $parameters, $object)) {
 
 				// $newFoodle = new Data_Foodle($this->fdb);
 
@@ -46,7 +46,7 @@ class API_FoodleAuthenticated extends API_Authenticated {
 
 
 			// Update existing foodle
-			} else if (self::route('delete', '^/api/foodle/([^/]+)$', &$parameters, &$object)) {
+			} else if (self::route('delete', '^/api/foodle/([^/]+)$', $parameters, $object)) {
 
 				// $newFoodle = new Data_Foodle($this->fdb);
 
@@ -56,7 +56,7 @@ class API_FoodleAuthenticated extends API_Authenticated {
 				return true;
 
 
-			} else if (self::route('get', '^/api/foodle/([^/]+)/responders$', &$parameters, &$object)) {
+			} else if (self::route('get', '^/api/foodle/([^/]+)/responders$', $parameters, $object)) {
 
 				$this->responses = $this->fdb->readResponses($this->foodle, NULL, FALSE);
 
@@ -67,13 +67,13 @@ class API_FoodleAuthenticated extends API_Authenticated {
 
 				return $respobj;
 
-			} else if (self::route('get', '^/api/foodle/([^/]+)/discussion$', &$parameters, &$object)) {
+			} else if (self::route('get', '^/api/foodle/([^/]+)/discussion$', $parameters, $object)) {
 
 				$discussion = $this->fdb->readDiscussion($this->foodle);
 				return $discussion;
 
 
-			} else if (self::route('post', '^/api/foodle/([^/]+)/discussion$', &$parameters, &$object)) {
+			} else if (self::route('post', '^/api/foodle/([^/]+)/discussion$', $parameters, $object)) {
 
 				$comment = strip_tags($object);
 
@@ -92,7 +92,7 @@ class API_FoodleAuthenticated extends API_Authenticated {
 
 
 
-			} else if (self::route('post', '^/api/foodle/([^\/]+)/myresponse$', &$parameters, &$object)) {
+			} else if (self::route('post', '^/api/foodle/([^\/]+)/myresponse$', $parameters, $object)) {
 
 
 				// echo 'about to update response. User is'; print_r($this->user); exit;
@@ -121,7 +121,7 @@ class API_FoodleAuthenticated extends API_Authenticated {
 
 
 			
-		} else if (self::route('post', '^/api/foodle$', &$parameters, &$object)) {
+		} else if (self::route('post', '^/api/foodle$', $parameters, $object)) {
 
 			// header('Content-type: text/plain; charset=utf-8');
 			// print_r($object); 

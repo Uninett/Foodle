@@ -13,7 +13,7 @@ class API_User extends API_Authenticated {
 
 		self::optionalAuth();
 
-		if (self::route('post', '^/api/user/register', &$parameters, &$object)) {
+		if (self::route('post', '^/api/user/register', $parameters, $object)) {
 
 			$name = filter_var($object['name'], FILTER_SANITIZE_SPECIAL_CHARS);
 			$email = filter_var($object['email'], FILTER_SANITIZE_EMAIL);
@@ -36,7 +36,7 @@ class API_User extends API_Authenticated {
 
 
 		// All requests point at a specific Foodle
-		if (self::route('post', '^/api/user/timezone', &$parameters, &$object)) {
+		if (self::route('post', '^/api/user/timezone', $parameters, $object)) {
 
 			$tz = filter_var($object, FILTER_SANITIZE_EMAIL);
 

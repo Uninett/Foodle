@@ -40,7 +40,7 @@ abstract class API_API {
 		// print_r(var_export(preg_match('#^' . $match . '#', $path, &$p), true)); echo "\n";
 		// print_r($p); echo "\n";
 
-		if (!preg_match('#^' . $match . '#', $path, &$parameters)) return false;
+		if (!preg_match('#^' . $match . '#', $path, $parameters)) return false;
 		return true;
 	}
 

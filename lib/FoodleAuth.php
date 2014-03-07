@@ -338,36 +338,36 @@ class FoodleAuth {
 		}
 	
 
-		self::checkAttribute(&$result, 'User ID', $this->getUserid($attributes), 'fatal', array(
+		self::checkAttribute($result, 'User ID', $this->getUserid($attributes), 'fatal', array(
 			array('pattern' => '^.*@(.+?)$')
 		));
 
-		self::checkAttribute(&$result, 'Email address', $this->getEmail($attributes), 'error', array(
+		self::checkAttribute($result, 'Email address', $this->getEmail($attributes), 'error', array(
 			array('pattern' => '^.*@(.+?)$', 'pri' => 'error')
 		));
 
-		self::checkAttribute(&$result, 'Name of user', $this->getUsername($attributes), 'error', array(
+		self::checkAttribute($result, 'Name of user', $this->getUsername($attributes), 'error', array(
 			array('pattern' => '\s', 'pri' => 'warning', 'text' => 'Name shuold not be a single word. Both firstname and lastname should be included.')
 		));
 		
-		self::checkAttribute(&$result, 'User realm', $this->getRealm($attributes), 'error', array(
+		self::checkAttribute($result, 'User realm', $this->getRealm($attributes), 'error', array(
 		));
 
-		// self::checkAttribute(&$result, 'Freebusy Calendar', $this->getCalendar($attributes), 'warning', array(
+		// self::checkAttribute($result, 'Freebusy Calendar', $this->getCalendar($attributes), 'warning', array(
 		// ));
 		
 
-		self::checkAttribute(&$result, 'Name of Organisation', $this->getOrg($attributes), 'warning', array(
+		self::checkAttribute($result, 'Name of Organisation', $this->getOrg($attributes), 'warning', array(
 		));		
 
-		self::checkAttribute(&$result, 'Name of Organisation Unit (Department)', $this->getOrgunit($attributes), 'warning', array(
+		self::checkAttribute($result, 'Name of Organisation Unit (Department)', $this->getOrgunit($attributes), 'warning', array(
 		));				
 		
-		self::checkAttribute(&$result, 'Location of user', $this->getLocation($attributes), 'warning', array(
+		self::checkAttribute($result, 'Location of user', $this->getLocation($attributes), 'warning', array(
 		));	
 		
 
-		self::checkAttribute(&$result, 'Preferred Language of user', $this->getLanguage($attributes), 'warning', array(
+		self::checkAttribute($result, 'Preferred Language of user', $this->getLanguage($attributes), 'warning', array(
 		));			
 
 		return $result;

@@ -74,7 +74,7 @@ class Pages_FDebug extends Pages_Page {
 		$this->dump('getColumnHeadersVertical()', $this->foodle->getColumnHeadersVertical());
 		
 		$col = array();
-		$this->foodle->getColumnList(&$col);
+		$this->foodle->getColumnList($col);
 		$this->dump('getColumnList()', $col);
 
 		$this->dump('calculateColumns()', $this->foodle->calculateColumns());		

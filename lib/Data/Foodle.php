@@ -562,7 +562,7 @@ class Data_Foodle {
 	 * Each element in the array (first level) represents one row of 
 	 * column headers.
 	 */
-	public function getColumnHeaders($headers, $col = NULL, $level = 0) {
+	public function getColumnHeaders(&$headers, $col = NULL, $level = 0) {
 		$depth = $this->getColumnDepth();
 		if ($col === NULL) $col = $this->columns;
 		foreach($col AS $c) {
@@ -571,7 +571,7 @@ class Data_Foodle {
 					'title' => $c['title'],
 					'colspan' => count($c['children']),
 				);
-				$this->getColumnHeaders(&$headers, $c['children'], $level+1);
+				$this->getColumnHeaders($headers, $c['children'], $level+1);
 			} else {
 				$newheader = array('title' => $c['title']);
 				if ($level + 1 < $depth) $newheader['rowspan'] = ($depth - $level);
@@ -634,7 +634,7 @@ class Data_Foodle {
 			if (isset($c['children'])) {
 				$lstrings = $strings;
 				$lstrings[] = $c['title'];
-				$this->getColumnList(&$columns, $c['children'], $lstrings);
+				$this->getColumnList($columns, $c['children'], $lstrings);
 			} else {
 				$lstrings = $strings;
 #				$lstrings[] = $c['title'];
@@ -700,7 +700,7 @@ class Data_Foodle {
 		if (!is_null($this->datecache)) return $this->datecache;
 		
 		$cols = array();
-		$this->getColumnList(&$cols);
+		$this->getColumnList($cols);
 		$dates = array();
 		$anyDate = FALSE;
 		
