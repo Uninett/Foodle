@@ -291,7 +291,7 @@ define(function(require, exports, module) {
 				} else if (options.wrapper === 'list') {
 
 					wf = function(data) {
-						var processed = {};
+						var processed = [];
 						for(var i = 0; i < data.length; i++) {
 							processed.push(new options.constructor(data[i]));
 						}
@@ -300,7 +300,7 @@ define(function(require, exports, module) {
 
 				} else if (options.wrapper === 'object') {
 					wf = function(data) {
-						var processed = [];
+						var processed = {};
 						for(i in data) {
 							processed[i] = new options.constructor(data[i]);
 						}
