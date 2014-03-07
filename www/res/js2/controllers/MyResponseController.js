@@ -345,11 +345,11 @@ define(function(require, exports) {
 
 
 			if (this.myresponse) {
-				setrow1.append('<th colspan="3" style="text-align: right">Update my response</th>');
+				setrow1.append('<th rowspan="3" style="text-align: right">Update my response</th>');
 			} else if (this.user !== null) {
-				setrow1.append('<th colspan="3" ><span class="glyphicon glyphicon-user"></span> ' + this.user.username + '</th>');
+				setrow1.append('<th rowspan="3" ><span class="glyphicon glyphicon-user"></span> ' + this.user.username + '</th>');
 			} else {
-				setrow1.append('<th colspan="3" >' + 
+				setrow1.append('<th rowspan="3" >' + 
 					'<input type="text" class="form-control" />' + 
 					'</th>');
 			}
