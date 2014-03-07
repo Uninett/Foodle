@@ -100,12 +100,14 @@ define(function(require, exports) {
 
 			this.el.on('click', '#submitComment', function(e) {
 				e.stopPropagation(); e.preventDefault();
-				// console.error('Add comment');
+				
 
 				var comment = $('#commentText').val();
 				$('#commentText').val('');
 
 				if (comment === '') return;
+
+				console.error('Add comment', comment);
 
 				that.api.addComment(that.foodle, comment, function(res) {
 					// console.log("Successfully saved comment")
@@ -221,7 +223,7 @@ define(function(require, exports) {
 		"loadDiscussion": function() {
 			var that = this;
 
-			// console.log('---about to load discussion');
+			console.log('---about to load discussion', "getFoodleDiscussion");
 
 			this.api.getFoodleDiscussion(this.foodle.identifier, function(comments) {
 				console.log("Got comments", comments);

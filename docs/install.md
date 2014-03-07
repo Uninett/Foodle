@@ -1,6 +1,48 @@
 # Installing Foodle
 
-Third party installs are NOT prioritised with Foodle (yet). Instead people are encourage to use the central foodl.org service. Contact Andreas for more details.
+Third party installs are NOT prioritised with Foodle. Instead people are encourage to use the central foodl.org service. Contact Andreas for more details.
+
+
+
+
+	apt-get install php5 git php5-mysql
+
+	cd /var/www
+	git clone git@github.com:UNINETT/Foodle.git
+	https://simplesamlphp.org/res/downloads/simplesamlphp-1.12.0-rc2.tar.gz
+	tar zxvf simplesamlphp-1.12.0-rc2.tar.gz
+	ln -s simplesamlphp-1.12.0-rc2 simplesamlphp
+
+
+Then setup certificates, and:
+
+	a2enmod ssl
+	service apache2 restart
+
+
+UNINETT Internal configuration:
+
+	scp root@www3.uninett.no:/etc/ssl/private/uninett-webserver.pem /etc/ssl/private/uninett-webserver.pem
+	scp root@www3.uninett.no:/etc/ssl/certs/terena_scs_ca.pem /etc/ssl/certs/terena_scs_ca.pem
+
+
+
+## Setup Foodle configuration
+
+
+	cd /var/www/Foodle/config
+	cp config-template.php config.php
+
+	Edit config.php
+	
+
+
+
+
+--------
+
+OLD 
+
 
 
 ## Download the stuff you need

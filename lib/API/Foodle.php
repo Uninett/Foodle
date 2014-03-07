@@ -39,7 +39,9 @@ class API_Foodle extends API_API {
 
 				return $respobj;
 
-			} else if (self::route('get', '^/api/foodle/([^/]+)/discussion$', $parameters, $object)) {
+
+			} else if (self::route('get', '^/api/f/([^/]+)/discussion$', &$parameters, &$object)) {
+
 
 				$discussion = $this->fdb->readDiscussion($this->foodle);
 				return $discussion;

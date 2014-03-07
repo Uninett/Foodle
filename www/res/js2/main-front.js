@@ -21,6 +21,9 @@ define(function(require, exports, module) {
 
 			if (data.authenticated) {
 
+				$('.showIfAuthenticated').show();
+				$('.hideIfAuthenticated').hide();
+
 				var api = new API(data.token);
 				var al = new ActivityListController(api, $("#activities"));
 				var il = new UpcomingListController(api, $("#upcoming"));

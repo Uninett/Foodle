@@ -53,7 +53,7 @@ define(function(require) {
 					}
 				}
 				$(document).ready(function() {
-					$("#signin").DiscoJuice(djc);
+					$(".signin").DiscoJuice(djc);
 				});
 
 			});

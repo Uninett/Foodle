@@ -1,25 +1,6 @@
 <?php 
 
-
-if (!empty($this->data['userToken'])) {
- // 	$this->data['head'] = '
-
-	// <script type="text/javascript" src="/res/js/foodle-data.js"></script>
-	// <script type="text/javascript" src="/res/js/foodle-front.js"></script>
-	
-
-	// 	<script type="text/javascript" charset="utf-8">
-	// 		$(document).ready(function() {
-	// 			Foodle_Front_View();
-	// 		});
-	// 	</script>
- // 	';
-
-}
-
- 	
 	$this->includeAtTemplateBase('includes/header.php'); 
-
 ?>
 
 
@@ -36,71 +17,84 @@ if (!empty($this->data['userToken'])) {
 				<p><?php echo $this->t('welcometext'); ?></p>
 				<div id="createnew" style="">
 					<a href="/create" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-pencil"></span> <?php echo $this->t('createnew'); ?></a>
+
+
+<?php
+
+
+if (isset($this->data['loginurl'])) {
+	// echo '<a class="button signin" style="float: right" href="' . htmlentities($this->data['loginurl']) . '"><span>' . $this->t('login') . '</span></a>';
+
+	echo '<button type="button" class="signin btn btn-default uninett-login-btn btn-lg" data-toggle="modal" data-target="#myModal">' . 
+		'<span class="glyphicon glyphicon-user uninett-fontColor-red"></span> ' . $this->t('login') . '</button>';
+
+}
+
+
+?>
+
 				</div>
-			</div>
-
-
-			<div class="uninett-color-darkBlue uninett-fontColor-white uninett-padded gutter">
-
-			<div class="showIfAuthenticated">
 				
-				<h2>Upcoming</h2>
 
-				<div class="uninett-color-white  gutter">
-					<div id="upcoming" class="list-group">
-					</div>
-				</div>
 
-				<div id="upcoming2"></div>
-
-				<p id="upcomingb">
-					<a class="uninett-fontColor-grey" href="<?php echo htmlspecialchars($this->data['calendarurl']); ?> ">
-						<span class="glyphicon glyphicon-calendar"></span> Subscribe calendar
-					</a>
-				</p>
 			</div>
 
 
-			<?php
-			
-				if ($this->data['authenticated']) {			
+
+
+
+			<div class="showIfAuthenticated uninett-color-darkBlue uninett-fontColor-white uninett-padded gutter" style="display: none">
+
+				<div class="">
 					
-					echo '';
-					
-					echo '';
-				}
-			?>
+					<h2>Upcoming</h2>
+
+					<div class="uninett-color-white  gutter">
+						<div id="upcoming" class="list-group">
+						</div>
+					</div>
+
+					<div id="upcoming2"></div>
+
+					<p id="upcomingb">
+					<!--
+						<a class="uninett-fontColor-grey" href="<?php echo htmlspecialchars($this->data['calendarurl']); ?> ">
+							<span class="glyphicon glyphicon-calendar"></span> Subscribe calendar
+						</a>
+						-->
+					</p>
+				</div>
+
 
 			</div>
 
 		</div>
 
-		<div class="col-md-6">
+		<div class=" col-md-6" >
 
-			<div class="uninett-color-white  gutter">
+			<div class="hideIfAuthenticated uninett-color-darkBlue uninett-pattern1 uninett-fontColor-white uninett-padded gutter">
+
+					
+				<h2>The New Foodle</h2>
+
+				<p>Foodle is redesign. A lot of experimental features are gone, and some much requested features are added. The user interface is completely new.</p>
+
+				<ul class="uninett-ul">
+					<li class="uninett-ul-li"><a style="color: #fce" href="mailto:andreas.solberg@uninett.no">Please let us know</a> what you think.</li>
+					<li class="uninett-ul-li"><a style="color: #fce" target="_blank" href="https://github.com/UNINETT/Foodle/issues">Please report any issues</a> as soon as you encounter them. You may also provide feature requests.</li>
+				</ul>
+
+
+			</div>
+
+			<div class="showIfAuthenticated uninett-color-white  gutter" style="display: none">
 				<div id="activities" class="list-group">
 				</div>
 			</div>
 
-
-
 		</div>
 
 	</div>
-
-
-
-
-
-
-
-	
-
-			
-
-
-
-
 
 
 
