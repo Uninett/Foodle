@@ -1,7 +1,9 @@
 <?php
 
 
-$SIMPLESAMLPATH = '/var/simplesamlphp-foodle/';
+// echo dirname(dirname(dirname(__FILE__))); exit;
+
+$SIMPLESAMLPATH = dirname(dirname(dirname(__FILE__))) . '/simplesamlphp/';
 
 $path_extra = $SIMPLESAMLPATH . 'lib';
 $path = ini_get('include_path');
@@ -39,9 +41,9 @@ require_once($THISPATH . 'lib/UNINETTDistribute.php');
 require_once($THISPATH . 'lib/EmbedDistribute.php');
 
 require_once($THISPATH . 'lib/EMail.php');
-require_once($THISPATH . 'lib/XHTMLCol.php');
-require_once($THISPATH . 'lib/XHTMLEmbed.php');
-require_once($THISPATH . 'lib/XHTMLResponseEntry.php');
+// require_once($THISPATH . 'lib/XHTMLCol.php');
+// require_once($THISPATH . 'lib/XHTMLEmbed.php');
+// require_once($THISPATH . 'lib/XHTMLResponseEntry.php');
 
 require_once($THISPATH . 'lib/FoodleDBConnector.php');
 
