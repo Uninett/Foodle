@@ -33,7 +33,7 @@ class Pages_PageSupport extends Pages_Page {
 			array('href' => '/' . $this->config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), 
 			array('title' => 'Support'), 
 		);
-
+		$t->data['gmapsAPI'] = $this->config->getValue('gmapsAPI');
 // 		$t->data['user'] = $this->user;
 // 		$t->data['userid'] = $this->user->userid;
 // 		$t->data['displayname'] = $this->user->username;

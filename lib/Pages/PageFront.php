@@ -31,6 +31,7 @@ class Pages_PageFront extends Pages_Page {
 
 		$t = new SimpleSAML_XHTML_Template($this->config, 'foodlefront.php', 'foodle_foodle');
 
+		$t->data['gmapsAPI'] = $this->config->getValue('gmapsAPI');
 		$t->data['bread'] = array(
 			array('title' => 'bc_frontpage'), 
 		);
