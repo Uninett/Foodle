@@ -15,11 +15,14 @@ class TimeZone {
 	 * type		'calendar'
 	 *
 	 */
-	public $store;
+	protected $db;
+
 	public $ip;
 	public $user;
 	
-	public function TimeZone($ip = NULL, $user = null) {
+	public function TimeZone(FoodleDBConnector $db, $ip = NULL, $user = null) {
+		$this->db = $db;
+
 		if (is_null($ip)) $ip = $_SERVER['REMOTE_ADDR'];
 		
 		if (isset($user)) $this->user = $user;
@@ -28,7 +31,7 @@ class TimeZone {
 			throw new Exception('Trying to use the TimeZone class without specifying an IP address');
 		$this->ip = $ip;
 		
-		$this->store = new sspmod_core_Storage_SQLPermanentStorage('iptimezone');
+		// $this->db = new sspmod_core_Storage_SQLPermanentStorage('iptimezone');
 
 	}
 	
@@ -37,9 +40,9 @@ class TimeZone {
 
 	public function lookupRegion($region) {
 		
-		if ($this->store->exists('region', $region, NULL)) {
+		if ($this->db->tzExists('region-' . $region)) {
 			// error_log('IP Geo location: Found region [' . $region . '] in cache.');
-			return $this->store->getValue('region', $region, NULL);
+			return $this->db->tzGet('region-' . $region);
 		}
 		
 		// error_log('Lookup region');
@@ -54,16 +57,16 @@ class TimeZone {
 		$timezone = $data['timezone'];
 		
 		// error_log('IP Geo location: Store region [' . $region . '] in cache: ' . $timezone);
-		$this->store->set('region', $region, NULL, $timezone);
+		$this->db->tzSet('region-' . $region, $timezone);
 		
 		return $timezone;	
 	}
 	
 	public function lookupIP($ip) {
 
-		if ($this->store->exists('ip', $ip, NULL)) {
+		if ($this->db->tzExists('ip-' . $ip)) {
 			// error_log('IP Geo location: Found ip [' . $ip . '] in cache.');
-			return $this->store->getValue('ip', $ip, NULL);
+			return $this->db->tzGet('ip-' . $ip);
 		}
 		
 		// error_log('Lookup IP');
@@ -79,7 +82,7 @@ class TimeZone {
 		$region = $data['country_code'] . '/' . $data['region_code'];
 		
 		// error_log('IP Geo location: Store ip [' . $ip . '] in cache: ' . $region);
-		$this->store->set('ip', $ip, NULL, $region);
+		$this->db->tzSet('ip-' . $ip, $region);
 		
 		return $region;
 	}

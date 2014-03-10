@@ -11,7 +11,7 @@ class Pages_PageCreate extends Pages_Page {
 		parent::__construct($config, $parameters);
 		$this->auth();
 		
-		$this->timezone = new TimeZone(NULL, $this->user);
+		$this->timezone = new TimeZone($this->fdb, NULL, $this->user);
 	}
 	
 	// Authenticate the user

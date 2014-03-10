@@ -1,3 +1,12 @@
+CREATE TABLE `timezonecache` (
+  `key` VARCHAR(200),
+  `value` text,
+  `created` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`key`)
+);
+
+
+
 CREATE TABLE `def` (
   `id` varchar(100) NOT NULL,
   `name` tinytext,

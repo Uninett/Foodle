@@ -6,7 +6,7 @@ class Pages_PageEdit extends Pages_PageFoodle {
 	function __construct($config, $parameters) {
 		parent::__construct($config, $parameters);
 		
-		$this->timezone = new TimeZone();
+		$this->timezone = new TimeZone($this->fdb);
 		
 		$this->foodle->acl($this->user, 'write');
 	}

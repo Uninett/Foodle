@@ -47,7 +47,6 @@ class Pages_PageFoodle extends Pages_Page {
 		#Timer::tick('Timezone preparations');
 		
 		$this->auth();
-		// $this->timezone = new TimeZone(NULL, $this->user);
 	}
 	
 	protected function setLocale() {

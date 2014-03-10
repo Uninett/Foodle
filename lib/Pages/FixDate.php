@@ -9,7 +9,7 @@ class Pages_FixDate extends Pages_PageFoodle {
 	function __construct($config, $parameters) {
 		parent::__construct($config, $parameters);
 		
-		$this->timezone = new TimeZone();
+		$this->timezone = new TimeZone($this->fdb);
 		
 		$this->foodle->acl($this->user, 'write');
 	}
@@ -120,7 +120,7 @@ class Pages_FixDate extends Pages_PageFoodle {
 		$datetimetext = '';
 		$extralinks = '';
 		if (!empty($foodle->datetime)) {
-			$tz = new TimeZone(NULL, $user);
+			$tz = new TimeZone($this->db, NULL, $user);
 			$icalurl = FoodleUtils::getUrl() . 'foodle/' . $foodle->identifier . '?output=ical';
 			$datetimetext = "\n\n### Date and time\n\n" . $foodle->datetimeText($tz->getTimeZone());
 			$extralinks = "\n* Import to your calendar using the attached calendar file";

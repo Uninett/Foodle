@@ -16,7 +16,7 @@ class Pages_PageProfile extends Pages_Page {
 		
 
 		$this->auth();
-		$this->timezone = new TimeZone(null, $this->user);		
+		$this->timezone = new TimeZone($this->fdb, null, $this->user);		
 	}
 	
 	protected function setLocale() {
