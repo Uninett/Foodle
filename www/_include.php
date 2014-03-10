@@ -41,9 +41,7 @@ require_once($THISPATH . 'lib/UNINETTDistribute.php');
 require_once($THISPATH . 'lib/EmbedDistribute.php');
 
 require_once($THISPATH . 'lib/EMail.php');
-// require_once($THISPATH . 'lib/XHTMLCol.php');
-// require_once($THISPATH . 'lib/XHTMLEmbed.php');
-// require_once($THISPATH . 'lib/XHTMLResponseEntry.php');
+
 
 require_once($THISPATH . 'lib/FoodleDBConnector.php');
 
@@ -69,15 +67,10 @@ require_once($THISPATH . 'lib/API/API.php');
 require_once($THISPATH . 'lib/API/Authenticated.php');
 require_once($THISPATH . 'lib/API/DiscoJuice.php');
 
-// require_once($THISPATH . 'lib/API/Files.php');
-// require_once($THISPATH . 'lib/API/Upload.php');
-// require_once($THISPATH . 'lib/API/Groups.php');
+
 require_once($THISPATH . 'lib/API/Activity.php');
 require_once($THISPATH . 'lib/API/Events.php');
-// require_once($THISPATH . 'lib/API/Download.php');
-// require_once($THISPATH . 'lib/API/Contacts.php');
-// require_once($THISPATH . 'lib/API/ProfileCalendars.php');
-// require_once($THISPATH . 'lib/API/Invite.php');
+
 require_once($THISPATH . 'lib/API/Foodlelist.php');
 require_once($THISPATH . 'lib/API/IdPList.php');
 require_once($THISPATH . 'lib/API/Foodle.php');
@@ -89,17 +82,13 @@ require_once($THISPATH . 'lib/API/FoodleAuthenticated.php');
 require_once($THISPATH . 'lib/Pages/Page.php');
 require_once($THISPATH . 'lib/Pages/PageDisco.php');
 require_once($THISPATH . 'lib/Pages/Photo.php');
-require_once($THISPATH . 'lib/Pages/PageGS.php');
 require_once($THISPATH . 'lib/Pages/PageAccountMapping.php');
 require_once($THISPATH . 'lib/Pages/PageAccountMappingPrepare.php');
 require_once($THISPATH . 'lib/Pages/PageFoodle.php');
 require_once($THISPATH . 'lib/Pages/Debug.php');
 require_once($THISPATH . 'lib/Pages/FDebug.php');
 require_once($THISPATH . 'lib/Pages/PageFront.php');
-// require_once($THISPATH . 'lib/Pages/PageGroup.php');
-// require_once($THISPATH . 'lib/Pages/PageGroupInvite.php');
 require_once($THISPATH . 'lib/Pages/PageProfile.php');
-// require_once($THISPATH . 'lib/Pages/PageProfileCalendars.php');
 require_once($THISPATH . 'lib/Pages/PageAttributes.php');
 require_once($THISPATH . 'lib/Pages/PageUser.php');
 require_once($THISPATH . 'lib/Pages/PageSupport.php');
@@ -110,11 +99,6 @@ require_once($THISPATH . 'lib/Pages/Login.php');
 require_once($THISPATH . 'lib/Pages/EmbedFoodle.php');
 require_once($THISPATH . 'lib/Pages/RSSFoodle.php');
 require_once($THISPATH . 'lib/Pages/CSVFoodle.php');
-require_once($THISPATH . 'lib/Pages/CalFoodle.php');
-
-
-
-// require_once($THISPATH . 'lib/Pages/PageContacts.php');
 
 require_once($THISPATH . 'lib/Pages/PageCreate.php');
 require_once($THISPATH . 'lib/Pages/PageEdit.php');
