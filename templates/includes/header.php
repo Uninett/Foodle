@@ -122,7 +122,7 @@ if (!empty($this->data['gmapsAPI'])) {
 
 
 	require_once(dirname(__FILE__) . '/login-item.php');
-	require_once(dirname(__FILE__) . '/language-selector.php');
+	// require_once(dirname(__FILE__) . '/language-selector.php');
 
 
 ?>
