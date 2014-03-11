@@ -91,7 +91,21 @@ define(function(require, exports) {
 			this.api = api;
 			this.el = el;
 
-			this.el.empty().append(template(this.foodle));
+
+			// var x = $.extend({}, this.foodle};
+			// x.header = ;
+
+			var tdata = {
+				"foodle": foodle,
+				"header": 'Create a new Foodle',
+				"savetxt": 'Create Foodle'
+			};
+			if (this.foodle.identifier) {
+				tdata.header = 'Update existing Foodle';
+				tdata.savetxt = 'Save changes';
+			}
+
+			this.el.empty().append(template(tdata));
 
 			this.setupMap();
 			this.prepareTimezoneSelector();

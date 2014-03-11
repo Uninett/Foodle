@@ -1,13 +1,13 @@
 
 <form class="form-horizontal" role="form">
 
-	<h1>Create a new Foodle</h1>
+	<h1>{{header}}</h1>
 
 
 	<div class="form-group" id="form-group-title">
 		<label for="inputTitle" class="col-sm-2 control-label">Title</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="inputTitle" value="{{name}}" placeholder="Title">
+			<input type="text" class="form-control" id="inputTitle" value="{{foodle.name}}" placeholder="Title">
 		</div>
 	</div>
 
@@ -15,7 +15,7 @@
 		<label for="inputDescr" class="col-sm-2 control-label">Description</label>
 		<div class="col-sm-10">
 
-			<textarea class="form-control" id="inputDescr" placeholder="Description">{{descr}}</textarea>
+			<textarea class="form-control" id="inputDescr" placeholder="Description">{{foodle.descr}}</textarea>
 			<p class="help-block">You may use <a target="_blank" href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a> here.</p>
 		</div>
 	</div>
@@ -370,7 +370,7 @@
 		<div class="col-sm-offset-2 col-sm-10">
 			<button id="submitFoodle" type="submit" class="btn btn-large btn-primary">
 				<span class="glyphicon glyphicon-pencil"></span>
-				Create Foodle
+				{{savetxt}}
 			</button>
 		</div>
 	</div>

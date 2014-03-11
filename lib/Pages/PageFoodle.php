@@ -211,6 +211,8 @@ You may also create new Foodles on your own, and invite others to respond.
 		$this->template->data['userToken'] = $this->user->getToken();
 
 		$this->template->data['gmapsAPI'] = $this->config->getValue('gmapsAPI');
+
+		// echo $this->config->getValue('gmapsAPI'); exit;
 				
 		$this->template->data['authenticated'] = $this->auth->isAuth();
 		$this->template->data['loginurl'] = $this->auth->getLoginURL();

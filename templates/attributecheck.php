@@ -8,12 +8,11 @@ $user = $this->data['user'];
 ?>
 
 
+<div class="container">
+	<div class="row uninett-color-white">
+		<div class="col-md-8  uninett-padded"> 
 
 
-<div class="columned">
-	<div class="gutter"></div>
-	<div class="col1">
-	
 		<h1 style="margin-bottom: 0px"><?php echo htmlspecialchars($this->t('bc_attribute_check')); ?></h1>
 
 <?php
@@ -51,12 +50,6 @@ echo( '<dd>' . $current . '</dd>');
 echo '</dl>';
 
 
-if ($this->data['user']->hasCalendar()) {
-	echo  '<p><img style="" alt="Calendar" title="Calendar" class="" src="/res/calendar-export.png" /> ' .
-		$this->t('userhascalendar') . '</p>';
-}
-
-
 echo '<h2>' . $this->t('attribute_validation') . '</h2>';
 
 
@@ -65,20 +58,20 @@ foreach($this->data['validate'] AS $v) {
 	echo '<div>';
 	switch($v[0]) {
 		case 'fatal':
-			echo '<img src="/res/exclamation.png" alt="OK" /><strong>Fatal Error</strong> ';
+			echo '<span style="color: #" class="glyphicon glyphicon-remove"></span><strong>Fatal Error</strong> ';
 			break;
 
 		case 'error':
-			echo '<img src="/res/exclamation.png" alt="OK" />';
+			echo '<span style="color: #900" class="glyphicon glyphicon-remove"></span>';
 			break;
 
 		case 'ok':
-			echo '<img src="/res/yes.png" alt="OK" />';
+			echo '<span style="color: #080" class="glyphicon glyphicon-ok"></span>';
 			break;
 
 		case 'warning':
 		default:
-			echo '<img src="/res/error.png" alt="Warning" />';
+			echo '<span style="color: #FF8C00" class="glyphicon glyphicon-remove"></span>';
 			break;
 
 	}
@@ -115,7 +108,7 @@ if (empty($this->data['attributes'])) {
 ?>
 
 	</div>
-	<div class="col2">
+	<div class="col-md-4">
 			
 <?php
 
@@ -136,33 +129,7 @@ if (empty($this->data['attributes'])) {
 
 			
 	</div>
-	<div class="col3">
 
-
-
-
-			<h2>
-				<?php echo $this->t('statistics'); ?>
-			</h2>
-			<p>
-				....
-			</p>
-			
-
-
-			<h2><?php echo $this->t('moreinfo'); ?></h2>
-			<ul>
-				<li><a href="https://rnd.feide.no/software/foodle/"><?php echo $this->t('foodlesoftware'); ?></a></li>
-				<li><a href="https://rnd.feide.no/software/foodle/foodle-privacy-policy/"><?php echo $this->t('privacypolicy'); ?></a></li>
-				<li><a href="http://rnd.feide.no"><?php echo $this->t('rndblog'); ?></a></li>
-			</ul>
-
-
-
-
-
-	</div><!-- /#col3 -->
-	<br style="height: 0px; clear: both">
 </div>
 
 

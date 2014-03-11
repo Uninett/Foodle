@@ -41,9 +41,9 @@ echo ' <dt>Location</dt>';
 echo ' <dd>' . htmlspecialchars($user->location) . '</dd>';
 
 echo ' <dt>Timezone</dt>';
-// echo ' <dd>' . htmlspecialchars($user->timezone) . '</dd>';
-$current = $this->data['timezone']->getTimeZone();
-echo( '<dd>' . $this->data['timezone']->getHTMLList($current) . '</dd>');
+echo ' <dd>' . htmlspecialchars($user->timezone) . '</dd>';
+// $current = $this->data['timezone']->getTimeZone();
+// echo( '<dd>' . $this->data['timezone']->getHTMLList($current) . '</dd>');
 
 
 #	echo('<span>' . $this->t('selecttimezone') . ': ');
@@ -57,20 +57,7 @@ echo ' <dd>' . htmlspecialchars($user->language) . '</dd>';
 
 
 echo '</dl>';
-
-
-if ($this->data['user']->hasCalendar()) {
-	echo  '<p><img style="" alt="Calendar" title="Calendar" class="" src="/res/calendar-export.png" /> ' .
-		$this->t('youhavecalendar') . '</p>';
-	
-// 	echo '<pre>Calendar: ';
-// 	print_r($this->data['user']->getCalendar());
-// 	echo '</pre>';
-	
-}
-
-echo '<p>[ <a href="/profile-calendars">Setup calendars</a> ]</p>';
-
+/*
 
 
 echo '<h2>' . $this->t('notifcations') . '</h2>';
@@ -91,7 +78,7 @@ snot('news', $this, $user, FALSE);
 
 
 echo('<p><input type="submit" class="btn btn-primary" name="submit_profile" value="' . $this->t('profile_save') . '"></p></form>');
-
+*/
 
 ?>
 
@@ -118,13 +105,6 @@ echo('<p><input type="submit" class="btn btn-primary" name="submit_profile" valu
 		</ul>
 			
 
-
-			<h2><?php echo $this->t('moreinfo'); ?></h2>
-			<ul>
-				<li><a href="https://rnd.feide.no/software/foodle/"><?php echo $this->t('foodlesoftware'); ?></a></li>
-				<li><a href="https://rnd.feide.no/software/foodle/foodle-privacy-policy/"><?php echo $this->t('privacypolicy'); ?></a></li>
-				<li><a href="http://rnd.feide.no"><?php echo $this->t('rndblog'); ?></a></li>
-			</ul>
 
 
 
