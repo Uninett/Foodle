@@ -66,7 +66,7 @@ class Pages_PageStats extends Pages_Page {
 
 		
 		$t->data['showsupport'] = TRUE;
-		
+		$t->data['gmapsAPI'] = $this->config->getValue('gmapsAPI');
 		$t->data['loginurl'] = $this->auth->getLoginURL();
 		$t->data['logouturl'] = $this->auth->getLogoutURL();
 

@@ -11,7 +11,7 @@ class Pages_PageCreate extends Pages_Page {
 		parent::__construct($config, $parameters);
 		$this->auth();
 		
-		$this->timezone = new TimeZone(NULL, $this->user);
+		$this->timezone = new TimeZone($this->fdb, NULL, $this->user);
 	}
 	
 	// Authenticate the user
@@ -98,6 +98,8 @@ You may also create new Foodles on your own, and invite others to respond.
 		$t = new SimpleSAML_XHTML_Template($this->config, 'foodlecreate.php', 'foodle_foodle');
 
 		$t->data['requirejs-main'] = 'main-create';
+
+		$t->data['gmapsAPI'] = $this->config->getValue('gmapsAPI');
 		
 		$t->data['user'] = $this->user;	
 		$t->data['userToken'] = $this->user->getToken();

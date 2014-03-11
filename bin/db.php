@@ -1,11 +1,13 @@
 #!/usr/bin/env php
 <?php
 
-$SIMPLESAMLPHP_DIR = '/var/simplesamlphp-foodle';
 
 /* This is the base directory of the simpleSAMLphp installation. */
 $baseDir = dirname(dirname(__FILE__));
 require_once($baseDir . '/www/_include.php');
+
+$SIMPLESAMLPHP_DIR = dirname($baseDir) . '/simplesamlphp';
+
 
 /* Add library autoloader. */
 require_once($SIMPLESAMLPHP_DIR . '/lib/_autoload.php');

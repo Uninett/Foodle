@@ -5,7 +5,7 @@ Third party installs are NOT prioritised with Foodle. Instead people are encoura
 
 
 
-	apt-get install php5 git php5-mysql
+	apt-get install php5 git php5-mysql php5-gd mysql-client
 
 	cd /var/www
 	git clone git@github.com:UNINETT/Foodle.git
@@ -34,7 +34,16 @@ UNINETT Internal configuration:
 	cp config-template.php config.php
 
 	Edit config.php
-	
+
+
+## Setup SimpleSAMLphp
+
+* Authsources	
+* Certificates
+* Enable cron and metarefresh
+* Setup cron loading and fetch metadata
+
+
 
 
 

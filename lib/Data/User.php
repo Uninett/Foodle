@@ -532,7 +532,7 @@ class Data_User {
 		
 		
 		if (empty($this->timezone)) {
-			$timezone = new TimeZone(NULL, $this);
+			$timezone = new TimeZone($this->db, NULL, $this);
 			
 			$newtimezone = $timezone->getTimezone();
 			

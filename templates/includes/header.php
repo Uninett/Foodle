@@ -29,21 +29,30 @@
 	<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle2.css" />
 	<link rel="stylesheet" media="screen" type="text/css" href="/res/js2/lib/datepicker3.css" />
 
-	<script type="text/javascript">
+	
 
 	<?php
 
-		if (!empty($this->data['foodle'])) {
-			echo "\n" . 'var foodle_id = "' . htmlspecialchars($this->data['foodle']->identifier) . '"; ' . "\n";
-		} else if (!empty($this->data['foodleid'])) {
-			echo "\n" . 'var foodle_id = "' . htmlspecialchars($this->data['foodleid']) . '"; ' . "\n";
-		}
+echo '<script type="text/javascript">';
+
+if (!empty($this->data['foodle'])) {
+	echo "\n" . 'var foodle_id = "' . htmlspecialchars($this->data['foodle']->identifier) . '"; ' . "\n";
+} else if (!empty($this->data['foodleid'])) {
+	echo "\n" . 'var foodle_id = "' . htmlspecialchars($this->data['foodleid']) . '"; ' . "\n";
+}
+echo '</script>';
+
+
+if (!empty($this->data['gmapsAPI'])) {
+	echo '<script type="text/javascript" ' .
+	 'src="https://maps.googleapis.com/maps/api/js?key=' . $this->data['gmapsAPI'] . '&amp;sensor=false"></script>';
+}
+
 
 	?>
-	</script>
+	
 
-	<script type="text/javascript" 
-	 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCAe5y-K5z_VmYQSCn6fPXantRZP8wyeM&amp;sensor=false"></script>
+	
 
 
 

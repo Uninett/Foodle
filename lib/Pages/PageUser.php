@@ -26,7 +26,7 @@ class Pages_PageUser extends Pages_Page {
 		
 		if (empty($this->showuser)) throw new Exception('Could not find user with ID ' . $parameters[0]);
 		
-		$this->timezone = new TimeZone(null, $this->showuser);
+		$this->timezone = new TimeZone($this->fdb, null, $this->showuser);
 		
 		$this->checkToken();
 	}

@@ -27,7 +27,7 @@ class Data_EventStream {
 		
 		$this->includeExpires = $includeExpires;
 		
-		$this->timezone = new TimeZone(NULL, $this->user);
+		$this->timezone = new TimeZone($this->db, NULL, $this->user);
 	}
 	
 	public function prepareUser() {

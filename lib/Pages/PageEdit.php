@@ -6,7 +6,7 @@ class Pages_PageEdit extends Pages_PageFoodle {
 	function __construct($config, $parameters) {
 		parent::__construct($config, $parameters);
 		
-		$this->timezone = new TimeZone();
+		$this->timezone = new TimeZone($this->fdb);
 		
 		$this->foodle->acl($this->user, 'write');
 	}
@@ -88,42 +88,7 @@ You may also create new Foodles on your own, and invite others to respond.
 
 		$t->data['foodleid'] = $this->foodle->identifier;
 
-		
-		// $t->data['user'] = $this->user;
-		
-		// $t->data['edit'] = TRUE;
-		
-		// $t->data['timezone'] = $this->timezone;
-		// $t->data['ftimezone'] = $this->foodle->timezone;
-		
-		// $t->data['mygroups'] = $this->fdb->getContactlists($this->user);
-
-		// $t->data['name'] = $this->foodle->name;
-		// $t->data['identifier'] = $this->foodle->identifier;
-		// $t->data['descr'] = $this->foodle->descr;
-		// $t->data['expire'] = $this->foodle->expire;
-		// $t->data['anon'] = $this->foodle->allowanonymous;
-		
-		// $t->data['maxcol'] = $this->foodle->maxcolumn;
-		// $t->data['maxnum'] = $this->foodle->maxentries;
-		
-		// $t->data['columntype'] = $this->foodle->columntype;
-		// $t->data['responsetype'] = $this->foodle->responsetype;
-		
-		// $t->data['extrafields'] = $this->foodle->getExtraFields();
-		
-		// $t->data['allowChangeColumn'] = $this->foodle->allowChangeColumn();
-		
-		// $t->data['columns'] = $this->foodle->columns;
-		
-		// $t->data['isDates'] = $this->foodle->onlyDateColumns();
-		
-		// $t->data['foodle'] = $this->foodle;
-
-		// $t->data['today'] = date('Y-m-d');
-		// $t->data['tomorrow'] = date('Y-m-d', time() + 60*60*24 );
-
-		// $t->data['expire'] = $this->foodle->getExpireTextField();
+		$t->data['gmapsAPI'] = $this->config->getValue('gmapsAPI');
 
 		$t->data['bread'] = array(
 			array('href' => '/', 'title' => 'bc_frontpage'), 

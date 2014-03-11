@@ -54,6 +54,24 @@ class FoodleDBConnector {
 		return $rows[0];
 	}
 	
+
+	public function tzGet($key) {
+		return $this->q1('SELECT value FROM timezonecache where key = "' . mysql_escape_string($key) . '"');
+	}
+
+	public function tzExists($key) {
+		$r = $this->q1('SELECT value FROM timezonecache where key = "' . mysql_escape_string($key) . '"');
+		return !empty($r);
+	}
+
+	public function tzSet($key, $value) {
+		if ($this->tzExists($key)) {
+			$this->execute('UPDATE timezonecache SET value = "' .mysql_escape_string($value) . '" WHERE key = "' .mysql_escape_string($key) . '") ');
+		} else {
+			$this->execute('INSERT INTO timezonecache (key, value) VALUES ("' .mysql_escape_string($key) . '", "' .mysql_escape_string($value) . '") ');
+		}
+	}
+
 	
 	private function execute($sql) {
 
