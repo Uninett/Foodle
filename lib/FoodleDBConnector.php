@@ -153,6 +153,11 @@ class FoodleDBConnector {
 		$foodle->columntype = isset($row['columntype']) ? $row['columntype'] : null;
 		$foodle->responsetype = isset($row['responsetype']) ? $row['responsetype'] : 'default';
 		$foodle->extrafields = Data_Foodle::decode($row['extrafields']);
+
+		if (!empty($row['feed'])) {
+			$foodle->feed = $row['feed'];	
+		}
+		
 		
 		$foodle->created = $row['createdu'];
 		$foodle->updated = $row['updatedu'];
@@ -433,6 +438,7 @@ class FoodleDBConnector {
 					name = '" . mysql_real_escape_string($foodle->name) . "', 
 					descr = '" . mysql_real_escape_string($foodle->descr) . "', 
 					location = '" . mysql_real_escape_string(Data_Foodle::encode($foodle->location)) . "', 
+					feed = '" . mysql_real_escape_string($foodle->feed) . "',
 					columns = '" . mysql_real_escape_string(json_encode($foodle->columns))  . "',
 					restrictions = '" . mysql_real_escape_string(Data_Foodle::encode($foodle->restrictions))  . "',
 					groupid = " . (isset($foodle->groupid) ? "" . mysql_real_escape_string($foodle->groupid) . "" : 'null') . ",
@@ -451,10 +457,11 @@ class FoodleDBConnector {
 			
 		} else {
 			$sql = "
-				INSERT INTO def (id, name, descr, location, columns, restrictions, groupid, expire, maxdef,  owner, anon, timezone, columntype, responsetype, datetime) values (" . 
+				INSERT INTO def (id, name, descr, feed, location, columns, restrictions, groupid, expire, maxdef,  owner, anon, timezone, columntype, responsetype, datetime) values (" . 
 					"'" . mysql_real_escape_string($foodle->identifier) . "'," . 
 					"'" . mysql_real_escape_string($foodle->name) . "', " . 
 					"'" . mysql_real_escape_string($foodle->descr) . "', " . 
+					"'" . mysql_real_escape_string($foodle->feed) . "', " . 
 					"'" . mysql_real_escape_string(Data_Foodle::encode($foodle->location)) . "', " . 
 					"'" . mysql_real_escape_string(json_encode($foodle->columns)) . "', " . 
 					"'" . mysql_real_escape_string(Data_Foodle::encode($foodle->restrictions)) . "', " . 
@@ -967,7 +974,7 @@ LIMIT " . $no . "
 	public function getAllEntries($no = 20) {
 
 		$sql ="
-			SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire, user.username ownername
+			SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire, user.username ownername,  UNIX_TIMESTAMP(IFNULL(def.updated, def.created)) AS unix
 			FROM def LEFT JOIN user ON (def.owner = user.userid)
 			ORDER BY def.created DESC 
 			LIMIT " . $no;
@@ -986,6 +993,18 @@ WHERE contactlist.id = '" . addslashes($groupid) . "'";
 		return $this->q($sql);
 
 	}
+	public function getFeedEntries($feed, $no = 20) {
+		$sql = "
+SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire,  UNIX_TIMESTAMP(IFNULL(def.updated, def.created)) AS unix
+FROM def 
+WHERE def.feed = '" . addslashes($feed) . "'
+ORDER BY def.created DESC 
+			LIMIT " . $no;
+
+		return $this->q($sql);
+
+	}
+
 
 
 	public function getGroupEntries(Data_User $user, $no = 20) {
@@ -1028,7 +1047,7 @@ WHERE contactlist.userid = '" . $user->userid . "'";
 	public function getYourEntries(Data_User $user) {
 
 		$sql ="
-SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire, user.username ownername, invitation
+SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire, user.username ownername, invitation,  UNIX_TIMESTAMP(IFNULL(def.updated, def.created)) AS unix
 FROM entries, def LEFT JOIN user ON (def.owner = user.userid)
 WHERE entries.userid = '" . $user->userid . "' and entries.foodleid = def.id 
 ORDER BY def.created DESC";

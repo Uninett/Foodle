@@ -29,7 +29,7 @@ class API_FoodleAuthenticated extends API_Authenticated {
 
 			if (self::route('get', '^/api/foodle/([^/]+)$', $parameters, $object)) {
 
-				return $this->foodle->getView();
+				return $this->foodle->getView($this->user);
 
 			// Update existing foodle
 			} else if (self::route('post', '^/api/foodle/([^/]+)$', $parameters, $object)) {

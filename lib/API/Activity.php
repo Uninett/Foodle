@@ -26,9 +26,9 @@ class API_Activity extends API_Authenticated {
 		
 		if (count($this->parameters) > 0) {
 			
-			if ($this->parameters[0] === 'group') {
-				$groupid = $this->parameters[1];
-				$as->prepareGroup($groupid);
+			if ($this->parameters[0] === 'feed') {
+				$feed = $this->parameters[1];
+				$as->prepareFeed($feed);
 				return $as->getData();				
 			}
 			

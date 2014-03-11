@@ -37,6 +37,22 @@ class Data_User {
 	}
 	
 
+	public function getFeeds() {
+		$feeds = array();
+
+		$fc = $this->config->getValue('publishfeeds', array());
+		
+		foreach($fc AS $id => $f) {
+			if (isset($f['realm']) && $f['realm'] === $this->realm) {
+				$n = $f;
+				$n['id'] = $id;
+				$feeds[] = $n;
+			}
+		}
+
+		return $feeds;
+	}
+
 	public function getView() {
 
 		$opts = array('userid', 'username', 'email', 'org', 'orgunit', 
@@ -47,6 +63,9 @@ class Data_User {
 		foreach($opts AS $o) {
 			$user[$o] = $this->{$o};
 		}
+
+
+		$user['feeds'] = $this->getFeeds();
 
 		return $user;
 

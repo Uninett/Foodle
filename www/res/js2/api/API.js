@@ -194,6 +194,14 @@ define(function(require, exports, module) {
 			}, callback);
 		},
 
+		"getFoodleAuth": function(id, callback) {
+			this.http('/api/foodle/' + id, {
+				"constructor": Foodle
+			}, callback);
+		},
+
+		
+
 		"getFoodleResponses": function(id, callback) {
 			this.http('/api/f/' + id + '/responders', {
 				"constructor": FoodleResponse,

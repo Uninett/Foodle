@@ -58,7 +58,7 @@ class Data_EventStream {
 			$foodle = $this->db->readFoodle($id);
 			$timezone = $this->timezone->getTimezone();
 
-			header('Content-type: text/plain; charset=utf-8');
+			// header('Content-type: text/plain; charset=utf-8');
 			// echo 'Timezone is '; print_r($timezone); echo "\n";
 			
 			
@@ -238,6 +238,11 @@ class Data_EventStream {
 			$candidates[$c['id']] = 1;
 			$this->foodleData[$c['id']] = $c;
 		}
+
+
+
+
+		
 		
 //		echo '<pre>Data: '; print_r($this->foodleData); exit;	
 		
@@ -269,15 +274,25 @@ class Data_EventStream {
 	protected function loadCandidates() {
 		$candidates = array();
 		
-		$nc = $this->db->getGroupEntries($this->user);
-		foreach($nc AS $c) {
-			$candidates[$c['id']] = 1;
-			$this->foodleData[$c['id']] = $c;
-		}
+
+		// echo "about to load candidates"; print_r($this->user); exit;
+
+		header("Content-type: text/plain; charset=utf-8");
+
+
+		// $nc = $this->db->getGroupEntries($this->user);
+		// foreach($nc AS $c) {
+		// 	$candidates[$c['id']] = 1;
+		// 	$this->foodleData[$c['id']] = $c;
+		// }
 		
+		// echo "Group entries";
+		// print_r($nc);
+
 
 		
-		if ($this->user->isAdmin()) {			
+		if ($this->user->isAdmin()) {
+
 			$nc = $this->db->getAllEntries();
 			foreach($nc AS $c) {
 				$candidates[$c['id']] = 1;
@@ -288,6 +303,24 @@ class Data_EventStream {
 				}
 			}
 		}
+
+
+		foreach($this->user->getFeeds() AS $feed) {
+			// $this->loadFeed($feed['id']);
+			$nc = $this->db->getFeedEntries($feed['id']);
+			foreach($nc AS $c) {
+				$candidates[$c['id']] = 1;
+				$c['feed'] = $feed['id'];
+
+				if (!empty($this->foodleData[$c['id']])) {
+					$this->foodleData[$c['id']] = array_merge($this->foodleData[$c['id']], $c);
+				} else {
+					$this->foodleData[$c['id']] = $c;
+				}
+			}
+		}
+
+		
 		
 		$nc = $this->db->getOwnerEntries($this->user);
 		foreach($nc AS $c) {
@@ -319,6 +352,9 @@ class Data_EventStream {
 				$this->foodleData[$c['id']] = $c;
 			}
 		}
+
+		// echo "Group entries";
+		// print_r($this->foodleData); exit;
 
 
 		

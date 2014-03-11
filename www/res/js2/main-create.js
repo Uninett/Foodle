@@ -29,7 +29,7 @@ define(function(require, exports, module) {
 				
 				if (window.foodle_id) {
 					console.log("Foodle is to load is ", foodle_id);
-					api.getFoodle(window.foodle_id, function(foodle) {
+					api.getFoodleAuth(window.foodle_id, function(foodle) {
 						// foodle.setUser(userid);
 						var cc = new EditFoodleController(api, $("#editfoodle"), data.user, foodle);
 					});

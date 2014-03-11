@@ -38,34 +38,33 @@
 	<div class="form-group" id="sectionDeadline">
 
 		<div class="row">
-		<div class="col-sm-10 col-sm-offset-2">
+			<div class="col-sm-10 col-sm-offset-2">
 
-			
-			<div class="form-inline">
+				<div class="form-inline">
 
-				<div id="sectioninputDeadlineDate" class="form-group col-sm-2">
-					<div class="input-group ">
-						<input id="inputDeadlineDate" style="padding-left: 4px; padding-right: 2px" type="text" value="" class="form-control">
-						<div class="input-group-addon"><span class=" glyphicon glyphicon-calendar"></span></div>
+					<div id="sectioninputDeadlineDate" class="form-group col-sm-2">
+						<div class="input-group ">
+							<input id="inputDeadlineDate" style="padding-left: 4px; padding-right: 2px" type="text" value="" class="form-control">
+							<div class="input-group-addon"><span class=" glyphicon glyphicon-calendar"></span></div>
+						</div>
 					</div>
+
+					<div id="sectioninputDeadlineTime" class="form-group col-sm-2">
+
+						<input id="inputDeadlineTime" style="" type="time" value="16:00" class="form-control">
+
+					</div>
+
 				</div>
-
-				<div id="sectioninputDeadlineTime" class="form-group col-sm-2">
-
-					<input id="inputDeadlineTime" style="" type="time" value="16:00" class="form-control">
-
-				</div>
-
+				
 			</div>
-		
-			
-		</div>
 		</div>
 		<div class="row">
-		<div class="col-sm-10 col-sm-offset-2">
-			<p class="help-block">If a deadline is set, users may not respond to the Foodle or modify their response after this date.</p>
+			<div class="col-sm-10 col-sm-offset-2">
+				<p class="help-block">If a deadline is set, users may not respond to the Foodle or modify their response after this date.</p>
+			</div>
 		</div>
-		</div>
+
 	</div>
 
 
@@ -253,6 +252,8 @@
 	</div>
 
 
+
+
 	<div class="form-group gutter">
 		<div class="col-sm-offset-2 col-sm-10">
 			<div class="checkbox">
@@ -263,6 +264,7 @@
 			<p class="help-block">It is reccomended to require all users to login. Then you'll be sure that each user may only respond once, and you will know the identity behind each response.</p>
 		</div>
 	</div>
+
 
 
 	<div class="form-group gutter">
@@ -343,6 +345,22 @@
 			</div>
 		</div>
 	</div>
+
+	<div id="sectionFeed"  class="form-group gutter" style="display: none">
+		<label for="ss" class="col-sm-2 control-label">Publish to feed</label>
+		<div class="col-sm-10">
+			<div class="checkbox">
+				<label>
+					<input id="enableFeed" type="checkbox" /> Publish this Foodle to a feed.
+				</label>
+			</div>
+			<select id="feedSelector" class="form-control">
+			</select>
+			<p class="help-block">By publishing to a feed, users member of that feed will get access to the foodles from their frontpage. It may also be
+				visible in Foodle widgets placed in other web applications.</p>
+		</div>
+	</div>
+
 
 
 	<pre style="display: none" id="debug" class="gutterc"></pre>

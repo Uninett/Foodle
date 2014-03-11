@@ -66,6 +66,17 @@ define(function(require, exports) {
 	var t = require('lib/text!templates/editfoodle.html');
 	var template = hb.compile(t);
 
+
+	/**
+	 * The EditFoodleController is the main class of both editing and creating new Foodles.
+	 * It uses a bunch of subcontrollers.
+	 * 
+	 * @param  {[type]} api     [description]
+	 * @param  {[type]} el      [description]
+	 * @param  {[type]} user    [description]
+	 * @param  {[type]} foodle) 
+	 * @return {[type]}         [description]
+	 */
 	var EditFoodleController = Class.extend({
 		"init": function(api, el, user, foodle) {
 
@@ -75,7 +86,7 @@ define(function(require, exports) {
 			this.user = user;
 			this.foodle = foodle || {};
 
-			console.log("Editing this FOODLE", foodle);
+			console.log("   › Editing this Foodle", foodle);
 
 			this.api = api;
 			this.el = el;
@@ -84,6 +95,8 @@ define(function(require, exports) {
 
 			this.setupMap();
 			this.prepareTimezoneSelector();
+
+			this.setupFeedSelector();
 
 			$('#title').focus();
 
@@ -266,6 +279,32 @@ define(function(require, exports) {
 
 		},
 
+
+		"setupFeedSelector": function() {
+
+			console.error('This user feeds', this.user);
+
+			if (this.user.feeds && this.user.feeds.length > 0) {
+
+				$('#sectionFeed').show();
+
+
+				// $('#feedSelector').append('<option value="_">Select which feed to publish</option>')
+
+				for (var i = 0; i < this.user.feeds.length; i++) {
+					$('#feedSelector').append('<option value="' +this.user.feeds[i].id  + '">' + 
+						this.user.feeds[i].title + '</option>')
+					
+				};
+
+
+			} else {
+				$('#sectionFeed').hide();
+			}
+
+
+		},
+
 		"setupMap": function() {
 			var that = this;
 			this.geocoder = new google.maps.Geocoder();
@@ -340,6 +379,13 @@ define(function(require, exports) {
 			}
 
 
+			if (this.foodle.feed) {
+				console.log("Set feeed selector to", this.foodle.feed);
+				$('#feedSelector option[value="' + this.foodle.feed + '"]').attr('selected', 'selected');
+				$('#enableFeed').prop('checked', true);
+			} else {
+				$('#enableFeed').prop('checked', false);
+			}
 
 			if (this.foodle.location) {
 				this.el.find('#enableLocation').prop('checked', true);
@@ -484,6 +530,8 @@ define(function(require, exports) {
 			var foodle = new Foodle(def);
 			foodle.identifier = identifier;
 
+			// console.log("UPDATE FOODLE", def); return;
+
 			this.api.updateFoodle(foodle, function(response) {
 				console.log("Successfully updated foodle", response);
 				window.location.href = '/foodle/' + identifier;
@@ -560,6 +608,25 @@ define(function(require, exports) {
 			obj.descr = $('#inputDescr').val();
 			obj.coldef = this.columneditor.getColDef();
 			obj.columntype = this.columneditor.getColumntype();
+
+			console.log("User feed", this.user);
+			
+
+			if (this.user.feeds) {
+
+				var fenabled = $('#enableFeed').prop('checked');
+				var f = $('#feedSelector').val();
+
+				console.log("Feed enabled", fenabled, f);
+
+				if (f !== '_' && fenabled) {
+					obj.feed = f;
+				}
+			} else {
+				if (obj.feed) {
+					delete obj.feed;
+				}
+			}
 
 
 

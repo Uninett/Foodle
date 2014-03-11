@@ -21,7 +21,9 @@
 			</div>
 		</div>
 
-		<h1>{{name}}</h1>
+		<h1>{{name}}
+
+		</h1>
 
 	</div>
 
@@ -31,8 +33,13 @@
 <div class="row">
 		
 	<div id="foodleDescription" class="col-md-3">
-		
+
+		{{#if feedTitle}}
+			<p><span class="label label-warning">{{feedTitle}}</span></p>
+		{{/if}}
+
 		<p>{{{descrHTML}}}</p>
+
 
 	</div>
 

@@ -43,6 +43,8 @@ class Data_ActivityStream {
 		$this->activity = array();
 		$this->db = $db;
 		$this->user = $user;
+
+		$this->foodleData = array();
 	}
 	
 	public function prepareUser() {
@@ -53,6 +55,7 @@ class Data_ActivityStream {
 	
 		$this->loadCandidates();
 		timer($i, 'loadCandidates');
+
 
 		$this->loadDiscussion();
 		timer($i, 'loadDiscussion');
@@ -74,41 +77,61 @@ class Data_ActivityStream {
 	public function prepareGroup($groupid) {
 		$this->loadCandidatesGroup($groupid);
 		$this->loadDiscussion();
-		$this->loadResponses();
+		$this->loadResponses2();
 		
 		$this->prepareSort();
 		$this->sortA();
 	}
 	
+	public function prepareFeed($feed) {
+
+		$this->loadFeed($feed);
+		$this->loadDiscussion();
+		$this->loadResponses2();
+
+		$this->prepareActivity();
+		
+		$this->prepareSort();
+		$this->sortA();
+
+	}
 	
 	protected function prepareSort() {
 		
+
+
+
 		foreach($this->activity AS $key => $a) {
-			
-			if (isset($a['type']) && $a['type'] === 'response') {
-				if (!empty($a['responses'])) {
-					foreach($a['responses'] AS $resp) {
-						if (empty($this->activity[$key]['unix']) || $this->activity[$key]['unix'] < $resp['modified']) {
-							$this->activity[$key]['unix'] = $resp['modified'];
+
+
+
+				if (!empty($this->activity[$key]['foodle']['unix'])) {
+					// $this->activity[$key]['ago'] = FoodleUtils::date_diff(time() - $this->activity[$key]['foodle']['unix']);
+					$this->activity[$key]['datetime'] = $this->activity[$key]['foodle']['unix'];
+				} 
+
+				if (!empty($a['foodle']['responses'])) {
+					foreach($a['foodle']['responses'] AS $resp) {
+						if (empty($this->activity[$key]['datetime']) || $this->activity[$key]['datetime'] < $resp['modified']) {
+							$this->activity[$key]['datetime'] = $resp['modified'];
 						}
 					}
 				}
 
-				if (!empty($a['discussion'])) {
-					foreach($a['discussion'] AS $resp) {
-						if (empty($this->activity[$key]['unix']) || $this->activity[$key]['unix'] < $resp['unix']) {
-							$this->activity[$key]['unix'] = $resp['unix'];
+				if (!empty($a['foodle']['discussion'])) {
+					foreach($a['foodle']['discussion'] AS $resp) {
+						if (empty($this->activity[$key]['datetime']) || $this->activity[$key]['datetime'] < $resp['unix']) {
+							$this->activity[$key]['datetime'] = $resp['unix'];
 						}
 					}
 				}
-				
-			}
+
 			
-			if (!empty($this->activity[$key]['foodle']['unix'])) {
-				if (empty($this->activity[$key]['unix']) || $this->activity[$key]['unix'] < $this->activity[$key]['foodle']['unix']) {
-					$this->activity[$key]['unix'] = $this->activity[$key]['foodle']['unix'];
-				}
-			}
+			// if (!empty($this->activity[$key]['foodle']['unix'])) {
+			// 	if (empty($this->activity[$key]['unix']) || $this->activity[$key]['unix'] < $this->activity[$key]['foodle']['unix']) {
+			// 		$this->activity[$key]['unix'] = $this->activity[$key]['foodle']['unix'];
+			// 	}
+			// }
 			
 			// if (!empty($this->activity[$key]['foodle']['descr'])) {
 			// 	$this->activity[$key]['foodle']['summary'] = strip_tags(Data_Foodle::cleanMarkdownInput($this->activity[$key]['foodle']['descr']), '<p>');
@@ -117,21 +140,23 @@ class Data_ActivityStream {
 			// 	}
 			// }
 			
-			if (!empty($this->activity[$key]['unix'])) {
-				$this->activity[$key]['ago'] = FoodleUtils::date_diff(time() - $this->activity[$key]['unix']);
-			}
 
 			
 		}
-		
+
+
+		// echo 'Data'; print_r($this->activity); exit;
+
+
+
 	}
 	
 	protected function sortA() {
 		
 		function cmp($a, $b) {
-			if (empty($a['unix'])) return 1;
-			if (empty($b['unix'])) return -1;
-			return ($a['unix'] > $b['unix']) ? -1 : 1;
+			if (empty($a['datetime'])) return 1;
+			if (empty($b['datetime'])) return -1;
+			return ($a['datetime'] > $b['datetime']) ? -1 : 1;
 		}
 		
 		usort($this->activity, 'cmp');
@@ -156,12 +181,24 @@ class Data_ActivityStream {
 
 		$stream = $this->activity;
 
-		error_log("ACTIVITY STREAM API LIMIT " . $limit);
+		// error_log("ACTIVITY STREAM API LIMIT " . $limit);
 
 		if ($limit !== null) {
 			return array_slice($stream, 0, $limit);
 		}
 
+		
+
+		foreach($stream AS $key => $item) {
+			if (!empty($item['foodle']['responses'])) {
+				$stream[$key]['foodle']['responses'] = array_slice($stream[$key]['foodle']['responses'], 0, 5);
+			}
+			if (!empty($item['foodle']['discussion'])) {
+				$stream[$key]['foodle']['discussion'] = array_slice($stream[$key]['foodle']['discussion'], 0, 5);
+			}
+		}
+
+// echo '<pre>'; print_r($stream); exit;
 		return $stream;
 	}
 	
@@ -196,7 +233,7 @@ class Data_ActivityStream {
 		if(empty($this->ids)) return;
 		$data = $this->db->getResponseEntries($this->ids);
 
-		// echo '<pre>'; print_r($data); exit;
+		// print_r($data); exit;
 
 		foreach($data AS $e) {
 		
@@ -222,23 +259,23 @@ class Data_ActivityStream {
 
 
 
-	protected function loadResponses() {
-		if(empty($this->ids)) return;
-		foreach($this->ids AS $id) {
+	// protected function loadResponses() {
+	// 	if(empty($this->ids)) return;
+	// 	foreach($this->ids AS $id) {
 			
-			$resp = $this->db->getRecentResponse($id);
+	// 		$resp = $this->db->getRecentResponse($id);
 			
-			$newactivity = array(
-				'type' => 'response',
-				'foodle' => $this->foodleData[$id],
-				'responses' => $resp,
-			);
+	// 		$newactivity = array(
+	// 			'type' => 'response',
+	// 			'foodle' => $this->foodleData[$id],
+	// 			'responses' => $resp,
+	// 		);
 			
-			$this->activity[] = $newactivity;
+	// 		$this->activity[] = $newactivity;
 			
-		}
+	// 	}
 		
-	}
+	// }
 	
 	
 	
@@ -279,7 +316,20 @@ class Data_ActivityStream {
 	}
 	
 
-
+	protected function loadFeed($feed) {
+		$candidates = array();
+		$nc = $this->db->getFeedEntries($feed);
+		foreach($nc AS $c) {
+			$c['feed'] = $feed;
+			$candidates[$c['id']] = 1;
+			if (!empty($this->foodleData[$c['id']])) {
+				$this->foodleData[$c['id']] = array_merge($this->foodleData[$c['id']], $c);
+			} 
+		}
+		// print_r($this->foodleData);
+		// print_r($feed);
+		$this->ids = array_keys($candidates);
+	}
 
 	/*
 	 * The result of the loadCandidates, is to fill the $this->ids array with 
@@ -294,12 +344,13 @@ class Data_ActivityStream {
 	protected function loadCandidates() {
 		$candidates = array();
 		
-		$nc = $this->db->getGroupEntries($this->user);
-		foreach($nc AS $c) {
-			$candidates[$c['id']] = 1;
-			$this->foodleData[$c['id']] = $c;
-		}
-		
+
+
+		// $nc = $this->db->getGroupEntries($this->user);
+		// foreach($nc AS $c) {
+		// 	$candidates[$c['id']] = 1;
+		// 	$this->foodleData[$c['id']] = $c;
+		// }
 
 		
 		if ($this->user->isAdmin()) {			
@@ -313,6 +364,29 @@ class Data_ActivityStream {
 				}
 			}
 		}
+
+
+
+		foreach($this->user->getFeeds() AS $feed) {
+			// $this->loadFeed($feed['id']);
+			$nc = $this->db->getFeedEntries($feed['id']);
+			foreach($nc AS $c) {
+				$candidates[$c['id']] = 1;
+				$c['feed'] = $feed['id'];
+
+				if (!empty($this->foodleData[$c['id']])) {
+					$this->foodleData[$c['id']] = array_merge($this->foodleData[$c['id']], $c);
+				} else {
+					$this->foodleData[$c['id']] = $c;
+				}
+			}
+		}
+
+
+		
+
+		// echo "Feed stuff"; print_r($nc); exit;
+
 		
 		$nc = $this->db->getOwnerEntries($this->user);
 		foreach($nc AS $c) {
@@ -324,6 +398,8 @@ class Data_ActivityStream {
 				$this->foodleData[$c['id']] = $c;
 			}
 		}
+
+
 
 
 		$nc = $this->db->getYourEntries($this->user);
@@ -345,6 +421,7 @@ class Data_ActivityStream {
 			}
 		}
 
+		
 
 		
 		$this->ids = array_keys($candidates);

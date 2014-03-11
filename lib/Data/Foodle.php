@@ -58,6 +58,8 @@ class Data_Foodle {
 	public $restrictions = null;
 	
 	public $columns;
+
+	public $feed = null;
 	
 	public $maxentries;
 	public $maxcolumn;
@@ -1020,6 +1022,12 @@ class Data_Foodle {
 			$this->restrictions = null;
 		}
 
+		if (!empty($object['feed'])) {
+			$this->feed = strip_tags($object['feed']);
+		} else {
+			$this->feed = null;
+		}
+
 		
 		if (array_key_exists('allowanonymous', $object) && $object['allowanonymous']) {
 			$this->allowanonymous = TRUE;
@@ -1028,23 +1036,23 @@ class Data_Foodle {
 		}
 			
 		if (!empty($object['timezone'])) {
-			$this->timezone = $object['timezone'];			
+			$this->timezone = strip_tags($object['timezone']);			
 		}
 
 		if (!empty($object['columntype'])) {
-			$this->columntype = $object['columntype'];
+			$this->columntype = strip_tags($object['columntype']);
 		}
 		if (!empty($object['responsetype'])) {
-			$this->responsetype = $object['responsetype'];
+			$this->responsetype = strip_tags($object['responsetype']);
 		}
 		
-		if (!empty($object['groups'])) {
-			if ($object['groups'] == '-1') {
-				$this->groupid = NULL;
-			} else {
-				$this->groupid = $object['groups'];
-			}
-		}
+		// if (!empty($object['groups'])) {
+		// 	if ($object['groups'] == '-1') {
+		// 		$this->groupid = NULL;
+		// 	} else {
+		// 		$this->groupid = $object['groups'];
+		// 	}
+		// }
 
 		if (!empty($object['location'])) {
 			$this->location = $object['location'];
@@ -1239,8 +1247,23 @@ class Data_Foodle {
 		return date("Y-m-d H:i", $this->expire);
 	}
 	
+
+
+	public function getFeedTitle() {
+
+
+		$config = SimpleSAML_Configuration::getInstance('foodle');
+		$fc = $config->getValue('publishfeeds', array());
+		
+		if (isset($fc[$this->feed])) {
+			return $fc[$this->feed]['title'];
+		}
+
+
+	}
+
 	
-	public function getView() {
+	public function getView(Data_User $user = null) {
 
 		$obj = array();
 
@@ -1269,7 +1292,17 @@ class Data_Foodle {
 			}
 		}
 
+		if ($this->feed) {
+			$obj['feedTitle'] = $this->getFeedTitle();
+			if ($user && $this->acl($user)) {
+				$obj['feed'] = $this->feed;
+			}
+		}
+
+
+
 		$obj['descrHTML'] = $this->getDescription();
+
 
 		return $obj;
 
