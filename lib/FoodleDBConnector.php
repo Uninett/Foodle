@@ -1013,8 +1013,8 @@ WHERE contactlist.id = '" . addslashes($groupid) . "'";
 	}
 	public function getFeedEntries($feed, $no = 20) {
 		$sql = "
-SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire,  UNIX_TIMESTAMP(IFNULL(def.updated, def.created)) AS unix
-FROM def 
+SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire,  user.username ownername, UNIX_TIMESTAMP(IFNULL(def.updated, def.created)) AS unix
+FROM def LEFT JOIN user ON (def.owner = user.userid)
 WHERE def.feed = '" . addslashes($feed) . "'
 ORDER BY def.created DESC 
 			LIMIT " . $no;
@@ -1025,42 +1025,6 @@ ORDER BY def.created DESC
 
 
 
-	public function getGroupEntries(Data_User $user, $no = 20) {
-
-		$result = array();
-		
-		$sql = "
-SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire, user.username ownername, contactlist.id AS groupid, contactlist.name AS groupname
-FROM def 
-	JOIN contactlist ON (def.groupid = contactlist.id) 
-	JOIN contactlistmembers ON (contactlist.id = contactlistmembers.id) 
-	LEFT JOIN user ON (def.owner = user.userid) 
-WHERE contactlistmembers.userid = '" . $user->userid . "'";
-
-		$data = $this->q($sql);
-		if(!empty($data)){
-			foreach($data AS $row) {
-				$result[$row['id']] = $row;
-			}
-		}		
-
-		$sql = "
-SELECT def.id, def.name, def.descr, UNIX_TIMESTAMP(def.expire) AS expire, user.username ownername, contactlist.id AS groupid, contactlist.name AS groupname
-FROM def 
-	JOIN contactlist ON (def.groupid = contactlist.id) 
-	LEFT JOIN user ON (contactlist.userid = user.userid) 
-WHERE contactlist.userid = '" . $user->userid . "'";
-
-		$data = $this->q($sql);
-		if(!empty($data)){
-			foreach($data AS $row) {
-				$result[$row['id']] = $row;
-			}
-		}		
-		
-		return $result;
-
-	}
 	
 	public function getYourEntries(Data_User $user) {
 
@@ -1119,98 +1083,6 @@ ORDER BY e1.created DESC LIMIT " . $no;
 		return $this->q($sql);
 	}
 	
-	
-
-// SELECT count(user.userid) c, user.username
-// FROM entries e1 INNER JOIN entries e2 ON (e1.foodleid = e2.foodleid) JOIN user ON (e2.userid = user.userid)
-// WHERE e1.userid = 'hatlen@hit.no' AND e2.userid != 'hatlen@hit.no'
-// GROUP BY user.userid 
-// ORDER BY c desc, user.username;
-	
-
-	public function getContacts(Data_User $user) {
-
-		$sql ="
-SELECT count(user.userid) c, user.userid, user.email, user.username
-FROM entries e1 INNER JOIN entries e2 ON (e1.foodleid = e2.foodleid) JOIN user ON (e2.userid = user.userid)
-WHERE e1.userid = '" . addslashes($user->userid) . "' AND e2.userid != '" . addslashes($user->userid) . "'
-GROUP BY user.userid
-ORDER BY c desc";
-
-		return $this->q($sql);
-		
-	}
-
-
-
-
-
-	public function getContactlists(Data_User $user) {
-	
-		$result = array();
-		
-		$sql ="
-SELECT *, 'owner' as role
-FROM contactlist
-WHERE userid = '" . addslashes($user->userid) . "'";
-
-		$ownerOf = $this->q($sql);
-		foreach($ownerOf AS $curr) {
-			$result[] = array(
-				'role' => 'owner',
-				'id' => $curr['id'],
-				'name' => $curr['name']
-			);
-		}
-		
-
-		$sql ="
-SELECT contactlist.id, contactlist.name, contactlistmembers.role
-FROM contactlist JOIN contactlistmembers ON (contactlist.id = contactlistmembers.id) 
-WHERE contactlistmembers.userid = '" . addslashes($user->userid) . "'";
-
-		$others = $this->q($sql);
-		foreach($others AS $curr) {
-			$result[] = array(
-				'role' => $curr['role'],
-				'id' => $curr['id'],
-				'name' => $curr['name']
-			);
-		}
-
-		
-
-		return $result;
-	
-	}
-	
-	
-
-	public function getContactlist($user, $listidentifier) {
-	
-		$sql ="
-SELECT contactlist.userid as owner, contactlistmembers.userid as memberid, contactlistmembers.role as membership, user.*
-FROM contactlist JOIN contactlistmembers ON(contactlist.id = contactlistmembers.id), user
-WHERE contactlistmembers.userid = user.userid AND contactlist.id = " . addslashes($listidentifier) . "
-ORDER BY contactlistmembers.role, user.username
-";
-		$list = $this->q($sql);
-		
-		$sql ="
-SELECT contactlist.userid as owner, user.*
-FROM contactlist JOIN user ON (contactlist.userid = user.userid) 
-WHERE contactlist.id = " . addslashes($listidentifier) . "
-";
-		$owner = $this->q($sql);
-		$ownerentry = $owner[0];
-		$ownerentry['membership'] = 'owner';
-		if (count($owner)===1) {
-			array_unshift($list, $ownerentry);
-		}
-		
-		return $list;
-	
-	}
 	
 	
 	public function getUsersByOrg($org) {

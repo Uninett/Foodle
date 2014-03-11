@@ -5,6 +5,7 @@
 
 $SIMPLESAMLPATH = dirname(dirname(dirname(__FILE__))) . '/simplesamlphp/';
 
+
 $path_extra = $SIMPLESAMLPATH . 'lib';
 $path = ini_get('include_path');
 $path = $path_extra . PATH_SEPARATOR . $path;
@@ -70,6 +71,7 @@ require_once($THISPATH . 'lib/API/DiscoJuice.php');
 
 require_once($THISPATH . 'lib/API/Activity.php');
 require_once($THISPATH . 'lib/API/Events.php');
+require_once($THISPATH . 'lib/API/EventsAnon.php');
 
 require_once($THISPATH . 'lib/API/Foodlelist.php');
 require_once($THISPATH . 'lib/API/IdPList.php');
@@ -95,6 +97,7 @@ require_once($THISPATH . 'lib/Pages/PageSupport.php');
 require_once($THISPATH . 'lib/Pages/PageStats.php');
 require_once($THISPATH . 'lib/Pages/FixDate.php');
 require_once($THISPATH . 'lib/Pages/Login.php');
+require_once($THISPATH . 'lib/Pages/PageWidget.php');
 
 require_once($THISPATH . 'lib/Pages/EmbedFoodle.php');
 require_once($THISPATH . 'lib/Pages/RSSFoodle.php');

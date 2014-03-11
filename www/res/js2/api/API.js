@@ -233,6 +233,12 @@ define(function(require, exports, module) {
 			this.getData('/api/events', {"limit": limit || 0}, 'array', Event, callback);	
 		},
 
+		"getFeedEvents": function(feed, callback) {
+			this.http('/api/e/feed/' + feed, {
+				"auth": false
+			}, callback);
+		},
+
 
 
 

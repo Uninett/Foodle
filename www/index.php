@@ -79,11 +79,18 @@ try {
 					$api = new API_Activity($config, $parameters);
 					$api->show();
 					break;					
-					
+
+
+				case 'e': 
+					$api = new API_EventsAnon($config, $parameters);
+					$api->show();
+					break;
+
 				case 'events': 
 					$api = new API_Events($config, $parameters);
 					$api->show();
 					break;
+
 						
 				case 'f': 
 					$api = new API_Foodle($config, $parameters);
@@ -109,6 +116,13 @@ try {
 			}
 			break;
 
+
+
+	
+		case 'widget':
+			$page = new Pages_PageWidget($config, $parameters);
+			$page->show();
+			break;
 
 			
 	

@@ -18,7 +18,7 @@ class Data_EventStream {
 	
 	private $timezone;
 	
-	function __construct(FoodleDBConnector $db, Data_User $user, $includeExpires = true) {
+	function __construct(FoodleDBConnector $db, Data_User $user = null, $includeExpires = true) {
 
 		$this->ids = array();
 		$this->activity = array();
@@ -36,6 +36,17 @@ class Data_EventStream {
 		$this->sortA();
 	}
 	
+
+	public function prepareFeed($feed) {
+
+		$this->loadFeed($feed);
+		// $this->loadDiscussion();
+		// $this->loadResponses2();
+
+		$this->loadFoodles();
+		$this->sortA();
+
+	}
 	
 	public function prepareGroup($groupid) {
 		$this->loadCandidatesGroup($groupid);
@@ -43,6 +54,22 @@ class Data_EventStream {
 		$this->sortA();
 	}
 	
+
+
+	protected function loadFeed($feed) {
+		$candidates = array();
+		$nc = $this->db->getFeedEntries($feed);
+		foreach($nc AS $c) {
+			$c['feed'] = $feed;
+			$candidates[$c['id']] = 1;
+			$this->foodleData[$c['id']] = $c;
+		}
+		// print_r($this->foodleData);
+		// print_r($feed);
+		
+		$this->ids = array_keys($candidates);
+	}
+
 	public function loadFoodles() {
 		if(empty($this->ids)) return;
 		
@@ -217,7 +244,7 @@ class Data_EventStream {
 
 		$stream = $this->activity;
 
-		error_log("ACTIVITY STREAM API LIMIT " . $limit);
+		// error_log("ACTIVITY STREAM API LIMIT " . $limit);
 
 		if ($limit !== null && $limit > 0) {
 			return array_slice($stream, 0, $limit);
@@ -241,9 +268,6 @@ class Data_EventStream {
 
 
 
-
-		
-		
 //		echo '<pre>Data: '; print_r($this->foodleData); exit;	
 		
 		$nc = $this->db->getOwnerEntries($this->user);
