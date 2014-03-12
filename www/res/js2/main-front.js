@@ -39,7 +39,7 @@ define(function(require, exports, module) {
 	});
 
 
-
+	// console.error("Foo 2");
 
 
 
