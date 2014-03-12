@@ -9,10 +9,14 @@
     <!-- JQuery hosted by Google -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
 
+
     <!-- DiscoJuice hosted by UNINETT at discojuice.org -->
     <script type="text/javascript" src="https://engine.discojuice.org/discojuice-stable.min.js"></script>
     <script type="text/javascript" src="https://engine.discojuice.org/idpdiscovery.js"></script>
     <link rel="stylesheet" type="text/css" href="https://static.discojuice.org/css/discojuice.css" />
+
+    <link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle2.css" />
+	
 
     <style type="text/css">
         body {
