@@ -201,23 +201,26 @@ You may also create new Foodles on your own, and invite others to respond.
 	// Process the page.
 	function show() {
 
-
 		$this->template->data['requirejs-main'] = 'main-response';
 		$this->template->data['foodleid'] = $this->foodle->identifier;
-		$this->template->data['userid'] = $this->user->userid;
+
+		$this->template->data['user'] = $this->user;
+		if ($this->user !== null) {
+			// $this->template->data['userid'] = $this->user->userid;			
+			$this->template->data['userToken'] = $this->user->getToken();
+		}
+
+
 		$this->template->data['title'] = 'Foodle :: ' . $this->foodle->name;
 		$this->template->data['foodle'] = $this->foodle;
-		$this->template->data['user'] = $this->user;
-		$this->template->data['userToken'] = $this->user->getToken();
+
+
 
 		$this->template->data['gmapsAPI'] = $this->config->getValue('gmapsAPI');
-
-		// echo $this->config->getValue('gmapsAPI'); exit;
-				
+	
 		$this->template->data['authenticated'] = $this->auth->isAuth();
 		$this->template->data['loginurl'] = $this->auth->getLoginURL();
-		$this->template->data['logouturl'] = $this->auth->getLogoutURL('/');
-		
+		$this->template->data['logouturl'] = $this->auth->getLogoutURL('/');		
 
 		$this->template->data['url'] = FoodleUtils::getUrl() . 'foodle/' . $this->foodle->identifier;
 
@@ -229,11 +232,7 @@ You may also create new Foodles on your own, and invite others to respond.
 		Timer::tick('Presenting page');
 		$this->template->data['timer'] = Timer::getList();
 
-		//echo '<pre>'; print_r($this->template->data); exit;
-
 		$this->template->show();
-
-
 
 	}
 	

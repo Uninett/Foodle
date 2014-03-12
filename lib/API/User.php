@@ -25,7 +25,8 @@ class API_User extends API_Authenticated {
 			
 			$this->user = $this->auth->registerUser($name, $email);
 
-			$res = array('authenticated' => true);
+			$res = array(); // 'authenticated' => true);
+			$res['authenticated'] = $this->user->loadedFromDB;
 			$res['user'] = $this->user->getView();
 			$res['token'] = $this->user->getToken();
 
@@ -53,6 +54,7 @@ class API_User extends API_Authenticated {
 
 
 		$res = array('authenticated' => true);
+		$res['authenticated'] = $this->user->loadedFromDB;
 		$res['user'] = $this->user->getView();
 		$res['token'] = $this->user->getToken();
 

@@ -64,6 +64,7 @@ class Data_User {
 			$user[$o] = $this->{$o};
 		}
 
+		$user['anon'] = !$this->loadedFromDB;
 
 		$user['feeds'] = $this->getFeeds();
 

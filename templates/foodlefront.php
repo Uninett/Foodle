@@ -57,11 +57,7 @@ if (isset($this->data['loginurl'])) {
 					<div id="upcoming2"></div>
 
 					<p id="upcomingb">
-					<!--
-						<a class="uninett-fontColor-grey" href="<?php echo htmlspecialchars($this->data['calendarurl']); ?> ">
-							<span class="glyphicon glyphicon-calendar"></span> Subscribe calendar
-						</a>
-						-->
+
 					</p>
 				</div>
 

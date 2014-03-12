@@ -277,8 +277,8 @@ define(function(require, exports) {
 				setrow2.append('<th colspan="2" ><span class="glyphicon glyphicon-user"></span> ' + this.user.username + '</th>');
 			} else {
 				setrow2.append('<td colspan="2" class="" >' + 
-					'<div id="regNameP" class="col-md-7"><input id="regName" type="text" class="form-control col-md-6" placeholder="Your name" /></div>' + 
-					'<div id="regEmailP" class="col-md-5"><input id="regEmail" type="text" class="form-control col-md-6" placeholder="Email" /></div>' + 
+					'<div id="regNameP" class="col-md-7"><input id="regName" type="text" class="form-control " placeholder="Your name" /></div>' + 
+					'<div id="regEmailP" class="col-md-5"><input id="regEmail" type="text" class="form-control " placeholder="Email" /></div>' + 
 					'</td>');
 			}
 
@@ -356,9 +356,13 @@ define(function(require, exports) {
 			} else if (this.user !== null) {
 				setrow1.append('<th rowspan="3" ><span class="glyphicon glyphicon-user"></span> ' + this.user.username + '</th>');
 			} else {
-				setrow1.append('<th rowspan="3" >' + 
-					'<input type="text" class="form-control" />' + 
-					'</th>');
+				// setrow1.append('<th rowspan="3" >' + 
+				// 	'<input type="text" class="form-control" />' + 
+				// 	'</th>');
+				setrow1.append('<td rowspan="3" class="" >' + 
+					'<div id="regNameP" class="col-md-7"><input id="regName" type="text" class="form-control " placeholder="Your name" /></div>' + 
+					'<div id="regEmailP" class="col-md-5"><input id="regEmail" type="text" class="form-control " placeholder="Email" /></div>' + 
+					'</td>');
 			}
 
 			setrow1.append(this.getResponseCell(1));

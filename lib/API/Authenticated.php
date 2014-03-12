@@ -50,8 +50,6 @@ abstract class API_Authenticated extends API_API {
 		$this->auth = new FoodleAuth($this->fdb);
 		$this->auth->requireAuth(TRUE);
 
-		// $this->user = 'andreas@uninett.no'; return;
-		
 		if ($this->auth->isAuth()) {
 			$this->user = $this->auth->getUser();
 			$this->requireUserToken();

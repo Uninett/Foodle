@@ -30,9 +30,9 @@ define(function(require, exports, module) {
 				var il = new UpcomingListController(api, $("#upcoming"));
 
 			} else {
-				DJ.load();				
+		
 			}
-
+			DJ.load();	
 
 		});
 

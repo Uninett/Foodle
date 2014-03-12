@@ -27,7 +27,7 @@ class Pages_PageFront extends Pages_Page {
 	// Process the page.
 	function show() {
 
-		$stats = $this->fdb->getStats($this->user->userid);
+		$stats = $this->fdb->getStats();
 
 		$t = new SimpleSAML_XHTML_Template($this->config, 'foodlefront.php', 'foodle_foodle');
 
@@ -43,24 +43,15 @@ class Pages_PageFront extends Pages_Page {
 			$t->data['userToken'] = $this->user->getToken();			
 		}
 		
-		$t->data['showprofile'] = $this->user->loadedFromDB;
-		// $t->data['showcontacts'] = $this->auth->isAuth();
-
 
 		$t->data['requirejs-main'] = 'main-front';
 
-		
-		// $t->data['mygroups'] = $this->fdb->getContactlists($this->user);
-		
-		$t->data['calendarurl'] = FoodleUtils::getUrl() . 'calendar/user/' . $this->user->userid . '/' . $this->user->getToken('calendar');
-		
-		$t->data['showsupport'] = TRUE;
 	
 		$t->data['loginurl'] = $this->auth->getLoginURL();
 		$t->data['logouturl'] = $this->auth->getLogoutURL();
 		
 		$t->data['enableFacebookAuth'] = $this->config->getValue('enableFacebookAuth', TRUE);
-		$t->data['facebookshare'] = FALSE;
+
 		$t->data['stats'] = $stats;
 
 		$t->show();

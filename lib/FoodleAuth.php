@@ -218,6 +218,15 @@ class FoodleAuth {
 	
 	}
 	
+
+	/**
+	 * This function checks for parameters that initiates a new anonymous session and adds username, 
+	 * and other user data to it.
+	 *
+	 * The anonymous session is kept in cookies only. Represented by the foodleSession (persistent) cookie.
+	 * 
+	 * @return [type] [description]
+	 */
 	public function checkAnonymousSession() {
 
 		$this->user = new Data_User($this->db);
@@ -253,7 +262,10 @@ class FoodleAuth {
 			
 		} 
 
+		// echo "poot"; Exit;
+
 		if (!array_key_exists('foodleSession', $_COOKIE)) {
+			$this->user = null;
 			return false;
 		}
 

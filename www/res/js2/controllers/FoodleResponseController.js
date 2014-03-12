@@ -441,7 +441,7 @@ define(function(require, exports) {
 			this.setCreated();
 
 
-			if (this.user) {
+			if (this.user && !this.user.anon) {
 				this.upcomingcontroller = new UpcomingListController(this.api, $("#upcoming"), 6, 'slim', this.foodle);	
 			}
 			

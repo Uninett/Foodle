@@ -22,7 +22,7 @@ define(function(require, exports, module) {
 
 			DJ.load();		
 
-			if (data.authenticated) {
+			if (data.user) {
 
 				var api = new API(data.token);
 				
@@ -46,6 +46,10 @@ define(function(require, exports, module) {
 				api.getFoodle(identifier, function(foodle) {
 					var cc = new FoodleResponseController(api, foodle, null, frc);
 				});
+			}
+
+			if (data.authenticated) {
+				
 			}
 
 
