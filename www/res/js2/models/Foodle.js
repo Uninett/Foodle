@@ -8,6 +8,9 @@ define(function(require, exports) {
 
 	var Foodle = Model.extend({
 
+		"type": function() {
+			console.log("I am a Foodle model");
+		},
 		"isOwner": function(user) {
 			// console.log("Compare me ", this._.userid, " with ", this.owner);
 			return (this._.userid === this.owner);
@@ -31,9 +34,9 @@ define(function(require, exports) {
 
 		"getMyResponse": function() {
 			
-			console.log("Foodle › attempting to load my response");
-			console.log("Userid", this._.userid);
-			console.log("Responses", this._.responses);
+			// console.log("Foodle › attempting to load my response");
+			// console.log("Userid", this._.userid);
+			// console.log("Responses", this._.responses);
 
 			if (!this._.userid) return null;
 			if (!this._.responses) return null;

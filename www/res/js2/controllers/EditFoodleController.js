@@ -60,7 +60,7 @@ define(function(require, exports) {
 	endDatepickerConfig.beforeShowDay = showOnlyAfterStart;
 	endDatepickerConfig.todayHighlight = false;
 
-	console.log("endDatepickerConfig", endDatepickerConfig);
+	// console.log("endDatepickerConfig", endDatepickerConfig);
 
 
 	var t = require('lib/text!templates/editfoodle.html');
@@ -80,13 +80,13 @@ define(function(require, exports) {
 	var EditFoodleController = Class.extend({
 		"init": function(api, el, user, foodle) {
 
-			console.log("init EditFoodleController");
+			// console.log("init EditFoodleController");
 			var that = this;
 
 			this.user = user;
 			this.foodle = foodle || {};
 
-			console.log("   › Editing this Foodle", foodle);
+			// console.log("   › Editing this Foodle", foodle);
 
 			this.api = api;
 			this.el = el;
@@ -139,7 +139,7 @@ define(function(require, exports) {
 			var dptimeEnd   = $('#inputDateEnd'  ).datepicker(endDatepickerConfig);
 
 			dptimeStart.on('changeDate', function(e) {
-				console.log("Change date event on START", e);
+				// console.log("Change date event on START", e);
 				dptimeEnd.datepicker('update');
 				that.updateDynamics();
 			});
@@ -150,7 +150,7 @@ define(function(require, exports) {
 
 			var dpdeadline = $('#inputDeadlineDate').datepicker(stdDatepickerConfig);
 			dpdeadline.on('changeDate', function(e) {
-				console.log("Change date event", e);
+				// console.log("Change date event", e);
 				$("#inputDeadlineCheck").prop('checked', true);
 				that.updateDynamics();
 			});
@@ -161,15 +161,15 @@ define(function(require, exports) {
 			$("#inputDeadlineCheck").on('change', function(e) {
 				
 				var checked = $(e.currentTarget).prop('checked');
-				console.log("Change click event", checked);
+				// console.log("Change click event", checked);
 
 				if (checked) {
-					console.log("datepicker show");
+					// console.log("datepicker show");
 					dpdeadline.datepicker('show');
 
 				} else if (!checked) {
 					$('#inputDeadlineDate').val('');
-					console.log("set value empty");
+					// console.log("set value empty");
 				}
 
 			});
@@ -212,7 +212,7 @@ define(function(require, exports) {
 			that.marker = null;
 
 			this.el.on('click', '#actLookupMap', function(e) {
-				console.log("Input address chaneged.");
+				// console.log("Input address chaneged.");
 				that.el.find('#map-canvas').show();
 				that.codeAddress();
 			});
@@ -225,16 +225,16 @@ define(function(require, exports) {
 
 			var valid = this.validate();
 
-			console.log("Is Valid", valid);
+			// console.log("Is Valid", valid);
 
 			if (!valid) return;
 
 			if (that.foodle.hasOwnProperty('identifier')) {
-				console.log("Update existing foodle " + that.foodle.identifier);
+				// console.log("Update existing foodle " + that.foodle.identifier);
 
 				that.updateFoodle(that.foodle.identifier);
 			} else {
-				console.log("Create new foodle");
+				// console.log("Create new foodle");
 				that.submitFoodle();	
 			}
 		},
@@ -273,8 +273,8 @@ define(function(require, exports) {
 
 			var s = $('<input id="timezoneselect" class="form-control" autocomplete="off" type="text" data-provide="typeahead" />').appendTo(c);
 
-			console.log("TIMEZONE");
-			console.log(this.user);
+			// console.log("TIMEZONE");
+			// console.log(this.user);
 
 			s.typeahead({
 				"source": window.moment_zones
@@ -296,7 +296,7 @@ define(function(require, exports) {
 
 		"setupFeedSelector": function() {
 
-			console.error('This user feeds', this.user);
+			// console.error('This user feeds', this.user);
 
 			if (this.user.feeds && this.user.feeds.length > 0) {
 
@@ -394,7 +394,7 @@ define(function(require, exports) {
 
 
 			if (this.foodle.feed) {
-				console.log("Set feeed selector to", this.foodle.feed);
+				// console.log("Set feeed selector to", this.foodle.feed);
 				$('#feedSelector option[value="' + this.foodle.feed + '"]').attr('selected', 'selected');
 				$('#enableFeed').prop('checked', true);
 			} else {
@@ -482,7 +482,7 @@ define(function(require, exports) {
 
 			if (this.foodle.expire) {
 				var em = moment.unix(parseInt(this.foodle.expire, 10));
-				console.log("Expiration ", this.foodle.expire, em);
+				// console.log("Expiration ", this.foodle.expire, em);
 				this.el.find('#inputDeadlineDate').val(em.format('YYYY-MM-DD'));
 				this.el.find('#inputDeadlineTime').val(em.format('HH:mm'));
 				this.el.find('#enableDeadline').prop('checked', true);
@@ -506,7 +506,7 @@ define(function(require, exports) {
 
 
 			if (this.foodle.columntype && this.foodle.columntype === 'dates' ) {
-				console.error('Not implemented yet');
+				// console.error('Not implemented yet');
 			}
 
 
@@ -567,7 +567,7 @@ define(function(require, exports) {
 
 
 			this.api.createNewFoodle(foodle, function(response) {
-				console.log("Successfully created new foodle", response);
+				// console.log("Successfully created new foodle", response);
 				var identifier = response.identifier;
 
 				$('#submitFoodle').addClass('disabled');
@@ -577,7 +577,7 @@ define(function(require, exports) {
 					'keyboard': false
 				});
 				$('#modalSuccess').on('click', '.actContinue', function() {
-					console.log('REDIRECT TO ');
+					// console.log('REDIRECT TO ');
 					window.location.href = '/foodle/' + identifier;
 				});
 
@@ -608,9 +608,9 @@ define(function(require, exports) {
 						that.map.panTo( results[0].geometry.location );
 					}
 					that.map.setZoom(11);
-					console.log("Successfully got geo location of address", address);
+					// console.log("Successfully got geo location of address", address);
 				} else {
-					console.error('Geocode was not successful for the following reason: ' + status);
+					// console.error('Geocode was not successful for the following reason: ' + status);
 				}
 			});
 		},
@@ -623,7 +623,7 @@ define(function(require, exports) {
 			obj.coldef = this.columneditor.getColDef();
 			obj.columntype = this.columneditor.getColumntype();
 
-			console.log("User feed", this.user);
+			// console.log("User feed", this.user);
 			
 
 			if (this.user.feeds) {
@@ -631,7 +631,7 @@ define(function(require, exports) {
 				var fenabled = $('#enableFeed').prop('checked');
 				var f = $('#feedSelector').val();
 
-				console.log("Feed enabled", fenabled, f);
+				// console.log("Feed enabled", fenabled, f);
 
 				if (f !== '_' && fenabled) {
 					obj.feed = f;
@@ -666,7 +666,7 @@ define(function(require, exports) {
 
 
 			var enableRestrictions = this.el.find('#enableRestrictions').prop('checked');
-			console.log("enableRestrictions", enableRestrictions);
+			// console.log("enableRestrictions", enableRestrictions);
 
 			if (enableRestrictions) {
 				
@@ -722,7 +722,7 @@ define(function(require, exports) {
 
 				if (dldate !== '' && dltime !== '') {
 					var dl = moment(dldate + ' ' + dltime, 'YYYY-MM-DD HH:mm');
-					console.log("deadline date ", dldate + ' ' + dltime, dl);
+					// console.log("deadline date ", dldate + ' ' + dltime, dl);
 					obj.expire = dl.unix();
 				}
 
@@ -742,7 +742,7 @@ define(function(require, exports) {
 
 
 			var enableTime = this.el.find('#enableTime').prop('checked');
-			console.log("enableTime", enableTime);
+			// console.log("enableTime", enableTime);
 
 			if (enableTime) {
 
@@ -870,7 +870,7 @@ define(function(require, exports) {
 				e.stopPropagation(); e.preventDefault();
 			}
 			var enableLocation = this.el.find('#enableLocation').prop('checked');
-			console.log("Location enabled", enableLocation);
+			// console.log("Location enabled", enableLocation);
 
 			if (enableLocation) {
 				this.el.find('#sectionLocationDetails').show();
@@ -883,7 +883,7 @@ define(function(require, exports) {
 
 
 			var enableRestrictions = this.el.find('#enableRestrictions').prop('checked');
-			console.log("enableRestrictions", enableRestrictions);
+			// console.log("enableRestrictions", enableRestrictions);
 
 			if (enableRestrictions) {
 				this.el.find('#sectionRestrictions').show();
@@ -894,7 +894,7 @@ define(function(require, exports) {
 
 
 			var enableDeadline = this.el.find('#enableDeadline').prop('checked');
-			console.log("enableDeadline", enableDeadline);
+			// console.log("enableDeadline", enableDeadline);
 
 			if (enableDeadline) {
 				this.el.find('#sectionDeadline').show();
@@ -904,7 +904,7 @@ define(function(require, exports) {
 
 
 			var enableTime = this.el.find('#enableTime').prop('checked');
-			console.log("enableTime", enableTime);
+			// console.log("enableTime", enableTime);
 
 			if (enableTime) {
 				this.el.find('#sectionTime').show();
@@ -963,12 +963,12 @@ define(function(require, exports) {
 			} else {
 				this.el.find('#sectionTimezone').hide();
 			}
-			console.log('enableDeadline', enableDeadline);
-			console.log(' enableTime',  enableTime);
-			console.log('this.columneditor.getColumntype()', this.columneditor.getColumntype());
+			// console.log('enableDeadline', enableDeadline);
+			// console.log(' enableTime',  enableTime);
+			// console.log('this.columneditor.getColumntype()', this.columneditor.getColumntype());
 
-			console.log("start", start);
-			console.log("end", end);
+			// console.log("start", start);
+			// console.log("end", end);
 
 
 		}

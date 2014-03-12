@@ -30,6 +30,8 @@ define(function(require, exports, module) {
 				var identifier = frc.data('foodleid');
 
 				api.getFoodle(identifier, function(foodle) {
+					// console.log("Reveiced foodle object with getfoodle: ", foodle);
+					foodle.type();
 					foodle.setUser(data.user.userid);
 					var cc = new FoodleResponseController(api, foodle, data.user, frc);
 				});

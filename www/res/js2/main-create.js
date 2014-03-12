@@ -21,14 +21,14 @@ define(function(require, exports, module) {
 
 		$(document).ready(function() {
 
-			console.log("Received data", data);
+			// console.log("Received data", data);
 
 			if (data.authenticated) {
 
 				var api = new API(data.token);
 				
 				if (window.foodle_id) {
-					console.log("Foodle is to load is ", foodle_id);
+					// console.log("Foodle is to load is ", foodle_id);
 					api.getFoodleAuth(window.foodle_id, function(foodle) {
 						// foodle.setUser(userid);
 						var cc = new EditFoodleController(api, $("#editfoodle"), data.user, foodle);

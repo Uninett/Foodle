@@ -49,7 +49,7 @@ define(function(require, exports) {
 
 			this.geocoder = new google.maps.Geocoder();
 
-			console.log("›› Foodle object", foodle);
+			// console.log("›› Foodle object", foodle);
 
 
 			this.loadResponses();
@@ -107,7 +107,7 @@ define(function(require, exports) {
 
 				if (comment === '') return;
 
-				console.error('Add comment', comment);
+				// console.error('Add comment', comment);
 
 				that.api.addComment(that.foodle, comment, function(res) {
 					// console.log("Successfully saved comment")
@@ -164,7 +164,7 @@ define(function(require, exports) {
 			this.myresponse = new MyResponseController(this.api, this.foodle, this.user, null, this.el.find("#mytablebody"));
 			this.myresponse.on('response', $.proxy(this.submitResponse, this));		
 			this.myresponse.on('register', function(user) {
-				console.error('FoodleResponseController is now registerig user as authenticated', user);
+				// console.error('FoodleResponseController is now registerig user as authenticated', user);
 				that.user = user;
 				that.foodle.setUser(user.userid);
 			});				
@@ -200,8 +200,14 @@ define(function(require, exports) {
 			var that = this;
 			$('#cellSave').removeClass('loading');
 			this.api.getFoodleResponses(this.foodle.identifier, function(responses) {
-				console.log(" › Got respones", responses);
+				// console.log(" › Got respones", responses);
 				// that.responses = responses;
+
+				// for(var key in that.foodle) {
+				// 	console.log("debug foodle ", key, " = ", that.foodle[key]);
+				// }
+
+				console.log("Check type", that.foodle); that.foodle.type();
 
 				that.foodle.setResponses(responses);
 
@@ -211,7 +217,7 @@ define(function(require, exports) {
 				// if (this.user) {
 					var mr = that.foodle.getMyResponse();
 
-					console.log("We are not completed loading responses. This is myresponse:", mr);
+					// console.log("We are not completed loading responses. This is myresponse:", mr);
 
 					that.myresponse.setMyResponse(mr);
 
@@ -223,10 +229,10 @@ define(function(require, exports) {
 		"loadDiscussion": function() {
 			var that = this;
 
-			console.log('---about to load discussion', "getFoodleDiscussion");
+			// console.log('---about to load discussion', "getFoodleDiscussion");
 
 			this.api.getFoodleDiscussion(this.foodle.identifier, function(comments) {
-				console.log("Got comments", comments);
+				// console.log("Got comments", comments);
 				that.discussion = comments;
 				that.drawDiscussion();
 				// that.responses = responses;
@@ -608,7 +614,7 @@ define(function(require, exports) {
 					// that.map.setZoom(11);
 					// console.log("Successfully got geo location of address", address);
 				} else {
-					console.error('Geocode was not successful for the following reason: ' + status);
+					// console.error('Geocode was not successful for the following reason: ' + status);
 				}
 			});
 		},

@@ -10,6 +10,8 @@
 
 	<title>Foodle</title>
 
+
+
 	<!-- Bootstrap core CSS -->
 	<link href="/res/uninett-theme-bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -193,6 +195,25 @@ if (!empty($this->data['gmapsAPI'])) {
 		</div><!-- /#headerbar -->
 
   
+		<!--[if lt IE 9]>
+			<div style="background: #c44; color: white; padding: 1em; margin-top: 1em; border-radius: 10px" class="bg-danger">
+				<p><strong>Warning: Unsupported browser.</strong></p>
+				<p>It seems that you are running an old version of Internet Explorer. 
+					Foodle supports Internet Explorer version 9 and higher. Alternatively use another supported browser, such as Chrome, Safari, Opera or Firefox. 
+				</p>
+			</div>
+		<![endif]-->
 
 	</div>
+
+	<noscript>
+		<div style="background: #c44; color: white; padding: 1em; margin-top: 1em; border-radius: 10px" class="bg-danger">
+			<p><strong>Javascript required.</strong></p>
+			<p>It seems that javascript is turned off in your browser. Foodle is a web application making heavy use of javascript.
+				If you get this error, even if you are sure javascript is turned on, please contact support.
+			</p>
+		</div>
+	</noscript>
+
+
 

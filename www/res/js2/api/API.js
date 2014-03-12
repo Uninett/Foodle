@@ -243,7 +243,7 @@ define(function(require, exports, module) {
 
 
 		"postData": function(url, object, callback) {
-			console.error('Using deprecated api.postData() function to call ' + url);
+			// console.error('Using deprecated api.postData() function to call ' + url);
 			return this.http(url, {data: object}, callback);
 		},
 
@@ -292,6 +292,8 @@ define(function(require, exports, module) {
 				ajaxConfig.method = "post";
 			}
 
+			console.log("Performing a requeset to " + url + " with this contructor " + options.constructor);
+
 			if (options.constructor !== null) {
 
 				if (typeof options.constructor !== 'function') throw "options.constructor is not a function";
@@ -300,6 +302,7 @@ define(function(require, exports, module) {
 				if (options.wrapper === 'item') {
 					wf = function(data) {
 						var processed = new options.constructor(data);
+						console.log("Creating a new Item of " + options.constructor);
 						if (callback && typeof callback === 'function') callback(processed);				
 					};
 				} else if (options.wrapper === 'list') {

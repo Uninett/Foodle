@@ -12,12 +12,13 @@ define(function(require, exports, module) {
 		;
 
 	require('bootstrap/bootstrap');
+	// require('misc/browsers');
 
 	$.getJSON('/api/user', function(data) {
 
 		$(document).ready(function() {
 
-			console.log("Received data", data);
+			// console.log("Received data", data);
 
 			if (data.authenticated) {
 

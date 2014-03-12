@@ -11,6 +11,9 @@ define(function(require, exports) {
 				this[key] = props[key];
 			}
 		},
+		"type": function() {
+			console.log("I am a Model");
+		},
 		"get": function(key) {
 			return this[key];
 		},

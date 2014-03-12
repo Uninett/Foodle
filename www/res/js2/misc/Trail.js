@@ -19,7 +19,7 @@ define(function(require, exports) {
 			}
 			this.history[i] = ++this.counter;
 
-			console.log(" ===> Check", i, this);
+			// console.log(" ===> Check", i, this);
 		},
 		"uncheck": function(i) {
 
@@ -30,7 +30,7 @@ define(function(require, exports) {
 			}
 
 
-			console.log(" ===> Uncheck", i, this);
+			// console.log(" ===> Uncheck", i, this);
 		},
 
 		"getOldest": function() {

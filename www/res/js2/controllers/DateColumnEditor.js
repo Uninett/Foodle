@@ -52,7 +52,7 @@ define(function(require, exports) {
 				e.preventDefault(); e.stopPropagation();
 
 				var el = $(e.currentTarget).closest('div.row');
-				console.log("Remove timeslot");
+				// console.log("Remove timeslot");
 				that.removeTimeslot(el);
 
 			});
@@ -60,7 +60,7 @@ define(function(require, exports) {
 				e.preventDefault(); e.stopPropagation();
 
 				var p = {};
-				console.log("Add timeslot");
+				// console.log("Add timeslot");
 				that.addTimeslot();
 			});
 
@@ -100,12 +100,12 @@ define(function(require, exports) {
 			var hasError = false;
 
 			if (x.dates.length === 0) {
-				console.error('No dates');
+				// console.error('No dates');
 				this.el.find('.colerrors').append('<div class="alert alert-danger"><strong>No dates selected</strong>. Please select at least one date.</div>');
 				hasError = true;
 			}
 			if (x.timeslots.length === 0) {
-				console.error('No timeslots');
+				// console.error('No timeslots');
 				this.el.find('.colerrors').append('<div class="alert alert-danger"><strong>No timeslots selected</strong>. Please add at least one timeslot.</div>');
 				hasError = true;
 			}
@@ -163,7 +163,7 @@ define(function(require, exports) {
 
 		"setColDef": function(coldef) {
 
-			console.error("set col def to ", coldef);
+			// console.error("set col def to ", coldef);
 
 			this.topcolumns = coldef.length;
 			this.subcolumns = [];
@@ -184,7 +184,7 @@ define(function(require, exports) {
 		"timeIsValid": function(t) {
 			var pattern = new RegExp('^([0-2])[0-9]?:[0-5][0-9]$');
 			var tested = pattern.test(t);
-			console.log("Testing ", t, tested);
+			// console.log("Testing ", t, tested);
 			return tested;
 		},
 
@@ -228,10 +228,10 @@ define(function(require, exports) {
 			if (this.timezoneOK(timezone)) {
 				obj.timezone = timezone;
 			} else {
-				console.error("INVALID TIMEZONE", timezone);
+				// console.error("INVALID TIMEZONE", timezone);
 			}
 
-			console.error("Got this coldef object", obj);
+			// console.error("Got this coldef object", obj);
 
 			return obj;
 
@@ -245,7 +245,7 @@ define(function(require, exports) {
 			var that = this;
 			var coldef = setColdef;
 
-			console.error ("Redraw with this COLDEF", setColdef);
+			// console.error ("Redraw with this COLDEF", setColdef);
 
 			if (!setColdef) {
 				coldef = this.getColDef();
@@ -265,11 +265,11 @@ define(function(require, exports) {
 			};
 
 
-			console.log("dpc", datesDatepickerConfig);
+			// console.log("dpc", datesDatepickerConfig);
 
 			this.datepicker = $('#dateSelector').datepicker(datesDatepickerConfig)
 				.on('changeDate', function(data) {
-					console.log("›› ] Change date", data);
+					// console.log("›› ] Change date", data);
 					that.dates = data.dates;
 
 					that.drawDates();

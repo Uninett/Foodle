@@ -47,7 +47,7 @@ define(function(require, exports) {
 
 				// console.log("Highlight", that.hlFoodle, item);
 				if (that.hlFoodle && that.hlFoodle.identifier === item.foodle.id) {
-					console.log("Highlight", $(ne));
+					// console.log("Highlight", $(ne));
 					ne = $(ne).addClass('active');
 				}
 

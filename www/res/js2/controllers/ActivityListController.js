@@ -28,8 +28,8 @@ define(function(require, exports) {
 		"processActivities": function(activities) {
 			var that = this;
 
-			console.log("Received ActivityList", activities);
-			console.log("That element", that.el);
+			// console.log("Received ActivityList", activities);
+			// console.log("That element", that.el);
 
 			that.el.empty();
 			$.each(activities, function(i, item) {

@@ -13,7 +13,7 @@ define(function(require, exports, module) {
 
 	$(document).ready(function() {
 
-		console.log("Initialized feed");
+		// console.log("Initialized feed");
 
 
 		var hash = window.location.hash;
@@ -30,7 +30,7 @@ define(function(require, exports, module) {
 			style = hashparams[2];
 		}
 
-		console.log("Hash", hash, hashparams);
+		// console.log("Hash", hash, hashparams);
 
 		var api = new API();
 		// var al = new ActivityListController(api, $("#activities"));

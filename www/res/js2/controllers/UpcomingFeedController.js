@@ -36,8 +36,8 @@ define(function(require, exports) {
 		"processEvents": function(events) {
 			var that = this;
 
-			console.log("Received eventlist", events);
-			console.log("That element", that.el);
+			// console.log("Received eventlist", events);
+			// console.log("That element", that.el);
 
 			that.el.empty();
 			$.each(events, function(i, item) {
@@ -52,7 +52,7 @@ define(function(require, exports) {
 
 				// console.log("Highlight", that.hlFoodle, item);
 				if (that.hlFoodle && that.hlFoodle.identifier === item.foodle.id) {
-					console.log("Highlight", $(ne));
+					// console.log("Highlight", $(ne));
 					ne = $(ne).addClass('active');
 				}
 

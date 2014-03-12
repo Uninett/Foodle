@@ -46,7 +46,7 @@ define(function(require, exports) {
 			// this.geocoder = new google.maps.Geocoder();
 
 			// console.log("›› Foodle object", foodle);
-			console.log(" › My response", myresponse);
+			// console.log(" › My response", myresponse);
 
 
 			// this.el.on('click', 'input', function(e) {
@@ -111,7 +111,7 @@ define(function(require, exports) {
 			this.el.on('click', '.smtresponse', function(e) {
 				e.preventDefault(); e.stopPropagation();
 
-				console.log("Submit response", "User is", that.user);
+				// console.log("Submit response", "User is", that.user);
 
 				if (!that.user) {
 					// console.log("User it not registgering");
@@ -173,8 +173,8 @@ define(function(require, exports) {
 			// console.error('Registering user ', name, email);
 
 			this.api.createAnonymousSession(name, email, function(response) {
-				console.log("Registering success. Token ", response.token);
-				console.log("Registering success. User ", response.user);
+				// console.log("Registering success. Token ", response.token);
+				// console.log("Registering success. User ", response.user);
 				that.api.token = response.token;
 				that.user = response.user;
 				that.trigger('register', response.user);
@@ -189,7 +189,7 @@ define(function(require, exports) {
 
 		"submitResponse": function() {
 
-			console.log("Processing submitResponse()");
+			// console.log("Processing submitResponse()");
 
 			var response = new FoodleResponse();
 			response.setFoodle(this.foodle);
@@ -198,7 +198,14 @@ define(function(require, exports) {
 			// console.log("About to submit response. Checking through ", no);
 
 			// TODO. Not supported in IE8.0
-			var data = Array.apply(null, new Array(no)).map(Number.prototype.valueOf,0);
+			// var data = Array.apply(null, new Array(no)).map(Number.prototype.valueOf,0);
+
+			var data = [];
+			for(var i = 0; i < no; i++) {
+				data.push(0);
+			}
+
+
 
 			for(var i = 0; i < no; i++) {
 

@@ -31,13 +31,13 @@ define(function(require, exports) {
 
 			this.el.on('click', '#columntypestext', function(e) {
 				e.stopPropagation();
-				console.error('click on #columntypestext indicates TEXT');
+				// console.error('click on #columntypestext indicates TEXT');
 				that.setCurrent('text');
 			});
 
 			this.el.on('click', '#columntypesdates', function(e) {
 				e.stopPropagation();
-				console.error('click on #columntypesdates indicates DATES');
+				// console.error('click on #columntypesdates indicates DATES');
 				that.setCurrent('dates');
 			});
 
@@ -70,7 +70,7 @@ define(function(require, exports) {
 		"setCurrent": function(s) {
 			if (!this.editors.hasOwnProperty(s)) throw "Invalid columneditor. ";
 
-			console.log(" ›››› attempting to set columntype editro to ", s);
+			// console.log(" ›››› attempting to set columntype editro to ", s);
 			$('input[name="columntypes"][value="' + s + '"]').prop('checked', true);
 
 			var past = this.currentEditor ;
