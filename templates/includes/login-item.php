@@ -15,13 +15,7 @@ if (isset($this->data['loginurl'])) {
 		$this->data['user']->username . 
 		' <b class="caret"></b></a>';
 	echo '<ul class="dropdown-menu">';
-
-
-	if (isset($this->data['showprofile'])) {
-		echo '<li><a href="' . htmlentities('/profile') . '">' . $this->t('myprofile') . '</a></li>';
-	}
-
-
+	echo '	<li><a href="' . htmlentities('/profile') . '">' . $this->t('myprofile') . '</a></li>';
 	echo '	<li class="divider"></li>';
 	// echo '	<li><a href="#">Separated link</a></li>';
 	echo '	<li><a class="button" href="' . htmlentities($this->data['logouturl']) . '"><span>' . $this->t('logout') . '</span></a>';

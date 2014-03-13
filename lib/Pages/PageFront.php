@@ -31,6 +31,7 @@ class Pages_PageFront extends Pages_Page {
 
 		$t = new SimpleSAML_XHTML_Template($this->config, 'foodlefront.php', 'foodle_foodle');
 
+		$t->data['optimize'] = $this->config->getValue('optimize', false);
 		$t->data['gmapsAPI'] = $this->config->getValue('gmapsAPI');
 		$t->data['bread'] = array(
 			array('title' => 'bc_frontpage'), 
@@ -43,10 +44,6 @@ class Pages_PageFront extends Pages_Page {
 			$t->data['userToken'] = $this->user->getToken();			
 		}
 		
-
-		$t->data['requirejs-main'] = 'main-front';
-
-	
 		$t->data['loginurl'] = $this->auth->getLoginURL();
 		$t->data['logouturl'] = $this->auth->getLogoutURL();
 		

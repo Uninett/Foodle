@@ -1,5 +1,8 @@
 /*! jQuery v1.11.0 | (c) 2005, 2014 jQuery Foundation, Inc. | jquery.org/license */
 
+
+console.log("Test 89 ");
+
 /**
  * @package Simple JavaScript Inheritance
  * @description A very simple class inheritance framework, that is used within UWAP for the Model implementations.

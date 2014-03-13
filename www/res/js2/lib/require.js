@@ -51,7 +51,9 @@ requirejs.config({
     //never includes a ".js" extension since
     //the paths config could be for a directory.
     "paths": {
-		// "api": "./api",
+		
+        "main": "main.build",
+
 		"jquery": "//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min",
         "bootstrap": "../uninett-theme-bootstrap/js",   
         "bootstrap-datepicker": "/res/js2/lib/bootstrap-datepicker",

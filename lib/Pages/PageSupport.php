@@ -34,6 +34,7 @@ class Pages_PageSupport extends Pages_Page {
 			array('title' => 'Support'), 
 		);
 		$t->data['gmapsAPI'] = $this->config->getValue('gmapsAPI');
+		$t->data['optimize'] = $this->config->getValue('optimize', false);
 // 		$t->data['user'] = $this->user;
 // 		$t->data['userid'] = $this->user->userid;
 // 		$t->data['displayname'] = $this->user->username;

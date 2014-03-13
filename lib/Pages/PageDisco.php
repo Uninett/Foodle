@@ -14,7 +14,7 @@ class Pages_PageDisco extends Pages_Page {
 	function show() {
 
 		$t = new SimpleSAML_XHTML_Template($this->config, 'disco.php', 'foodle_foodle');
-
+		$t->data['optimize'] = $this->config->getValue('optimize', false);
 
 		
 		$t->show();

@@ -64,7 +64,8 @@ class Pages_PageStats extends Pages_Page {
 
 		$t = new SimpleSAML_XHTML_Template($this->config, 'stats.php', 'foodle_foodle');
 
-		
+		$t->data['optimize'] = $this->config->getValue('optimize', false);
+
 		$t->data['showsupport'] = TRUE;
 		$t->data['gmapsAPI'] = $this->config->getValue('gmapsAPI');
 		$t->data['loginurl'] = $this->auth->getLoginURL();

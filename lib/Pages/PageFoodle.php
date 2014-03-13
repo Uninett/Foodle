@@ -201,7 +201,7 @@ You may also create new Foodles on your own, and invite others to respond.
 	// Process the page.
 	function show() {
 
-		$this->template->data['requirejs-main'] = 'main-response';
+		$t->data['optimize'] = $this->config->getValue('optimize', false);
 		$this->template->data['foodleid'] = $this->foodle->identifier;
 
 		$this->template->data['user'] = $this->user;

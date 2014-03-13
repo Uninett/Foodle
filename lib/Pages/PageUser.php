@@ -60,6 +60,7 @@ class Pages_PageUser extends Pages_Page {
 	
 		if (isset($_REQUEST['submit_profile'])) $this->updateProfile();
 
+		$this->template->data['optimize'] = $this->config->getValue('optimize', false);
 		$this->template->data['user'] = $this->showuser;
 		$this->template->data['authenticated'] = true;
 		

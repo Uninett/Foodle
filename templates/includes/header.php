@@ -4,34 +4,14 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="description" content="A simple tool for doing polls, invitation to events and scheduling meetings.">
+	<meta name="author" content="Andreas Åkre Solberg">
 	<link rel="shortcut icon" href="/res/uninett-theme/ico/favicon.ico">
 
 	<title>Foodle</title>
 
-
-
-	<!-- Bootstrap core CSS -->
-	<link href="/res/uninett-theme-bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-	<!-- DiscoJuice CSS -->
-	<link rel="stylesheet" type="text/css" href="https://static.discojuice.org/css/discojuice.css" />
-
-	<!-- Custom styles for this template -->
-	<link href="/res/uninett-theme/css/uninett.css" rel="stylesheet">
-
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-	<![endif]-->
-
-
-	<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle2.css" />
-	<link rel="stylesheet" media="screen" type="text/css" href="/res/js2/lib/datepicker3.css" />
-
 	
+
 
 	<?php
 
@@ -59,14 +39,34 @@ if (!empty($this->data['gmapsAPI'])) {
 
 
 <?php 
-	// print_r($this->data);
 
-	if (isset($this->data['requirejs-main'])) {
-		// echo '<script type="text/javascript" data-main="' . $this->data['requirejs-main'] . '" src="/res/js2/lib/require.js"></script>';
-	}
+
 	echo '<script type="text/javascript" data-main="main" src="/res/js2/lib/require.js"></script>';
+
+	if ($this->data['optimize']) {
+		echo '<!-- Running optimized javascript -->';
+
+		echo '<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle.build.css" />';
+		
+	} else {
+		echo '<!-- Running javascript that is not optimized. This is better for debugging. -->';
+		echo '<script type="text/javascript">';
+		echo 'requirejs.config({"paths": { "main": "main" }});';
+		echo '</script>';
+		echo '<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle.css" />';
+
+	}
+
+
 ?>
 
+
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
 
 </head>
 
@@ -95,35 +95,6 @@ if (!empty($this->data['gmapsAPI'])) {
 
 
 
-	
-
-	
-	// if (array_key_exists('facebookshare', $this->data) && $this->data['facebookshare']) {
-	// 	echo '<li><a class="button" style="float: right" onclick="showFacebookShare()"><span>' . $this->t('facebookshare') . '</span></a></li>';
-	// }
-
-	// if (array_key_exists('twittershare', $this->data) && $this->data['twittershare']) {
-	// 	echo '<li><a title="Share this foodle on Twitter" href="' . 
-	// 		htmlspecialchars(
-	// 			SimpleSAML_Utilities::addURLparameter('http://twitter.com/home', array(
-	// 					'status' => 
-	// 						'#foodle ' . $title . ': ' . SimpleSAML_Utilities::addURLparameter(SimpleSAML_Utilities::selfURL(), array('auth' => 'twitter'))
-	// 				)
-	// 			)
-	// 		) . 
-	// 		'">Tweet</a></li>';
-	// }
-
-	// if (isset($this->data['showcontacts'])) {
-	// 	echo '<li><a class="button" style="float: right" href="/groups"><span>' . $this->t('groups') . '</span></a></li>';
-	// }
-	
-	// if (array_key_exists('showedit', $this->data)) {
-	// 	echo('<li><a class="button" href="/edit/' .$this->data['foodle']->identifier . '" style="float: right"><span>' . $this->t('editfoodle') . '</span></a></li>');
-	// }
-
-
-
 	require_once(dirname(__FILE__) . '/login-item.php');
 	// require_once(dirname(__FILE__) . '/language-selector.php');
 
@@ -147,11 +118,6 @@ if (!empty($this->data['gmapsAPI'])) {
 			</div>
 		</div>
 	</div>
-
-
-
-
-
 
 
 

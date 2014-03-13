@@ -54,6 +54,9 @@ class Pages_PageAttributes extends Pages_Page {
 	
 		if (isset($_REQUEST['submit_profile'])) $this->updateProfile();
 
+
+		$this->template->data['optimize'] = $this->config->getValue('optimize', false);
+		
 		$this->template->data['user'] = $this->user;
 		$this->template->data['auth'] = $this->auth;
 		$this->template->data['authenticated'] = true;

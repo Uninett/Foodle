@@ -21,8 +21,9 @@ class Pages_PageWidget {
 			array('href' => '/' . $this->config->getValue('baseurlpath'), 'title' => 'bc_frontpage'), 
 			array('title' => 'Support'), 
 		);
+
 		$t->data['gmapsAPI'] = $this->config->getValue('gmapsAPI');
-		$t->data['requirejs-main'] = 'main-widget';
+		$t->data['optimize'] = $this->config->getValue('optimize', false);
 
 		$t->show();
 
