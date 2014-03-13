@@ -201,7 +201,6 @@ You may also create new Foodles on your own, and invite others to respond.
 	// Process the page.
 	function show() {
 
-		$t->data['optimize'] = $this->config->getValue('optimize', false);
 		$this->template->data['foodleid'] = $this->foodle->identifier;
 
 		$this->template->data['user'] = $this->user;
@@ -215,7 +214,8 @@ You may also create new Foodles on your own, and invite others to respond.
 		$this->template->data['foodle'] = $this->foodle;
 
 
-
+		$this->template->data['optimize'] = $this->config->getValue('optimize', false);
+		
 		$this->template->data['gmapsAPI'] = $this->config->getValue('gmapsAPI');
 	
 		$this->template->data['authenticated'] = $this->auth->isAuth();
