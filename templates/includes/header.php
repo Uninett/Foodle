@@ -62,8 +62,9 @@ if (!empty($this->data['gmapsAPI'])) {
 	// print_r($this->data);
 
 	if (isset($this->data['requirejs-main'])) {
-		echo '<script type="text/javascript" data-main="' . $this->data['requirejs-main'] . '" src="/res/js2/lib/require.js"></script>';
+		// echo '<script type="text/javascript" data-main="' . $this->data['requirejs-main'] . '" src="/res/js2/lib/require.js"></script>';
 	}
+	echo '<script type="text/javascript" data-main="main" src="/res/js2/lib/require.js"></script>';
 ?>
 
 
