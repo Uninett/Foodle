@@ -20,8 +20,6 @@ $path = substr($fullURI, strlen($script) + 1, strlen($fullURI) - strlen($script)
 $parameters = explode('/', $path);
 
 
-// echo '<pre>'; print_r($parameters); echo '</pre>'; exit;
-
 try {
 	
 	$action = array_shift($parameters);

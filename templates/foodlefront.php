@@ -68,17 +68,24 @@ if (isset($this->data['loginurl'])) {
 
 		<div class=" col-md-6" >
 
-			<div class="hideIfAuthenticated uninett-color-darkBlue uninett-pattern1 uninett-fontColor-white uninett-padded gutter">
+			<div class="uninett-color-darkBlue uninett-pattern1 uninett-fontColor-white uninett-padded gutter" style="">
 
 					
 				<h2>The New Foodle</h2>
 
-				<p>Foodle is redesign. A lot of experimental features are gone, and some much requested features are added. The user interface is completely new.</p>
+				<p>Welcome to a brand new implementation of Foodle. We ask you to kindly report any issues you have with the new version as soon as possible, to help us get rid of bugs.</p>
+
+				<p>There is a few lacking features that we hope to <strong>reintroduce</strong> as soon as possible, but are need to wait a bit because of lack of resources. This includes multi-lingual support, 
+					and the support for having individual timeslots that differs from the date candidates. Contact us about how important these featutes are, in order for us to better prioritize.</p>
 
 				<ul class="uninett-ul">
 					<li class="uninett-ul-li"><a style="color: #fce" href="mailto:andreas.solberg@uninett.no">Please let us know</a> what you think.</li>
 					<li class="uninett-ul-li"><a style="color: #fce" target="_blank" href="https://github.com/UNINETT/Foodle/issues">Please report any issues</a> as soon as you encounter them. You may also provide feature requests.</li>
 				</ul>
+
+
+
+
 
 
 			</div>
