@@ -70,7 +70,7 @@ define(function(require, exports) {
 
 
 
-			this.setCurrent('dates2');
+			this.setCurrent('text');
 
 		},
 
