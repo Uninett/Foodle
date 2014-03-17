@@ -320,7 +320,7 @@ define(function(require, exports) {
 		 */
 		"draw": function(tz) {
 
-			console.error('DRAW ', this.foodle.columns, tz);
+			// console.error('DRAW ', this.foodle.columns, tz);
 
 			var coldef;
 			if (this.foodle.columntype && this.foodle.columntype === 'dates' && !this.foodle.columns.hasOwnProperty('length')) {

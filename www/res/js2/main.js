@@ -26,7 +26,7 @@ define(function(require, exports, module) {
 		if (strict) {
 			
 			if (window.location.pathname === path) {
-				console.log("› Matching route [" + path + "] STRICT");
+				// console.log("› Matching route [" + path + "] STRICT");
 				return true;
 			}
 			return false;
@@ -34,7 +34,7 @@ define(function(require, exports, module) {
 
 		// console.log('Search route(' + path + ')', window.location.pathname, window.location.pathname.indexOf(path));
 		if (window.location.pathname.indexOf(path) === 0) {
-			console.log("› Matching route [" + path + "] loose matching");
+			// console.log("› Matching route [" + path + "] loose matching");
 			return true;
 		}
 		return false;

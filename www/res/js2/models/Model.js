@@ -12,7 +12,7 @@ define(function(require, exports) {
 			}
 		},
 		"type": function() {
-			console.log("I am a Model");
+			// console.log("I am a Model");
 		},
 		"get": function(key) {
 			return this[key];

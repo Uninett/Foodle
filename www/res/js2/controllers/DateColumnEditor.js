@@ -267,7 +267,7 @@ define(function(require, exports) {
 
 			// console.log("dpc", datesDatepickerConfig);
 
-			console.log("about to setup a datepicker", this.el.find('.dateSelector'));
+			// console.log("about to setup a datepicker", this.el.find('.dateSelector'));
 
 			this.datepicker = this.el.find('.dateSelector').eq(0).datepicker(datesDatepickerConfig)
 				.on('changeDate', function(data) {

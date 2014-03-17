@@ -550,7 +550,7 @@ define(function(require, exports) {
 			// console.log("UPDATE FOODLE", def); return;
 
 			this.api.updateFoodle(foodle, function(response) {
-				console.log("Successfully updated foodle", response);
+				// console.log("Successfully updated foodle", response);
 				window.location.href = '/foodle/' + identifier;
 
 			});

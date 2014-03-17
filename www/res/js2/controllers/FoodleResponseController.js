@@ -485,7 +485,7 @@ define(function(require, exports) {
 
 				if (this.user) {
 					this.api.setTimezone(tz, function() {
-						console.log("Timezone is set");
+						// console.log("Timezone is set");
 					});					
 				}
 
