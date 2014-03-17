@@ -38,6 +38,10 @@ $this->includeAtTemplateBase('includes/header.php');
 
 			<div id="foodleResponse"  data-foodleid="<?php echo htmlentities($this->data['foodleid']); ?>"></div>
 
+
+			<p style="color: #400"><span class="glyphicon glyphicon-warning-sign"></span> Experiencing problems with the new Foodle? – <a href="mailto:andreas.solberg@uninett.no">Contact us</a> to help us resolve migration issues.</p>
+
+
 		</div>
 	</div>
 </div>
