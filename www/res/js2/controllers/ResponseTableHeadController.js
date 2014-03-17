@@ -294,18 +294,38 @@ define(function(require, exports) {
 		},
 
 
+		"oldFormatAndContainsTimeslots": function() {
+
+			if (this.foodle.columntype && this.foodle.columntype === 'dates' && this.foodle.columns.hasOwnProperty('length')) {
+
+				for (var i = 0; i < this.foodle.columns.length; i++) {
+					var header = this.foodle.columns[i].title;
+
+					if (this.foodle.columns[i].children && this.foodle.columns[i].children.length > 0) {
+
+					} else {
+						return false;
+					}
+
+				}
+				return true;
+			}
+			return false;
+		},
+
+
 		/**
 		 * Walks through two levels of headers and injects content into the <thead> element.
 		 * @return {[type]}           [description]
 		 */
 		"draw": function(tz) {
 
-			// console.error('DRAW ', tz);
+			console.error('DRAW ', this.foodle.columns, tz);
 
 			var coldef;
 			if (this.foodle.columntype && this.foodle.columntype === 'dates' && !this.foodle.columns.hasOwnProperty('length')) {
 				coldef = this.transformDateColumns(this.foodle.columns, tz);	
-			} else if (this.foodle.columntype && this.foodle.columntype === 'dates' && this.foodle.columns.hasOwnProperty('length')) {
+			} else if (this.oldFormatAndContainsTimeslots()) {
 				coldef = this.interpretOldDateColumn(this.foodle.columns, tz);
 			} else if (this.foodle.columntype && this.foodle.columntype === 'dates2') {
 				coldef = this.transformDateTimeslotColumns(this.foodle.columns, tz);	
