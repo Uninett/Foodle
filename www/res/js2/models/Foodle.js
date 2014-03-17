@@ -9,7 +9,7 @@ define(function(require, exports) {
 	var Foodle = Model.extend({
 
 		"type": function() {
-			console.log("I am a Foodle model");
+			// console.log("I am a Foodle model");
 		},
 		"isOwner": function(user) {
 			// console.log("Compare me ", this._.userid, " with ", this.owner);
@@ -83,12 +83,19 @@ define(function(require, exports) {
 		 * @return {[type]} [description]
 		 */
 		"getColNo": function() {
+			var counter = 0;
 
 			if (this.columntype && this.columntype === 'dates' && this.columns.hasOwnProperty('dates') && this.columns.hasOwnProperty('timeslots')) {
 				return this.columns.dates.length * this.columns.timeslots.length;
 			}
+			if (this.columntype && this.columntype === 'dates2' && this.columns.hasOwnProperty('dates') && this.columns.hasOwnProperty('timeslots')) {
+				for(var date in this.columns.timeslots) {
+					counter += this.columns.timeslots[date].length;
+				}
+				return counter;
 
-			var counter = 0;
+			}
+
 			for(var i = 0; i < this.columns.length; i++) {
 				if (this.columns[i].hasOwnProperty('children')) {
 					counter += this.columns[i].children.length;

@@ -207,7 +207,7 @@ define(function(require, exports) {
 				// 	console.log("debug foodle ", key, " = ", that.foodle[key]);
 				// }
 
-				console.log("Check type", that.foodle); that.foodle.type();
+				// console.log("Check type", that.foodle); that.foodle.type();
 
 				that.foodle.setResponses(responses);
 
@@ -394,6 +394,7 @@ define(function(require, exports) {
 
 		"isColumntypeDates": function() {
 			if (this.foodle.columntype && this.foodle.columntype === 'dates') return true;
+			if (this.foodle.columntype && this.foodle.columntype === 'dates2') return true;
 			return false;
 		},
 
@@ -483,7 +484,9 @@ define(function(require, exports) {
 				// console.log("Set new timezone", tz);
 
 				if (this.user) {
-					this.api.setTimezone(tz);					
+					this.api.setTimezone(tz, function() {
+						console.log("Timezone is set");
+					});					
 				}
 
 

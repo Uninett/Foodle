@@ -85,9 +85,6 @@ if (isset($this->data['loginurl'])) {
 
 
 
-
-
-
 			</div>
 
 			<div class="showIfAuthenticated uninett-color-white  gutter" style="display: none">

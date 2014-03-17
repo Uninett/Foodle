@@ -147,20 +147,25 @@ define(function(require, exports) {
 
 			var dateColumns = [];
 
+			// console.error("about to interpret these dates", coldef);
+
 			for(var i = 0; i < coldef.dates.length; i++) {
 
 				for (var j = 0; j < coldef.timeslots.length; j++) {
 
+					var timeslotFrom = coldef.timeslots[j][0].replace('.', ':');
+					var timeslotTo   = coldef.timeslots[j][1].replace('.', ':');
+
 					if (doTimezone) {
 						// console.log("  › TIMEZONE › Perform translation from ", this.foodle.timezone, " to ", toTimezone);
-						xsfrom = moment.tz(coldef.dates[i] + ' ' + coldef.timeslots[j][0], this.foodle.timezone).tz(toTimezone);
-						xsto   = moment.tz(coldef.dates[i] + ' ' + coldef.timeslots[j][1], this.foodle.timezone).tz(toTimezone);
+						xsfrom = moment.tz(coldef.dates[i] + ' ' + timeslotFrom, this.foodle.timezone).tz(toTimezone);
+						xsto   = moment.tz(coldef.dates[i] + ' ' + timeslotTo,   this.foodle.timezone).tz(toTimezone);
 
 						// console.log("Convert " + coldef.dates[i] + ' ' + coldef.timeslots[j][0] + ' to ' + xsfrom.format('YYYY-MM-DD HH:mm'))
 					} else {
 						// console.log("  › TIMEZONE › DO NOT USE TIMEZONE");
-						xsfrom = moment(coldef.dates[i] + ' ' + coldef.timeslots[j][0]);
-						xsto   = moment(coldef.dates[i] + ' ' + coldef.timeslots[j][1]);
+						xsfrom = moment(coldef.dates[i] + ' ' + timeslotFrom);
+						xsto   = moment(coldef.dates[i] + ' ' + timeslotTo);
 					}
 					dateColumns.push([xsfrom, xsto]);
 				};
@@ -172,6 +177,59 @@ define(function(require, exports) {
 
 		},
 
+
+		"transformDateTimeslotColumns": function(coldef, toTimezone) {
+
+			// var dateno = coldef.dates.length;
+			// var slotno = coldef.timeslots.length;
+
+			var doTimezone = false;
+			if (this.foodle.timezone && toTimezone) doTimezone = true;
+
+			// console.error("doTimezone", this.foodle.timezone, doTimezone);
+
+			var xsfrom, xsto;
+			var dateColumns = [];
+
+			// console.log("about to interpret these dates", coldef);
+
+			for(var date in coldef.timeslots) {
+
+				for(var i = 0; i < coldef.timeslots[date].length; i++) {
+
+					// console.log(' › About to process list ', i, date, coldef.timeslots[date][i]);
+					// console.log(coldef.timeslots[date][i]);
+					// console.log(coldef.timeslots[date], i, coldef.timeslots[date][i]);
+
+					var timeslotFrom = coldef.timeslots[date][i][0];
+					var timeslotTo   = coldef.timeslots[date][i][1];
+
+					var tsFrom = date + ' ' + timeslotFrom;
+					var tsTo = date + ' ' + timeslotTo;
+
+					if (doTimezone) {
+						// console.log("  › TIMEZONE › Perform translation from ", this.foodle.timezone, " to ", toTimezone);
+						xsfrom = moment.tz(tsFrom, this.foodle.timezone).tz(toTimezone);
+						xsto   = moment.tz(tsTo,   this.foodle.timezone).tz(toTimezone);
+
+						// console.log("Convert " + coldef.dates[i] + ' ' + coldef.timeslots[j][0] + ' to ' + xsfrom.format('YYYY-MM-DD HH:mm'))
+					} else {
+						// console.log("  › TIMEZONE › DO NOT USE TIMEZONE");
+						xsfrom = moment(date + ' ' + timeslotFrom);
+						xsto   = moment(date + ' ' + timeslotTo);
+					}
+					dateColumns.push([xsfrom, xsto]);
+				}
+
+			}
+			// console.log("----- › Done");
+			return this.convertDateColumns(dateColumns);
+
+		},
+
+
+
+
 		"interpretOldDateColumn": function(col, toTimezone) {
 			var dateColumns = [];
 
@@ -180,20 +238,33 @@ define(function(require, exports) {
 			var doTimezone = false;
 			if (this.foodle.timezone && toTimezone) doTimezone = true;
 
+			// console.log("Interpreting old date column", col);
+
 			for (var i = 0; i < col.length; i++) {
 				var header = col[i].title;
 				for(var j = 0; j < col[i].children.length; j++) {
 
-					var item = col[i].children[j].title;
+					var item = col[i].children[j].title.replace(/\./g, ':');
 					var itema = item.split('-');
 
 					var strto = null;
+
+					// Fix for timezlots starting with only one digit.  9:30 translated to 09:30
+					if (itema[0].match(/^[0-9]:[0-9][0-9]/)) {
+						itema[0] = '0' + itema[0];
+					}
+					if (itema[1]) {
+						if (itema[1].match(/^[0-9]:[0-9][0-9]/)) {
+							itema[1] = '0' + itema[1];
+						}
+					}
+
 					var strfrom = header + ' ' + itema[0];
 					if (itema.length > 1) {
 						strto = header + ' ' + itema[1];
 					}
 
-					// console.error("Interpreting ...", strfrom, strto);
+					// console.error("Interpreting ..." + col[i].children[j].title + ' to ' + item,  strfrom, strto);
 
 					if (doTimezone) {
 						// console.log("  › TIMEZONE › Perform translation from ", this.foodle.timezone, " to ", toTimezone);
@@ -236,6 +307,8 @@ define(function(require, exports) {
 				coldef = this.transformDateColumns(this.foodle.columns, tz);	
 			} else if (this.foodle.columntype && this.foodle.columntype === 'dates' && this.foodle.columns.hasOwnProperty('length')) {
 				coldef = this.interpretOldDateColumn(this.foodle.columns, tz);
+			} else if (this.foodle.columntype && this.foodle.columntype === 'dates2') {
+				coldef = this.transformDateTimeslotColumns(this.foodle.columns, tz);	
 			} else {
 				coldef = this.foodle.columns;
 			}

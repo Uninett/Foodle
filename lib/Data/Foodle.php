@@ -748,6 +748,13 @@ class Data_Foodle {
 			// echo "only date new style";
 			return count($col['dates']) * count($col['timeslots']);
 		}
+		if (isset($this->columntype) && $this->columntype === 'dates2' && $this->columns && isset($this->columns['timeslots'])) {
+			$i = 0;
+			foreach($this->columns['timeslots'] AS $date => $ts) {
+				$i += count($ts);
+			}
+			return $i;
+		}
 
 		$no = 0;
 		foreach($col AS $c) {

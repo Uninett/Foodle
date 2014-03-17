@@ -292,7 +292,7 @@ define(function(require, exports, module) {
 				ajaxConfig.method = "post";
 			}
 
-			console.log("Performing a requeset to " + url + " with this contructor " + options.constructor);
+			// console.log("Performing a requeset to " + url + " with this contructor " + options.constructor);
 
 			if (options.constructor !== null) {
 
@@ -302,7 +302,7 @@ define(function(require, exports, module) {
 				if (options.wrapper === 'item') {
 					wf = function(data) {
 						var processed = new options.constructor(data);
-						console.log("Creating a new Item of " + options.constructor);
+						// console.log("Creating a new Item of " + options.constructor);
 						if (callback && typeof callback === 'function') callback(processed);				
 					};
 				} else if (options.wrapper === 'list') {

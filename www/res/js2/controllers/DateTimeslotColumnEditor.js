@@ -15,11 +15,11 @@ define(function(require, exports) {
 	require('moment-timezone-data');
 	require('lib/bootstrap3-typeahead');
 
-	var t = require('lib/text!templates/datecolumneditor.html');
+	var t = require('lib/text!templates/datetimeslotcolumneditor.html');
 	var template = hb.compile(t);
 
-	var tslot = require('lib/text!templates/datecolumn-timeslot.html');
-	var templateTimeslot = hb.compile(tslot);
+	// var tslot = require('lib/text!templates/datecolumn-timeslot.html');
+	// var templateTimeslot = hb.compile(tslot);
 
 
 
@@ -34,41 +34,76 @@ define(function(require, exports) {
 	};
 
 
-	var DateColumnEditor = Class.extend({
+	var DateTimeslotColumnEditor = Class.extend({
 		"init": function(el, user) {
 			var that = this;
 
+			this.dates = [];
+			this.timeslots = {};
 
 			this.callbacks = {};
-			this.dates = [];
+			// this.dates = [];
 
 			this.user = user;
 			this.el = el;
 			this.el.empty().append(template());
 
+
+			// $('body').on('click', '#xx', function(e) {
+			// 	e.preventDefault(); e.stopPropagation();
+			// 	console.log("Get Coldef");
+			// 	var x = that.getColDef();
+			// 	console.log(x);
+
+			// });
+
+
 			// this.addTable();
 
-			this.el.on('click', '.actRemoveTimeslot', function(e) {
+			// this.el.on('click', '.actRemoveTimeslot', function(e) {
+			// 	e.preventDefault(); e.stopPropagation();
+
+			// 	var el = $(e.currentTarget).closest('div.row');
+			// 	// console.log("Remove timeslot");
+			// 	that.removeTimeslot(el);
+
+			// });
+			// this.el.on('click', '.actAddTimeslot', function(e) {
+			// 	e.preventDefault(); e.stopPropagation();
+
+			// 	var p = {};
+			// 	// console.log("Add timeslot");
+			// 	that.addTimeslot();
+			// });
+
+			this.el.on('blur', 'input.timeslot', function(e) {
 				e.preventDefault(); e.stopPropagation();
 
-				var el = $(e.currentTarget).closest('div.row');
-				// console.log("Remove timeslot");
-				that.removeTimeslot(el);
+				// console.log("Blur input element");
 
-			});
-			this.el.on('click', '.actAddTimeslot', function(e) {
-				e.preventDefault(); e.stopPropagation();
+				that.fillTimeslotsIfNeeded($(e.currentTarget).closest('div.timeslotContainer').eq(0));
 
-				var p = {};
+				// var p = {};
 				// console.log("Add timeslot");
-				that.addTimeslot();
+				// that.addTimeslot();
 			});
 
 
-
-			this.redraw();
-			this.addTimeslot('09:00', '11:00');
-			this.addTimeslot('13:00', '15:00');
+			this.redraw({
+				"dates": ["2014-03-20", "2014-03-22"],
+				"timeslots": {
+					"2014-03-20": [
+						["12:00", "12:15"],
+						["13:00", "15:15"]
+					],
+					"2014-03-22": [
+						["01:00", "12:00"],
+						["08:00", "09:00"]
+					]
+				}
+			});
+			// this.addTimeslot('09:00', '11:00');
+			// this.addTimeslot('13:00', '15:00');
 
 			window.g = $.proxy(this.getColDef, this);
 
@@ -77,6 +112,7 @@ define(function(require, exports) {
 		"on": function(evnt, callback) {
 			this.callbacks[evnt] = callback;
 		},
+
 		"trigger": function(evnt) {
 			var args = Array.prototype.slice.call(arguments, 1);
 			if (this.callbacks && this.callbacks[evnt] && typeof this.callbacks[evnt] === 'function') {
@@ -94,6 +130,7 @@ define(function(require, exports) {
 
 
 		"validate": function() {
+
 			var x = this.getColDef();
 			this.el.find('.colerrors').empty();
 
@@ -111,30 +148,34 @@ define(function(require, exports) {
 			}
 
 			return !hasError;
-		},
-		"addTimeslot": function(from, to) {
-
-			var p = {
-				from: from || '',
-				to: to || ''
-			}
-			var c = this.el.find('#timeslotrowcontainer');
-			c.append(templateTimeslot(p));
 
 		},
 
-		"removeTimeslot": function(el) {
-			el.remove();
-		},
+
+
+		// "addTimeslot": function(from, to) {
+
+		// 	var p = {
+		// 		from: from || '',
+		// 		to: to || ''
+		// 	}
+		// 	var c = this.el.find('#timeslotrowcontainer');
+		// 	c.append(templateTimeslot(p));
+
+		// },
+
+		// "removeTimeslot": function(el) {
+		// 	el.remove();
+		// },
 
 
 
 		"drawDates": function() {
 
-			var cc = this.el.find('#datelisting');
+			var cc = this.el.find('#timeslotTableBody');
 			var d;
 			cc.empty();
-			var c = $('<ul class="uninett-ul"> </ul>').appendTo(cc);
+			// var c = $('<tr> </tr>').appendTo(cc);
 
 			this.dates.sort(function(a,b) {
 				if (a > b) return 1;
@@ -144,9 +185,70 @@ define(function(require, exports) {
 
 			for(var i = 0; i < this.dates.length; i++) {
 				d = moment(this.dates[i]);
-				c.append('<li class="uninett-ul-li">' + d.format('MMM Do, YYYY (ddd)') + '</li>');
+				var tba = $('<tr data-date="' + d.format('YYYY-MM-DD') + '">' + 
+					'<td class="col-md-3">' + d.format('MMM Do, YYYY (ddd)') + '</td>' + 
+					'<td class="datetimeslotCell col-md-9"><div class="row timeslotContainer">' + this.prepareDrawTimeslots(this.dates[i]) + '</div></td></tr>');
+				tba.appendTo(cc);
+				this.fillTimeslotsIfNeeded(tba.find('.timeslotContainer'));
 			}
 
+
+		},
+
+		"prepareSingleTimeslot": function(f, t) {
+			var def = '<div class="input-group timeslotGroup">' +
+				'<span class="input-group-addon">From</span><input type="text"  placeholder="11:00" value="' + f + '" class="timeslot timeslotFrom form-control">' +
+				'<span class="input-group-addon">to</span><input type="text"  placeholder="12:00" value="' + t + '" class="timeslot timeslotTo form-control">' +
+			'</div>';
+			return '<div class="col-xs-4">' + def + '</div>';
+		},
+
+		"prepareDrawTimeslots": function(date) {
+
+			var ds = moment(date).format('YYYY-MM-DD');
+			var t = [['', ''], ['', '']];
+			if (this.timeslots[ds]) {
+				t = this.timeslots[ds];
+			}
+
+			var html = '';
+			for(var i = 0; i < t.length; i++) {
+				html += this.prepareSingleTimeslot(t[i][0], t[i][1]);
+			}
+
+			// var def = '<div class="input-group"><input type="time" placeholder="10:00" /><span class="input-group-addon">to</span><input type="time" placeholder="10:00" /></div>';
+
+			if (!this.timeslots[date]) return html;
+
+		},
+
+
+		/**
+		 * Check that there always is empty timeslot groups to 
+		 */
+		"fillTimeslotsIfNeeded": function(el) {
+			// console.log("Fill timelsotfontainer ", el);
+
+			var tr = /[0-2][0-9]:[0-9][0-9]/;
+			var counter = 0;
+			el.find('.timeslotGroup').each(function(i, item) {
+				var from = $(item).find('input.timeslotFrom').val();
+				var to   = $(item).find('input.timeslotTo').val();
+				
+				// console.log("Checking ", from, to);
+
+				if (!from.match(tr) || !to.match(tr)) {
+					counter++;
+				}
+			});
+
+			// console.log("Counter of available slots i s", counter);
+
+			if (counter < 1) {
+				el.append(this.prepareSingleTimeslot('', ''));	
+			}
+			
+			
 		},
 
 
@@ -182,7 +284,7 @@ define(function(require, exports) {
 		},
 
 		"timeIsValid": function(t) {
-			var pattern = new RegExp('^([0-2])[0-9]?:[0-5][0-9]$');
+			var pattern = new RegExp('^([0-2])?[0-9]:[0-5][0-9]$');
 			var tested = pattern.test(t);
 			// console.log("Testing ", t, tested);
 			return tested;
@@ -192,31 +294,55 @@ define(function(require, exports) {
 		"getColDef": function() {
 
 			var that = this;
-			var dates = [];
 
-			if (this.datepicker) {
-				datestr = this.datepicker.datepicker('getDates');
-				for(var i = 0; i < datestr.length; i++) {
-					dates.push(moment(datestr[i]).format('YYYY-MM-DD'));
-				}
+			var dates = [];
+			var timeslots = {};
+
+			for(var i = 0; i < this.dates.length; i++) {
+				dates.push(this.dates[i].format('YYYY-MM-DD'));
 			}
 
-			// console.log("Got dates", dates);
+			// console.log("timeslottable ", this.el.find('#timeslotTableBody tr'));
 
-			var timeslots = [];
+			this.el.find('#timeslotTableBody tr').each(function(i, row) {
 
-			this.el.find('.timeslotRow').each(function(i, row) {
-				var start = $(row).find('.inputTimeStart').val();
-				var end = $(row).find('.inputTimeEnd').val();
+				var date = $(row).data('date');
+				// console.log("Found date []", date);
 
-				if (that.timeIsValid(start) && that.timeIsValid(end)) {
-					timeslots.push([start, end]);	
-				}
+				$(row).find('div.timeslotGroup').each(function(j, slot) {
 
-				
+					var start = $(slot).find('.timeslotFrom').val();
+					var end = $(slot).find('.timeslotTo').val();
+
+					if (that.timeIsValid(start) && that.timeIsValid(end)) {
+						if (!timeslots[date]) {
+							timeslots[date] = [];
+						}
+						timeslots[date].push([start, end]);
+						// console.log("Date [" + date + "] " + start + "  " + end);
+					} else {
+						// console.error("INVALID Date [" + date + "] " + start + "  " + end);
+					}
+
+					
+
+				});
+
+
 			});
 
-			var timezone = this.el.find('#timezoneselect').val();
+			// this.el.find('.timeslotRow').each(function(i, row) {
+			// 	var start = $(row).find('.inputTimeStart').val();
+			// 	var end = $(row).find('.inputTimeEnd').val();
+
+			// 	if (that.timeIsValid(start) && that.timeIsValid(end)) {
+			// 		timeslots.push([start, end]);	
+			// 	}
+
+				
+			// });
+
+			// var timezone = this.el.find('#timezoneselect').val();
 
 			// console.log("Timeslots", timeslots);
 
@@ -225,11 +351,11 @@ define(function(require, exports) {
 				"timeslots": timeslots
 			};
 
-			if (this.timezoneOK(timezone)) {
-				obj.timezone = timezone;
-			} else {
-				// console.error("INVALID TIMEZONE", timezone);
-			}
+			// if (this.timezoneOK(timezone)) {
+			// 	obj.timezone = timezone;
+			// } else {
+			// 	// console.error("INVALID TIMEZONE", timezone);
+			// }
 
 			// console.error("Got this coldef object", obj);
 
@@ -249,7 +375,9 @@ define(function(require, exports) {
 
 			if (!setColdef) {
 				coldef = this.getColDef();
+
 			}
+			this.timeslots = coldef.timeslots;
 
 
 			this.el.empty().append(template());
@@ -267,13 +395,14 @@ define(function(require, exports) {
 
 			// console.log("dpc", datesDatepickerConfig);
 
-			console.log("about to setup a datepicker", this.el.find('.dateSelector'));
-
-			this.datepicker = this.el.find('.dateSelector').eq(0).datepicker(datesDatepickerConfig)
+			this.datepicker = this.el.find('.dateSelector').datepicker(datesDatepickerConfig)
 				.on('changeDate', function(data) {
 					// console.log("›› ] Change date", data);
-					that.dates = data.dates;
-
+					that.dates = [];
+					for(var i = 0; i < data.dates.length; i++) {
+						that.dates.push(moment(data.dates[i]));
+					}
+					// that.dates = data.dates;
 					that.drawDates();
 				}
 			);
@@ -299,6 +428,8 @@ define(function(require, exports) {
 				}
 				this.datepicker.datepicker('setDates', sd);
 			}
+
+
 
 			if (coldef.timeslots.length > 0) {
 				for (var i = 0; i < coldef.timeslots.length; i++) {
@@ -372,6 +503,6 @@ define(function(require, exports) {
 
 	})
 
-	return DateColumnEditor;
+	return DateTimeslotColumnEditor;
 
 });

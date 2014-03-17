@@ -329,9 +329,12 @@ define(function(require, exports) {
 			};
 			this.map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 			
+			if (true) {
 
-			// Try W3C Geolocation (Preferred)
-			if(navigator.geolocation) {
+
+				// Try W3C Geolocation (Preferred)
+			} else if(navigator.geolocation) {
+
 				browserSupportFlag = true;
 				navigator.geolocation.getCurrentPosition(function(position) {
 					initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -342,7 +345,7 @@ define(function(require, exports) {
 				// Browser does not support geo location.
 			} else {
 			  	browserSupportFlag = false;
-			  	handleNoGeolocation(browserSupportFlag);
+			  	// handleNoGeolocation(browserSupportFlag);
 			}
 		},
 
@@ -797,7 +800,9 @@ define(function(require, exports) {
 
 
 			if (enableDeadline || enableTime || 
-				(this.columneditor.getColumntype() === 'dates')) {
+				(this.columneditor.getColumntype() === 'dates') || 
+				(this.columneditor.getColumntype() === 'dates2')
+				) {
 
 
 				var tz = this.el.find('#timezoneselect').val();
@@ -957,7 +962,9 @@ define(function(require, exports) {
 			}
 
 			if (enableDeadline || enableTime || 
-				(this.columneditor.getColumntype() === 'dates')) {
+				(this.columneditor.getColumntype() === 'dates') || 
+				(this.columneditor.getColumntype() === 'dates2')
+				) {
 
 				this.el.find('#sectionTimezone').show();
 			} else {

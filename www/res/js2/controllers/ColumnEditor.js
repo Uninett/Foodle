@@ -10,6 +10,7 @@ define(function(require, exports) {
 
 		TextColumnEditor = require('./TextColumnEditor'),
 		DateColumnEditor = require('./DateColumnEditor'),
+		DateTimeslotColumnEditor = require('./DateTimeslotColumnEditor'),
 
 		Foodle = require('models/Foodle')
 		;
@@ -40,9 +41,15 @@ define(function(require, exports) {
 				// console.error('click on #columntypesdates indicates DATES');
 				that.setCurrent('dates');
 			});
+			this.el.on('click', '#columntypesdates2', function(e) {
+				e.stopPropagation();
+				// console.error('click on #columntypesdates indicates DATES');
+				that.setCurrent('dates2');
+			});	
 
-			var tel = $('<div></div>').appendTo(c);
-			var del = $('<div></div>').appendTo(c);
+			var tel  = $('<div></div>').appendTo(c);
+			var del  = $('<div></div>').appendTo(c);
+			var dtel = $('<div></div>').appendTo(c);
 
 			this.currentEditor = null;
 			this.editors = {
@@ -53,13 +60,17 @@ define(function(require, exports) {
 				'dates': {
 					'el': del,
 					'ctrl': new DateColumnEditor(del, this.user)
+				},
+				'dates2': {
+					'el': dtel,
+					'ctrl': new DateTimeslotColumnEditor(dtel, this.user)
 				}
 			};
 
 
 
 
-			this.setCurrent('dates');
+			this.setCurrent('dates2');
 
 		},
 
