@@ -1,13 +1,13 @@
 <?php 
-	$this->includeAtTemplateBase('includes/header-min.php'); 
+	$this->includeAtTemplateBase('includes/header-min-eureka.php'); 
 ?>
 
-<div class="col-lg-12 uninett-color-white "> 
+<!-- <div class="col-lg-12 uninett-color-white ">  -->
 
-	<div id="widget"></div>
+	<div id="widget" class=""></div>
 
 
-</div>
+<!-- </div> -->
 
 
 
