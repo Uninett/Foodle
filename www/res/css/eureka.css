@@ -121,9 +121,15 @@ label {
 	font-style:italic;
 }
 
-
+.list-group {
+	border: 1px solid #888;
+	border-radius: 3px;
+}
 
 .list-group-item {
+
+	border-top: 1px solid #fff;
+
 	color: #792B79 !important;
 	/*display: inline;*/
 	font-family: arial;

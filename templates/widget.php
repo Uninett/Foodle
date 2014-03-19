@@ -4,7 +4,7 @@
 
 <!-- <div class="col-lg-12 uninett-color-white ">  -->
 
-	<div id="widget" class=""></div>
+	<div id="widget" class="list-group"></div>
 
 
 <!-- </div> -->
