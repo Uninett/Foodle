@@ -43,7 +43,7 @@ if (!empty($this->data['gmapsAPI'])) {
 
 	echo '<script type="text/javascript" data-main="main" src="/res/js2/lib/require.js"></script>';
 
-	if ($this->data['optimize']) {
+	if (isset($this->data['optimize']) && $this->data['optimize']) {
 		echo '<!-- Running optimized javascript -->';
 
 		echo '<link rel="stylesheet" media="screen" type="text/css" href="/res/css/foodle.build.css" />';
