@@ -194,11 +194,12 @@ try {
 				$csv = new Pages_CSVFoodle($config, $parameters);
 				$csv->show();
 				break;								
-			} elseif(isset($_REQUEST['output']) && $_REQUEST['output'] == 'ical') {
-				$csv = new Pages_CalFoodle($config, $parameters);
-				$csv->show();
-				break;								
 			}
+			//  elseif(isset($_REQUEST['output']) && $_REQUEST['output'] == 'ical') {
+			// 	$csv = new Pages_CalFoodle($config, $parameters);
+			// 	$csv->show();
+			// 	break;								
+			// }
 		
 			#Timer::tick('before new foodle page');
 			$page = new Pages_PageFoodle($config, $parameters);

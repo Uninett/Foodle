@@ -6,20 +6,20 @@
 		<div id="ownerbar" class="btn-group pull-right">
 			<a class="btn btn-warning" href="/edit/{{identifier}}"><span class="glyphicon glyphicon-edit"></span> Edit</a>
 			<a class="btn btn-danger" id="actDelete" ><span class="glyphicon glyphicon-remove"></span> Delete</a>
-			<!--
-			<div class="btn-group">
+		</div>
+
+		<div id="otherbar" class="btn-group pull-right">
+			<!-- <div class="btn-group"> -->
 				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 					<span class="glyphicon glyphicon-share"></span>
-					Share 
+					Export 
 					<span class="caret"></span>
-
 				</button>
 				<ul class="dropdown-menu">
-					<li><a href="#">Dropdown link</a></li>
-					<li><a href="#">Dropdown link</a></li>
+					<li><a href="?output=csv">Excel (CSV)</a></li>
+					<li><a href="?output=rss">RSS Feed</a></li>
 				</ul>
-			</div>
-			-->
+			<!-- </div> -->
 		</div>
 
 		<h1>{{name}}
