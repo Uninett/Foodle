@@ -2,7 +2,7 @@
 /*@import url('../uninett-theme/css/uninett.css');*/
 /*@import url('../js2/lib/datepicker3.css');*/
 /* @import url('https://static.discojuice.org/css/discojuice.css'); */
-@import url('discojuice.css');
+/*@import url('discojuice.css');*/
 
 .discojuice {
 	z-index: 1100 !important;
@@ -121,4 +121,19 @@ label {
 	font-style:italic;
 }
 
+
+
+.list-group-item {
+	color: #792B79 !important;
+	/*display: inline;*/
+	font-family: arial;
+	font-size: 13px;
+	/*height: auto;*/
+	/*line-height: 16px;*/
+	/*text-decoration: none;*/
+	/*text-transform: uppercase;*/
+	/*background-color: #eee;*/
+	padding: 5px 0px 5px 20px;
+	background-color: #E7E4DE;
+}
 
