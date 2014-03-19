@@ -45,6 +45,22 @@ define(function(require, exports, module) {
 	// var loc = window.location.href;
 	// console.log("Parse url", window.location.pathname, loc, parseUri(loc));
 
+
+	var getPath = function() {
+
+	
+		var hash = window.location.hash;
+		if (hash.length < 3) return null;
+		hash = hash.substring(3);
+
+
+		hashparams = hash.split('/');
+		if (hashparams.length < 2) return null;
+
+		return hashparams;
+	}
+
+
 	
 	DJ.load();	
 
@@ -57,6 +73,11 @@ define(function(require, exports, module) {
 
 			/* Foodle frontpage */
 			if (route('/', true)) {
+
+
+
+
+
 
 					if (data.authenticated) {
 
@@ -128,7 +149,28 @@ define(function(require, exports, module) {
 			} else if (route('/create', true) || route('/edit/', false)) {
 
 
-				if (data.authenticated) {
+				var params = getPath();
+
+				if (params && params.length >= 2 && params[0] === 'create' && data.authenticated) {
+
+					var api = new API(data.token);
+					var templateFoodle = params[1];
+
+					console.log("About to create a new Foodle from a template [" + templateFoodle + "]");
+
+
+					api.getFoodleAuth(templateFoodle, function(foodle) {
+						// foodle.setUser(userid);
+						
+						delete foodle.identifier;
+						console.log("Template is ", foodle);
+
+						var cc = new EditFoodleController(api, $("#editfoodle"), data.user, foodle);
+					});
+
+
+
+				} else if (data.authenticated) {
 
 					var api = new API(data.token);
 					
@@ -145,7 +187,8 @@ define(function(require, exports, module) {
 
 					}
 
-				} 
+
+				}
 
 
 			} else {

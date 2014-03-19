@@ -83,6 +83,10 @@ define(function(require, exports) {
 			// console.log("init EditFoodleController");
 			var that = this;
 
+
+			this.actionUpdate = false;
+			if (foodle) this.actionUpdate = true;
+
 			this.user = user;
 			this.foodle = foodle || {};
 
@@ -126,7 +130,7 @@ define(function(require, exports) {
 			// 	console.log("UPDATE COLUMNS");
 			// });
 
-			if (this.foodle.identifier) {
+			if (this.actionUpdate) {
 				this.updateUI();
 				this.updateColSelector();
 			}
