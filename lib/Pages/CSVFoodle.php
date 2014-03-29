@@ -63,7 +63,7 @@ class Pages_CSVFoodle extends Pages_Page {
 			}
 
 	
-			echo $response->username . $s .  $response->userid . $s . $extrastr . join($s, $response->response['data']) . $s . date("Y-m-d H:i", $response->created) . "\r\n";
+			echo $response->username . $s .  $response->userid . $s . $response->email . $s . $extrastr . join($s, $response->response['data']) . $s . date("Y-m-d H:i", $response->created) . "\r\n";
 		}
 
 	}
