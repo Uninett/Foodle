@@ -73,10 +73,17 @@ if (isset($this->data['loginurl'])) {
 					
 				<h2>The New Foodle</h2>
 
-				<p>Welcome to a brand new implementation of Foodle. We ask you to kindly report any issues you have with the new version as soon as possible, to help us get rid of bugs.</p>
+				<p>Welcome to a brand new implementation of Foodle! We kindly ask you to
+report any issues you might have concerning this new edition as soon as
+possible, in order to help us get rid of bugs.
+</p>
 
-				<p>There is a few lacking features that we hope to <strong>reintroduce</strong> as soon as possible, but are need to wait a bit because of lack of resources. This includes multi-lingual support, 
-					and the support for having individual timeslots that differs from the date candidates. Contact us about how important these featutes are, in order for us to better prioritize.</p>
+				<p>Due to a lack of resources, some features have not been included as part
+of this release. We hope to reintroduce them as soon as possible. These
+features include multi lingual support, as well as support for
+individual timeslots that differ from the date candidates.
+Please tell us how important these specific features are to you, in
+order for us to prioritize among them.</p>
 
 				<ul class="uninett-ul">
 					<li class="uninett-ul-li"><a style="color: #fce" href="mailto:andreas.solberg@uninett.no">Please let us know</a> what you think.</li>
