@@ -44,7 +44,7 @@ define(function(require, exports) {
 
 			this.user = user;
 			this.el = el;
-			this.el.empty().append(template());
+			this.el.empty().append(template({"_": _d}));
 
 			// this.addTable();
 
@@ -252,7 +252,7 @@ define(function(require, exports) {
 			}
 
 
-			this.el.empty().append(template());
+			this.el.empty().append(template({"_": _d}));
 
 			var datesDatepickerConfig = {
 				"format": "yyyy-mm-dd",

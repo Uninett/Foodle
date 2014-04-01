@@ -19,6 +19,11 @@ $script = $_SERVER['SCRIPT_NAME'];
 $path = substr($fullURI, strlen($script) + 1, strlen($fullURI) - strlen($script) - 1);
 $parameters = explode('/', $path);
 
+$availableLanguages = array('nb', 'en', 'sv');
+$availableLanguages = json_decode(file_get_contents($THISPATH . 'dictionaries/languages.json'), true );
+
+// print_r( $availableLanguages); exit;
+
 
 try {
 	
@@ -30,6 +35,8 @@ try {
 			$page = new Pages_PageFront($config, $parameters);
 			$page->show();
 			break;
+
+
 
 
 		case 'calendar':
@@ -105,6 +112,21 @@ try {
 					$api = new API_Files($config, $parameters);
 					$api->show();
 					break;
+
+				case 'dict':
+					if (count($parameters) !== 0) throw new Exception('No parameters supported');					
+					
+					header('Content-Type: application/javascript; charset: utf-8');
+					// header('Cache header');
+
+					// $availableLanguages = json_
+
+					$selectedLang = getHTTPLanguage($availableLanguages);
+					// echo dirname(dirname(__FILE__)) . '/dictionaries/foodle.' . $selectedLang. '.js';
+
+					require(dirname(dirname(__FILE__)) . '/dictionaries/foodle.' . $selectedLang. '.js');
+					exit;
+
 
 			}
 			break;

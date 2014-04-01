@@ -5,29 +5,29 @@
 
 
 	<div class="form-group" id="form-group-title">
-		<label for="inputTitle" class="col-sm-2 control-label">Title</label>
+		<label for="inputTitle" class="col-sm-2 control-label">{{_.title}}</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="inputTitle" value="{{foodle.name}}" placeholder="Title">
+			<input type="text" class="form-control" id="inputTitle" value="{{foodle.name}}" placeholder="{{_.title}}">
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label for="inputDescr" class="col-sm-2 control-label">Description</label>
+		<label for="inputDescr" class="col-sm-2 control-label">{{_.description}}</label>
 		<div class="col-sm-10">
 
-			<textarea class="form-control" id="inputDescr" placeholder="Description">{{foodle.descr}}</textarea>
-			<p class="help-block">You may use <a target="_blank" href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a> here.</p>
+			<textarea class="form-control" id="inputDescr" placeholder="{{_.description}}">{{foodle.descr}}</textarea>
+			<p class="help-block"><a target="_blank" href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a></p>
 		</div>
 	</div>
 
 
 	<div class="form-group gutter">
-		<label for="enableDeadline" class="col-sm-2 control-label">Deadline</label>
+		<label for="enableDeadline" class="col-sm-2 control-label">{{_.deadline}}</label>
 
 		<div class="col-sm-10 ">
 			<div class="checkbox">
 				<label>
-					<input id="enableDeadline" type="checkbox"> Set a deadline when users are not allowed to respond after.
+					<input id="enableDeadline" type="checkbox"> {{_.deadlineenable}}.
 				</label>
 			</div>
 		</div>
@@ -61,7 +61,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-10 col-sm-offset-2">
-				<p class="help-block">If a deadline is set, users may not respond to the Foodle or modify their response after this date.</p>
+				<p class="help-block">{{_.deadlinetxt}}.</p>
 			</div>
 		</div>
 
@@ -73,12 +73,12 @@
 
 
 	<div class="form-group gutter">
-		<label for="enableTime" class="col-sm-2 control-label">Date and time</label>
+		<label for="enableTime" class="col-sm-2 control-label">{{_.datetime}}</label>
 
 		<div class="col-sm-10 ">
 			<div class="checkbox">
 				<label>
-					<input id="enableTime" type="checkbox"> The date and time has already been decided for this event.
+					<input id="enableTime" type="checkbox"> {{_.datetimeenabled}}.
 				</label>
 			</div>
 		</div>
@@ -130,11 +130,11 @@
 
 				<div class="checkbox col-sm-3" style="padding-left: 1em">
 					<label>
-						<input id="inputTimeAllDay" type="checkbox"> All day
+						<input id="inputTimeAllDay" type="checkbox"> {{_.allday}}
 					</label>
 
 					<label style="padding-left: .5em">
-						<input id="inputTimeMultipleDays" type="checkbox"> Multiple days
+						<input id="inputTimeMultipleDays" type="checkbox"> {{_.multipledays}}
 					</label>
 
 				</div>
@@ -162,7 +162,7 @@
 
 
 	<div id="sectionTimezone" class="form-group gutter">
-		<label for="enableTimezone" class="col-sm-2 control-label">Timezone</label>
+		<label for="enableTimezone" class="col-sm-2 control-label">{{_.timezone}}</label>
 
 		<div class="col-sm-5 "style="" id="timezoneselector" ></div>
 
@@ -174,14 +174,14 @@
 
 	<div class="form-group">
 
-		<label for="inputEmail3" class="col-sm-2 control-label">Location</label>
+		<label for="inputEmail3" class="col-sm-2 control-label">{{_.location}}</label>
 
 
 		<div class="col-sm-10">
 
 			<div class="checkbox">
 				<label>
-					<input id="enableLocation" type="checkbox"> There is a location for this event.
+					<input id="enableLocation" type="checkbox"> {{_.locationenable}}.
 				</label>
 			</div>
 		</div>
@@ -198,14 +198,14 @@
 
 			<div class="row">
 				<div class="form-group col-sm-6">
-					<input id="inputLocationLocal" type="text" class="form-control" value="" placeholder="Local reference: i.e. Meetingroom X-101"  />
+					<input id="inputLocationLocal" type="text" class="form-control" value="" placeholder="{{_.localadr}}"  />
 				</div>
 
 				<div class="form-group col-sm-6">
 					<div class="input-group">
-						<input id="inputAddress" type="text" class="form-control" value="" placeholder="Address">
+						<input id="inputAddress" type="text" class="form-control" value="" placeholder="{{_.address}}">
 						<span class="input-group-btn">
-							<button id="actLookupMap" class="btn btn-default" type="button">Lookup map</button>
+							<button id="actLookupMap" class="btn btn-default" type="button">{{_.lookupmap}}</button>
 						</span>
 					</div>
 				</div>
@@ -224,12 +224,12 @@
 
 
 	<div class="form-group">
-		<label for="ss" class="col-sm-2 control-label">Video meeting</label>
+		<label for="ss" class="col-sm-2 control-label">{{_.videomeeting}}</label>
 
 		<div class="col-sm-10">
 			<div class="checkbox">
 				<label>
-					<input disabled="disabled" type="checkbox"> Create an Adobe Connect Meeting room for this event.
+					<input disabled="disabled" type="checkbox"> {{_.ac}}.
 				</label>
 			</div>
 		</div>
@@ -245,7 +245,7 @@
 		<div class="col-sm-offset-2 col-sm-10">
 			<div class="checkbox">
 				<label>
-					<input id="inputResponseTypeMaybe" type="checkbox" checked="checked"> Allow users to repsond with «maybe» on columns.
+					<input id="inputResponseTypeMaybe" type="checkbox" checked="checked"> {{_.maybeenable}}.
 				</label>
 			</div>
 		</div>
@@ -258,22 +258,22 @@
 		<div class="col-sm-offset-2 col-sm-10">
 			<div class="checkbox">
 				<label>
-					<input id="inputRequireLogin" type="checkbox" checked="checked"> Require user to login
+					<input id="inputRequireLogin" type="checkbox" checked="checked"> {{_.requirelogin}} 
 				</label>
 			</div>
-			<p class="help-block">It is reccomended to require all users to login. Then you'll be sure that each user may only respond once, and you will know the identity behind each response.</p>
+			<p class="help-block">{{_.logininfo}}.</p>
 		</div>
 	</div>
 
 
 
 	<div class="form-group gutter">
-		<label for="ss" class="col-sm-2 control-label">Restrictions</label>
+		<label for="ss" class="col-sm-2 control-label">{{_.restrictions}}</label>
 
 		<div class="col-sm-10">
 			<div class="checkbox">
 				<label>
-					<input id="enableRestrictions" type="checkbox" > Restrictions on what users may respond
+					<input id="enableRestrictions" type="checkbox" > {{_.restrictionsinfo}}
 				</label>
 			</div>
 		</div>
@@ -289,7 +289,7 @@
 
 					<div class="form-group col-sm-5">
 						<label>
-							<input id="enableRestrictionColLimit" type="checkbox" checked="checked"> Maximum number of checked responses to 
+							<input id="enableRestrictionColLimit" type="checkbox" checked="checked"> {{_.restr1}} 
 						</label>
 					</div>
 				
@@ -313,7 +313,7 @@
 
 						<div class="form-group col-sm-5">
 							<label>
-								<input id="enableRestrictionRowlimit" class="" type="checkbox" > Maximum number of responses
+								<input id="enableRestrictionRowlimit" class="" type="checkbox" > {{_.restr2}}
 							</label>
 						</div>
 					
@@ -333,7 +333,7 @@
 
 					<div class="form-group col-sm-5">
 						<label>
-							<input id="enableRestrictionCheckLimit" class="" type="checkbox" > Max columns checked per user 
+							<input id="enableRestrictionCheckLimit" class="" type="checkbox" > {{_.restr3}} 
 						</label>
 					</div>
 				
@@ -347,17 +347,16 @@
 	</div>
 
 	<div id="sectionFeed"  class="form-group gutter" style="display: none">
-		<label for="ss" class="col-sm-2 control-label">Publish to feed</label>
+		<label for="ss" class="col-sm-2 control-label">{{_.publishfeed}}</label>
 		<div class="col-sm-10">
 			<div class="checkbox">
 				<label>
-					<input id="enableFeed" type="checkbox" /> Publish this Foodle to a feed.
+					<input id="enableFeed" type="checkbox" /> {{_.publishfeed2}}.
 				</label>
 			</div>
 			<select id="feedSelector" class="form-control">
 			</select>
-			<p class="help-block">By publishing to a feed, users member of that feed will get access to the foodles from their frontpage. It may also be
-				visible in Foodle widgets placed in other web applications.</p>
+			<p class="help-block">{{_.feedinfo}}.</p>
 		</div>
 	</div>
 
@@ -388,15 +387,15 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Successfully saved foodle</h4>
+				<h4 class="modal-title">{{_.savesuccess}}</h4>
 			</div>
 			<div class="modal-body">
-				<p>Your Foodle is now ready to be shared. Please send the following link to your participant in order for them to access and respond to the Foodle:</p>
+				<p>{{_.saveinfo}}:</p>
 
 				<p><input id="shareURL" type="text" class="form-control" value="" /></p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="actContinue btn btn-primary"><span class=""></span> Continue to Foodle</button>
+				<button type="button" class="actContinue btn btn-primary"><span class=""></span> {{_.continuefoodle}}</button>
 			</div>
 		</div>
 	</div>

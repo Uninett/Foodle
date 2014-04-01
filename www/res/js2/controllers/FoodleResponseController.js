@@ -401,7 +401,9 @@ define(function(require, exports) {
 		"draw": function() {
 			var that = this;
 
-			this.el.empty().append(template(this.foodle));
+			var obj = $.extend({}, this.foodle, {"_": window._d});
+
+			this.el.empty().append(template(obj));
 
 			if (this.foodle.isOwner()) {
 				
@@ -709,7 +711,7 @@ define(function(require, exports) {
 				container.append('<p>' + x.left + ' of ' + r.rows + ' responses left.</p>');
 
 				if (x.locked) {
-					container.append('<p style="font-size: 110%"><span class="label label-danger"><span class="glyphicon glyphicon-lock"></span> Locked for responses</span></p>');
+					container.append('<p style="font-size: 110%"><span class="label label-danger"><span class="glyphicon glyphicon-lock"></span> ' + _d.locked + '</span></p>');
 				}
 			}
 
@@ -719,7 +721,7 @@ define(function(require, exports) {
 				container.append('<p>' + x.left + ' of ' + r.col.limit + ' spaces left.</p>');
 
 				if (x.locked) {
-					container.append('<p style="font-size: 110%"><span class="label label-danger"><span class="glyphicon glyphicon-lock"></span> Locked for responses</span></p>');
+					container.append('<p style="font-size: 110%"><span class="label label-danger"><span class="glyphicon glyphicon-lock"></span> ' + _d.locked + '</span></p>');
 				}
 			}
 
@@ -751,7 +753,7 @@ define(function(require, exports) {
 			// console.log('deadline ' + str);
 
 			if (this.foodle.locked()) {
-				$("#sectDeadline").append('<p style="font-size: 110%"><span class="label label-danger"><span class="glyphicon glyphicon-lock"></span> Locked for responses</span></p>');
+				$("#sectDeadline").append('<p style="font-size: 110%"><span class="label label-danger"><span class="glyphicon glyphicon-lock"></span> ' + _d.locked + '</span></p>');
 			}
 
 			container

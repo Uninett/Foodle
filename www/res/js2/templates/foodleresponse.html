@@ -4,16 +4,16 @@
 
 
 		<div id="ownerbar" class="btn-group pull-right">
-			<a class="btn btn-warning" href="/edit/{{identifier}}"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-			<a class="btn btn-info" href="/create#!/create/{{identifier}}"><span class="glyphicon glyphicon-new-window"></span> Duplicate</a>
-			<a class="btn btn-danger" id="actDelete" ><span class="glyphicon glyphicon-remove"></span> Delete</a>
+			<a class="btn btn-warning" href="/edit/{{identifier}}"><span class="glyphicon glyphicon-edit"></span> {{_.bc_edit}}</a>
+			<a class="btn btn-info" href="/create#!/create/{{identifier}}"><span class="glyphicon glyphicon-new-window"></span> {{_.duplicate}}</a>
+			<a class="btn btn-danger" id="actDelete" ><span class="glyphicon glyphicon-remove"></span> {{_.delete}}</a>
 		</div>
 
 		<div id="otherbar" class="btn-group pull-right">
 			<!-- <div class="btn-group"> -->
 				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 					<span class="glyphicon glyphicon-share"></span>
-					Export 
+					{{_.export}} 
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu">
@@ -51,7 +51,7 @@
 
 		<div id="panelLocation" class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title"><span class="glyphicon glyphicon-map-marker"></span> Location</h3>
+				<h3 class="panel-title"><span class="glyphicon glyphicon-map-marker"></span> {{_.location}}</h3>
 			</div>
 			<div class="panel-body">
 				<div id="sectLocation"></div>
@@ -65,7 +65,7 @@
 
 		<div id="panelTime" class="panel panel-default">
 			<div class="uninett-color-lightBlue panel-heading">
-				<h3 class="panel-title"><span class="glyphicon glyphicon-calendar"></span> Date and time</h3>
+				<h3 class="panel-title"><span class="glyphicon glyphicon-calendar"></span> {{_.datetime}}</h3>
 			</div>
 			<div id="sectTime" class="panel-body">
 			</div>
@@ -73,7 +73,7 @@
 
 		<div id="panelDeadline" class="panel panel-default">
 			<div class="uninett-color-lightBlue panel-heading">
-				<h3 class="panel-title"><span class="glyphicon glyphicon-time"></span> Deadline</h3>
+				<h3 class="panel-title"><span class="glyphicon glyphicon-time"></span> {{_.deadline}}</h3>
 			</div>
 			<div id="sectDeadline" class="panel-body">
 				
@@ -83,7 +83,7 @@
 
 		<div id="panelRestrictions" class="panel panel-default">
 			<div class="uninett-color-lightBlue panel-heading">
-				<h3 class="panel-title"><span class="glyphicon glyphicon-lock"></span> Restrictions</h3>
+				<h3 class="panel-title"><span class="glyphicon glyphicon-lock"></span> {{_.restrictions}}</h3>
 			</div>
 			<div id="sectRestrictions" class="panel-body">
 				
@@ -93,11 +93,11 @@
 
 		<div id="panelTimezone" class="panel panel-default hidden-print">
 			<div class="uninett-color-lightBlue panel-heading">
-				<h3 class="panel-title"><span class="glyphicon glyphicon-globe"></span> Timezone</h3>
+				<h3 class="panel-title"><span class="glyphicon glyphicon-globe"></span> {{_.timezone}}</h3>
 			</div>
 
 			<div  class="panel-body">
-				<p>Select which timezone to present the timeslots.</p>
+				<p>{{_.selecttimezone}}</p>
 				<div id="sectTimezone"></div>
 			</div>
 		</div>
@@ -108,7 +108,7 @@
 
 	<div class="col-md-3">
 
-		<h5>See also</h5>
+		<h5>{{_.seealso}}</h5>
 		<div id="upcoming"></div>
 
 	</div>
@@ -117,9 +117,9 @@
 </div>
 
 <ul id="responsenav" class="nav nav-tabs">
-	<li id="navMyResponse" class="active"><a href="#">My response</a></li>
-	<li id="navAllResponses"><a href="#">All responses</a></li>
-	<li id="navComments"><a href="#">Discussion <span id="discussionCount" style="display: none" class="badge badge-primary">5</span></a></li>
+	<li id="navMyResponse" class="active"><a href="#">{{_.myresponse}}</a></li>
+	<li id="navAllResponses"><a href="#">{{_.allresponses}}</a></li>
+	<li id="navComments"><a href="#">{{_.discussion}} <span id="discussionCount" style="display: none" class="badge badge-primary">_</span></a></li>
 </ul>
 
 
@@ -136,7 +136,7 @@
 	<div id="showComments">
 		<div class="checkbox">
 			<label>
-				<input id="enableComments" type="checkbox" class="" checked="checked"> Show all comments
+				<input id="enableComments" type="checkbox" class="" checked="checked"> {{_.showcomments}}
 			</label>
 		</div>
 	</div>
@@ -152,7 +152,7 @@
 	<div class="col-md-6">
 		<textarea id="commentText" class="form-control" rows="3"></textarea>
 		<div class="clearfix" style="margin-top: 5px">
-			<button class="btn btn-primary pull-right" id="submitComment"> Add comment <span class="glyphicon glyphicon-chevron-right"></span></button>
+			<button class="btn btn-primary pull-right" id="submitComment"> {{_.addcomment}} <span class="glyphicon glyphicon-chevron-right"></span></button>
 		</div>
 	</div>
 
@@ -170,18 +170,16 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Deleting a Foodle</h4>
+				<h4 class="modal-title">{{_.deleting}}</h4>
 			</div>
 			<div class="modal-body">
-				<p>Are you really sure you would like to delete this Foodle? There is no way to restore the deleted data. Both the Foodle and all the responses to this foodle will be deleted.</p>
-
-				<p>Deleting this Foodle:</p>
+				<p>{{_.deletewarning}}</p>
 
 				<p><input id="foodleID" type="text" class="form-control" value="" /></p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				<button type="button" class="actContinue btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete foodle</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">{{_.cancel}}</button>
+				<button type="button" class="actContinue btn btn-danger"><span class="glyphicon glyphicon-remove"></span> {{_.dodelete}}</button>
 			</div>
 		</div>
 	</div>

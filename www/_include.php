@@ -30,7 +30,7 @@ date_default_timezone_set('Europe/Berlin');
  * Loading Foodle libraries
  */
 
-#
+require_once($THISPATH . 'lib/httplanguage.php');
 require_once($THISPATH . 'lib/TimeZone.php');
 
 require_once($THISPATH . 'lib/FoodleAuth.php');

@@ -9,7 +9,7 @@
 	{{/if}}
 
 	{{#if foodle.responses}}
-		<p style="margin-bottom: 0px; margin-top: .4em; font-size: 87%">Latest responses:</p>
+		<p style="margin-bottom: 0px; margin-top: .4em; font-size: 87%">{{_.latestresp}}:</p>
 		<ul style="margin: 0px; padding: 0px; font-size: 87%" class="uninett-ul">
 		{{#each foodle.responses}}
 			<li style="list-style: none"><span class="glyphicon glyphicon-user"></span> {{name}} <span class="ts uninett-fontColor-grey" data-ts="{{modified}}"></span></li>
@@ -19,7 +19,7 @@
 
 	<!-- <hr style="margin-top: 8px; margin-bottom: 2px" /> -->
 	<p style="font-size: 90%" class="list-group-item-text">
-		Created by <span class="glyphicon glyphicon-user"></span> {{foodle.ownername}}
+		{{_.createdby}} <span class="glyphicon glyphicon-user"></span> {{foodle.ownername}}
 	</p>
 
 </a>

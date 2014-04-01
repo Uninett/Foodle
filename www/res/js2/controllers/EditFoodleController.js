@@ -101,15 +101,16 @@ define(function(require, exports) {
 
 			var tdata = {
 				"foodle": foodle,
-				"header": 'Create a new Foodle',
-				"savetxt": 'Create Foodle'
+				"header": _d.createnew,
+				"savetxt": _d.createfoodle
 			};
 			if (this.foodle.identifier) {
-				tdata.header = 'Update existing Foodle';
-				tdata.savetxt = 'Save changes';
+				tdata.header = _d.updateexisting;
+				tdata.savetxt = _d.savechanges;
 			}
 
-			this.el.empty().append(template(tdata));
+			var obj = $.extend({}, tdata, {"_": window._d});
+			this.el.empty().append(template(obj));
 
 			this.setupMap();
 			this.prepareTimezoneSelector();

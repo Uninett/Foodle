@@ -46,7 +46,7 @@ define(function(require, exports) {
 
 			this.user = user;
 			this.el = el;
-			this.el.empty().append(template());
+			this.el.empty().append(template({"_": _d}));
 
 
 			// $('body').on('click', '#xx', function(e) {
@@ -369,7 +369,7 @@ define(function(require, exports) {
 			this.timeslots = coldef.timeslots;
 
 
-			this.el.empty().append(template());
+			this.el.empty().append(template({"_": _d}));
 
 			var datesDatepickerConfig = {
 				"format": "yyyy-mm-dd",

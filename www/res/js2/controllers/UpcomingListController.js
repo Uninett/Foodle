@@ -39,10 +39,11 @@ define(function(require, exports) {
 			that.el.empty();
 			$.each(events, function(i, item) {
 				var ne = null;
+				var obj = $.extend({}, item, {"_": window._d});
 				if (that.style === 'slim') {
-					ne = stemplate(item);
+					ne = stemplate(obj);
 				} else {
-					ne = template(item);	
+					ne = template(obj);	
 				}
 
 				// console.log("Highlight", that.hlFoodle, item);

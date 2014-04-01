@@ -4,7 +4,7 @@
 ?>
 
 
-<div class="container">
+<div class="container gutter">
 	<div class="row">
 		<div class="col-lg-12"> 
 			<div class="jumbotron uninett-color-orange">
