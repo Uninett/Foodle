@@ -159,7 +159,7 @@ define(function(require, exports, module) {
 					console.log("About to create a new Foodle from a template [" + templateFoodle + "]");
 
 
-					api.getFoodleAuth(templateFoodle, function(foodle) {
+					api.getFoodle(templateFoodle, function(foodle) {
 						// foodle.setUser(userid);
 						
 						delete foodle.identifier;

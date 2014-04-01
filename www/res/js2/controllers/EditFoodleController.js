@@ -83,7 +83,6 @@ define(function(require, exports) {
 			// console.log("init EditFoodleController");
 			var that = this;
 
-
 			this.actionUpdate = false;
 			if (foodle) this.actionUpdate = true;
 
