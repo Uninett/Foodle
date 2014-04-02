@@ -88,7 +88,7 @@ class TimeZone {
 	}
 	
 	public function getTimeZone() {
-		$tz = 'Europe/Amsterdam';
+		$tz = null;
 		
 		if (isset($this->user)) {
 			if (isset($this->user->timezone)) {
@@ -99,7 +99,7 @@ class TimeZone {
 		try {
 			$tz = $this->lookupRegion($this->lookupIP($this->ip));
 		} catch(Exception $e) {
-			$tz = 'Europe/Amsterdam';
+			// $tz = 'Europe/Amsterdam';
 		}
 		
 		return $tz;
