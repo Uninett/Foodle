@@ -57,6 +57,7 @@ class API_User extends API_Authenticated {
 		$res['authenticated'] = $this->user->loadedFromDB;
 		$res['user'] = $this->user->getView();
 		$res['token'] = $this->user->getToken();
+		$res['logouturl'] = $this->auth->getLogoutURL('/');
 
 		// header('Content-type: text/plain; charset=utf-8');
 		// print_r($this->user);

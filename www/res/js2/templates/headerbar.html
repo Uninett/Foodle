@@ -1,0 +1,52 @@
+<div class="container">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+		<a class="navbar-brand" href="/#!/"><img src="/res/uninett-theme/images/UNINETT_logo.svg" alt="Uninett logo" type="image/svg+xml"></a>
+		
+	</div>
+	<div class="navbar-department">
+		<div class="department"><a style="color: inherit; text-decoration: none" href="/">Foodle</a></div>
+	</div>
+	<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav">
+	
+		<li><a href="/create">{{_.bc_createnew}}</a></li>
+
+
+		{{#if authenticated}}
+
+			<li class="dropdown pull-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 
+				{{user.username}} <b class="caret"></b></a>
+
+			<ul class="dropdown-menu">
+				<li><a href="/profile">{{_.myprofile}}</a></li>
+				<li class="divider"></li>
+				<!-- <li><a href="#">Separated link</a></li> -->
+				<li><a class="button" href="{{{logouturl}}}"><span>{{_.logout}}</span></a>
+			</ul>
+
+		{{else}}
+
+
+			<li class="uninett-login"><button type="button" class="signin btn btn-default uninett-login-btn" data-toggle="modal" data-target="#myModal">
+				<span class="glyphicon glyphicon-user uninett-fontColor-red"></span> {{_.login}}</button></li>
+
+		{{/if}}
+
+
+
+			<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{_.aboutfoodle}} <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="https://github.com/UNINETT/Foodle/issues">{{_.reportbugs}}</a></li>
+					<!-- <li><a href="https://rnd.feide.no/software/foodle/foodle-privacy-policy/">{{_.privacypolicy}}</a></li> -->
+					<!-- <li><a href="http://rnd.feide.no">.rndblog</a></li> -->
+					<!-- <li><a id="news" target="_blank" href="http://rnd.feide.no/category/foodle/">
+						{{_.read_news}}</a></li> -->
+					<li><a id="mailinglist" target="_blank" href="/support">
+						{{_.join_mailinglist}}</a></li>
+				</ul>
+			</li>
+
+		</ul>
+	</div>
+</div>

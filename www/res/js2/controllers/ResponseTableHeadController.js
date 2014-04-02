@@ -337,7 +337,7 @@ define(function(require, exports) {
 			var secondrow = $('<tr></tr>');
 
 
-			firstrow.append('<th rowspan="2" colspan="' + this.extra + '" style="width: 210px">Participant</th>');
+			firstrow.append('<th rowspan="2" colspan="' + this.extra + '" style="width: 210px">' + window._d.participant + '</th>');
 
 			for(var i = 0; i < coldef.length; i++) {
 

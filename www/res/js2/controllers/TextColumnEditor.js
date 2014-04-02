@@ -26,7 +26,7 @@ define(function(require, exports) {
 			this.includeOptions = false;
 
 			this.el = el;
-			this.el.empty().append(template());
+			this.el.empty().append(template({"_": _d}));
 
 
 			this.addTable();
@@ -209,7 +209,7 @@ define(function(require, exports) {
 			}
 
 
-			this.el.empty().append(template());
+			this.el.empty().append(template({"_": _d}));
 
 
 			this.el.find('#includeOptions').prop('checked', this.includeOptions);
@@ -281,7 +281,7 @@ define(function(require, exports) {
 				if (this.subcolumns[i] === 0) {
 					rowspan = 2;
 				}
-				t = '<td rowspan="' + rowspan + '" colspan="' + this.subcolumns[i] + '"><input style="width: 100%" class="coldef-header form-control" type="text" placeholder="Header" /></td>';
+				t = '<td rowspan="' + rowspan + '" colspan="' + this.subcolumns[i] + '"><input style="width: 100%" class="coldef-header form-control" type="text" placeholder="' + _d.header+ '" /></td>';
 				row.append(t);	
 			}
 			return row;
@@ -294,7 +294,7 @@ define(function(require, exports) {
 			var t;
 			for(var i = 0; i < this.topcolumns; i++) {
 				for(var j = 0; j < this.subcolumns[i]; j++) {
-					t = '<td><input style="width: 100%" class="coldef-option form-control" type="text" placeholder="Opt" /></td>';
+					t = '<td><input style="width: 100%" class="coldef-option form-control" type="text" placeholder="' + _d.opt + '" /></td>';
 					row.append(t);
 				}
 			}

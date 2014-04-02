@@ -32,7 +32,7 @@ $this->includeAtTemplateBase('includes/header.php');
 
 
 
-<div class="container">
+<div class="container gutter">
 	<div class="row">
 		<div class="col-lg-12 uninett-color-white uninett-padded"> 
 
@@ -45,8 +45,6 @@ $this->includeAtTemplateBase('includes/header.php');
 		</div>
 	</div>
 </div>
-
-
 
 			
 <?php $this->includeAtTemplateBase('includes/footer.php'); 

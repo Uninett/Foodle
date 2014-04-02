@@ -76,92 +76,22 @@ if (!empty($this->data['gmapsAPI'])) {
 
 
 	<!-- Fixed navbar -->
-	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="/#!/"><img src="/res/uninett-theme/images/UNINETT_logo.svg" alt="Uninett logo" type="image/svg+xml"></a>
-				
-			</div>
-			<div class="navbar-department">
-				<div class="department">Foodle</div>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-			
-				<li><a href="/create">Create new</a></li>
-
-<?php
-
-
-
-	require_once(dirname(__FILE__) . '/login-item.php');
-	// require_once(dirname(__FILE__) . '/language-selector.php');
-
-
-?>
-
-
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">About Foodle <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="https://github.com/UNINETT/Foodle/issues">Report bugs or ask questions</a></li>
-							<!-- <li><a href="https://rnd.feide.no/software/foodle/foodle-privacy-policy/"><?php echo $this->t('privacypolicy'); ?></a></li> -->
-							<li><a href="http://rnd.feide.no"><?php echo $this->t('rndblog'); ?></a></li>
-							<li><a id="news" target="_blank" href="http://rnd.feide.no/category/foodle/">
-								<?php echo $this->t('read_news'); ?></a></li>
-							<li><a id="mailinglist" target="_blank" href="http://rnd.feide.no/software/foodle/">
-								<?php echo $this->t('join_mailinglist'); ?></a></li>
-						</ul>
-					</li>
-
-				</ul>
-			</div>
-		</div>
+	<div id="headerbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
 	</div>
 
 
 
 	<div class="container">
-
-		<div id="headerbar" style="clear: both">
-			<?php 
-
-				echo '<ol class="breadcrumb">';
-				if (isset($this->data['bread'])) {
-					$first = TRUE;
-					foreach ($this->data['bread'] AS $item) {
-						// if (!$first) echo ' » ';		
-						if (isset($item['href'])) {
-							
-							if (strstr($item['title'],'bc_') == $item['title'] ) {
-								echo '<li><a href="' . $item['href'] . '">' . $this->t($item['title']) . '</a></li>';
-							} else {
-								echo '<li><a href="' . $item['href'] . '">' . $item['title'] . '</a></li>';
-							}
-						} else {
-							if (strstr($item['title'],'bc_') == $item['title'] ) {
-								echo '<li class="active">' . $this->t($item['title']) . '</li>';
-							} else {
-								echo '<li class="active">' . $item['title'] . '</li>';
-							}
-							
-						}
-						$first = FALSE;
-					}
-				}
-				echo '</ol>';
-
-
-				if (isset($this->data['headbar'])) {
-					echo $this->data['headbar'];
-				}
-
-			?>
-
-			<p style="height: 0px; clear: both"></p>
-		</div><!-- /#headerbar -->
-
   
+		<noscript>
+			<div style="background: #c44; color: white; padding: 1em; margin-top: 1em; border-radius: 10px" class="bg-danger">
+				<p><strong>Javascript required.</strong></p>
+				<p>It seems that javascript is turned off in your browser. Foodle is a web application making heavy use of javascript.
+					If you get this error, even if you are sure javascript is turned on, please contact support.
+				</p>
+			</div>
+		</noscript>
+
 		<!--[if lt IE 9]>
 			<div style="background: #c44; color: white; padding: 1em; margin-top: 1em; border-radius: 10px" class="bg-danger">
 				<p><strong>Warning: Unsupported browser.</strong></p>
@@ -172,15 +102,4 @@ if (!empty($this->data['gmapsAPI'])) {
 		<![endif]-->
 
 	</div>
-
-	<noscript>
-		<div style="background: #c44; color: white; padding: 1em; margin-top: 1em; border-radius: 10px" class="bg-danger">
-			<p><strong>Javascript required.</strong></p>
-			<p>It seems that javascript is turned off in your browser. Foodle is a web application making heavy use of javascript.
-				If you get this error, even if you are sure javascript is turned on, please contact support.
-			</p>
-		</div>
-	</noscript>
-
-
 

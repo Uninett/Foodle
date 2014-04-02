@@ -25,7 +25,7 @@ define(function(require, exports) {
 			this.callbacks = {};
 			this.user = user;
 			this.el = el;
-			this.el.empty().append(template());
+			this.el.empty().append(template({"_": _d}));
 
 			var c = this.el.find('#columnEditorContainer');
 			

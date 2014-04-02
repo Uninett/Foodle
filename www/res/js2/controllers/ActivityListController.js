@@ -33,7 +33,8 @@ define(function(require, exports) {
 
 			that.el.empty();
 			$.each(activities, function(i, item) {
-				that.el.append(template(item));
+				var obj = $.extend({}, item, {"_": window._d});
+				that.el.append(template(obj));
 			});
 			$("span.ts").prettyDate(); 
 		}
