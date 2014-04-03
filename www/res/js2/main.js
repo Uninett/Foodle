@@ -12,6 +12,7 @@ define(function(require, exports, module) {
 		FrontPage = require('controllers/FrontPage'),
 		FoodleResponseController = require('controllers/FoodleResponseController'),
 		EditFoodleController = require('controllers/EditFoodleController'),
+		UpcomingFeedController = require('controllers/UpcomingFeedController'),
 
 		DJ = require('misc/discojuice'),
 		d = require('misc/dict')
