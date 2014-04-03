@@ -89,6 +89,20 @@ class TimeZone {
 	
 	public function getTimeZone() {
 		$tz = null;
+
+		global $THISPATH;
+
+		$reader = new GeoIp2\Database\Reader($THISPATH . 'var/GeoLite2-City.mmdb');
+		$record = $reader->city($this->ip);
+
+		
+
+
+		$obj = array();
+		$obj['lat'] = $record->location->latitude;
+		$obj['lon'] = $record->location->longitude;
+		$obj['tz'] = $record->location->timeZone;
+		echo "RESULT:<pre>"; print_r($record); exit;
 		
 		if (isset($this->user)) {
 			if (isset($this->user->timezone)) {

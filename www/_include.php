@@ -22,6 +22,10 @@ date_default_timezone_set('Europe/Berlin');
 
 
 
+// Load composer external libraries
+
+require_once($THISPATH . 'vendor/autoload.php');
+
 /**
  * Loading simpleSAMLphp libraries
  */
@@ -119,6 +123,9 @@ require_once($THISPATH . 'lib/cal/functions/class.Vevent.php');
 require_once($THISPATH . 'lib/cal/functions/class.Vfreebusy.php');
 require_once($THISPATH . 'lib/cal/functions/class.Daylight.php');
 require_once($THISPATH . 'lib/cal/functions/class.Standard.php');
+
+
+
 
 /**
  * Initializating configuration

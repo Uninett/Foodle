@@ -147,7 +147,13 @@ try {
 			break;
 			
 		case 'timezone':
-			require('timezone.php');
+			
+
+			$db = new FoodleDBConnector($config);
+			$timezone = new TimeZone($db);
+			$newtimezone = $timezone->getTimezone();
+
+			echo "Timezone is :"; print(var_export($newtimezone, true));
 			break;
 			
 		case 'mail':
