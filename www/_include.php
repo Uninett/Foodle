@@ -11,6 +11,7 @@ $path = ini_get('include_path');
 $path = $path_extra . PATH_SEPARATOR . $path;
 ini_set('include_path', $path);
 
+
 require_once($SIMPLESAMLPATH . 'lib/_autoload.php');
 
 require_once($SIMPLESAMLPATH . 'modules/oauth/libextinc/OAuth.php');
@@ -20,6 +21,13 @@ $THISPATH = dirname(dirname(__FILE__)) . '/';
 date_default_timezone_set('Europe/Berlin');
 
 
+
+
+// Load composer external libraries
+
+if (file_exists($THISPATH . 'vendor/autoload.php')) {
+	require_once($THISPATH . 'vendor/autoload.php');	
+}
 
 
 /**
@@ -119,6 +127,9 @@ require_once($THISPATH . 'lib/cal/functions/class.Vevent.php');
 require_once($THISPATH . 'lib/cal/functions/class.Vfreebusy.php');
 require_once($THISPATH . 'lib/cal/functions/class.Daylight.php');
 require_once($THISPATH . 'lib/cal/functions/class.Standard.php');
+
+
+
 
 /**
  * Initializating configuration
