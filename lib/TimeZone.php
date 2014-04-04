@@ -92,7 +92,9 @@ class TimeZone {
 
 		global $THISPATH;
 
-		$reader = new GeoIp2\Database\Reader($THISPATH . 'var/GeoLite2-City.mmdb');
+		// $reader = new GeoIp2\Database\Reader($THISPATH . 'var/GeoLite2-City.mmdb');
+		$reader = new GeoIp2\Database\Reader($THISPATH . 'var/GeoIP2-City.mmdb');
+		
 		$record = $reader->city($this->ip);
 
 		
