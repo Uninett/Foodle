@@ -11,6 +11,7 @@ $path = ini_get('include_path');
 $path = $path_extra . PATH_SEPARATOR . $path;
 ini_set('include_path', $path);
 
+
 require_once($SIMPLESAMLPATH . 'lib/_autoload.php');
 
 require_once($SIMPLESAMLPATH . 'modules/oauth/libextinc/OAuth.php');
@@ -24,7 +25,10 @@ date_default_timezone_set('Europe/Berlin');
 
 // Load composer external libraries
 
-require_once($THISPATH . 'vendor/autoload.php');
+if (file_exists($THISPATH . 'vendor/autoload.php')) {
+	require_once($THISPATH . 'vendor/autoload.php');	
+}
+
 
 /**
  * Loading simpleSAMLphp libraries

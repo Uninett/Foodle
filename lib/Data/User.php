@@ -11,8 +11,6 @@ class Data_User {
 	// More complex structures are protected.
 	protected $calendar;
 
-
-
 	public $anonymous = TRUE;
 	public $loadedFromDB = FALSE;
 	

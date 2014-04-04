@@ -23,6 +23,8 @@ class TimeZone {
 	public function TimeZone(FoodleDBConnector $db, $ip = NULL, $user = null) {
 		$this->db = $db;
 
+		$this->config = SimpleSAML_Configuration::getInstance('foodle');
+
 		if (is_null($ip)) $ip = $_SERVER['REMOTE_ADDR'];
 		
 		if (isset($user)) $this->user = $user;
@@ -92,30 +94,51 @@ class TimeZone {
 
 		global $THISPATH;
 
-		// $reader = new GeoIp2\Database\Reader($THISPATH . 'var/GeoLite2-City.mmdb');
-		$reader = new GeoIp2\Database\Reader($THISPATH . 'var/GeoIP2-City.mmdb');
-		
-		$record = $reader->city($this->ip);
-
-		
 
 
-		$obj = array();
-		$obj['lat'] = $record->location->latitude;
-		$obj['lon'] = $record->location->longitude;
-		$obj['tz'] = $record->location->timeZone;
-		echo "RESULT:<pre>"; print_r($record); exit;
-		
 		if (isset($this->user)) {
 			if (isset($this->user->timezone)) {
 				return $this->user->timezone;
 			}
 		}
-		
+
+
+
+
+
+
+		$geoipfile = $this->config->getValue('geoipfile', null);
+		if ($geoipfile == null) {
+			return $tz;
+		}
+
+		// echo "Enabled: " . var_export($geoipfile, true); exit;
+
+		if (!class_exists('GeoIp2\Database\Reader')) {
+			error_log("Not properly loaded GeoIP library through composer.phar.");
+			return $tz;
+		}
+
+		if (!file_exists($THISPATH . $geoipfile) ) {
+			error_log("Cannot find configured GeoIP database :" . $THISPATH . $geoipfile);
+			return $tz;
+		}
+
 		try {
-			$tz = $this->lookupRegion($this->lookupIP($this->ip));
+
+			// $reader = new GeoIp2\Database\Reader($THISPATH . 'var/GeoLite2-City.mmdb');
+			$reader = new GeoIp2\Database\Reader($THISPATH . $geoipfile); // 'var/GeoIP2-City.mmdb');
+
+			$record = $reader->city($this->ip);
+			$obj = array();
+			$obj['lat'] = $record->location->latitude;
+			$obj['lon'] = $record->location->longitude;
+			$obj['tz'] = $record->location->timeZone;
+			$tz = $obj['tz'];
+
 		} catch(Exception $e) {
 			// $tz = 'Europe/Amsterdam';
+			error_log("Error looking up GeoIP for address: " . $this->ip);
 		}
 		
 		return $tz;
