@@ -276,7 +276,7 @@ define(function(require, exports) {
 			} else if (this.user !== null) {
 				setrow2.append('<th colspan="2" ><span class="glyphicon glyphicon-user"></span> ' + this.user.username + '</th>');
 			} else {
-				setrow2.append('<td colspan="2" class="" >' + 
+				setrow2.append('<td colspan="2" class="regcol" >' + 
 					'<div id="regNameP" class="col-md-7"><input id="regName" type="text" class="form-control " placeholder="' + window._d.displayname + '" /></div>' + 
 					'<div id="regEmailP" class="col-md-5"><input id="regEmail" type="text" class="form-control " placeholder="' + window._d.email + '" /></div>' + 
 					'</td>');
@@ -359,7 +359,7 @@ define(function(require, exports) {
 				// setrow1.append('<th rowspan="3" >' + 
 				// 	'<input type="text" class="form-control" />' + 
 				// 	'</th>');
-				setrow1.append('<td rowspan="3" class="" >' + 
+				setrow1.append('<td rowspan="3" class="regcol" >' + 
 					'<div id="regNameP" class="col-md-7"><input id="regName" type="text" class="form-control " placeholder="' + window._d.displayname + '" /></div>' + 
 					'<div id="regEmailP" class="col-md-5"><input id="regEmail" type="text" class="form-control " placeholder="' + window._d.email + '" /></div>' + 
 					'</td>');
