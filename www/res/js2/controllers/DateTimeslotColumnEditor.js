@@ -186,7 +186,7 @@ define(function(require, exports) {
 
 		"prepareSingleTimeslot": function(f, t) {
 			var def = '<div class="input-group timeslotGroup">' +
-				'<span class="input-group-addon">From</span><input type="text"  placeholder="11:00" value="' + f + '" class="timeslot timeslotFrom form-control">' +
+				'<span class="input-group-addon">From</span><input type="text"  placeholder="09:00" value="' + f + '" class="timeslot timeslotFrom form-control">' +
 				'<span class="input-group-addon">to</span><input type="text"  placeholder="12:00" value="' + t + '" class="timeslot timeslotTo form-control">' +
 			'</div>';
 			return '<div class="col-xs-4">' + def + '</div>';
@@ -218,7 +218,7 @@ define(function(require, exports) {
 		"fillTimeslotsIfNeeded": function(el) {
 			// console.log("Fill timelsotfontainer ", el);
 
-			var tr = /[0-2]?[0-9]:[0-9][0-9]/;
+			var tr = /[0-2][0-9]:[0-9][0-9]/;
 			var counter = 0;
 			el.find('.timeslotGroup').each(function(i, item) {
 				var from = $(item).find('input.timeslotFrom').val();
@@ -274,7 +274,7 @@ define(function(require, exports) {
 		},
 
 		"timeIsValid": function(t) {
-			var pattern = new RegExp('^([0-2])?[0-9]:[0-5][0-9]$');
+			var pattern = new RegExp('^[0-2][0-9]:[0-5][0-9]$');
 			var tested = pattern.test(t);
 			// console.log("Testing ", t, tested);
 			return tested;
@@ -294,6 +294,8 @@ define(function(require, exports) {
 
 			// console.log("timeslottable ", this.el.find('#timeslotTableBody tr'));
 
+			var alertmsg = null;
+
 			this.el.find('#timeslotTableBody tr').each(function(i, row) {
 
 				var date = $(row).data('date');
@@ -311,6 +313,10 @@ define(function(require, exports) {
 						timeslots[date].push([start, end]);
 						// console.log("Date [" + date + "] " + start + "  " + end);
 					} else {
+						if (start !== '' && end !== '') {
+							alertmsg = 'Ignoring one or more invalid time entries: [' + date + '] ' + start + '  ' + end;	
+						}
+						
 						// console.error("INVALID Date [" + date + "] " + start + "  " + end);
 					}
 
@@ -320,6 +326,10 @@ define(function(require, exports) {
 
 
 			});
+
+			if (alertmsg) {
+				alert(alertmsg);
+			}
 
 			// this.el.find('.timeslotRow').each(function(i, row) {
 			// 	var start = $(row).find('.inputTimeStart').val();
@@ -421,7 +431,7 @@ define(function(require, exports) {
 				this.datepicker.datepicker('setDates', sd);
 			}
 
-			console.log("redraw, timeslots", coldef);
+			// console.log("redraw, timeslots", coldef);
 
 			if (coldef.timeslots.length > 0) {
 				for (var i = 0; i < coldef.timeslots.length; i++) {
