@@ -159,7 +159,7 @@ define(function(require, exports, module) {
 						var api = new API(data.token);
 						var templateFoodle = params[1];
 
-						console.log("About to create a new Foodle from a template [" + templateFoodle + "]");
+						// console.log("About to create a new Foodle from a template [" + templateFoodle + "]");
 
 
 						api.getFoodle(templateFoodle, function(foodle) {

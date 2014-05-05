@@ -21,15 +21,19 @@ define(function(require, exports) {
 
 			this.callbacks = {};
 			
+			// Number of topcolumns and subcolumns. This is the default.
 			this.topcolumns = 4;
 			this.subcolumns = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
+
+			// Include second row of sub options
 			this.includeOptions = false;
 
 			this.el = el;
 			this.el.empty().append(template({"_": _d}));
 
 
-			this.addTable();
+			// Draw table..
+			// this.addTable();
 
 			this.el.on('change', '#includeOptions', function(e) {
 				e.preventDefault(); e.stopPropagation();
@@ -40,18 +44,18 @@ define(function(require, exports) {
 
 			this.el.on('click', '#addTopColumn', function() {
 				// console.log("Add top column");
-				that.topcolumns++;
+				// that.topcolumns++;
 
-				if (that.subcolumns.length < that.topcolumns) {
-					that.subcolumns.push(2);
-				}
+				// if (that.subcolumns.length < that.topcolumns) {
+				// 	that.subcolumns.push(2);
+				// }
 
-				that.redraw();
+				that.redraw(null, that.modifyNumberOfColumns(1) );
 			});
 			this.el.on('click', '#removeTopColumn', function() {
 				// console.log("Remove top column");
-				that.topcolumns--;
-				that.redraw();
+				// that.topcolumns--;
+				that.redraw(null, that.modifyNumberOfColumns(-1) );
 			});
 
 			this.el.on('click', '.addSubOpt', function(e) {
@@ -59,15 +63,15 @@ define(function(require, exports) {
 				var i = $(e.currentTarget).closest('td').data('col-l1');
 				// console.log("Click add ", e, i, that.subcolumns);
 
-				that.subcolumns[i]++;
-				that.redraw();
+				// that.subcolumns[i]++;
+				that.redraw(null, that.modifyNumberOfColumns(null, i, 1) );
 			});
 			this.el.on('click', '.removeSubOpt', function(e) {
 				e.preventDefault(); e.stopPropagation();
 				var i = $(e.currentTarget).closest('td').data('col-l1');
 				// console.log("Click remove ", e, i, that.subcolumns);;
-				that.subcolumns[i]--;
-				that.redraw();
+				// that.subcolumns[i]--;
+				that.redraw(null, that.modifyNumberOfColumns(null, i, -1) );
 			});
 
 
@@ -83,6 +87,25 @@ define(function(require, exports) {
 			// ]);
 
 		},
+
+		"modifyNumberOfColumns": function(adjtop, adjcolno, adjcol) {
+			var obj = {
+				"topcolumns": this.topcolumns,
+				"subcolumns": this.subcolumns.slice(0)
+			};
+			if (adjtop !== 0) {
+				obj.topcolumns += adjtop;
+			}
+			console.log("CHEKING ", obj.topcolumns, obj.subcolumns.length);
+			if (obj.topcolumns > obj.subcolumns.length ) {
+				obj.subcolumns.push(2);
+			}
+			if ((typeof adjcolno === 'number') && (typeof adjcol === 'number')) {
+				obj.subcolumns[adjcolno] += adjcol;
+			}
+			return obj;
+		},
+
 
 		"on": function(evnt, callback) {
 			this.callbacks[evnt] = callback;
@@ -110,34 +133,8 @@ define(function(require, exports) {
 			return !hasError;
 		},
 
-		"getColNo": function(top, sub) {
-			var count = 0;
-			if (top > 0) {
-				for (var i = 0; i < top; i++) {
-					count += this.subcolumns[i];
-				}				
-			}
-			count += sub;
-			return count;
-		},
 
-		"setColDef": function(coldef) {
 
-			this.topcolumns = coldef.length;
-			this.subcolumns = [];
-			for(var i = 0; i < coldef.length; i++) {
-
-				if (coldef[i].hasOwnProperty('children')) {
-					this.subcolumns[i] = coldef[i].children.length;
-				} else {
-					this.subcolumns[i] = 0;
-				}
-
-			}
-
-			this.redraw(coldef);
-
-		},
 
 
 		"getColDef": function() {
@@ -191,21 +188,67 @@ define(function(require, exports) {
 		"hasTwoLevels": function(coldef) {
 
 			for(var i = 0; i < coldef.length; i++) {
-				if (coldef[i].hasOwnProperty['children']) return true;
+				// console.log("Checking", coldef[i], )
+				if (coldef[i].hasOwnProperty('children')) return true;
 			}
 			return false;
 
 		},
 
-		"redraw": function(setColdef) {
+		"setColDef": function(coldef) {
+			this.topcolumns = coldef.length;
+			this.subcolumns = [];
+			for(var i = 0; i < coldef.length; i++) {
+
+				if (coldef[i].hasOwnProperty('children')) {
+					this.subcolumns[i] = coldef[i].children.length;
+				} else {
+					this.subcolumns[i] = 0;
+				}
+
+			}
+
+			// this.redraw(coldef);
+
+		},
+
+
+		/*
+		 * For top column number 'top' and number 'sub' of sub options, then find the number
+		 * of suboption counting from the first. This will skip empty sub boxes when added.!
+		 */
+		"getColNo": function(top, sub) {
+			var count = 0;
+			if (top > 0) {
+				for (var i = 0; i < top; i++) {
+					count += this.subcolumns[i];
+				}				
+			}
+			count += sub;
+			return count;
+		},
+
+
+		"redraw": function(setColdef, modifyNumberOfColumns) {
 
 
 			var coldef = setColdef;
 			if (setColdef) {
-				this.includeOptions = this.hasTwoLevels;
+				this.setColDef(setColdef);
+				this.includeOptions = this.hasTwoLevels(setColdef);
+				// console.log("Perform a check for two levels", setColdef, this.includeOptions);
 			}
 			if (!setColdef) {
 				coldef = this.getColDef();
+				console.log("Obtinaing coldef", coldef);
+			}
+
+			if (modifyNumberOfColumns) {
+				console.log("About to adjust colnumbers...");
+				console.log(this.topcolumns, this.subcolumns);
+				console.log(modifyNumberOfColumns.topcolumns, modifyNumberOfColumns.subcolumns);
+				this.topcolumns = modifyNumberOfColumns.topcolumns;
+				this.subcolumns = modifyNumberOfColumns.subcolumns;
 			}
 
 
@@ -216,6 +259,7 @@ define(function(require, exports) {
 
 			this.addTable();
 
+
 			if (this.topcolumns < 2) {
 				$("#removeTopColumn").attr('disabled', 'disabled');
 				$("#addTopColumn").removeAttr('disabled');
@@ -225,7 +269,7 @@ define(function(require, exports) {
 			}
 
 
-
+			var colNo;
 			var defTable = $('#columnEditorTable');
 			// console.log("Completed redraw, now filling.");
 			for(var i = 0; i < coldef.length; i++) {
@@ -237,14 +281,21 @@ define(function(require, exports) {
 
 					for(var j = 0; j < coldef[i].children.length; j++) {
 
-						defTable.find('.coldef-option').eq(this.getColNo(i, j)).attr('value', coldef[i].children[j].title);
+						colNo = this.getColNo(i, j);
+						console.log("Col no (" + i + "," + j + ")", colNo);
+
+						defTable.find('.coldef-option').eq(colNo).attr('value', coldef[i].children[j].title);
 
 					}
 
 				} 
 
 			}	
+			console.log("Summary", this.topcolumns, this.subcolumns)
+			console.log("-----");
+
 		},
+
 
 		"addTable": function() {
 			var containerTable = $('<table id="columnEditorTable" class="row"></table>').appendTo(this.el.find('#columneditorMain'));
@@ -253,6 +304,7 @@ define(function(require, exports) {
 			containerTable.append(headerRow);
 
 			if (this.includeOptions) {
+
 				var optionsRow = this.getSuboptionsRow();
 				containerTable.append(optionsRow);
 
@@ -262,12 +314,10 @@ define(function(require, exports) {
 				$("#includeOptions").prop('checked', true);
 
 			} else {
+
 				$("#includeOptions").prop('checked', false);
+
 			}
-
-
-
-
 
 		},
 
@@ -287,7 +337,6 @@ define(function(require, exports) {
 			return row;
 		},
 
-
 		"getSuboptionsRow": function() {
 			var row = $('<tr></tr>');
 
@@ -300,6 +349,7 @@ define(function(require, exports) {
 			}
 			return row;
 		},
+
 		"getSuboptionsControllers": function() {
 			var row = $('<tr></tr>');
 
