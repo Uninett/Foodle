@@ -218,7 +218,7 @@ define(function(require, exports) {
 		"fillTimeslotsIfNeeded": function(el) {
 			// console.log("Fill timelsotfontainer ", el);
 
-			var tr = /[0-2][0-9]:[0-9][0-9]/;
+			var tr = /[0-2]?[0-9]:[0-9][0-9]/;
 			var counter = 0;
 			el.find('.timeslotGroup').each(function(i, item) {
 				var from = $(item).find('input.timeslotFrom').val();
@@ -234,6 +234,7 @@ define(function(require, exports) {
 			// console.log("Counter of available slots i s", counter);
 
 			if (counter < 1) {
+				// console.log("Fill timelsotfontainer ADDING ", el);
 				el.append(this.prepareSingleTimeslot('', ''));	
 			}
 			
@@ -356,6 +357,8 @@ define(function(require, exports) {
 			return true;
 		},
 
+
+
 		"redraw": function(setColdef) {
 			var that = this;
 			var coldef = setColdef;
@@ -418,7 +421,7 @@ define(function(require, exports) {
 				this.datepicker.datepicker('setDates', sd);
 			}
 
-
+			console.log("redraw, timeslots", coldef);
 
 			if (coldef.timeslots.length > 0) {
 				for (var i = 0; i < coldef.timeslots.length; i++) {
