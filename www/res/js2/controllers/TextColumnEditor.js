@@ -33,7 +33,7 @@ define(function(require, exports) {
 
 
 			// Draw table..
-			// this.addTable();
+			this.addTable();
 
 			this.el.on('change', '#includeOptions', function(e) {
 				e.preventDefault(); e.stopPropagation();
