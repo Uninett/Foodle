@@ -31,7 +31,6 @@ define(function(require, exports) {
 			if (data.user) {
 				obj.user = data.user;
 			}
-			console.log("Template objet", obj, data);
 			this.el.append(template(obj));
 
 			if (api) {
