@@ -38,19 +38,6 @@ try {
 
 
 
-
-		case 'calendar':
-			if (count($parameters) !== 3) throw new Exception('Missing parameter');
-			
-			$type = array_shift($parameters);
-			$user = array_shift($parameters);
-			$token = array_shift($parameters);
-			
-			$calendar = new Calendar_CalendarUser($config, $user, $token);
-			$calendar->show();
-			
-			break;
-		
 		/*
 		 * API used by JS, and possibly others...
 		 */
@@ -141,6 +128,11 @@ try {
 
 			
 	
+		case 'rss':            
+			$page = new Pages_PageRSS($config, $parameters);
+			$page->show();
+			break;
+
 		case 'embed':
 			$embed = new Pages_EmbedFoodle($config, $parameters);
 			$embed->getContent($_REQUEST['output']);

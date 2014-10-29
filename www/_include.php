@@ -38,6 +38,12 @@ if (file_exists($THISPATH . 'vendor/autoload.php')) {
  * Loading Foodle libraries
  */
 
+require_once($THISPATH . 'lib-ext/feedWriter/FeedItem.php');
+require_once($THISPATH . 'lib-ext/feedWriter/FeedTypes.php');
+require_once($THISPATH . 'lib-ext/feedWriter/FeedWriter.php');
+
+
+
 require_once($THISPATH . 'lib/httplanguage.php');
 require_once($THISPATH . 'lib/TimeZone.php');
 
@@ -90,6 +96,8 @@ require_once($THISPATH . 'lib/API/FoodleAuthenticated.php');
 
 // Pages
 require_once($THISPATH . 'lib/Pages/Page.php');
+
+require_once($THISPATH . 'lib/Pages/PageRSS.php');
 require_once($THISPATH . 'lib/Pages/PageDisco.php');
 require_once($THISPATH . 'lib/Pages/Photo.php');
 require_once($THISPATH . 'lib/Pages/PageAccountMapping.php');
