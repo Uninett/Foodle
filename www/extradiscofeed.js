@@ -29,15 +29,13 @@
 		'keywords': ['Guest', 'OpenIdP', 'Orphanage', 'Homeless', 'Create Account', 'Register']
 	},
 	{
-		'entityID': 'gidp.geant.net',
-		'title': 'GÉANT Identity Provider',
-		'icon': 'geant.png',
-		'descr':'Login provider for users registered at the GIdP',
-		'country':'_all_',
-		'geo':null,
-		'weight':-2,
-		'keywords': ['GEANT', 'Dante']
+		'entityID': 'https://idp.iapc.utwente.nl',
+		'title': 'Stichting IAPC',
+		'descr':'Non-profit computer shop on the campus.',
+		'country': 'NL',
+		'keywords': ['Stichting', 'IAPC', 'Utwente']
 	}
+
 ]
 
 	
