@@ -162,9 +162,16 @@ define(function(require, exports) {
 		"drawDates": function() {
 
 			var cc = this.el.find('#timeslotTableBody');
-			var d;
+			var d, tba;
+
+
+			var detached = {};
+			cc.children().each(function(i, item) {
+				var date = $(item).data('date')
+				detached[date] = $(item).detach();
+			});
 			cc.empty();
-			// var c = $('<tr> </tr>').appendTo(cc);
+
 
 			this.dates.sort(function(a,b) {
 				if (a > b) return 1;
@@ -174,9 +181,18 @@ define(function(require, exports) {
 
 			for(var i = 0; i < this.dates.length; i++) {
 				d = moment(this.dates[i]);
-				var tba = $('<tr data-date="' + d.format('YYYY-MM-DD') + '">' + 
-					'<td class="col-md-3">' + d.format('MMM Do, YYYY (ddd)') + '</td>' + 
-					'<td class="datetimeslotCell col-md-9"><div class="row timeslotContainer">' + this.prepareDrawTimeslots(this.dates[i]) + '</div></td></tr>');
+
+				var dateStamp = d.format('YYYY-MM-DD');
+
+				// Look if we got this DOM object already from before.				
+				if (detached.hasOwnProperty(dateStamp)) {
+					tba = detached[dateStamp];
+				} else {
+					tba = $('<tr data-date="' + d.format('YYYY-MM-DD') + '">' + 
+						'<td class="col-md-3">' + d.format('MMM Do, YYYY (ddd)') + '</td>' + 
+						'<td class="datetimeslotCell col-md-9"><div class="row timeslotContainer">' + this.prepareDrawTimeslots(this.dates[i]) + '</div></td></tr>');
+				}
+
 				tba.appendTo(cc);
 				this.fillTimeslotsIfNeeded(tba.find('.timeslotContainer'));
 			}
@@ -397,6 +413,7 @@ define(function(require, exports) {
 
 			// console.log("dpc", datesDatepickerConfig);
 
+
 			this.datepicker = this.el.find('.dateSelector').datepicker(datesDatepickerConfig)
 				.on('changeDate', function(data) {
 					// console.log("›› ] Change date", data);
@@ -405,6 +422,7 @@ define(function(require, exports) {
 						that.dates.push(moment(data.dates[i]));
 					}
 					// that.dates = data.dates;
+					console.log("About to draw dates....");
 					that.drawDates();
 				}
 			);
