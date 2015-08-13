@@ -14,13 +14,13 @@ define(function(require) {
 
 	var DJ = {
 		"load": function() {
-			if (loaded) return;
+			if (loaded) {return;}
 			loaded = true;
 
 			$.getJSON('/api/discojuice', function(dj) {
 
 
-				// console.log("Loaded DJ config", dj);
+				console.log("Loaded DJ config", dj);
 
 				var djc = DiscoJuice.Hosted.getConfig(
 					dj.title, dj.entityid, dj.responseurl, dj.feeds, dj.returnurl
@@ -31,7 +31,16 @@ define(function(require) {
 				djc.disco.subIDstores = dj.subIDstores;
 				djc.disco.subIDwritableStores =  dj.subIDwritableStores;
 
+
+				djc.metadata = [];
+				for(var i = 0; i < dj.feeds.length; i++) {
+					djc.metadata.push('https://api.discojuice.org/feed/'+ dj.feeds[i]);
+				}
+
+
 				djc.metadata.push(dj.extrafeed);
+
+				// console.error("DJ Config", djc.metadata);
 
 				djc.callback = function(e) {
 					// console.log(e);
