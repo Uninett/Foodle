@@ -81,7 +81,7 @@
 		"en": "Expire (optional)"
 	},
 	"expireinfo": {
-		"en": "Adding an expiration timestamp will close the Foodle at the specified time. After the Foodle is expired, noone may edit their response or add new responses."
+		"en": "Adding an expiration timestamp will close the Foodle at the specified time. After the Foodle is expired, no one may edit their response or add new responses."
 	},
 	"format": {
 		"en": "Format"
@@ -243,7 +243,7 @@
 		"en": "Subscribe to RSS feed"
 	},
 	"register_email": {
-		"en": "You have not logged in to Foodle and are currently anonymous. We reccomend that you either log in, or fill-in your e-mail and name below. If you leave your e-mail address the Foodle owner may contact you, you will also get an e-mail from foodle that allow you to return and edit your response."
+		"en": "You have not logged in to Foodle and are currently anonymous. We recommend that you either log in, or fill-in your e-mail and name below. If you leave your e-mail address the Foodle owner may contact you, you will also get an e-mail from foodle that allow you to return and edit your response."
 	},
 	"displayname": {
 		"en": "Your name"
