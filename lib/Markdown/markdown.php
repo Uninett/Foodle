@@ -580,7 +580,7 @@ class Markdown_Parser {
 	#
 		# We need to escape raw HTML in Markdown source before doing anything 
 		# else. This need to be done for each block, and not only at the 
-		# begining in the Markdown function since hashed blocks can be part of
+		# beginning in the Markdown function since hashed blocks can be part of
 		# list items and could have been indented. Indented blocks would have 
 		# been seen as a code block in a previous pass of hashHTMLBlocks.
 		$text = $this->hashHTMLBlocks($text);
@@ -1522,7 +1522,7 @@ class Markdown_Parser {
 
 	function parseSpan($str) {
 	#
-	# Take the string $str and parse it into tokens, hashing embeded HTML,
+	# Take the string $str and parse it into tokens, hashing embedded HTML,
 	# escaped characters and handling code spans.
 	#
 		$output = '';
@@ -1551,7 +1551,7 @@ class Markdown_Parser {
 
 		while (1) {
 			#
-			# Each loop iteration seach for either the next tag, the next 
+			# Each loop iteration search for either the next tag, the next
 			# openning code span marker, or the next escaped character. 
 			# Each token is then passed to handleSpanToken.
 			#
@@ -1836,7 +1836,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 	#
 		if ($text === '') return array('', '');
 
-		# Regex to check for the presense of newlines around a block tag.
+		# Regex to check for the presence of newlines around a block tag.
 		$newline_before_re = '/(?:^\n?|\n\n)*$/';
 		$newline_after_re = 
 			'{
@@ -2361,7 +2361,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 		$underline	= preg_replace('/[|] *$/m', '', $underline);
 		$content	= preg_replace('/[|] *$/m', '', $content);
 		
-		# Reading alignement from header underline.
+		# Reading alignment from header underline.
 		$separators	= preg_split('/ *[|] */', $underline);
 		foreach ($separators as $n => $s) {
 			if (preg_match('/^ *-+: *$/', $s))		$attr[$n] = ' align="right"';

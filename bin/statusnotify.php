@@ -111,15 +111,15 @@ foreach($users AS $userid => $foodles) {
 	
 	$user = $db->readUser($userid);
 	if ($user === false) {
-		echo 'Skipping user [' . $userid . '] beacuse user account is not yet created.'. "\n";
+		echo 'Skipping user [' . $userid . '] because user account is not yet created.'. "\n";
 		continue;
 	}
 	if (!$user->notification('otherstatus', TRUE)) {
-		echo 'Skipping user [' . $userid . '] beacuse has turned off this kind of notification..'. "\n";
+		echo 'Skipping user [' . $userid . '] because has turned off this kind of notification..'. "\n";
 		continue;		
 	}
 	if (!$user->notification('otherstatus', TRUE)) {
-		echo 'Skipping user [' . $userid . '] beacuse user has no valid email address'. "\n";
+		echo 'Skipping user [' . $userid . '] because user has no valid email address'. "\n";
 		continue;		
 	}
 

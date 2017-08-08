@@ -69,9 +69,9 @@ function getAcceptLanguage() {
 
 
 /**
- * This function gets the prefered language for the user based on the Accept-Language http header.
+ * This function gets the preferred language for the user based on the Accept-Language http header.
  *
- * @return The prefered language based on the Accept-Language http header, or NULL if none of the
+ * @return The preferred language based on the Accept-Language http header, or NULL if none of the
  *         languages in the header were available.
  */
 function getHTTPLanguage($availableLanguages) {

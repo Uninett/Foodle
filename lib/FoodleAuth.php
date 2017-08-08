@@ -300,8 +300,8 @@ class FoodleAuth {
 		$message = '<h2>Foodle</h2><p>It seems like you have been using Foodle for the first time. Welcome!
 			<p>You have been using Foodle as an anonymous user, and we send you this e-mail so that you can
 			edit your Foodle response by going to the special URL below.</p>
-			<p>We strongly reccomend that instead of using Foodle as a anonymous user, you use the login button
-			to login to your home institusions user ID. If you do not have an user accout, you may create one for free, by
+			<p>We strongly recommend that instead of using Foodle as a anonymous user, you use the login button
+			to login to your home institutions user ID. If you do not have a user account, you may create one for free, by
 			using the Feide Guest IdP.</p>
 			
 			<p>The URL to edit your Foodle response is:</p>

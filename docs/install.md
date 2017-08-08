@@ -149,7 +149,7 @@ You should see a page like this:
 
 ## Test authentication
 
-Then, next step is to test if the login works. First, I reccomend testing with Feide OpenIdP.
+Then, next step is to test if the login works. First, I recommend testing with Feide OpenIdP.
 
 Then the support integration with GetSatisfaction requires a key and a secret. That is a problem for third party installations; I have no solution for that yet. Probably I should add an config option to turn of integration with GetSatisfaction.
 
@@ -166,7 +166,7 @@ One of these is required for user ID:
 * eduPersonPrincipalName
 * mail
 
-One of these is highly reccomended for name:
+One of these is highly recommended for name:
 
 * smartname-fullname
 * displayName
@@ -176,7 +176,7 @@ For calendar integration, free busy url goes in this attribute:
 
 * freebusyurl
 
-Reccomended attribute:
+Recommended attribute:
 
 * mail
 

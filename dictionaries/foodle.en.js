@@ -53,7 +53,7 @@
   "selecttimezone": "Select your timezone",
 
   "requirelogin": "Require user to login",
-  "logininfo": "It is reccomended to require all users to login. Then you'll be sure that each user may only respond once, and you will know the identity behind each response",
+  "logininfo": "It is recommended to require all users to login. Then you'll be sure that each user may only respond once, and you will know the identity behind each response",
 
   "seealso": "See also",
 
