@@ -756,9 +756,11 @@ define(function(require, exports) {
 				$("#sectDeadline").append('<p style="font-size: 110%"><span class="label label-danger"><span class="glyphicon glyphicon-lock"></span> ' + _d.locked + '</span></p>');
 			}
 
-			container
-				.append('<p class="uninett-fontColor-red">' + str + '</p>')
-				.append('<p class="time-fromnow">Respond within ' + dlts.fromNow(true) + '</p>');
+			container.append('<p class="uninett-fontColor-red">' + str + '</p>');
+			
+			if (!this.foodle.locked()) {
+				container.append('<p class="time-fromnow">Respond within ' + dlts.fromNow(true) + '</p>');
+			}
 
 		},
 
