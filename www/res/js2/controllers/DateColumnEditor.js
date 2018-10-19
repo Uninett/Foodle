@@ -370,7 +370,7 @@ define(function(require, exports) {
 		}
 
 
-	})
+	});
 
 	return DateColumnEditor;
 

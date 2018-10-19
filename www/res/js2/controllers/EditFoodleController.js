@@ -450,7 +450,7 @@ define(function(require, exports) {
 
 				if (this.foodle.restrictions.rows) {
 					this.el.find('#enableRestrictionRowlimit').prop('checked', true);
-					this.el.find('#inputRestrictionRowlimit').val(this.foodle.restrictions.rows)
+					this.el.find('#inputRestrictionRowlimit').val(this.foodle.restrictions.rows);
 
 				} else {
 					this.el.find('#enableRestrictionRowlimit').prop('checked', false);
@@ -474,7 +474,7 @@ define(function(require, exports) {
 
 				if (this.foodle.restrictions.checklimit) {
 					this.el.find('#enableRestrictionCheckLimit').prop('checked', true);
-					this.el.find('#inputRestrictionCheckLimit').val(this.foodle.restrictions.checklimit)
+					this.el.find('#inputRestrictionCheckLimit').val(this.foodle.restrictions.checklimit);
 
 				} else {
 					this.el.find('#enableRestrictionCheckLimit').prop('checked', false);

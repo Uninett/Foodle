@@ -551,7 +551,7 @@ define(function(require, exports) {
 					s.val(tz);
 					that.setTimezone(tz);
 				}
-			})
+			});
 
 			// for(var i = 0; i < window.moment_zones.length; i++) {
 			// 	s.append('<option>' + moment_zones[i] + '</option>');

@@ -291,7 +291,7 @@ define(function(require, exports) {
 				} 
 
 			}	
-			console.log("Summary", this.topcolumns, this.subcolumns)
+			console.log("Summary", this.topcolumns, this.subcolumns);
 			console.log("-----");
 
 		},
