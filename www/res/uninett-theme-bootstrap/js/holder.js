@@ -431,7 +431,7 @@ var Holder = Holder || {};
                 .split("/"), options);
                 if (holder) {
                     if (holder.fluid) {
-                        render("fluid", images[i], holder, src)
+                        render("fluid", images[i], holder, src);
                     } else {
                         render("image", images[i], holder, src);
                     }

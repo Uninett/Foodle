@@ -44,7 +44,7 @@ function receive() {
 		
 		rsearch = urlParams.entityID.match(/^(.*)#(.*)$/);
 		if (rsearch) {
-			idpentityid = rsearch[1]
+			idpentityid = rsearch[1];
 			subid = rsearch[2];
 		} else {
 			idpentityid = urlParams.entityID;
